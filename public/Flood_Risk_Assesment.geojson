@@ -1,0 +1,138 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "id": 1,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    56.240406216000054,
+                    25.150252514000044
+                ]
+            },
+            "properties": {
+                "OBJECTID": 1,
+                "globalid": "{9EC96D49-E26F-4722-843B-97B2ED77A423}",
+                "field_38": "Ras Alkhaimah",
+                "disaster_nature": "Flood",
+                "disaster_type": "flood",
+                "field_3": 1584439200000,
+                "field_7": 300,
+                "field_8": 6,
+                "field_9": "Moderete",
+                "field_11": 5,
+                "field_12": 1,
+                "field_13": 3,
+                "field_36": null,
+                "field_37": "good",
+                "total_animals": 50,
+                "dead_animals": 2,
+                "types_dead_animals": null,
+                "injured_animals": 2,
+                "types_injured_animals": null,
+                "injured_animals_status": "moderate",
+                "sheltered_animals": null,
+                "sheltered_animals_condition": "moderate",
+                "notes": null,
+                "damaged_roads": 6,
+                "roads_condition": "deceased",
+                "damaged_bridges": 1,
+                "bridges_condition": "minor",
+                "CreationDate": 1745308650496,
+                "Creator": "solutionsanalyst2",
+                "EditDate": 1745308650496,
+                "Editor": "solutionsanalyst2"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 2,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    56.240406216000054,
+                    25.150252514000044
+                ]
+            },
+            "properties": {
+                "OBJECTID": 2,
+                "globalid": "{A2972D8D-E589-4F6F-95F7-F2C8BD6495EC}",
+                "field_38": "Fujairah",
+                "disaster_nature": "Flood",
+                "disaster_type": "heavy_rain",
+                "field_3": 1516528800000,
+                "field_7": 50,
+                "field_8": 10,
+                "field_9": "poor",
+                "field_11": 500,
+                "field_12": 10,
+                "field_13": 4,
+                "field_36": null,
+                "field_37": "poor",
+                "total_animals": 50,
+                "dead_animals": 12,
+                "types_dead_animals": null,
+                "injured_animals": 10,
+                "types_injured_animals": null,
+                "injured_animals_status": "deceased",
+                "sheltered_animals": null,
+                "sheltered_animals_condition": "moderate",
+                "notes": null,
+                "damaged_roads": 6,
+                "roads_condition": "moderate",
+                "damaged_bridges": 5,
+                "bridges_condition": "critical",
+                "CreationDate": 1745308772865,
+                "Creator": "solutionsanalyst2",
+                "EditDate": 1750580405783,
+                "Editor": "solutionsanalyst2"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 3,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    56.240406216000054,
+                    25.150252514000044
+                ]
+            },
+            "properties": {
+                "OBJECTID": 3,
+                "Shape": null,
+                "globalid": "{BC6B15E2-841A-4BC7-8A3F-3B8D6CD03C3A}",
+                "field_38": "Abu Dhabi",
+                "disaster_nature": "Flood",
+                "disaster_type": "flash_flood",
+                "field_3": 1583798400000,
+                "field_7": 60,
+                "field_8": 20,
+                "field_9": "good",
+                "field_11": 100,
+                "field_12": 2,
+                "field_13": 7,
+                "field_36": null,
+                "field_37": null,
+                "total_animals": null,
+                "dead_animals": null,
+                "types_dead_animals": null,
+                "injured_animals": null,
+                "types_injured_animals": null,
+                "injured_animals_status": null,
+                "sheltered_animals": null,
+                "sheltered_animals_condition": null,
+                "notes": null,
+                "damaged_roads": null,
+                "roads_condition": null,
+                "damaged_bridges": null,
+                "bridges_condition": null,
+                "CreationDate": 1750580325929,
+                "Creator": "solutionsanalyst2",
+                "EditDate": 1750580414337,
+                "Editor": "solutionsanalyst2"
+            }
+        }
+    ]
+}

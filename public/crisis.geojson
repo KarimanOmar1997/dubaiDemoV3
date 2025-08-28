@@ -1,0 +1,201 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "id": 1,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    34.465002927697782,
+                    28.464321510702032
+                ]
+            },
+            "properties": {
+                "OBJECTID": 1,
+                "datee": 1675855800000,
+                "name_location": null,
+                "matter_name": null,
+                "matter_ammount": null,
+                "pollution_source": null,
+                "envrioment_impact": null,
+                "wheather": null,
+                "action": null,
+                "Consequences_damages": null,
+                "participating_parties": null,
+                "crisis_nature": "3",
+                "crisis_type": 5,
+                "GlobalID": "{6DBB35DB-1312-4584-B3F3-1BA3C2ACD86F}",
+                "call_type": null
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 2,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    34.256262993348358,
+                    27.912373519598859
+                ]
+            },
+            "properties": {
+                "OBJECTID": 2,
+                "datee": 1664620200000,
+                "name_location": "وزارة البيئة",
+                "matter_name": null,
+                "matter_ammount": null,
+                "pollution_source": "امطار غزيرة",
+                "envrioment_impact": null,
+                "wheather": null,
+                "action": null,
+                "Consequences_damages": null,
+                "participating_parties": null,
+                "crisis_nature": "1",
+                "crisis_type": 1,
+                "GlobalID": "{5E6D4E64-8DCE-4302-8FF7-F5CA913D89D2}",
+                "call_type": null
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 5,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    31.289725840270105,
+                    29.960718720247595
+                ]
+            },
+            "properties": {
+                "OBJECTID": 5,
+                "datee": 1667290500000,
+                "name_location": "وزارة البيئة",
+                "matter_name": null,
+                "matter_ammount": null,
+                "pollution_source": "امطار",
+                "envrioment_impact": "3",
+                "wheather": "ممطرة",
+                "action": "بدأ الحدث و اخطار الجهات المعنية",
+                "Consequences_damages": null,
+                "participating_parties": "وزارة الصحة",
+                "crisis_nature": "1",
+                "crisis_type": 1,
+                "GlobalID": "{A275313C-48B6-486F-9218-E38EFF496F5A}",
+                "call_type": null
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 6,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    32.648435249755977,
+                    26.113705966118061
+                ]
+            },
+            "properties": {
+                "OBJECTID": 6,
+                "datee": 1667304000000,
+                "name_location": "Sugar Factory",
+                "matter_name": null,
+                "matter_ammount": null,
+                "pollution_source": "مصرف مصنع السكر",
+                "envrioment_impact": "2",
+                "wheather": "جيدة",
+                "action": "بدأ الحدث و اخطار الجهات المعنية",
+                "Consequences_damages": null,
+                "participating_parties": null,
+                "crisis_nature": "2",
+                "crisis_type": 9,
+                "GlobalID": "{9A0AEFA0-D81F-4F2C-A6B3-866D81D8C8C0}",
+                "call_type": null
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 7,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    30.438810004911957,
+                    27.274345465865945
+                ]
+            },
+            "properties": {
+                "OBJECTID": 7,
+                "datee": 1667253600000,
+                "name_location": null,
+                "matter_name": null,
+                "matter_ammount": null,
+                "pollution_source": null,
+                "envrioment_impact": null,
+                "wheather": null,
+                "action": null,
+                "Consequences_damages": null,
+                "participating_parties": null,
+                "crisis_nature": "2",
+                "crisis_type": 7,
+                "GlobalID": "{F69E898D-C9E6-4CB4-BBC1-E603AECD5BBA}",
+                "call_type": null
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 8,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    34.154062725282749,
+                    28.229762377866358
+                ]
+            },
+            "properties": {
+                "OBJECTID": 8,
+                "datee": null,
+                "name_location": null,
+                "matter_name": null,
+                "matter_ammount": null,
+                "pollution_source": null,
+                "envrioment_impact": null,
+                "wheather": null,
+                "action": null,
+                "Consequences_damages": null,
+                "participating_parties": null,
+                "crisis_nature": null,
+                "crisis_type": 1,
+                "GlobalID": "{EA958DDB-2874-490C-BB55-638675E9A257}",
+                "call_type": null
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 9,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    33.763285156233465,
+                    28.366533233652817
+                ]
+            },
+            "properties": {
+                "OBJECTID": 9,
+                "datee": null,
+                "name_location": null,
+                "matter_name": null,
+                "matter_ammount": null,
+                "pollution_source": null,
+                "envrioment_impact": null,
+                "wheather": null,
+                "action": null,
+                "Consequences_damages": null,
+                "participating_parties": null,
+                "crisis_nature": null,
+                "crisis_type": 1,
+                "GlobalID": "{168118A0-0F79-49B6-BEDF-ACEBD1B7D40E}",
+                "call_type": null
+            }
+        }
+    ]
+}

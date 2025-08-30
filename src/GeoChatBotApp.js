@@ -341,9 +341,9 @@ export default function EnhancedGeoChatBotApp() {
             console.log("Executing tool call:", toolCall);
             const { name: action, arguments: args } = toolCall.function;
             console.log("Tool call name:", action, "Arguments:", args);
-            const lat = args?.lat;
-            const lon = args?.lon;
-            const resourceType = args?.resourceType ?? 'all';
+            const lat = parseFloat(args?.lat);
+            const lon = parseFloat(args?.lon);
+            const resourceType = args?.resourceType || 'all';
             const radius = args?.radius ?? 5.0;
             const limit = args?.limit ?? 5;
             const startDate = args?.startDate;

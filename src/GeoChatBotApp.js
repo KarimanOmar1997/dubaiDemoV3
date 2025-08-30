@@ -253,7 +253,7 @@ export default function EnhancedGeoChatBotApp() {
     }
 
     const requestBody = {
-      model: "llama3.2:latest",
+      model: "qwen3:4b",
       messages: messages,
       stream: true,
       options: {
@@ -281,6 +281,7 @@ export default function EnhancedGeoChatBotApp() {
     let fullText = "";
     let buffer = "";
     var botMessageId = null;
+    let modelThinking = false;
     const conversationMessages = [...messages];
 
     while (true) {
@@ -295,8 +296,18 @@ export default function EnhancedGeoChatBotApp() {
 
         const json = JSON.parse(line);
 
+        if (modelThinking){
+          if (json.message.content === "\u003c/think\u003e"){
+            modelThinking = false;
+          }
+          continue;
+        }
         // Handle regular message content
         if (json.message?.content) {
+          if (json.message.content === "\u003cthink\u003e"){
+            modelThinking = true;
+            continue
+          }
           fullText += json.message.content;
           buffer += json.message.content;
 

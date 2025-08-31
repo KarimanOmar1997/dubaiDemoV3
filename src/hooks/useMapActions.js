@@ -47,7 +47,7 @@ export const useMapActions = ({
 const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", radius = 5) => {
   if (!mapRef.current || !window.L || !allFeaturesData.length) {
     console.log("❌ Cannot find resources: missing map, Leaflet, or data");
-    return;
+    return "Something went wrong";
   }
 
   const L = window.L;
@@ -182,8 +182,9 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
     });
 
     if (allResources.length === 0) {
-      addMessage("bot", `❌ لم يتم العثور على موارد في نطاق ${radius} كم من الموقع المحدد`);
-      return;
+      const retMessage = `❌ لم يتم العثور على موارد في نطاق ${radius} كم من الموقع المحدد`
+      addMessage("bot", retMessage);
+      return retMessage;
     }
 
     // Create markers for each resource type
@@ -373,10 +374,13 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
     addMessage("bot", summaryReport);
 
     console.log("✅ Resources search completed");
+    return summaryReport;
 
   } catch (error) {
     console.error("Failed to find nearby resources:", error);
-    addMessage("bot", `❌ فشل في البحث عن الموارد: ${error.message}`);
+    const retMessage = `❌ فشل في البحث عن الموارد: ${error.message}`;
+    addMessage("bot", retMessage);
+    return retMessage;
   }
 }, [
   allFeaturesData,
@@ -412,8 +416,9 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
   // NEW: Analyze high-severity incidents and their geographic distribution
   const analyzeHighSeverityIncidents = useCallback(async () => {
     if (!mapRef.current || !window.L || !allFeaturesData.length) {
-      console.log("❌ Cannot analyze: missing map, Leaflet, or data");
-      return;
+      const retMessage = "❌ Cannot analyze: missing map, Leaflet, or data";
+      console.log(retMessage);
+      return retMessage;
     }
 
     const L = window.L;
@@ -484,11 +489,9 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
       );
 
       if (highSeverityIncidents.length === 0) {
-        addMessage(
-          "bot",
-          "⚠️ لم يتم العثور على حوادث ذات خطورة عالية في البيانات المحملة"
-        );
-        return;
+        const retMessage = "⚠️ لم يتم العثور على حوادث ذات خطورة عالية في البيانات المحملة";
+        addMessage("bot", retMessage);
+        return retMessage;
       }
 
       // Geographic clustering analysis
@@ -674,9 +677,7 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
 
       console.log("✅ High-severity analysis completed");
 
-      addMessage(
-        "bot",
-        `🚨 **تحليل الحوادث عالية الخطورة مكتمل!**\n\n📊 **الإحصائيات:**\n• إجمالي الحوادث عالية الخطورة: ${highSeverityIncidents.length
+      const retMessage = `🚨 **تحليل الحوادث عالية الخطورة مكتمل!**\n\n📊 **الإحصائيات:**\n• إجمالي الحوادث عالية الخطورة: ${highSeverityIncidents.length
         }\n• نسبة الحوادث الخطيرة: ${(
           (highSeverityIncidents.length / allFeaturesData.length) *
           100
@@ -689,13 +690,19 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
         }\n\n📈 **توزيع أنواع الحوادث:**\n${analysisReport.severityDistribution
         }\n\n🎯 **التوصيات:**\n${analysisReport.recommendations
         }\n\n💡 انقر على النقاط للحصول على تفاصيل كل حادث.`
-      );
-    } catch (error) {
-      console.error("Failed to analyze high-severity incidents:", error);
       addMessage(
         "bot",
-        `❌ فشل في تحليل الحوادث عالية الخطورة: ${error.message}`
+        retMessage
       );
+      return retMessage;
+    } catch (error) {
+      console.error("Failed to analyze high-severity incidents:", error);
+      const retMessage = `❌ فشل في تحليل الحوادث عالية الخطورة: ${error.message}`;
+      addMessage(
+        "bot",
+        retMessage
+      );
+      return retMessage;
     }
   }, [
     allFeaturesData,
@@ -883,8 +890,9 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
   const routeBetweenPoints = useCallback(
     async (startLat, startLon, endLat, endLon) => {
       if (!mapRef.current || !window.L) {
-        addMessage("bot", "⚠️ تعذر إنشاء المسار: الخريطة غير جاهزة");
-        return;
+        const retMessage = "⚠️ تعذر إنشاء المسار: الخريطة غير جاهزة";
+        addMessage("bot", retMessage);
+        return retMessage;
       }
 
       const L = window.L;
@@ -908,8 +916,9 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
         if (!res.ok) throw new Error("فشل طلب خدمة المسارات");
         const data = await res.json();
         if (!data.routes || data.routes.length === 0) {
-          addMessage("bot", "⚠️ لم يتم العثور على مسار مناسب بين النقطتين");
-          return;
+          const retMessage = "⚠️ لم يتم العثور على مسار مناسب بين النقطتين"
+          addMessage("bot", retMessage);
+          return retMessage;
         }
 
         const best = data.routes[0];
@@ -946,15 +955,19 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
         mapRef.current.fitBounds(routeLine.getBounds(), { padding: [30, 30] });
         setActiveFeatures(2); // start + end markers; route is supporting line
 
-        addMessage(
-          "bot",
-          `🛣️ تم إنشاء أسرع مسار.
+        const retMessage = `🛣️ تم إنشاء أسرع مسار.
 المسافة: ${distanceKm.toFixed(2)} كم
 الزمن التقريبي: ${durationMin.toFixed(0)} دقيقة`
+        addMessage(
+          "bot",
+          retMessage
         );
+        return retMessage;
       } catch (error) {
         console.error("Routing failed:", error);
-        addMessage("bot", `❌ فشل في حساب المسار: ${error.message}`);
+        const retMessage = `❌ فشل في حساب المسار: ${error.message}`
+        addMessage("bot", retMessage);
+        return retMessage;
       }
     },
     [mapRef, geoJsonLayerRef, highlightLayerRef, legendRef, setActiveFeatures, addMessage]
@@ -964,8 +977,9 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
   const createHeatmap = useCallback(
     async (intensity = 0.5, radius = 25) => {
       if (!mapRef.current || !window.L || !allFeaturesData.length) {
-        console.log("❌ Cannot create heatmap: missing map, Leaflet, or data");
-        return;
+        const retMessage = "❌ Cannot create heatmap: missing map, Leaflet, or data";
+        console.log(retMessage);
+        return retMessage;
       }
 
       const L = window.L;
@@ -1042,8 +1056,9 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
         );
 
         if (heatmapData.length === 0) {
-          addMessage("bot", "⚠️ لا توجد بيانات صالحة لإنشاء الخريطة الحرارية");
-          return;
+          const retMessage = "⚠️ لا توجد بيانات صالحة لإنشاء الخريطة الحرارية";
+          addMessage("bot", retMessage);
+          return retMessage;
         }
 
         // Create heatmap layer
@@ -1125,19 +1140,25 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
 
         console.log("✅ Heatmap created successfully");
 
-        addMessage(
-          "bot",
-          `🔥 تم إنشاء الخريطة الحرارية بنجاح!\n\n📊 **تحليل الكثافة:**\n• إجمالي النقاط: ${heatmapData.length
+        const summaryMessage = `🔥 تم إنشاء الخريطة الحرارية بنجاح!\n\n📊 **تحليل الكثافة:**\n• إجمالي النقاط: ${heatmapData.length
           }\n• المناطق عالية الكثافة: ${densityAnalysis.highDensityAreas
           }\n• متوسط الكثافة: ${densityAnalysis.averageDensity.toFixed(
             2
           )}\n\n🎯 **المناطق الأكثر تركزاً:**\n${densityAnalysis.topAreas.join(
             "\n"
           )}\n\n💡 استخدم أزرار التحكم لتغيير شدة الألوان أو نصف قطر التأثير.`
+
+        addMessage(
+          "bot",
+          summaryMessage
         );
+        return summaryMessage;
       } catch (error) {
         console.error("Failed to create heatmap:", error);
-        addMessage("bot", `❌ فشل في إنشاء الخريطة الحرارية: ${error.message}`);
+        const retMessage = `❌ فشل في إنشاء الخريطة الحرارية: ${error.message}`;
+        addMessage("bot", retMessage);
+        return retMessage;
+
       }
     },
     [
@@ -1206,8 +1227,9 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
   // Population distribution visualization (heatmap or choropleth)
   const showPopulationDistribution = useCallback(async () => {
     if (!mapRef.current || !window.L || !allFeaturesData.length) {
-      addMessage("bot", "⚠️ لا توجد بيانات كافية لعرض توزيع السكان");
-      return;
+      const retMessage = "⚠️ لا توجد بيانات كافية لعرض توزيع السكان"
+      addMessage("bot", retMessage);
+      return retMessage;
     }
 
     const L = window.L;
@@ -1278,8 +1300,9 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
       });
 
       if (heatmapData.length === 0) {
-        addMessage("bot", "⚠️ لم أجد حقولاً تدل على عدد السكان في البيانات");
-        return;
+        const retMessage = "⚠️ لم أجد حقولاً تدل على عدد السكان في البيانات";
+        addMessage("bot", retMessage);
+        return retMessage;
       }
 
       // If polygons have population values, prefer choropleth; else heatmap
@@ -1339,7 +1362,9 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
         legend.addTo(mapRef.current);
 
         setActiveFeatures(polygonFeatures.length);
-        addMessage("bot", "📊 تم عرض خريطة تدرج لونية لتوزيع السكان.");
+        const retMessage = "📊 تم عرض خريطة تدرج لونية لتوزيع السكان.";
+        addMessage("bot", retMessage);
+        return retMessage;
       } else {
         // Heatmap fallback
         if (!L.heatLayer) {
@@ -1375,11 +1400,15 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
         legendRef.current = legend;
         legend.addTo(mapRef.current);
         setActiveFeatures(scaled.length);
-        addMessage("bot", "🔥 تم عرض خريطة كثافة تقديرية لتوزيع السكان.");
+        const retMessage = "🔥 تم عرض خريطة كثافة تقديرية لتوزيع السكان.";
+        addMessage("bot", retMessage);
+        return retMessage;
       }
     } catch (error) {
       console.error("Population distribution failed:", error);
-      addMessage("bot", `❌ فشل في عرض توزيع السكان: ${error.message}`);
+      const retMessage = `❌ فشل في عرض توزيع السكان: ${error.message}`
+      addMessage("bot", retMessage);
+      return retMessage;
     }
   }, [allFeaturesData, mapRef, geoJsonLayerRef, highlightLayerRef, legendRef, setActiveFeatures, addMessage]);
 
@@ -1675,16 +1704,18 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
   const handleMapAction = useCallback(
     async (actionObj, actionId) => {
       if (processedActionsRef.current.has(actionId)) {
-        console.log("Action already processed:", actionId);
-        return;
+        const retMessage = `"Action already processed:", ${actionId}`
+        console.log(retMessage);
+        return retMessage;
       }
 
       processedActionsRef.current.add(actionId);
 
       const map = mapRef.current;
       if (!map) {
-        console.log("Map action failed: map not available");
-        return;
+        const retMessage = "Map action failed: map not available";
+        console.log(retMessage);
+        return retMessage;
       }
 
       console.log("🎯 Executing map action:", actionObj);
@@ -1697,8 +1728,7 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
               "🚨 جاري تحليل الحوادث عالية الخطورة وتوزيعها الجغرافي...",
               { type: "system" }
             );
-            await analyzeHighSeverityIncidents();
-            break;
+            return await analyzeHighSeverityIncidents();
 
           case "create-heatmap":
             const { intensity = 0.5, radius: heatRadius = 25 } = actionObj;
@@ -1707,8 +1737,7 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
               "🔥 جاري إنشاء الخريطة الحرارية لتحليل كثافة الحوادث...",
               { type: "system" }
             );
-            await createHeatmap(intensity, heatRadius);
-            break;
+            return await createHeatmap(intensity, heatRadius);
 
           case "find-closest-spatial":
             const { lat, lon, limit = 5 } = actionObj;
@@ -1752,19 +1781,23 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
                       }`;
                   })
                   .join("\n\n");
-
+                
+                const retMessage = `🎯 تم العثور على ${closestIncidents.length} حوادث أقرب مكانياً:\n\n${summary}\n\n💡 انقر على العلامات الحمراء لمزيد من التفاصيل.`;
                 addMessage(
                   "bot",
-                  `🎯 تم العثور على ${closestIncidents.length} حوادث أقرب مكانياً:\n\n${summary}\n\n💡 انقر على العلامات الحمراء لمزيد من التفاصيل.`
+                  retMessage
                 );
+                return retMessage;
               } else {
+                const retMessage = "⚠️ لم يتم العثور على حوادث في البيانات المحملة"
                 addMessage(
                   "bot",
-                  "⚠️ لم يتم العثور على حوادث في البيانات المحملة"
+                  retMessage
                 );
+                return retMessage;
               }
             }
-            break;
+            return "lat or lon is not provided."
 
           case "find-incidents-within-radius":
             {
@@ -1793,18 +1826,23 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
 
                 if (featuresWithin.length > 0) {
                   await displayOnlyFeatures(featuresWithin, "#2980b9");
+                  const retMessage = `✅ تم العثور على ${featuresWithin.length} حادث داخل النطاق المحدد.`
                   addMessage(
                     "bot",
-                    `✅ تم العثور على ${featuresWithin.length} حادث داخل النطاق المحدد.`,
+                    retMessage,
                   );
+                  return retMessage;
                 } else {
-                  addMessage("bot", "⚠️ لا توجد حوادث ضمن هذا النطاق.");
+                  const retMessage = "⚠️ لا توجد حوادث ضمن هذا النطاق.";
+                  addMessage("bot", retMessage);
+                  return retMessage;
                 }
               } else {
-                addMessage("bot", "⚠️ نحتاج إحداثيات صحيحة لبحث النطاق.");
+                const retMessage = "⚠️ نحتاج إحداثيات صحيحة لبحث النطاق.";
+                addMessage("bot", retMessage);
+                return retMessage;
               }
             }
-            break;
 
           case "find-closest-temporal":
             const { date: queryDateStr, limit: tempLimit = 5 } = actionObj;
@@ -1881,23 +1919,28 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
                   })
                   .join("\n\n");
 
+                const retMessage = `⏰ تم العثور على ${temporalIncidents.length} حوادث أقرب زمنياً:\n\n${summary}\n\n💜 العلامات البنفسجية تظهر النتائج على الخريطة.`
                 addMessage(
                   "bot",
-                  `⏰ تم العثور على ${temporalIncidents.length} حوادث أقرب زمنياً:\n\n${summary}\n\n💜 العلامات البنفسجية تظهر النتائج على الخريطة.`
+                  retMessage
                 );
+                return retMessage
               } else {
+                const retMessage = "⚠️ لم يتم العثور على حوادث بتواريخ صحيحة في البيانات"
                 addMessage(
                   "bot",
-                  "⚠️ لم يتم العثور على حوادث بتواريخ صحيحة في البيانات"
+                  retMessage
                 );
+                return retMessage;
               }
             } else {
+              const retMessage = "⚠️ لا يمكن تحليل التاريخ المعطى. استخدم صيغ مثل: 2024-01-15، 15/01/2024، أو 2024/01/15"
               addMessage(
                 "bot",
-                "⚠️ لا يمكن تحليل التاريخ المعطى. استخدم صيغ مثل: 2024-01-15، 15/01/2024، أو 2024/01/15"
+                retMessage
               );
+              return retMessage
             }
-            break;
 
           case "filter-incidents-date-range":
             {
@@ -1905,8 +1948,9 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
               let start = parseDate(startDate);
               let end = parseDate(endDate);
               if (!start || !end) {
-                addMessage("bot", "⚠️ تواريخ غير صالحة. استخدم صيغة مثل 2024-12-01.");
-                break;
+                const retMessage = "⚠️ تواريخ غير صالحة. استخدم صيغة مثل 2024-12-01."
+                addMessage("bot", retMessage);
+                return retMessage;
               }
               // Normalize inverted ranges
               if (start > end) {
@@ -1961,15 +2005,15 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
 
               if (items.length > 0) {
                 await displayOnlyFeatures(items, "#16a085");
-                addMessage(
-                  "bot",
-                  `✅ تم العثور على ${items.length} حادث ضمن الفترة المحددة.`
-                );
+                const retMessage = `✅ تم العثور على ${items.length} حادث ضمن الفترة المحددة.`;
+                addMessage("bot", retMessage);
+                return retMessage;
               } else {
-                addMessage("bot", "⚠️ لا توجد حوادث ضمن هذا النطاق الزمني.");
+                const retMessage = "⚠️ لا توجد حوادث ضمن هذا النطاق الزمني.";
+                addMessage("bot", retMessage);
+                return retMessage;
               }
             }
-            break;
 
           case "clear":
             // Clear all layers and show empty map
@@ -1987,10 +2031,11 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
             }
 
             setActiveFeatures(0);
-            addMessage("bot", "🧹 تم مسح جميع النتائج من الخريطة", {
+            const retMessage = "🧹 تم مسح جميع النتائج من الخريطة"
+            addMessage("bot", retMessage, {
               type: "system",
             });
-            break;
+            return retMessage;
 
           case "filter-by-property":
             const { property, value, limit: filterLimit = 10 } = actionObj;
@@ -2018,30 +2063,33 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
 
               if (matchingFeatures.length > 0) {
                 await displayOnlyFeatures(matchingFeatures, "#2ecc71");
+                const retMessage = `🔍 تم العثور على ${matchingFeatures.length} حادث يحتوي على "${value}" - مُظلل بالأخضر على الخريطة.`
                 addMessage(
                   "bot",
-                  `🔍 تم العثور على ${matchingFeatures.length} حادث يحتوي على "${value}" - مُظلل بالأخضر على الخريطة.`
+                  retMessage
                 );
+                return retMessage
               } else {
+                const retMessage = `⚠️ لم يتم العثور على حوادث تحتوي على "${value}"`
                 addMessage(
                   "bot",
-                  `⚠️ لم يتم العثور على حوادث تحتوي على "${value}"`
+                  retMessage
                 );
+                return retMessage
               }
             }
-            break;
+            return `property or value were not provided [property (${property}), value (${value})]`
 
           case "find-nearby-resources":
             const { lat: resLat, lon: resLon, resourceType = "all", radius: searchRadius = 5 } = actionObj;
             if (resLat !== undefined && resLon !== undefined) {
-              await findNearbyResources(resLat, resLon, resourceType, searchRadius);
+              return await findNearbyResources(resLat, resLon, resourceType, searchRadius);
             }
-            break;
+            return `lat or lon were not provided [lat (${resLat}), lon (${resLon})]`
 
           case "population-distribution":
             addMessage("bot", "📊 جاري عرض توزيع السكان...");
-            await showPopulationDistribution();
-            break;
+            return await showPopulationDistribution();
 
           case "route-to":
             {
@@ -2053,12 +2101,13 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
                 typeof endLon === "number"
               ) {
                 addMessage("bot", "🧭 جاري حساب أسرع مسار بالسيارة...");
-                await routeBetweenPoints(startLat, startLon, endLat, endLon);
+                return await routeBetweenPoints(startLat, startLon, endLat, endLon);
               } else {
-                addMessage("bot", "⚠️ نحتاج إلى نقطتي انطلاق ووجهة صالحتيْن لحساب المسار");
+                const retMessage = "⚠️ نحتاج إلى نقطتي انطلاق ووجهة صالحتيْن لحساب المسار";
+                addMessage("bot", retMessage);
+                return retMessage;
               }
             }
-            break;
 
           case "top-roads-by-incidents":
             {
@@ -2101,17 +2150,19 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
                 .slice(0, topN);
 
               if (sorted.length === 0) {
-                addMessage("bot", "⚠️ لا توجد بيانات طرق كافية لحساب الترتيب.");
-                break;
+                const retMessage = "⚠️ لا توجد بيانات طرق كافية لحساب الترتيب.";
+                addMessage("bot", retMessage);
+                return retMessage;
               }
 
               // Prepare summary message
               const summary = sorted
                 .map(([road, count], idx) => `${idx + 1}. ${road}: ${count} حادث`)
                 .join("\n");
+              const retMessage = `🏅 أعلى ${sorted.length} طرق تسجيلاً للحوادث:\n\n${summary}`
               addMessage(
                 "bot",
-                `🏅 أعلى ${sorted.length} طرق تسجيلاً للحوادث:\n\n${summary}`
+                retMessage
               );
 
               // Collect sample incidents to display on map
@@ -2136,8 +2187,8 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
                   "🟠 تم تظليل أمثلة من تلك الطرق على الخريطة."
                 );
               }
+              return retMessage;
             }
-            break;
 
           case "top-incident-types":
             {
@@ -2170,16 +2221,18 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
                 .slice(0, topN);
 
               if (sorted.length === 0) {
-                addMessage("bot", "⚠️ لا توجد بيانات كافية لتحديد الأنواع الأكثر تكراراً.");
-                break;
+                const retMessage = "⚠️ لا توجد بيانات كافية لتحديد الأنواع الأكثر تكراراً."
+                addMessage("bot", retMessage);
+                return retMessage;
               }
 
               const summary = sorted
                 .map(([name, count], idx) => `${idx + 1}. ${name}: ${count}`)
                 .join("\n");
+              const retMessage = `📊 أكثر أنواع الحوادث تكراراً:\n\n${summary}`
               addMessage(
                 "bot",
-                `📊 أكثر أنواع الحوادث تكراراً:\n\n${summary}`
+                retMessage
               );
 
               // Display sample incidents from top categories on the map
@@ -2200,8 +2253,8 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
                 await displayOnlyFeatures(sampleIncidents, "#27ae60");
                 addMessage("bot", "🟢 تم تظليل أمثلة من هذه الأنواع على الخريطة.");
               }
+              return retMessage;
             }
-            break;
 
           case "compare-incident-counts":
             {
@@ -2245,10 +2298,10 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
                     if (sample2.length < 3) sample2.push(feature);
                   }
                 });
-
+              const retMessage = `📊 مقارنة عدد الحوادث:\n- ${area1}: ${count1}\n- ${area2}: ${count2}`
               addMessage(
                 "bot",
-                `📊 مقارنة عدد الحوادث:\n- ${area1}: ${count1}\n- ${area2}: ${count2}`
+                retMessage
               );
 
               const sampleIncidents = [...sample1, ...sample2].map((feature) => {
@@ -2264,8 +2317,8 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
                 await displayOnlyFeatures(sampleIncidents, "#8e44ad");
                 addMessage("bot", "🟣 تم تظليل عينات من المنطقتين على الخريطة.");
               }
+              return retMessage;
             }
-            break;
 
           case "filter-major-roads-incidents":
             {
@@ -2308,18 +2361,21 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
 
               if (selected.length > 0) {
                 await displayOnlyFeatures(selected, "#c0392b");
+                const retMessage = `🚧 تم عرض ${selected.length} حادث على الطرق الرئيسية فقط.`
                 addMessage(
                   "bot",
-                  `🚧 تم عرض ${selected.length} حادث على الطرق الرئيسية فقط.`
+                  retMessage
                 );
+                return retMessage;
               } else {
+                const retMessage = "⚠️ لم يتم العثور على حوادث مصنفة على طرق رئيسية في البيانات."
                 addMessage(
                   "bot",
-                  "⚠️ لم يتم العثور على حوادث مصنفة على طرق رئيسية في البيانات."
+                  retMessage
                 );
+                return retMessage;
               }
             }
-            break;
 
           case "filter-by-keywords":
             {
@@ -2386,15 +2442,18 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
 
               if (list.length > 0) {
                 await displayOnlyFeatures(list, color);
+                const retMessage = `✅ تم العثور على ${list.length} حدث مطابق.`
                 addMessage(
                   "bot",
-                  `✅ تم العثور على ${list.length} حدث مطابق.`
+                  retMessage
                 );
+                return retMessage;
               } else {
-                addMessage("bot", "⚠️ لا توجد أحداث مطابقة للمعايير.");
+                const retMessage = "⚠️ لا توجد أحداث مطابقة للمعايير."
+                addMessage("bot", retMessage);
+                return retMessage;
               }
             }
-            break;
 
           case "show-crisis-grouped-status":
             {
@@ -2425,8 +2484,9 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
 
               // Display closed then open, with different colors
               if (openList.length + closedList.length === 0) {
-                addMessage("bot", "⚠️ لا توجد كوارث تحمل حالة مفتوحة أو مغلقة.");
-                break;
+                const retMessage = "⚠️ لا توجد كوارث تحمل حالة مفتوحة أو مغلقة."
+                addMessage("bot", retMessage);
+                return retMessage;
               }
 
               const legendEntries = [];
@@ -2442,7 +2502,9 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
                   };
                 });
                 await displayOnlyFeatures(closedList, "#7f8c8d", { append: false, legendEntries });
-                addMessage("bot", `🩶 الكوارث المغلقة: ${closedList.length}`);
+                const retMessage = `🩶 الكوارث المغلقة: ${closedList.length}`;
+                addMessage("bot", retMessage);
+                return retMessage;
               }
               if (openList.length > 0) {
                 openList.forEach((i) => {
@@ -2452,17 +2514,22 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
                   };
                 });
                 await displayOnlyFeatures(openList, "#27ae60", { append: true, legendEntries });
-                addMessage("bot", `🟢 الكوارث المفتوحة: ${openList.length}`);
+                const retMessage = `🟢 الكوارث المفتوحة: ${openList.length}`;
+                addMessage("bot", retMessage);
+                return retMessage;
               }
             }
             break;
 
           default:
             console.warn("Unhandled MAP_ACTION:", actionObj);
+            return "unknown tool call";
         }
       } catch (error) {
-        console.error("Map action execution failed:", error);
+        const retMessage = `"Map action execution failed:", ${error}`
+        console.error(retMessage);
         addMessage("bot", "❌ فشل في تنفيذ عملية الخريطة", { type: "system" });
+        return retMessage;
       }
     },
     [

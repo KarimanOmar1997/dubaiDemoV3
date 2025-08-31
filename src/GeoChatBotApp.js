@@ -21,6 +21,23 @@ export default function EnhancedGeoChatBotApp() {
   const pendingResourceQueryRef = useRef(null); // holds { lat, lon } awaiting resource type/radius
 
   const [mapStats, setMapStats] = useState({ zoom: 8, features: 0 });
+  const [history, setHistory] = useState(() => [{
+    "role": "system",
+    "content": `
+You are **GeoAI**, a highly capable AI assistant specialized in geospatial data analysis and visualization.  
+Your primary role is to interact with and control a map using the tools available to you.  
+You can generate, update, and analyze visualizations such as heatmaps, choropleth maps, scatter plots, or overlays.  
+
+### Interaction Guidelines:
+- Always clarify the user's intent before executing complex map operations.  
+- If data or coordinates are missing, ask the user to provide them.  
+- Prefer visual map-based outputs (heatmaps, overlays, plots) when possible.  
+- If a tool is required (e.g., to generate a heatmap), output a **structured tool call** with the necessary parameters.  
+- Respond in a clear and professional way, suitable for analysts, researchers, or decision-makers.  
+
+You must always act as an intelligent **geospatial analyst and visualization assistant**, helping users explore data and gain insights from maps.
+`
+  }]);
 
 
   const {
@@ -358,12 +375,22 @@ export default function EnhancedGeoChatBotApp() {
               content: "",
               tool_calls: [toolCall]
             });
+            setHistory(prev => [...prev, {
+              role: "assistant",
+              content: "",
+              tool_calls: [toolCall]
+            }]);
             console.log("Tool call result:", result);
             conversationMessages.push({
               role: "tool",
               tool_call_id: toolCall.id,
               content: result
             });
+            setHistory(prev => [...prev, {
+              role: "tool",
+              tool_call_id: toolCall.id,
+              content: result
+            }]);
           }
 
           // Recursively call with updated conversation and incremented depth
@@ -376,6 +403,10 @@ export default function EnhancedGeoChatBotApp() {
 
     // Final update to ensure all text is displayed
     if (fullText) {
+      setHistory(prev => [...prev, {
+        role: "user",
+        content: fullText.trim()
+      }])
       setMessages(prev => {
         const lastMessage = prev[prev.length - 1];
         if (lastMessage.sender === "bot" && lastMessage.id === botMessageId) {
@@ -658,8 +689,11 @@ export default function EnhancedGeoChatBotApp() {
           }
         }
       ]
-
-      makeLLMCall([
+      setHistory(prev => [...prev, {
+        "role": "user",
+        "content": prompt
+      }])
+      makeLLMCall([...history,
         {
           "role": "user",
           "content": prompt
@@ -669,7 +703,7 @@ export default function EnhancedGeoChatBotApp() {
         setIsTyping(false);
       })
     },
-    [addMessage, makeLLMCall, setInput, setIsTyping, setLoading]
+    [addMessage, history, makeLLMCall, setInput, setIsTyping, setLoading]
   );
 
   // Monitor allFeaturesData changes

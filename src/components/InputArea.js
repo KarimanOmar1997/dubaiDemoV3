@@ -65,53 +65,53 @@ const InputArea = ({ input, setInput, loading, handleUserQuery }) => {
         >
           🏙️ أقرب حوادث لدبي
         </button> */}
-        <button
+        {/* <button
           onClick={() => handleUserQuery("أقرب حوادث زمنياً لتاريخ 2024-12-30")}
           className="text-xs bg-purple-50 text-purple-700 px-3 py-1 rounded-full hover:bg-purple-100 transition-colors"
           disabled={loading}
         >
           ⏰ أقرب زمنياً
-        </button>
+        </button> */}
         <button
-          onClick={() => handleUserQuery("خريطة حرارية")}
+          onClick={() => handleUserQuery("أعرض خريطة حرارية للحوادث")}
           className="text-xs bg-orange-50 text-orange-700 px-3 py-1 rounded-full hover:bg-orange-100 transition-colors"
           disabled={loading}
         >
-          🔥 خريطة حرارية للحوادث
+          🔥 خريطة حرارية للحوادث 
         </button>
-        <button
+        {/* <button
           onClick={() => handleUserQuery("مستشفيات قريبة في نطاق 5 كم")}
           className="text-xs bg-red-50 text-red-700 px-3 py-1 rounded-full hover:bg-red-100 transition-colors flex items-center gap-1"
           disabled={loading}
         >
           <Building className="w-3 h-3" />
           مستشفيات قريبة
-        </button>
+        </button> */}
 
-        <button
+        {/* <button
           onClick={() => handleUserQuery("مدارس قريبة في نطاق 5 كم")}
           className="text-xs bg-blue-50 text-blue-700 px-3 py-1 rounded-full hover:bg-blue-100 transition-colors flex items-center gap-1"
           disabled={loading}
         >
           <GraduationCap className="w-3 h-3" />
           مدارس قريبة
-        </button>
+        </button> */}
 
-        <button
+        {/* <button
           onClick={() => handleUserQuery("نقاط الإخلاء أو التجمع القريبة في نطاق 5 كم")}
           className="text-xs bg-green-50 text-green-700 px-3 py-1 rounded-full hover:bg-green-100 transition-colors flex items-center gap-1"
           disabled={loading}
         >
           <Shield className="w-3 h-3" />
           نقاط الإخلاء/التجمع
-        </button>
-        <button
+        </button> */}
+        {/* <button
           onClick={() => handleUserQuery("الموارد القريبة ضمن نطاق 5 كم")}
           className="text-xs bg-gray-50 text-gray-700 px-3 py-1 rounded-full hover:bg-gray-100 transition-colors flex items-center gap-1"
           disabled={loading}
         >
           🧭 الموارد القريبة
-        </button>
+        </button> */}
         <button
           onClick={() => handleUserQuery("توزيع السكان")}
           className="text-xs bg-teal-50 text-teal-700 px-3 py-1 rounded-full hover:bg-teal-100 transition-colors flex items-center gap-1"

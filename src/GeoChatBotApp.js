@@ -283,7 +283,7 @@ You must always act as an intelligent **geospatial analyst and visualization ass
       requestBody.tools = tools;
     }
 
-    const res = await fetch("http://135.222.40.6:11434/api/chat", {
+    const res = await fetch("https://apiexbot.harvestguard.ai/api/external/ollama/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestBody),

@@ -1,5 +1,6 @@
 import React from "react";
 import { Bot, User } from "lucide-react";
+import MarkdownMessage from "./components/MarkdownMessage";
 
 const MessageItem = ({ message }) => {
   return (
@@ -22,7 +23,7 @@ const MessageItem = ({ message }) => {
           )}
           <div className="flex-1">
             <div className="text-sm leading-relaxed whitespace-pre-wrap">
-              {message.text}
+              <MarkdownMessage markdown={message.text} />
             </div>
             <div
               className={`text-xs mt-1 opacity-70 ${

@@ -288,7 +288,7 @@ You must always act as an intelligent **geospatial analyst and visualization ass
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
       
-      res = await fetch("http://135.222.40.6:11434/api/chat", {
+      res = await fetch("https://apiexbot.harvestguard.ai/api/external/ollama/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestBody),
@@ -329,7 +329,6 @@ You must always act as an intelligent **geospatial analyst and visualization ass
         if (done) break;
 
         const chunk = decoder.decode(value, { stream: true });
-        console.log("Received chunk:", chunk);
         const lines = chunk.trim().split("\n");
 
         for (const line of lines) {

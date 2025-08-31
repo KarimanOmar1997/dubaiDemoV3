@@ -21,7 +21,7 @@ export default function EnhancedGeoChatBotApp() {
   const pendingResourceQueryRef = useRef(null); // holds { lat, lon } awaiting resource type/radius
 
   const [mapStats, setMapStats] = useState({ zoom: 8, features: 0 });
-  
+
 
   const {
     availableFiles,
@@ -358,6 +358,7 @@ export default function EnhancedGeoChatBotApp() {
               content: "",
               tool_calls: [toolCall]
             });
+            console.log("Tool call result:", result);
             conversationMessages.push({
               role: "tool",
               tool_call_id: toolCall.id,
@@ -442,6 +443,7 @@ export default function EnhancedGeoChatBotApp() {
                 resourceType: {
                   type: "string",
                   description: "The type of resource to find",
+                  enum: ["hospital", "school", "shelter", "police", "fire"],
                   default: "all"
                 },
                 radius: {
@@ -509,6 +511,9 @@ export default function EnhancedGeoChatBotApp() {
         {
           type: "function",
           function: {
+            // Something is wrong with dates
+            // ⚠️ تواريخ غير صالحة. استخدم صيغة مثل 2024-12-01.
+            // {endDate: '20-10-2025', startDate: '21-05-2020'}
             name: "filter-incidents-date-range",
             description: "Filter incidents by date range",
             parameters: {
@@ -586,6 +591,7 @@ export default function EnhancedGeoChatBotApp() {
         {
           type: "function",
           function: {
+            // Couldn't test
             name: "compare-incident-counts",
             description: "Compare incident counts between different locations",
             parameters: {
@@ -607,6 +613,7 @@ export default function EnhancedGeoChatBotApp() {
         {
           type: "function",
           function: {
+            // Somthing is not working fillters are not being applied
             name: "filter-by-keywords",
             description: "Filter incidents by keywords",
             parameters: {
@@ -621,7 +628,7 @@ export default function EnhancedGeoChatBotApp() {
                 },
                 status: {
                   type: "string",
-                  description: "The status of the incidents to filter (e.g., 'active', 'resolved')",
+                  description: "The status of the incidents to filter",
                   enum: ["open", "closed"]
                 }
               },

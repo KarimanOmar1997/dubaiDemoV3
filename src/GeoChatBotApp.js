@@ -311,17 +311,24 @@ You must always act as an intelligent **geospatial analyst and visualization ass
       for (const line of lines) {
         if (!line.trim()) continue;
 
-        const json = JSON.parse(line);
+        const json = ((line) => {
+          try {
+            return JSON.parse(line)
+          } catch (e) {
+            console.error("Failed to parse JSON line:", line, e);
+          }
+        })(line);
 
-        if (modelThinking){
-          if (json.message.content === "\u003c/think\u003e"){
+
+        if (modelThinking) {
+          if (json.message.content === "\u003c/think\u003e") {
             modelThinking = false;
           }
           continue;
         }
         // Handle regular message content
         if (json.message?.content) {
-          if (json.message.content === "\u003cthink\u003e"){
+          if (json.message.content === "\u003cthink\u003e") {
             modelThinking = true;
             continue
           }
@@ -330,6 +337,10 @@ You must always act as an intelligent **geospatial analyst and visualization ass
 
           // Update message in chunks
           if (buffer.length > 20 || json.message.content.includes(' ') || json.message.content.includes('.') || json.message.content.includes(',') || json.message.content.includes('\n')) {
+            if (!fullText.trim()) {
+              fullText = buffer = "";
+              continue;
+            }
             setMessages(prev => {
               const lastMessage = prev[prev.length - 1];
               if (lastMessage.sender === "bot" && (loading || lastMessage.id === botMessageId)) {
@@ -372,12 +383,10 @@ You must always act as an intelligent **geospatial analyst and visualization ass
             // Add tool call result to conversation context
             conversationMessages.push({
               role: "assistant",
-              content: "",
               tool_calls: [toolCall]
             });
             setHistory(prev => [...prev, {
               role: "assistant",
-              content: "",
               tool_calls: [toolCall]
             }]);
             console.log("Tool call result:", result);
@@ -404,7 +413,7 @@ You must always act as an intelligent **geospatial analyst and visualization ass
     // Final update to ensure all text is displayed
     if (fullText) {
       setHistory(prev => [...prev, {
-        role: "user",
+        role: "assistant",
         content: fullText.trim()
       }])
       setMessages(prev => {
@@ -694,10 +703,10 @@ You must always act as an intelligent **geospatial analyst and visualization ass
         "content": prompt
       }])
       makeLLMCall([...history,
-        {
-          "role": "user",
-          "content": prompt
-        }
+      {
+        "role": "user",
+        "content": prompt
+      }
       ], tools).then(() => {
         setLoading(false);
         setIsTyping(false);

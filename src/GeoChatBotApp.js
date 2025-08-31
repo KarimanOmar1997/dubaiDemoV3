@@ -266,14 +266,36 @@ export default function EnhancedGeoChatBotApp() {
       requestBody.tools = tools;
     }
 
-    const res = await fetch("http://135.222.40.6:11434/api/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(requestBody),
-    });
+    let res;
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+      
+      res = await fetch("http://135.222.40.6:11434/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(requestBody),
+        signal: controller.signal,
+      });
+      
+      clearTimeout(timeoutId);
 
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+
+      console.log("API Response status:", res.status);
+      console.log("API Response headers:", Object.fromEntries(res.headers.entries()));
+    } catch (fetchError) {
+      console.error("Fetch error:", fetchError);
+      if (fetchError.name === 'AbortError') {
+        addMessage("bot", "⏰ انتهت مهلة الاتصال بالخدمة. يرجى المحاولة مرة أخرى.");
+      } else {
+        addMessage("bot", `❌ فشل في الاتصال بالخدمة: ${fetchError.message}`);
+      }
+      setLoading(false);
+      setIsTyping(false);
+      return;
     }
 
     const reader = res.body.getReader();
@@ -284,94 +306,111 @@ export default function EnhancedGeoChatBotApp() {
     let modelThinking = false;
     const conversationMessages = [...messages];
 
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
+    try {
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
 
-      const chunk = decoder.decode(value, { stream: true });
-      const lines = chunk.trim().split("\n");
+        const chunk = decoder.decode(value, { stream: true });
+        console.log("Received chunk:", chunk);
+        const lines = chunk.trim().split("\n");
 
-      for (const line of lines) {
-        if (!line.trim()) continue;
+        for (const line of lines) {
+          if (!line.trim()) continue;
 
-        const json = JSON.parse(line);
-
-        if (modelThinking){
-          if (json.message.content === "\u003c/think\u003e"){
-            modelThinking = false;
-          }
-          continue;
-        }
-        // Handle regular message content
-        if (json.message?.content) {
-          if (json.message.content === "\u003cthink\u003e"){
-            modelThinking = true;
-            continue
-          }
-          fullText += json.message.content;
-          buffer += json.message.content;
-
-          // Update message in chunks
-          if (buffer.length > 20 || json.message.content.includes(' ') || json.message.content.includes('.') || json.message.content.includes(',') || json.message.content.includes('\n')) {
-            setMessages(prev => {
-              const lastMessage = prev[prev.length - 1];
-              if (lastMessage.sender === "bot" && (loading || lastMessage.id === botMessageId)) {
-                return [
-                  ...prev.slice(0, -1),
-                  { ...lastMessage, text: fullText.trim() }
-                ];
-              } else {
-                const newMessage = {
-                  id: Date.now() + Math.random(),
-                  sender: "bot",
-                  text: fullText.trim(),
-                  timestamp: new Date()
-                };
-                botMessageId = newMessage.id;
-                return [...prev, newMessage];
-              }
-            });
-            buffer = "";
-          }
-        }
-
-        // Handle tool calls (only process if we haven't reached max depth)
-        if (json.message?.tool_calls && callDepth < MAX_CALLS - 1) {
-          for (const toolCall of json.message.tool_calls) {
-            console.log("Executing tool call:", toolCall);
-            const { name: action, arguments: args } = toolCall.function;
-            console.log("Tool call name:", action, "Arguments:", args);
-            const lat = parseFloat(args?.lat);
-            const lon = parseFloat(args?.lon);
-            const resourceType = args?.resourceType || 'all';
-            const radius = args?.radius ?? 5.0;
-            const limit = args?.limit ?? 5;
-            const startDate = args?.startDate;
-            const endDate = args?.endDate;
-            const date = args?.date;
-            const dataset = "crisis";
-            const result = await handleMapAction({ action, lat, lon, resourceType, radius, limit, startDate, endDate, date, dataset }, `ID_${Date.now()}`);
-
-            // Add tool call result to conversation context
-            conversationMessages.push({
-              role: "assistant",
-              content: "",
-              tool_calls: [toolCall]
-            });
-            console.log("Tool call result:", result);
-            conversationMessages.push({
-              role: "tool",
-              tool_call_id: toolCall.id,
-              content: result
-            });
+          // Try to parse JSON, skip invalid lines
+          let json;
+          try {
+            json = JSON.parse(line);
+          } catch (parseError) {
+            console.warn("Failed to parse line as JSON:", line, parseError);
+            console.warn("Line length:", line.length, "Line content:", JSON.stringify(line));
+            continue; // Skip this line and continue with the next one
           }
 
-          // Recursively call with updated conversation and incremented depth
-          console.log(`Making recursive LLM call (depth: ${callDepth + 1})`);
-          await makeLLMCall(conversationMessages, tools, callDepth + 1);
-          return; // Exit early since we'll handle the response in the recursive call
+          if (modelThinking){
+            if (json.message.content === "\u003c/think\u003e"){
+              modelThinking = false;
+            }
+            continue;
+          }
+          // Handle regular message content
+          if (json.message?.content) {
+            if (json.message.content === "\u003cthink\u003e"){
+              modelThinking = true;
+              continue
+            }
+            fullText += json.message.content;
+            buffer += json.message.content;
+
+            // Update message in chunks
+            if (buffer.length > 20 || json.message.content.includes(' ') || json.message.content.includes('.') || json.message.content.includes(',') || json.message.content.includes('\n')) {
+              setMessages(prev => {
+                const lastMessage = prev[prev.length - 1];
+                if (lastMessage.sender === "bot" && (loading || lastMessage.id === botMessageId)) {
+                  return [
+                    ...prev.slice(0, -1),
+                    { ...lastMessage, text: fullText.trim() }
+                  ];
+                } else {
+                  const newMessage = {
+                    id: Date.now() + Math.random(),
+                    sender: "bot",
+                    text: fullText.trim(),
+                    timestamp: new Date()
+                  };
+                  botMessageId = newMessage.id;
+                  return [...prev, newMessage];
+                }
+              });
+              buffer = "";
+            }
+          }
+
+          // Handle tool calls (only process if we haven't reached max depth)
+          if (json.message?.tool_calls && callDepth < MAX_CALLS - 1) {
+            for (const toolCall of json.message.tool_calls) {
+              console.log("Executing tool call:", toolCall);
+              const { name: action, arguments: args } = toolCall.function;
+              console.log("Tool call name:", action, "Arguments:", args);
+              const lat = parseFloat(args?.lat);
+              const lon = parseFloat(args?.lon);
+              const resourceType = args?.resourceType || 'all';
+              const radius = args?.radius ?? 5.0;
+              const limit = args?.limit ?? 5;
+              const startDate = args?.startDate;
+              const endDate = args?.endDate;
+              const date = args?.date;
+              const dataset = "crisis";
+              const result = await handleMapAction({ action, lat, lon, resourceType, radius, limit, startDate, endDate, date, dataset }, `ID_${Date.now()}`);
+
+              // Add tool call result to conversation context
+              conversationMessages.push({
+                role: "assistant",
+                content: "",
+                tool_calls: [toolCall]
+              });
+              console.log("Tool call result:", result);
+              conversationMessages.push({
+                role: "tool",
+                tool_call_id: toolCall.id,
+                content: result
+              });
+            }
+
+            // Recursively call with updated conversation and incremented depth
+            console.log(`Making recursive LLM call (depth: ${callDepth + 1})`);
+            await makeLLMCall(conversationMessages, tools, callDepth + 1);
+            return; // Exit early since we'll handle the response in the recursive call
+          }
         }
       }
+    } catch (streamError) {
+      console.error("Streaming error:", streamError);
+      addMessage("bot", `❌ فشل في معالجة الاستجابة: ${streamError.message}`);
+      setLoading(false);
+      setIsTyping(false);
+      return;
     }
 
     // Final update to ensure all text is displayed
@@ -402,7 +441,362 @@ export default function EnhancedGeoChatBotApp() {
       setLoading(true);
       setIsTyping(true);
 
+      // Check for specific requests first (routing, incidents, resources)
+      const routingPatterns = [
+        // Arabic patterns
+        /(?:أسرع|اسرع|أفضل|افضل)\s+(?:طريق|مسار|route)\s+(?:إلى|الى|to)\s*\(?(\d+\.?\d*)\s*,\s*(\d+\.?\d*)\)?/i,
+        /(?:طريق|مسار)\s+(?:أسرع|اسرع|أفضل|افضل)\s+(?:إلى|الى|to)\s*\(?(\d+\.?\d*)\s*,\s*(\d+\.?\d*)\)?/i,
+        // English patterns
+        /(?:fastest|best|quickest)\s+(?:route|way|path)\s+(?:to|towards)\s*\(?(\d+\.?\d*)\s*,\s*(\d+\.?\d*)\)?/i,
+        /(?:route|way|path)\s+(?:to|towards)\s*\(?(\d+\.?\d*)\s*,\s*(\d+\.?\d*)\)?/i,
+        // Simple coordinate pattern
+        /\(?(\d+\.?\d*)\s*,\s*(\d+\.?\d*)\)?/
+      ];
+
+      // Check for incident search requests
+      const incidentPatterns = [
+        // Arabic patterns
+        /(?:أقرب|اقرب|حوادث|حوادث قريبة|حوادث قريبة من|حوادث في نطاق|حوادث بالقرب من)\s*(?:من|في|إلى|الى)?\s*\(?(\d+\.?\d*)\s*,\s*(\d+\.?\d*)\)?/i,
+        /(?:حوادث|حوادث قريبة|حوادث قريبة من|حوادث في نطاق|حوادث بالقرب من)\s*(?:من|في|إلى|الى)?\s*\(?(\d+\.?\d*)\s*,\s*(\d+\.?\d*)\)?/i,
+        // English patterns
+        /(?:closest|nearest|incidents|incidents near|incidents within|incidents around)\s*(?:to|from|at|in)?\s*\(?(\d+\.?\d*)\s*,\s*(\d+\.?\d*)\)?/i,
+        // Number + incidents pattern
+        /(?:أقرب|اقرب|closest|nearest)\s*(\d+)\s*(?:حوادث|incidents?)\s*(?:من|from|to|at)?\s*\(?(\d+\.?\d*)\s*,\s*(\d+\.?\d*)\)?/i
+      ];
+
+             // Check for resource search requests
+       const resourcePatterns = [
+         // Arabic patterns
+         /(?:موارد|موارد قريبة|موارد قريبة من|موارد في نطاق|موارد بالقرب من)\s*(?:من|في|إلى|الى)?\s*\(?(\d+\.?\d*)\s*,\s*(\d+\.?\d*)\)?/i,
+         // English patterns
+         /(?:resources|resources near|resources within|resources around)\s*(?:to|from|at|in)?\s*\(?(\d+\.?\d*)\s*,\s*(\d+\.?\d*)\)?/i
+       ];
+
+       // Check for crisis search requests
+       const crisisPatterns = [
+         // Arabic patterns
+         /(?:كوارث|كوارث قريبة|كوارث قريبة من|كوارث في نطاق|كوارث بالقرب من)\s*(?:من|في|إلى|الى)?\s*\(?(\d+\.?\d*)\s*,\s*(\d+\.?\d*)\)?/i,
+         /(?:أقرب|اقرب|closest|nearest)\s*(\d+)\s*(?:كوارث|crisis|disasters?)\s*(?:من|from|to|at)?\s*\(?(\d+\.?\d*)\s*,\s*(\d+\.?\d*)\)?/i,
+         // English patterns
+         /(?:crisis|crises|disasters?|disaster events?)\s*(?:near|within|around|close to)\s*(?:to|from|at|in)?\s*\(?(\d+\.?\d*)\s*,\s*(\d+\.?\d*)\)?/i
+       ];
+
+       // Check for heatmap requests
+       const heatmapPatterns = [
+         // Arabic patterns
+         /(?:أعرض|اعرض|أنشئ|انشئ|اصنع|اصنع)\s*(?:خريطة|خريطه)\s*(?:حرارية|حراريه)\s*(?:للحوادث|لحوادث|للأحداث|لأحداث|للكوارث|لكوارث|للموارد|لموارد)?/i,
+         /(?:خريطة|خريطه)\s*(?:حرارية|حراريه)\s*(?:للحوادث|لحوادث|للأحداث|لأحداث|للكوارث|لكوارث|للموارد|لموارد)?/i,
+         // English patterns
+         /(?:show|display|create|generate)\s*(?:heatmap|heat map)\s*(?:of|for)?\s*(?:incidents|events|crisis|disasters|resources)?/i,
+         /(?:heatmap|heat map)\s*(?:of|for)?\s*(?:incidents|events|crisis|disasters|resources)?/i
+       ];
+
+      // Check for routing requests
+      let routingMatch = null;
+      for (const pattern of routingPatterns) {
+        routingMatch = prompt.match(pattern);
+        if (routingMatch) break;
+      }
+
+      // Check for incident search requests
+      let incidentMatch = null;
+      for (const pattern of incidentPatterns) {
+        incidentMatch = prompt.match(pattern);
+        if (incidentMatch) break;
+      }
+
+             // Check for resource search requests
+       let resourceMatch = null;
+       for (const pattern of resourcePatterns) {
+         resourceMatch = prompt.match(pattern);
+         if (resourceMatch) break;
+       }
+
+       // Check for crisis search requests
+       let crisisMatch = null;
+       for (const pattern of crisisPatterns) {
+         crisisMatch = prompt.match(pattern);
+         if (crisisMatch) break;
+       }
+
+       // Check for heatmap requests
+       let heatmapMatch = null;
+       for (const pattern of heatmapPatterns) {
+         heatmapMatch = prompt.match(pattern);
+         if (heatmapMatch) break;
+       }
+
+      // Handle routing requests
+      if (routingMatch) {
+        const endLat = parseFloat(routingMatch[1]);
+        const endLon = parseFloat(routingMatch[2]);
+
+        if (!isNaN(endLat) && !isNaN(endLon)) {
+          const isExplicitRouteRequest = /(?:أسرع|اسرع|أفضل|افضل|طريق|مسار|route|fastest|best|quickest|way|path)/i.test(prompt);
+
+          if (isExplicitRouteRequest) {
+            // حفظ نقطة النهاية والطلب من المستخدم تحديد نقطة البداية
+            routingIntentRef.current = { endLat, endLon };
+            addMessage("bot", `🧭 أرى أنك تريد أسرع طريق إلى الإحداثيات (${endLat}, ${endLon}).\n\nيرجى النقر على الخريطة لتحديد نقطة البداية للمسار.`);
+            setLoading(false);
+            setIsTyping(false);
+            return;
+          }
+        }
+      }
+
+      // Handle incident search requests
+      if (incidentMatch) {
+        let lat, lon, limit = 5;
+        
+        // Check if it's the number + incidents pattern
+        if (incidentMatch[1] && !isNaN(parseInt(incidentMatch[1]))) {
+          // Pattern: "أقرب 5 حوادث من 25.267699, 55.294676"
+          limit = parseInt(incidentMatch[1]);
+          lat = parseFloat(incidentMatch[2]);
+          lon = parseFloat(incidentMatch[3]);
+        } else {
+          // Regular pattern: "حوادث قريبة من 25.267699, 55.294676"
+          lat = parseFloat(incidentMatch[1]);
+          lon = parseFloat(incidentMatch[2]);
+        }
+
+        if (!isNaN(lat) && !isNaN(lon)) {
+          addMessage("bot", `🚨 أرى أنك تريد البحث عن ${limit} حوادث قريبة من الإحداثيات (${lat}, ${lon}). سأقوم بالبحث...`);
+          setLoading(false);
+          setIsTyping(false);
+
+          const result = await handleMapAction({
+            action: "find-incidents-within-radius",
+            lat: lat,
+            lon: lon,
+            radius: 5,
+            limit: limit
+          }, `incidents_${Date.now()}`);
+
+          return;
+        }
+      }
+
+             // Handle resource search requests
+       if (resourceMatch) {
+         const lat = parseFloat(resourceMatch[1]);
+         const lon = parseFloat(resourceMatch[2]);
+
+         if (!isNaN(lat) && !isNaN(lon)) {
+           addMessage("bot", `🏥 أرى أنك تريد البحث عن موارد قريبة من الإحداثيات (${lat}, ${lon}). سأقوم بالبحث...`);
+           setLoading(false);
+           setIsTyping(false);
+
+           const result = await handleMapAction({
+             action: "find-nearby-resources",
+             lat: lat,
+             lon: lon,
+             resourceType: "all",
+             radius: 5
+           }, `resources_${Date.now()}`);
+
+           return;
+         }
+       }
+
+       // Handle crisis search requests
+       if (crisisMatch) {
+         let lat, lon, limit = 5;
+         
+         // Check if it's the number + crisis pattern
+         if (crisisMatch[1] && !isNaN(parseInt(crisisMatch[1]))) {
+           // Pattern: "أقرب 5 كوارث من 25.267699, 55.294676"
+           limit = parseInt(crisisMatch[1]);
+           lat = parseFloat(crisisMatch[2]);
+           lon = parseFloat(crisisMatch[3]);
+         } else {
+           // Regular pattern: "كوارث قريبة من 25.267699, 55.294676"
+           lat = parseFloat(crisisMatch[1]);
+           lon = parseFloat(crisisMatch[2]);
+         }
+
+         if (!isNaN(lat) && !isNaN(lon)) {
+           addMessage("bot", `🌊 أرى أنك تريد البحث عن ${limit} كوارث قريبة من الإحداثيات (${lat}, ${lon}). سأقوم بالبحث...`);
+           setLoading(false);
+           setIsTyping(false);
+
+           const result = await handleMapAction({
+             action: "find-crisis-within-radius",
+             lat: lat,
+             lon: lon,
+             radius: 5,
+             limit: limit
+           }, `crisis_${Date.now()}`);
+
+           return;
+         }
+       }
+
+       // Handle heatmap requests
+      //  if (heatmapMatch) {
+      //    addMessage("bot", "🔥 أرى أنك تريد إنشاء خريطة حرارية للحوادث. سأقوم بإنشائها الآن...");
+      //    setLoading(false);
+      //    setIsTyping(false);
+
+      //    const result = await handleMapAction({
+      //      action: "create-heatmap",
+      //      intensity: 0.5,
+      //      radius: 25
+      //    }, `heatmap_${Date.now()}`);
+
+      //    return;
+      //  }
+
+      // Check for simple keywords when location is already selected
+      if (!routingMatch && !incidentMatch && !resourceMatch && !crisisMatch && !heatmapMatch) {
+        const simpleKeywords = {
+          "حوادث": "incidents",
+          "incidents": "incidents", 
+          "موارد": "resources",
+          "resources": "resources",
+          "كوارث": "crisis",
+          "crisis": "crisis",
+          "disasters": "crisis"
+        };
+        
+        const lowerPrompt = prompt.trim().toLowerCase();
+        let foundKeyword = null;
+        
+        for (const [keyword, type] of Object.entries(simpleKeywords)) {
+          if (lowerPrompt.includes(keyword.toLowerCase())) {
+            foundKeyword = type;
+            break;
+          }
+        }
+        
+        if (foundKeyword && pendingLocationChoiceRef.current) {
+          const { lat, lon } = pendingLocationChoiceRef.current;
+          
+          // Ask for radius first
+          if (foundKeyword === "incidents") {
+            addMessage("bot", `🚨 تريد البحث عن حوادث قريبة من (${lat.toFixed(6)}, ${lon.toFixed(6)}).\n\nفي أي نطاق تريد البحث؟ اكتب عدد الكيلومترات (مثال: 3 أو 5 أو 10)`);
+            pendingLocationChoiceRef.current.searchType = "incidents";
+            pendingLocationChoiceRef.current.pendingRadius = true;
+          } else if (foundKeyword === "resources") {
+            addMessage("bot", `🏥 تريد البحث عن موارد قريبة من (${lat.toFixed(6)}, ${lon.toFixed(6)}).\n\nفي أي نطاق تريد البحث؟ اكتب عدد الكيلومترات (مثال: 3 أو 5 أو 10)`);
+            pendingLocationChoiceRef.current.searchType = "resources";
+            pendingLocationChoiceRef.current.pendingRadius = true;
+          } else if (foundKeyword === "crisis") {
+            addMessage("bot", `🌊 تريد البحث عن كوارث قريبة من (${lat.toFixed(6)}, ${lon.toFixed(6)}).\n\nفي أي نطاق تريد البحث؟ اكتب عدد الكيلومترات (مثال: 3 أو 5 أو 10)`);
+            pendingLocationChoiceRef.current.searchType = "crisis";
+            pendingLocationChoiceRef.current.pendingRadius = true;
+          }
+          
+          setLoading(false);
+          setIsTyping(false);
+          return;
+        }
+        
+        // If only coordinates are provided without specific intent
+        const coordinatePattern = /\(?(\d+\.?\d*)\s*,\s*(\d+\.?\d*)\)?/;
+        const coordMatch = prompt.match(coordinatePattern);
+        
+        if (coordMatch) {
+          const lat = parseFloat(coordMatch[1]);
+          const lon = parseFloat(coordMatch[2]);
+          
+          if (!isNaN(lat) && !isNaN(lon)) {
+            addMessage("bot", `📍 أرى أنك قدمت إحداثيات (${lat}, ${lon}). ماذا تريد أن تفعل بهذه الإحداثيات؟\n\nيمكنك:\n• طلب أسرع طريق: "أسرع طريق إلى (${lat}, ${lon})"\n• البحث عن موارد قريبة: "موارد قريبة من (${lat}, ${lon})"\n• البحث عن حوادث قريبة: "حوادث قريبة من (${lat}, ${lon})"`);
+            setLoading(false);
+            setIsTyping(false);
+            return;
+          }
+        }
+      }
+      
+      // Check if user is providing radius for pending search
+      if (pendingLocationChoiceRef.current && pendingLocationChoiceRef.current.pendingRadius) {
+        const radiusPattern = /(\d+)/;
+        const radiusMatch = prompt.match(radiusPattern);
+        
+        if (radiusMatch) {
+          const radius = parseFloat(radiusMatch[1]);
+          if (!isNaN(radius) && radius > 0) {
+            const { lat, lon, searchType } = pendingLocationChoiceRef.current;
+            
+            addMessage("bot", `🔍 جاري البحث عن ${searchType === "incidents" ? "حوادث" : searchType === "resources" ? "موارد" : "كوارث"} في نطاق ${radius} كم من (${lat.toFixed(6)}, ${lon.toFixed(6)})...`);
+            
+            // Execute the search
+            if (searchType === "incidents") {
+              await handleMapAction({
+                action: "find-incidents-within-radius",
+                lat: lat,
+                lon: lon,
+                radius: radius,
+                limit: 10
+              }, `incidents_${Date.now()}`);
+            } else if (searchType === "resources") {
+              await handleMapAction({
+                action: "find-nearby-resources",
+                lat: lat,
+                lon: lon,
+                resourceType: "all",
+                radius: radius
+              }, `resources_${Date.now()}`);
+            } else if (searchType === "crisis") {
+              await handleMapAction({
+                action: "find-crisis-within-radius",
+                lat: lat,
+                lon: lon,
+                radius: radius,
+                limit: 10
+              }, `crisis_${Date.now()}`);
+            }
+            
+            // Clear pending state
+            pendingLocationChoiceRef.current = null;
+            setLoading(false);
+            setIsTyping(false);
+            return;
+          }
+        }
+        
+        // If radius input is invalid, ask again
+        addMessage("bot", "⚠️ يرجى إدخال رقم صحيح للنطاق (مثال: 3 أو 5 أو 10)");
+        setLoading(false);
+        setIsTyping(false);
+        return;
+      }
+
       const tools = [
+        {
+          type: "function",
+          function: {
+            name: "route-to",
+            description: "Find the fastest driving route between two coordinates",
+            parameters: {
+              type: "object",
+              properties: {
+                startLat: { type: "float", description: "The latitude of the starting point" },
+                startLon: { type: "float", description: "The longitude of the starting point" },
+                endLat: { type: "float", description: "The latitude of the destination point" },
+                endLon: { type: "float", description: "The longitude of the destination point" }
+              },
+              required: ["startLat", "startLon", "endLat", "endLon"]
+            }
+          }
+        },
+        {
+          type: "function",
+          function: {
+            name: "route-to-destination",
+            description: "Find the fastest driving route from Dubai center to a specific destination",
+            parameters: {
+              type: "object",
+              properties: {
+                endLat: { type: "float", description: "The latitude of the destination point" },
+                endLon: { type: "float", description: "The longitude of the destination point" }
+              },
+              required: ["endLat", "endLon"]
+            }
+          }
+        },
         {
           type: "function",
           function: {
@@ -456,32 +850,58 @@ export default function EnhancedGeoChatBotApp() {
             }
           }
         },
-        {
-          type: "function",
-          function: {
-            name: "find-incidents-within-radius",
-            description: "Find incidents within a specified radius on the map",
-            parameters: {
-              type: "object",
-              properties: {
-                lat: {
-                  type: "float",
-                  description: "The latitude of the location"
-                },
-                lon: {
-                  type: "float",
-                  description: "The longitude of the location"
-                },
-                radius: {
-                  type: "float",
-                  description: "The radius (in km) to search for incidents",
-                  default: 5.0
-                }
-              },
-              required: ["lat", "lon"]
-            }
-          }
-        },
+                 {
+           type: "function",
+           function: {
+             name: "find-incidents-within-radius",
+             description: "Find incidents within a specified radius on the map",
+             parameters: {
+               type: "object",
+               properties: {
+                 lat: {
+                   type: "float",
+                   description: "The latitude of the location"
+                 },
+                 lon: {
+                   type: "float",
+                   description: "The longitude of the location"
+                 },
+                 radius: {
+                   type: "float",
+                   description: "The radius (in km) to search for incidents",
+                   default: 5.0
+                 }
+               },
+               required: ["lat", "lon"]
+             }
+           }
+         },
+         {
+           type: "function",
+           function: {
+             name: "find-crisis-within-radius",
+             description: "Find crisis/disaster events within a specified radius on the map",
+             parameters: {
+               type: "object",
+               properties: {
+                 lat: {
+                   type: "float",
+                   description: "The latitude of the location"
+                 },
+                 lon: {
+                   type: "float",
+                   description: "The longitude of the location"
+                 },
+                 radius: {
+                   type: "float",
+                   description: "The radius (in km) to search for crisis events",
+                   default: 5.0
+                 }
+               },
+               required: ["lat", "lon"]
+             }
+           }
+         },
         {
           type: "function",
           function: {

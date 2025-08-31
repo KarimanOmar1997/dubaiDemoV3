@@ -30,17 +30,83 @@ export const useMapActions = ({
     if (!feature || feature?.geometry?.type !== "Point") return false;
     const source = String(feature?.sourceFile || "").toLowerCase();
     if (!source) return false;
-    return (
+    
+    // Check for incident-related keywords in source file name
+    // The actual file is "TrafficIncidents_ExportFeatures.geojson"
+    const isIncidentFile = (
       source.includes("trafficincidents") ||
+      source.includes("trafficincident") ||
       (source.includes("traffic") && source.includes("incident")) ||
       source.includes("accident") ||
-      source.includes("حوادث")
+      source.includes("حوادث") ||
+      source.includes("incident") ||
+      source.includes("exportfeatures") // Include this as it's part of the actual incident file name
     );
+    
+    // Check if the feature has incident-related properties
+    // Since we can't read the large incident file, we'll be more flexible
+    const properties = feature.properties || {};
+    
+    // Look for any properties that might indicate this is an incident
+    // Don't require specific properties since we don't know the exact structure
+    const hasAnyProperties = Object.keys(properties).length > 0;
+    
+    // Explicitly exclude crisis-related properties to avoid overlap
+    const hasCrisisProperties = (
+      properties.type === "crisis" ||
+      properties.category === "crisis" ||
+      properties.crisis_type ||
+      properties.disaster_type ||
+      properties.crisis_level ||
+      properties.crisis_status ||
+      properties.crisis_date ||
+      properties.disaster_date ||
+      properties.crisis_category ||
+      properties.name // Crisis file has "name" property
+    );
+    
+    // Return true if it's an incident file AND has properties, AND doesn't have crisis properties
+    return isIncidentFile && hasAnyProperties && !hasCrisisProperties;
   }, []);
 
   // Helper: any point feature (incidents or crisis, resources, etc.)
   const isPointFeature = useCallback((feature) => {
     return !!feature && feature.geometry?.type === "Point";
+  }, []);
+
+  // Helper: restrict to crisis Point features only
+  const isCrisisPointFeature = useCallback((feature) => {
+    if (!feature || feature?.geometry?.type !== "Point") return false;
+    const source = String(feature?.sourceFile || "").toLowerCase();
+    if (!source) return false;
+    
+    // Check for crisis-related keywords in source file name
+    const isCrisisFile = (
+      source.includes("crisis") ||
+      source.includes("disaster") ||
+      source.includes("كوارث") ||
+      source.includes("كارثة") ||
+      source.includes("طوارئ") ||
+      source.includes("emergency")
+    );
+    
+    // Check if the feature has crisis-related properties
+    const properties = feature.properties || {};
+    const hasCrisisProperties = (
+      properties.type === "crisis" ||
+      properties.category === "crisis" ||
+      properties.crisis_type ||
+      properties.disaster_type ||
+      properties.crisis_level ||
+      properties.crisis_status ||
+      properties.crisis_date ||
+      properties.disaster_date ||
+      properties.crisis_category ||
+      properties.disaster_category
+    );
+    
+    // Return true only if it's a crisis file AND has crisis properties
+    return isCrisisFile && hasCrisisProperties;
   }, []);
 
   // 1. Update your useMapActions.js - Add this function to the hook
@@ -183,7 +249,7 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
 
     if (allResources.length === 0) {
       const retMessage = `❌ لم يتم العثور على موارد في نطاق ${radius} كم من الموقع المحدد`
-      addMessage("bot", retMessage);
+      // addMessage("bot", retMessage);
       return retMessage;
     }
 
@@ -379,7 +445,7 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
   } catch (error) {
     console.error("Failed to find nearby resources:", error);
     const retMessage = `❌ فشل في البحث عن الموارد: ${error.message}`;
-    addMessage("bot", retMessage);
+    // addMessage("bot", retMessage);
     return retMessage;
   }
 }, [
@@ -490,7 +556,7 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
 
       if (highSeverityIncidents.length === 0) {
         const retMessage = "⚠️ لم يتم العثور على حوادث ذات خطورة عالية في البيانات المحملة";
-        addMessage("bot", retMessage);
+        // addMessage("bot", retMessage);
         return retMessage;
       }
 
@@ -690,18 +756,18 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
         }\n\n📈 **توزيع أنواع الحوادث:**\n${analysisReport.severityDistribution
         }\n\n🎯 **التوصيات:**\n${analysisReport.recommendations
         }\n\n💡 انقر على النقاط للحصول على تفاصيل كل حادث.`
-      addMessage(
-        "bot",
-        retMessage
-      );
+      // addMessage(
+      //   "bot",
+      //   retMessage
+      // );
       return retMessage;
     } catch (error) {
       console.error("Failed to analyze high-severity incidents:", error);
       const retMessage = `❌ فشل في تحليل الحوادث عالية الخطورة: ${error.message}`;
-      addMessage(
-        "bot",
-        retMessage
-      );
+      // addMessage(
+      //   "bot",
+      //   retMessage
+      // );
       return retMessage;
     }
   }, [
@@ -891,7 +957,7 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
     async (startLat, startLon, endLat, endLon) => {
       if (!mapRef.current || !window.L) {
         const retMessage = "⚠️ تعذر إنشاء المسار: الخريطة غير جاهزة";
-        addMessage("bot", retMessage);
+        // addMessage("bot", retMessage);
         return retMessage;
       }
 
@@ -911,15 +977,47 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
           legendRef.current = null;
         }
 
-        const url = `https://router.project-osrm.org/route/v1/driving/${startLon},${startLat};${endLon},${endLat}?overview=full&geometries=geojson`;
-        const res = await fetch(url);
-        if (!res.ok) throw new Error("فشل طلب خدمة المسارات");
-        const data = await res.json();
-        if (!data.routes || data.routes.length === 0) {
-          const retMessage = "⚠️ لم يتم العثور على مسار مناسب بين النقطتين"
-          addMessage("bot", retMessage);
+        // Validate coordinates
+        if (isNaN(startLat) || isNaN(startLon) || isNaN(endLat) || isNaN(endLon)) {
+          const retMessage = "⚠️ إحداثيات غير صحيحة. يرجى التحقق من القيم المقدمة.";
+          // addMessage("bot", retMessage);
           return retMessage;
         }
+
+        // Check if coordinates are within reasonable bounds (Dubai area)
+        if (startLat < 24.5 || startLat > 26.0 || startLon < 54.5 || startLon > 56.5 ||
+            endLat < 24.5 || endLat > 26.0 || endLon < 54.5 || endLon > 56.5) {
+          const retMessage = "⚠️ الإحداثيات خارج نطاق دبي. يرجى التأكد من أن جميع الإحداثيات تقع في منطقة دبي.";
+          // addMessage("bot", retMessage);
+          return retMessage;
+        }
+
+        const url = `https://router.project-osrm.org/route/v1/driving/${startLon},${startLat};${endLon},${endLat}?overview=full&geometries=geojson`;
+        
+        // Add timeout to the fetch request
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+
+        try {
+          const res = await fetch(url, { signal: controller.signal });
+          clearTimeout(timeoutId);
+
+          if (!res.ok) {
+            if (res.status === 429) {
+              throw new Error("تم تجاوز حد الطلبات. يرجى المحاولة مرة أخرى لاحقاً.");
+            } else if (res.status === 400) {
+              throw new Error("إحداثيات غير صحيحة. يرجى التحقق من الإحداثيات المقدمة.");
+            } else {
+              throw new Error(`فشل طلب خدمة المسارات (${res.status})`);
+            }
+          }
+
+          const data = await res.json();
+          if (!data.routes || data.routes.length === 0) {
+            const retMessage = "⚠️ لم يتم العثور على مسار مناسب بين النقطتين. قد تكون الإحداثيات خارج نطاق الخدمة."
+            // addMessage("bot", retMessage);
+            return retMessage;
+          }
 
         const best = data.routes[0];
         const coords = best.geometry.coordinates.map(([lon, lat]) => [lat, lon]);
@@ -948,30 +1046,258 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
           opacity: 0.9,
         });
 
+        // Create legend
+        const legend = L.control({ position: "bottomright" });
+        legend.onAdd = function () {
+          const div = L.DomUtil.create("div", "info legend");
+          div.innerHTML = `
+            <h4>المسار</h4>
+            <div><i style="background: #2e7d32"></i> نقطة الانطلاق</div>
+            <div><i style="background: #b71c1c"></i> الوجهة</div>
+            <div><i style="background: #1976d2"></i> المسار</div>
+            <div><strong>المسافة:</strong> ${distanceKm.toFixed(2)} كم</div>
+            <div><strong>الزمن:</strong> ${durationMin.toFixed(0)} دقيقة</div>
+          `;
+          return div;
+        };
+
         const group = L.layerGroup([routeLine, startMarker, endMarker]);
         highlightLayerRef.current = group;
+        legendRef.current = legend;
+        
         group.addTo(mapRef.current);
+        legend.addTo(mapRef.current);
 
         mapRef.current.fitBounds(routeLine.getBounds(), { padding: [30, 30] });
         setActiveFeatures(2); // start + end markers; route is supporting line
 
         const retMessage = `🛣️ تم إنشاء أسرع مسار.
-المسافة: ${distanceKm.toFixed(2)} كم
-الزمن التقريبي: ${durationMin.toFixed(0)} دقيقة`
-        addMessage(
-          "bot",
-          retMessage
-        );
+
+📍 نقطة الانطلاق: (${startLat.toFixed(6)}, ${startLon.toFixed(6)})
+🎯 الوجهة: (${endLat.toFixed(6)}, ${endLon.toFixed(6)})
+📏 المسافة: ${distanceKm.toFixed(2)} كم
+⏱️ الزمن التقريبي: ${durationMin.toFixed(0)} دقيقة
+
+تم عرض المسار على الخريطة مع علامات توضيحية.`
+        // addMessage("bot", retMessage);
         return retMessage;
+
+        } catch (fetchError) {
+          clearTimeout(timeoutId);
+          if (fetchError.name === 'AbortError') {
+            throw new Error("انتهت مهلة طلب المسار. يرجى المحاولة مرة أخرى.");
+          }
+          throw fetchError;
+        }
+
       } catch (error) {
         console.error("Routing failed:", error);
         const retMessage = `❌ فشل في حساب المسار: ${error.message}`
-        addMessage("bot", retMessage);
+        // addMessage("bot", retMessage);
         return retMessage;
       }
     },
     [mapRef, geoJsonLayerRef, highlightLayerRef, legendRef, setActiveFeatures, addMessage]
   );
+
+  // Route from Dubai center to a specific destination
+  const routeToDestination = useCallback(
+    async (endLat, endLon, startLat = 25.267078, startLon = 55.293646) => {
+      if (!mapRef.current || !window.L) {
+        const retMessage = "⚠️ تعذر إنشاء المسار: الخريطة غير جاهزة";
+        // addMessage("bot", retMessage);
+        return retMessage;
+      }
+
+      const L = window.L;
+      try {
+        // Clear existing overlays
+        if (geoJsonLayerRef.current) {
+          mapRef.current.removeLayer(geoJsonLayerRef.current);
+          geoJsonLayerRef.current = null;
+        }
+        if (highlightLayerRef.current) {
+          mapRef.current.removeLayer(highlightLayerRef.current);
+          highlightLayerRef.current = null;
+        }
+        if (legendRef.current) {
+          mapRef.current.removeControl(legendRef.current);
+          legendRef.current = null;
+        }
+
+        // Validate coordinates
+        if (isNaN(startLat) || isNaN(startLon) || isNaN(endLat) || isNaN(endLon)) {
+          const retMessage = "⚠️ إحداثيات غير صحيحة. يرجى التحقق من القيم المقدمة.";
+          // addMessage("bot", retMessage);
+          return retMessage;
+        }
+
+        // Check if coordinates are within reasonable bounds (Dubai area)
+        if (startLat < 24.5 || startLat > 26.0 || startLon < 54.5 || startLon > 56.5 ||
+            endLat < 24.5 || endLat > 26.0 || endLon < 54.5 || endLon > 56.5) {
+          const retMessage = "⚠️ الإحداثيات خارج نطاق دبي. يرجى التأكد من أن جميع الإحداثيات تقع في منطقة دبي.";
+          // addMessage("bot", retMessage);
+          return retMessage;
+        }
+
+        const url = `https://router.project-osrm.org/route/v1/driving/${startLon},${startLat};${endLon},${endLat}?overview=full&geometries=geojson`;
+        
+        // Add timeout to the fetch request
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+
+        try {
+          const res = await fetch(url, { signal: controller.signal });
+          clearTimeout(timeoutId);
+
+          if (!res.ok) {
+            if (res.status === 429) {
+              throw new Error("تم تجاوز حد الطلبات. يرجى المحاولة مرة أخرى لاحقاً.");
+            } else if (res.status === 400) {
+              throw new Error("إحداثيات غير صحيحة. يرجى التحقق من الإحداثيات المقدمة.");
+            } else {
+              throw new Error(`فشل طلب خدمة المسارات (${res.status})`);
+            }
+          }
+
+          const data = await res.json();
+          if (!data.routes || data.routes.length === 0) {
+            const retMessage = "⚠️ لم يتم العثور على مسار مناسب بين النقطتين. قد تكون الإحداثيات خارج نطاق الخدمة."
+            // addMessage("bot", retMessage);
+            return retMessage;
+          }
+
+          const best = data.routes[0];
+          const coords = best.geometry.coordinates.map(([lon, lat]) => [lat, lon]);
+          const distanceKm = best.distance / 1000;
+          const durationMin = best.duration / 60;
+
+          const startMarker = L.circleMarker([startLat, startLon], {
+            radius: 7,
+            fillColor: "#2e7d32",
+            color: "#fff",
+            weight: 2,
+            fillOpacity: 1,
+          }).bindPopup("مركز دبي (نقطة الانطلاق)");
+
+          const endMarker = L.circleMarker([endLat, endLon], {
+            radius: 7,
+            fillColor: "#b71c1c",
+            color: "#fff",
+            weight: 2,
+            fillOpacity: 1,
+          }).bindPopup("الوجهة");
+
+          const routeLine = L.polyline(coords, {
+            color: "#1976d2",
+            weight: 6,
+            opacity: 0.9,
+          });
+
+          // Create legend
+          const legend = L.control({ position: "bottomright" });
+          legend.onAdd = function () {
+            const div = L.DomUtil.create("div", "info legend");
+            div.innerHTML = `
+              <h4>المسار</h4>
+              <div><i style="background: #2e7d32"></i> نقطة الانطلاق (مركز دبي)</div>
+              <div><i style="background: #b71c1c"></i> الوجهة</div>
+              <div><i style="background: #1976d2"></i> المسار</div>
+              <div><strong>المسافة:</strong> ${distanceKm.toFixed(2)} كم</div>
+              <div><strong>الزمن:</strong> ${durationMin.toFixed(0)} دقيقة</div>
+            `;
+            return div;
+          };
+
+          const group = L.layerGroup([routeLine, startMarker, endMarker]);
+          highlightLayerRef.current = group;
+          legendRef.current = legend;
+          
+          group.addTo(mapRef.current);
+          legend.addTo(mapRef.current);
+
+          mapRef.current.fitBounds(routeLine.getBounds(), { padding: [30, 30] });
+          setActiveFeatures(2); // start + end markers; route is supporting line
+
+          const retMessage = `🛣️ تم إنشاء أسرع مسار من مركز دبي إلى الوجهة المطلوبة.
+
+📍 نقطة الانطلاق: مركز دبي (${startLat.toFixed(6)}, ${startLon.toFixed(6)})
+🎯 الوجهة: (${endLat.toFixed(6)}, ${endLon.toFixed(6)})
+📏 المسافة: ${distanceKm.toFixed(2)} كم
+⏱️ الزمن التقريبي: ${durationMin.toFixed(0)} دقيقة
+
+تم عرض المسار على الخريطة مع علامات توضيحية.`
+          // addMessage("bot", retMessage);
+          return retMessage;
+
+        } catch (fetchError) {
+          clearTimeout(timeoutId);
+          if (fetchError.name === 'AbortError') {
+            throw new Error("انتهت مهلة طلب المسار. يرجى المحاولة مرة أخرى.");
+          }
+          throw fetchError;
+        }
+
+      } catch (error) {
+        console.error("Routing failed:", error);
+        const retMessage = `❌ فشل في حساب المسار: ${error.message}`
+        // addMessage("bot", retMessage);
+        return retMessage;
+      }
+    },
+    [mapRef, geoJsonLayerRef, highlightLayerRef, legendRef, setActiveFeatures, addMessage]
+  );
+
+  // Analyze density clusters
+  const analyzeDensityClusters = useCallback((heatmapData) => {
+    const gridSize = 0.01; // Approximately 1km grid
+    const clusters = {};
+
+    heatmapData.forEach(([lat, lon, weight]) => {
+      const gridLat = Math.floor(lat / gridSize) * gridSize;
+      const gridLon = Math.floor(lon / gridSize) * gridSize;
+      const key = `${gridLat},${gridLon}`;
+
+      if (!clusters[key]) {
+        clusters[key] = {
+          count: 0,
+          totalWeight: 0,
+          lat: gridLat,
+          lon: gridLon,
+        };
+      }
+      clusters[key].count++;
+      clusters[key].totalWeight += weight;
+    });
+
+    const clusterArray = Object.values(clusters);
+    const sortedClusters = clusterArray.sort(
+      (a, b) => b.totalWeight - a.totalWeight
+    );
+
+    const highDensityAreas = sortedClusters.filter(
+      (cluster) => cluster.count >= 5
+    ).length;
+    const averageDensity =
+      clusterArray.reduce((sum, cluster) => sum + cluster.count, 0) /
+      clusterArray.length;
+
+    const topAreas = sortedClusters
+      .slice(0, 3)
+      .map(
+        (cluster, index) =>
+          `${index + 1}. منطقة (${cluster.lat.toFixed(
+            3
+          )}, ${cluster.lon.toFixed(3)}) - ${cluster.count} حوادث`
+      );
+
+    return {
+      highDensityAreas,
+      averageDensity,
+      topAreas:
+        topAreas.length > 0 ? topAreas : ["لا توجد مناطق عالية الكثافة"],
+    };
+  }, []);
 
   // Enhanced function to create heatmap visualization
   const createHeatmap = useCallback(
@@ -1057,7 +1383,7 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
 
         if (heatmapData.length === 0) {
           const retMessage = "⚠️ لا توجد بيانات صالحة لإنشاء الخريطة الحرارية";
-          addMessage("bot", retMessage);
+          // addMessage("bot", retMessage);
           return retMessage;
         }
 
@@ -1146,17 +1472,17 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
             2
           )}\n\n🎯 **المناطق الأكثر تركزاً:**\n${densityAnalysis.topAreas.join(
             "\n"
-          )}\n\n💡 استخدم أزرار التحكم لتغيير شدة الألوان أو نصف قطر التأثير.`
+          )}`
 
-        addMessage(
-          "bot",
-          summaryMessage
-        );
+        // addMessage(
+        //   "bot",
+        //   summaryMessage
+        // );
         return summaryMessage;
       } catch (error) {
         console.error("Failed to create heatmap:", error);
         const retMessage = `❌ فشل في إنشاء الخريطة الحرارية: ${error.message}`;
-        addMessage("bot", retMessage);
+        // addMessage("bot", retMessage);
         return retMessage;
 
       }
@@ -1173,62 +1499,11 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
     ]
   );
 
-  // Analyze density clusters
-  const analyzeDensityClusters = useCallback((heatmapData) => {
-    const gridSize = 0.01; // Approximately 1km grid
-    const clusters = {};
-
-    heatmapData.forEach(([lat, lon, weight]) => {
-      const gridLat = Math.floor(lat / gridSize) * gridSize;
-      const gridLon = Math.floor(lon / gridSize) * gridSize;
-      const key = `${gridLat},${gridLon}`;
-
-      if (!clusters[key]) {
-        clusters[key] = {
-          count: 0,
-          totalWeight: 0,
-          lat: gridLat,
-          lon: gridLon,
-        };
-      }
-      clusters[key].count++;
-      clusters[key].totalWeight += weight;
-    });
-
-    const clusterArray = Object.values(clusters);
-    const sortedClusters = clusterArray.sort(
-      (a, b) => b.totalWeight - a.totalWeight
-    );
-
-    const highDensityAreas = sortedClusters.filter(
-      (cluster) => cluster.count >= 5
-    ).length;
-    const averageDensity =
-      clusterArray.reduce((sum, cluster) => sum + cluster.count, 0) /
-      clusterArray.length;
-
-    const topAreas = sortedClusters
-      .slice(0, 3)
-      .map(
-        (cluster, index) =>
-          `${index + 1}. منطقة (${cluster.lat.toFixed(
-            3
-          )}, ${cluster.lon.toFixed(3)}) - ${cluster.count} حوادث`
-      );
-
-    return {
-      highDensityAreas,
-      averageDensity,
-      topAreas:
-        topAreas.length > 0 ? topAreas : ["لا توجد مناطق عالية الكثافة"],
-    };
-  }, []);
-
   // Population distribution visualization (heatmap or choropleth)
   const showPopulationDistribution = useCallback(async () => {
     if (!mapRef.current || !window.L || !allFeaturesData.length) {
       const retMessage = "⚠️ لا توجد بيانات كافية لعرض توزيع السكان"
-      addMessage("bot", retMessage);
+      // addMessage("bot", retMessage);
       return retMessage;
     }
 
@@ -1301,7 +1576,7 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
 
       if (heatmapData.length === 0) {
         const retMessage = "⚠️ لم أجد حقولاً تدل على عدد السكان في البيانات";
-        addMessage("bot", retMessage);
+        // addMessage("bot", retMessage);
         return retMessage;
       }
 
@@ -1363,7 +1638,7 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
 
         setActiveFeatures(polygonFeatures.length);
         const retMessage = "📊 تم عرض خريطة تدرج لونية لتوزيع السكان.";
-        addMessage("bot", retMessage);
+        // addMessage("bot", retMessage);
         return retMessage;
       } else {
         // Heatmap fallback
@@ -1401,13 +1676,13 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
         legend.addTo(mapRef.current);
         setActiveFeatures(scaled.length);
         const retMessage = "🔥 تم عرض خريطة كثافة تقديرية لتوزيع السكان.";
-        addMessage("bot", retMessage);
+        // addMessage("bot", retMessage);
         return retMessage;
       }
     } catch (error) {
       console.error("Population distribution failed:", error);
       const retMessage = `❌ فشل في عرض توزيع السكان: ${error.message}`
-      addMessage("bot", retMessage);
+      // addMessage("bot", retMessage);
       return retMessage;
     }
   }, [allFeaturesData, mapRef, geoJsonLayerRef, highlightLayerRef, legendRef, setActiveFeatures, addMessage]);
@@ -1528,9 +1803,21 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
         }
 
         // Create GeoJSON data with only the selected features
+        // Handle both direct features and features with metadata
+        const filteredFeatures = features.map((item) => {
+          if (item && item.feature) {
+            return item.feature; // item has metadata (distance, etc.)
+          } else if (item && item.geometry) {
+            return item; // item is a direct feature
+          } else {
+            console.warn("Invalid feature item:", item);
+            return null;
+          }
+        }).filter(Boolean); // Remove null items
+        
         const filteredData = {
           type: "FeatureCollection",
-          features: features.map((item) => item.feature),
+          features: filteredFeatures,
         };
 
         console.log(`🗺️ Displaying ${features.length} features on map`);
@@ -1567,7 +1854,7 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
 
             // Find the corresponding analysis data
             const analysisData = features.find(
-              (item) => item.feature === feature
+              (item) => (item.feature === feature) || (item === feature)
             );
             if (analysisData) {
               popupContent += `<div style="background: #f8f9fa; padding: 10px; border-radius: 6px; margin-bottom: 10px; border-left: 4px solid ${highlightColor};">`;
@@ -1783,17 +2070,17 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
                   .join("\n\n");
                 
                 const retMessage = `🎯 تم العثور على ${closestIncidents.length} حوادث أقرب مكانياً:\n\n${summary}\n\n💡 انقر على العلامات الحمراء لمزيد من التفاصيل.`;
-                addMessage(
-                  "bot",
-                  retMessage
-                );
+                // addMessage(
+                //   "bot",
+                //   retMessage
+                // );
                 return retMessage;
               } else {
                 const retMessage = "⚠️ لم يتم العثور على حوادث في البيانات المحملة"
-                addMessage(
-                  "bot",
-                  retMessage
-                );
+                // addMessage(
+                //   "bot",
+                //   retMessage
+                // );
                 return retMessage;
               }
             }
@@ -1801,16 +2088,35 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
 
           case "find-incidents-within-radius":
             {
-              const { lat: cLat, lon: cLon, radius = 3 } = actionObj;
+              const { lat: cLat, lon: cLon, radius = 3, limit = 5 } = actionObj;
               if (typeof cLat === "number" && typeof cLon === "number") {
                 addMessage(
                   "bot",
-                  `🔎 جاري عرض الحوادث ضمن ${radius} كم من (${cLat.toFixed(4)}, ${cLon.toFixed(4)})...`,
+                  `🔍 جاري البحث عن ${limit} حوادث أقرب للإحداثيات (${cLat.toFixed(4)}, ${cLon.toFixed(4)})...`,
                   { type: "system" }
                 );
 
-                const featuresWithin = allFeaturesData
-                  .filter(isIncidentPointFeature)
+                console.log("🔍 Total features available:", allFeaturesData.length);
+                
+                // Filter incident features (exclude crisis features)
+                const incidentFeatures = allFeaturesData.filter(isIncidentPointFeature);
+                console.log("🚨 Incident features found:", incidentFeatures.length);
+                
+                if (incidentFeatures.length === 0) {
+                  console.log("⚠️ No incident features found. Available source files:");
+                  const sourceFiles = [...new Set(allFeaturesData.map(f => f.sourceFile))];
+                  console.log("📁 Source files:", sourceFiles);
+                  
+                  // Show first few features for debugging
+                  const sampleFeatures = allFeaturesData.slice(0, 3);
+                  console.log("📊 Sample features:", sampleFeatures.map(f => ({
+                    sourceFile: f.sourceFile,
+                    geometry: f.geometry?.type,
+                    properties: Object.keys(f.properties || {})
+                  })));
+                }
+
+                const featuresWithin = incidentFeatures
                   .map((feature) => {
                     if (feature.geometry?.type !== "Point") return null;
                     const [flon, flat] = feature.geometry.coordinates;
@@ -1822,24 +2128,105 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
                       properties: feature.properties || {},
                     };
                   })
-                  .filter((it) => it && it.distance <= radius);
+                  .filter((it) => it && it.distance <= radius)
+                  .sort((a, b) => a.distance - b.distance) // Sort by distance
+                  .slice(0, limit); // Limit results
 
                 if (featuresWithin.length > 0) {
-                  await displayOnlyFeatures(featuresWithin, "#2980b9");
-                  const retMessage = `✅ تم العثور على ${featuresWithin.length} حادث داخل النطاق المحدد.`
-                  addMessage(
-                    "bot",
-                    retMessage,
-                  );
+                  // Extract the raw features for display
+                  const rawFeatures = featuresWithin.map(item => item.feature);
+                  await displayOnlyFeatures(rawFeatures, "#2980b9");
+                  
+                  // Create a detailed summary
+                  const summary = featuresWithin
+                    .map((item, index) => {
+                      const props = item.properties;
+                      const arabicName = props.Acc_Name || props.Type_Ar || "حادث مروري";
+                      const area = props.COMM_NAME_AR || props.COMM_NAME_EN || "منطقة غير محددة";
+                      const severity = props.Severity_Ar || "غير محدد";
+                      return `${index + 1}. ${arabicName}\n   📍 ${area} - المسافة: ${item.distance.toFixed(2)} كم\n   🚨 الخطورة: ${severity}`;
+                    })
+                    .join("\n\n");
+                  
+                  const retMessage = `🎯 تم العثور على ${featuresWithin.length} حوادث أقرب مكانياً:\n\n${summary}\n\n💡 انقر على العلامات الحمراء لمزيد من التفاصيل.`;
+                  // addMessage("bot", retMessage);
                   return retMessage;
                 } else {
                   const retMessage = "⚠️ لا توجد حوادث ضمن هذا النطاق.";
-                  addMessage("bot", retMessage);
+                  // addMessage("bot", retMessage);
                   return retMessage;
                 }
               } else {
                 const retMessage = "⚠️ نحتاج إحداثيات صحيحة لبحث النطاق.";
-                addMessage("bot", retMessage);
+                // addMessage("bot", retMessage);
+                return retMessage;
+              }
+            }
+
+          case "find-crisis-within-radius":
+            {
+              const { lat: cLat, lon: cLon, radius = 3, limit = 5 } = actionObj;
+              if (typeof cLat === "number" && typeof cLon === "number") {
+                addMessage(
+                  "bot",
+                  `🌊 جاري البحث عن ${limit} كوارث أقرب للإحداثيات (${cLat.toFixed(4)}, ${cLon.toFixed(4)})...`,
+                  { type: "system" }
+                );
+
+                console.log("🔍 Total features available:", allFeaturesData.length);
+                
+                // Filter crisis features only
+                const crisisFeatures = allFeaturesData.filter(isCrisisPointFeature);
+                console.log("🌊 Crisis features found:", crisisFeatures.length);
+                
+                if (crisisFeatures.length === 0) {
+                  console.log("⚠️ No crisis features found. Available source files:");
+                  const sourceFiles = [...new Set(allFeaturesData.map(f => f.sourceFile))];
+                  console.log("📁 Source files:", sourceFiles);
+                }
+
+                const featuresWithin = crisisFeatures
+                  .map((feature) => {
+                    if (feature.geometry?.type !== "Point") return null;
+                    const [flon, flat] = feature.geometry.coordinates;
+                    const dist = calculateDistance(cLat, cLon, flat, flon);
+                    return {
+                      feature,
+                      coordinates: [flat, flon],
+                      distance: dist,
+                      properties: feature.properties || {},
+                    };
+                  })
+                  .filter((it) => it && it.distance <= radius)
+                  .sort((a, b) => a.distance - b.distance) // Sort by distance
+                  .slice(0, limit); // Limit results
+
+                if (featuresWithin.length > 0) {
+                  // Extract the raw features for display
+                  const rawFeatures = featuresWithin.map(item => item.feature);
+                  await displayOnlyFeatures(rawFeatures, "#e74c3c");
+                  
+                  // Create a detailed summary
+                  const summary = featuresWithin
+                    .map((item, index) => {
+                      const props = item.properties;
+                      const crisisName = props.name || "كارثة";
+                      const status = props.status || "غير محدد";
+                      return `${index + 1}. ${crisisName}\n   📍 المسافة: ${item.distance.toFixed(2)} كم\n   🚨 الحالة: ${status}`;
+                    })
+                    .join("\n\n");
+                  
+                  const retMessage = `🌊 تم العثور على ${featuresWithin.length} كارثة أقرب مكانياً:\n\n${summary}\n\n💡 انقر على العلامات الحمراء لمزيد من التفاصيل.`;
+                  // addMessage("bot", retMessage);
+                  return retMessage;
+                } else {
+                  const retMessage = "⚠️ لا توجد كوارث ضمن هذا النطاق.";
+                  // addMessage("bot", retMessage);
+                  return retMessage;
+                }
+              } else {
+                const retMessage = "⚠️ نحتاج إحداثيات صحيحة لبحث النطاق.";
+                // addMessage("bot", retMessage);
                 return retMessage;
               }
             }
@@ -1920,25 +2307,25 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
                   .join("\n\n");
 
                 const retMessage = `⏰ تم العثور على ${temporalIncidents.length} حوادث أقرب زمنياً:\n\n${summary}\n\n💜 العلامات البنفسجية تظهر النتائج على الخريطة.`
-                addMessage(
-                  "bot",
-                  retMessage
-                );
+                // addMessage(
+                //   "bot",
+                //   retMessage
+                // );
                 return retMessage
               } else {
                 const retMessage = "⚠️ لم يتم العثور على حوادث بتواريخ صحيحة في البيانات"
-                addMessage(
-                  "bot",
-                  retMessage
-                );
+                // addMessage(
+                //   "bot",
+                //   retMessage
+                // );
                 return retMessage;
               }
             } else {
               const retMessage = "⚠️ لا يمكن تحليل التاريخ المعطى. استخدم صيغ مثل: 2024-01-15، 15/01/2024، أو 2024/01/15"
-              addMessage(
-                "bot",
-                retMessage
-              );
+              // addMessage(
+              //   "bot",
+              //   retMessage
+              // );
               return retMessage
             }
 
@@ -1949,7 +2336,7 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
               let end = parseDate(endDate);
               if (!start || !end) {
                 const retMessage = "⚠️ تواريخ غير صالحة. استخدم صيغة مثل 2024-12-01."
-                addMessage("bot", retMessage);
+                // addMessage("bot", retMessage);
                 return retMessage;
               }
               // Normalize inverted ranges
@@ -2006,11 +2393,11 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
               if (items.length > 0) {
                 await displayOnlyFeatures(items, "#16a085");
                 const retMessage = `✅ تم العثور على ${items.length} حادث ضمن الفترة المحددة.`;
-                addMessage("bot", retMessage);
+                // addMessage("bot", retMessage);
                 return retMessage;
               } else {
                 const retMessage = "⚠️ لا توجد حوادث ضمن هذا النطاق الزمني.";
-                addMessage("bot", retMessage);
+                // addMessage("bot", retMessage);
                 return retMessage;
               }
             }
@@ -2032,9 +2419,9 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
 
             setActiveFeatures(0);
             const retMessage = "🧹 تم مسح جميع النتائج من الخريطة"
-            addMessage("bot", retMessage, {
-              type: "system",
-            });
+            // addMessage("bot", retMessage, {
+            //   type: "system",
+            // });
             return retMessage;
 
           case "filter-by-property":
@@ -2064,17 +2451,17 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
               if (matchingFeatures.length > 0) {
                 await displayOnlyFeatures(matchingFeatures, "#2ecc71");
                 const retMessage = `🔍 تم العثور على ${matchingFeatures.length} حادث يحتوي على "${value}" - مُظلل بالأخضر على الخريطة.`
-                addMessage(
-                  "bot",
-                  retMessage
-                );
+                // addMessage(
+                //   "bot",
+                //   retMessage
+                // );
                 return retMessage
               } else {
                 const retMessage = `⚠️ لم يتم العثور على حوادث تحتوي على "${value}"`
-                addMessage(
-                  "bot",
-                  retMessage
-                );
+                // addMessage(
+                //   "bot",
+                //   retMessage
+                // );
                 return retMessage
               }
             }
@@ -2104,7 +2491,23 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
                 return await routeBetweenPoints(startLat, startLon, endLat, endLon);
               } else {
                 const retMessage = "⚠️ نحتاج إلى نقطتي انطلاق ووجهة صالحتيْن لحساب المسار";
-                addMessage("bot", retMessage);
+                // addMessage("bot", retMessage);
+                return retMessage;
+              }
+            }
+
+          case "route-to-destination":
+            {
+              const { endLat, endLon } = actionObj;
+              if (
+                typeof endLat === "number" &&
+                typeof endLon === "number"
+              ) {
+                addMessage("bot", "🧭 جاري حساب أسرع مسار من مركز دبي إلى الوجهة المطلوبة...");
+                return await routeToDestination(endLat, endLon);
+              } else {
+                const retMessage = "⚠️ نحتاج إلى إحداثيات صحيحة للوجهة لحساب المسار";
+                // addMessage("bot", retMessage);
                 return retMessage;
               }
             }
@@ -2151,7 +2554,7 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
 
               if (sorted.length === 0) {
                 const retMessage = "⚠️ لا توجد بيانات طرق كافية لحساب الترتيب.";
-                addMessage("bot", retMessage);
+                // addMessage("bot", retMessage);
                 return retMessage;
               }
 
@@ -2160,10 +2563,10 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
                 .map(([road, count], idx) => `${idx + 1}. ${road}: ${count} حادث`)
                 .join("\n");
               const retMessage = `🏅 أعلى ${sorted.length} طرق تسجيلاً للحوادث:\n\n${summary}`
-              addMessage(
-                "bot",
-                retMessage
-              );
+              // addMessage(
+              //   "bot",
+              //   retMessage
+              // );
 
               // Collect sample incidents to display on map
               const sampleIncidents = [];
@@ -2182,10 +2585,10 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
 
               if (sampleIncidents.length > 0) {
                 await displayOnlyFeatures(sampleIncidents, "#d35400");
-                addMessage(
-                  "bot",
-                  "🟠 تم تظليل أمثلة من تلك الطرق على الخريطة."
-                );
+                // addMessage(
+                //   "bot",
+                //   "🟠 تم تظليل أمثلة من تلك الطرق على الخريطة."
+                // );
               }
               return retMessage;
             }
@@ -2222,7 +2625,7 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
 
               if (sorted.length === 0) {
                 const retMessage = "⚠️ لا توجد بيانات كافية لتحديد الأنواع الأكثر تكراراً."
-                addMessage("bot", retMessage);
+                // addMessage("bot", retMessage);
                 return retMessage;
               }
 
@@ -2251,7 +2654,7 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
               }
               if (sampleIncidents.length > 0) {
                 await displayOnlyFeatures(sampleIncidents, "#27ae60");
-                addMessage("bot", "🟢 تم تظليل أمثلة من هذه الأنواع على الخريطة.");
+                // addMessage("bot", "🟢 تم تظليل أمثلة من هذه الأنواع على الخريطة.");
               }
               return retMessage;
             }
@@ -2315,7 +2718,7 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
               });
               if (sampleIncidents.length > 0) {
                 await displayOnlyFeatures(sampleIncidents, "#8e44ad");
-                addMessage("bot", "🟣 تم تظليل عينات من المنطقتين على الخريطة.");
+                // addMessage("bot", "🟣 تم تظليل عينات من المنطقتين على الخريطة.");
               }
               return retMessage;
             }
@@ -2369,10 +2772,10 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
                 return retMessage;
               } else {
                 const retMessage = "⚠️ لم يتم العثور على حوادث مصنفة على طرق رئيسية في البيانات."
-                addMessage(
-                  "bot",
-                  retMessage
-                );
+                // addMessage(
+                //   "bot",
+                //   retMessage
+                // );
                 return retMessage;
               }
             }
@@ -2450,7 +2853,7 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
                 return retMessage;
               } else {
                 const retMessage = "⚠️ لا توجد أحداث مطابقة للمعايير."
-                addMessage("bot", retMessage);
+                // addMessage("bot", retMessage);
                 return retMessage;
               }
             }
@@ -2459,11 +2862,45 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
             {
               // Split crisis features into open vs closed by status-like fields
               const statusFields = ["status", "Status", "STATUS", "case_status", "Case_Status", "الحالة", "حالة"];
+              
+              console.log("🔍 تحليل الكوارث - الحقول المستخدمة:", statusFields);
+              console.log("📊 إجمالي البيانات المتاحة:", allFeaturesData.length);
+              
               const toStatus = (props) => {
-                const val = statusFields.map((f) => props[f]).find((v) => v !== undefined);
+                // البحث في جميع الحقول الممكنة للحالة
+                let val = statusFields.map((f) => props[f]).find((v) => v !== undefined);
+                
+                // إذا لم نجد في الحقول المحددة، نبحث في جميع الخصائص
+                if (!val) {
+                  for (const [key, value] of Object.entries(props || {})) {
+                    const keyLower = key.toLowerCase();
+                    const valueStr = String(value || "").toLowerCase();
+                    
+                    // البحث عن كلمات مفتاحية في أسماء الحقول
+                    if (keyLower.includes('status') || keyLower.includes('حالة') || keyLower.includes('state')) {
+                      val = value;
+                      break;
+                    }
+                    
+                    // البحث عن كلمات مفتاحية في القيم
+                    if (valueStr.includes('open') || valueStr.includes('مفتوح') || valueStr.includes('جاري') ||
+                        valueStr.includes('closed') || valueStr.includes('مغلق') || valueStr.includes('منتهي')) {
+                      val = value;
+                      break;
+                    }
+                  }
+                }
+                
                 const s = String(val || "").toLowerCase();
-                if (/open|ongoing|active|مفتوح|مفتوحة|جارية|نشطة/.test(s)) return "open";
-                if (/closed|resolved|completed|closed case|مغلق|مغلقة|مقفول|منتهية|انتهت/.test(s)) return "closed";
+                console.log("🔍 قيمة الحالة:", val, "->", s);
+                
+                // تسجيل تفصيلي للتشخيص
+                const isOpen = /open|ongoing|active|مفتوح|مفتوحة|جارية|نشطة|قيد التنفيذ|قيد المعالجة/.test(s);
+                const isClosed = /closed|resolved|completed|closed case|مغلق|مغلقة|مقفول|منتهية|انتهت|مكتمل|تم الحل/.test(s);
+                console.log("🔍 تحليل الحالة:", { val, s, isOpen, isClosed });
+                
+                if (/open|ongoing|active|مفتوح|مفتوحة|جارية|نشطة|قيد التنفيذ|قيد المعالجة/.test(s)) return "open";
+                if (/closed|resolved|completed|closed case|مغلق|مغلقة|مقفول|منتهية|انتهت|مكتمل|تم الحل/.test(s)) return "closed";
                 return "unknown";
               };
 
@@ -2471,30 +2908,93 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
                 const src = String(f.sourceFile || "").toLowerCase();
                 return f.geometry?.type === "Point" && (src.includes("crisis") || (!src.includes("traffic") && !src.includes("resources")));
               });
+              
+              console.log("🔍 الكوارث المفلترة:", crisisFeatures.length);
+              console.log("🔍 عينات من الكوارث:", crisisFeatures.slice(0, 5).map(f => ({
+                sourceFile: f.sourceFile,
+                properties: f.properties,
+                status: toStatus(f.properties || {}),
+                allPropertyKeys: Object.keys(f.properties || {})
+              })));
+              
+              // تحليل جميع الحقول المتاحة في البيانات
+              const allPropertyKeys = new Set();
+              crisisFeatures.forEach(f => {
+                Object.keys(f.properties || {}).forEach(key => allPropertyKeys.add(key));
+              });
+              console.log("🔍 جميع الحقول المتاحة في بيانات الكوارث:", Array.from(allPropertyKeys));
 
               const openList = [];
               const closedList = [];
+              const unknownList = [];
+              
               crisisFeatures.forEach((feature) => {
                 const s = toStatus(feature.properties || {});
                 const [lon, lat] = feature.geometry.coordinates;
                 const item = { feature, coordinates: [lat, lon], distance: 0, properties: feature.properties || {} };
                 if (s === "open") openList.push(item);
                 else if (s === "closed") closedList.push(item);
+                else unknownList.push(item);
               });
+              
+              console.log("📊 نتائج التصنيف:", {
+                open: openList.length,
+                closed: closedList.length,
+                unknown: unknownList.length
+              });
+              
+              // تسجيل تفاصيل كل مجموعة
+              if (openList.length > 0) {
+                console.log("🟢 الكوارث المفتوحة:", openList.map(item => ({
+                  name: item.properties.name,
+                  status: item.properties.status,
+                  coordinates: item.coordinates
+                })));
+              }
+              
+              if (closedList.length > 0) {
+                console.log("🩶 الكوارث المغلقة:", closedList.map(item => ({
+                  name: item.properties.name,
+                  status: item.properties.status,
+                  coordinates: item.coordinates
+                })));
+              }
+              
+              if (unknownList.length > 0) {
+                console.log("🟡 الكوارث غير المعروفة:", unknownList.map(item => ({
+                  name: item.properties.name,
+                  status: item.properties.status,
+                  allProperties: item.properties,
+                  coordinates: item.coordinates
+                })));
+              }
 
               // Display closed then open, with different colors
               if (openList.length + closedList.length === 0) {
-                const retMessage = "⚠️ لا توجد كوارث تحمل حالة مفتوحة أو مغلقة."
-                addMessage("bot", retMessage);
-                return retMessage;
+                if (unknownList.length > 0) {
+                  const retMessage = `⚠️ لا توجد كوارث تحمل حالة مفتوحة أو مغلقة. يوجد ${unknownList.length} كارثة بحالة غير معروفة.`;
+                  console.log("🔍 الكوارث بحالة غير معروفة:", unknownList.slice(0, 3).map(f => ({
+                    sourceFile: f.feature.sourceFile,
+                    properties: f.feature.properties
+                  })));
+                  return retMessage;
+                } else {
+                  const retMessage = "⚠️ لا توجد كوارث تحمل حالة مفتوحة أو مغلقة."
+                  return retMessage;
+                }
               }
 
               const legendEntries = [];
               if (closedList.length > 0) legendEntries.push({ color: "#7f8c8d", label: `مغلقة (${closedList.length})` });
               if (openList.length > 0) legendEntries.push({ color: "#27ae60", label: `مفتوحة (${openList.length})` });
+              if (unknownList.length > 0) legendEntries.push({ color: "#f39c12", label: `غير معروفة (${unknownList.length})` });
 
+              // عرض جميع أنواع الكوارث معاً
+              let displayedCount = 0;
+              let retMessage = "📊 **تصنيف الكوارث حسب الحالة:**\n\n";
+              
+              // عرض الكوارث المغلقة أولاً
               if (closedList.length > 0) {
-                // mark color on props for stable styling when appending
                 closedList.forEach((i) => {
                   i.feature.properties = {
                     ...(i.feature.properties || {}),
@@ -2502,10 +3002,11 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
                   };
                 });
                 await displayOnlyFeatures(closedList, "#7f8c8d", { append: false, legendEntries });
-                const retMessage = `🩶 الكوارث المغلقة: ${closedList.length}`;
-                addMessage("bot", retMessage);
-                return retMessage;
+                retMessage += `🩶 الكوارث المغلقة: ${closedList.length}\n`;
+                displayedCount += closedList.length;
               }
+              
+              // إضافة الكوارث المفتوحة
               if (openList.length > 0) {
                 openList.forEach((i) => {
                   i.feature.properties = {
@@ -2514,10 +3015,25 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
                   };
                 });
                 await displayOnlyFeatures(openList, "#27ae60", { append: true, legendEntries });
-                const retMessage = `🟢 الكوارث المفتوحة: ${openList.length}`;
-                addMessage("bot", retMessage);
-                return retMessage;
+                retMessage += `🟢 الكوارث المفتوحة: ${openList.length}\n`;
+                displayedCount += openList.length;
               }
+              
+              // إضافة الكوارث غير المعروفة
+              if (unknownList.length > 0) {
+                unknownList.forEach((i) => {
+                  i.feature.properties = {
+                    ...(i.feature.properties || {}),
+                    _highlightColor: "#f39c12",
+                  };
+                });
+                await displayOnlyFeatures(unknownList, "#f39c12", { append: true, legendEntries });
+                retMessage += `🟡 الكوارث بحالة غير معروفة: ${unknownList.length}\n`;
+                displayedCount += unknownList.length;
+              }
+              
+              retMessage += `\n📈 **الإجمالي:** ${displayedCount} كارثة`;
+              return retMessage;
             }
             break;
 
@@ -2528,7 +3044,7 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
       } catch (error) {
         const retMessage = `"Map action execution failed:", ${error}`
         console.error(retMessage);
-        addMessage("bot", "❌ فشل في تنفيذ عملية الخريطة", { type: "system" });
+        // addMessage("bot", "❌ فشل في تنفيذ عملية الخريطة", { type: "system" });
         return retMessage;
       }
     },
@@ -2541,6 +3057,7 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
       createHeatmap,
       analyzeHighSeverityIncidents,
       routeBetweenPoints,
+      routeToDestination,
       mapRef,
       geoJsonLayerRef,
       highlightLayerRef,
@@ -2549,7 +3066,9 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
       setActiveFeatures,
       addMessage,
       findNearbyResources,
-      showPopulationDistribution
+      showPopulationDistribution,
+      isIncidentPointFeature,
+      isCrisisPointFeature
     ]
   );
 
@@ -2567,6 +3086,10 @@ const findNearbyResources = useCallback(async (lat, lon, resourceType = "all", r
     generateSafetyRecommendations,
     findNearbyResources,
     routeBetweenPoints,
-    showPopulationDistribution
+    routeToDestination,
+    showPopulationDistribution,
+    isIncidentPointFeature,
+    isCrisisPointFeature,
+    isPointFeature
   };
 };

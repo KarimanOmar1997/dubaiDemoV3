@@ -258,13 +258,9 @@ export default function EnhancedGeoChatBotApp() {
       stream: true,
       options: {
         temperature: 0
-      }
+      },
+      tools: tools
     };
-
-    // Only include tools on the first call
-    if (tools && callDepth === 0) {
-      requestBody.tools = tools;
-    }
 
     let res;
     try {
@@ -312,7 +308,6 @@ export default function EnhancedGeoChatBotApp() {
         if (done) break;
 
         const chunk = decoder.decode(value, { stream: true });
-        console.log("Received chunk:", chunk);
         const lines = chunk.trim().split("\n");
 
         for (const line of lines) {
@@ -387,7 +382,7 @@ export default function EnhancedGeoChatBotApp() {
               // Add tool call result to conversation context
               conversationMessages.push({
                 role: "assistant",
-                content: "",
+                content: `I have to call ${action} with arguments: ${JSON.stringify(args)}`,
                 tool_calls: [toolCall]
               });
               console.log("Tool call result:", result);
@@ -1080,6 +1075,23 @@ export default function EnhancedGeoChatBotApp() {
       ]
 
       makeLLMCall([
+        {
+          "role": "system",
+          "content": `
+You are **GeoAI**, a highly capable AI assistant specialized in geospatial data analysis and visualization.  
+Your primary role is to interact with and control a map using the tools available to you.  
+You can generate, update, and analyze visualizations such as heatmaps, choropleth maps, scatter plots, or overlays.  
+
+### Interaction Guidelines:
+- Always clarify the user's intent before executing complex map operations.  
+- If data or coordinates are missing, ask the user to provide them.  
+- Prefer visual map-based outputs (heatmaps, overlays, plots) when possible.  
+- If a tool is required (e.g., to generate a heatmap), output a **structured tool call** with the necessary parameters.  
+- Respond in a clear and professional way, suitable for analysts, researchers, or decision-makers.  
+
+You must always act as an intelligent **geospatial analyst and visualization assistant**, helping users explore data and gain insights from maps.
+`
+        },
         {
           "role": "user",
           "content": prompt

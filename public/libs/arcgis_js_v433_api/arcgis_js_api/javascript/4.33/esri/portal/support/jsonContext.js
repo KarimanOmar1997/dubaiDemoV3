@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/urlUtils","../Portal"],(function(e,t,r){"use strict";function o(e,o){return{origin:o,url:t.urlToObject(e.itemUrl),portal:e.portal||r.getDefault(),portalItem:e}}e.createForItemRead=function(e,t){return{...o(e,t),readResourcePaths:[]}},e.createForItemWrite=function(e,r,l){const n=t.urlToObject(e.itemUrl);return{...o(e,r),messages:[],writtenProperties:[],blockedRelativeUrls:[],verifyItemRelativeUrls:n?{rootPath:n.path,writtenUrls:[]}:null,resources:l?{toAdd:[],toUpdate:[],toKeep:[],pendingOperations:[]}:null}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

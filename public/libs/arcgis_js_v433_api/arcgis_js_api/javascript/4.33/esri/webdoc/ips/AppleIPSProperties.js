@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../core/Clonable","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,o,r,s,c,t,p,a){"use strict";let n=class extends(o.ClonableMixin(r)){constructor(e){super(e),this.enabled=!0}};return e.__decorate([s.property({type:Boolean,nonNullable:!0,json:{write:!0}})],n.prototype,"enabled",void 0),n=e.__decorate([a.subclass("esri.webdoc.ips.AppleIPSProperties")],n),n}));

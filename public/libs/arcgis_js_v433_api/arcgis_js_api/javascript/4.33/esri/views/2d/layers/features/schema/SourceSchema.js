@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../core/sql"],(function(e,t){"use strict";e.createFeatureSourceSchema=function(e,i,n,o){const r=null!=e.subtypeCode?`${e.subtypeField} = ${e.subtypeCode}`:null,s=t.sqlAnd(e.definitionExpression,r),l=e.customParameters??{},a=i.displayFilterEnabled&&e.displayFilterInfo?e.displayFilterInfo.toJSON():null;return o&&(l.token=o),{type:"feature",mutable:{sourceRefreshVersion:n,availableFields:i.availableFields,displayFilterInfo:a,dataFilter:{definitionExpression:s,customParameters:l,gdbVersion:e.gdbVersion,historicMoment:e.historicMoment?.getTime(),queryScaleRanges:e.queryScaleRanges??[],timeExtent:e.timeExtent?.toJSON()}}}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

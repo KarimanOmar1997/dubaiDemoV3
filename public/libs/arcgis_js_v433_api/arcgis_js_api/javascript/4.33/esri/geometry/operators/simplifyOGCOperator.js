@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./gx/operatorSimplifyOGC","./support/apiConverter"],(function(e,t,r){"use strict";const o=t.supportsCurves();e.execute=function(e){const o=r.getSpatialReference(e);return r.toGeometry(t.execute(r.fromGeometry(e),r.fromSpatialReference(o),!1),o)},e.executeMany=function(e){const o=e.map(r.fromGeometry),n=r.getSpatialReference(e);return t.executeMany(o,r.fromSpatialReference(n),!1).map((e=>r.toGeometry(e,n)))},e.isSimple=function(e,o){return t.isSimple(r.fromGeometry(e),r.fromSpatialReference(r.getSpatialReference(e)),null!=o,o??null)},e.supportsCurves=o,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

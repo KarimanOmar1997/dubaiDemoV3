@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./Callout3D","./LineCallout3D"],(function(t,e,l){"use strict";function n(t){if(!t)return!1;const e=t.verticalOffset;return!(!e||e.screenLength<=0||null!=e.maxWorldLength&&e.maxWorldLength<=0)}const o={types:{key:"type",base:e,typeMap:{line:l}},json:{write:!0}};t.calloutProperty=o,t.hasCalloutSupport=function(t){return"point-3d"===t.type||"label-3d"===t.type},t.hasVisibleCallout=function(t){if(!t||!t.supportsCallout||!t.supportsCallout())return!1;const e=t.callout;return!!e?.visible&&!!n(t)},t.hasVisibleVerticalOffset=n,t.textSymbolLayerSupportsVerticalOffset=function(t){return"center"===t.horizontalAlignment},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

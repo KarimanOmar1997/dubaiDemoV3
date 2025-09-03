@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../utils","./operations/query","../support/FeatureSet","../support/Query"],(function(e,t,r,u,n){"use strict";async function o(e,u,o,a){const c=t.parseUrl(e),s={...o},i=n.from(u),{data:p}=await r.executeQuery(c,i,i.sourceSpatialReference,s,a);return p}e.executeQueryJSON=async function(e,t,r,n){const a=await o(e,t,r,n);return u.fromJSON(a)},e.executeRawQueryJSON=o,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

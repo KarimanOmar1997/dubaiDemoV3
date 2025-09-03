@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["./CameraOrientationHPR","./CameraOrientationLTP","./CameraOrientationOPK","./CameraOrientationYPR","../enums/CameraOrientationType"],(function(e,n,a,t,i){"use strict";const r=new Map;return r.set(`${i.CameraOrientationType.OPK}`,{desc:"Using Omega Phi Kappa",constructor:a}),r.set(`${i.CameraOrientationType.HPR}`,{desc:"Using Heading, Pitch and Roll",constructor:e}),r.set(`${i.CameraOrientationType.YPR}`,{desc:"Using Yaw, Pitch and Roll",constructor:t}),r.set(`${i.CameraOrientationType.LTP}`,{desc:"Using Local Tangent Plane",constructor:n}),r}));

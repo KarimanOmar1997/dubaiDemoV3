@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/ajv.bundle","../../portal/schemas/webScene","../../support/validationUtilsAjv"],(function(n,e,t,o){"use strict";let i=null;function r(){return i||(i=new e.Ajv({allErrors:!0,extendRefs:!0}),i.addSchema(t.json,s()),i)}function s(n){return n?`${n}_schema.json`:"webScene_schema.json"}n.validate=function(n,e){!function(n){const e=s(n),o=r();if(!o.getSchema(e)){const i=function(n){const e=n?t.json.definitions[s(n)]:void 0;if(!e)throw new Error(`invalid schema name to validate against '${n}'`);const o={};for(const n in e)o[n]=e[n];return o.definitions=t.json.definitions,o}(n);o.addSchema(i,e)}}(e);const i=r();return i.validate(s(e),n)?[]:o.convertAjvErrors(i.errors??[])},Object.defineProperty(n,Symbol.toStringTag,{value:"Module"})}));

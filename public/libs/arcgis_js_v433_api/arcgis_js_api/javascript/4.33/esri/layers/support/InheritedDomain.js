@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/Logger","../../core/has","../../core/RandomLCG","../../core/Error","../../core/accessorSupport/decorators/enumeration","../../core/accessorSupport/decorators/subclass","./Domain"],(function(e,r,t,o,s,c,a,n,i){"use strict";var u;return e.default=class extends i{static{u=this}constructor(e){super(e),this.type="inherited"}clone(){return new u}},r.__decorate([a.enumeration({inherited:"inherited"})],e.default.prototype,"type",void 0),e.default=u=r.__decorate([n.subclass("esri.layers.support.InheritedDomain")],e.default),e.default}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../core/mathUtils","../../../core/libs/gl-matrix-2/factories/vec3f64"],(function(e,t,r){"use strict";const o=1e5,a=r.fromValues(parseFloat(Number(5802e-9).toFixed(6)),parseFloat(Number(13558e-9).toFixed(6)),parseFloat(Number(331e-7).toFixed(6))),i=r.fromValues(3*parseFloat(Number(65e-8).toFixed(6)),3*parseFloat(Number(1881e-9).toFixed(6)),3*parseFloat(Number(85e-9).toFixed(6))),l=r.fromValues(parseFloat(Number(a[0]+i[0]).toFixed(6)),parseFloat(Number(a[1]+i[1]).toFixed(6)),parseFloat(Number(a[2]+i[2]).toFixed(6)));e.betaCombined=l,e.betaMie=3996e-9,e.betaOzone=i,e.betaRayleigh=a,e.computeInnerAltitudeFade=function(e){return t.clamp((e-o)/9e5,0,1)},e.innerAtmosphereDepth=1e4,e.innerAtmosphereFadeStart=o,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

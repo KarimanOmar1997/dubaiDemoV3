@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../request","../../utils","./support/ExportCircuitsResult"],(function(t,i,r,s){"use strict";t.exportCircuits=async function(t,e,o){const c=r.parseUrl(t),u=e.toJSON();e.circuits&&(u.circuits=JSON.stringify(e.circuits));const n={...u,f:"json"},a=r.encode({...c.query,...n}),p=r.asValidOptions(a,{...o,method:"post"}),d=`${c.path}/circuits/export`,{data:f}=await i(d,p);return s.fromJSON(f)},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(t){"use strict";t.fovd2fovx=function(t,a,n){return 2*Math.atan(a*Math.tan(.5*t)/Math.sqrt(a*a+n*n))},t.fovd2fovy=function(t,a,n){return 2*Math.atan(n*Math.tan(.5*t)/Math.sqrt(a*a+n*n))},t.fovx2fovd=function(t,a,n){return 2*Math.atan(Math.sqrt(a*a+n*n)*Math.tan(.5*t)/a)},t.fovy2fovd=function(t,a,n){return 2*Math.atan(Math.sqrt(a*a+n*n)*Math.tan(.5*t)/n)},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

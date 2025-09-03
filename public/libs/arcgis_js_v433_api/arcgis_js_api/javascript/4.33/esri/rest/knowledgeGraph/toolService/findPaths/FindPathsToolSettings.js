@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../../../chunks/tslib.es6","../../../../core/Accessor","../../../../core/accessorSupport/decorators/property","../../../../core/has","../../../../core/Logger","../../../../core/RandomLCG","../../../../core/accessorSupport/decorators/subclass","./CIMFilteredFindPathsConfiguration"],(function(e,o,r,t,s,c,n,i){"use strict";let a=class extends o{constructor(e){super(e),this.inKnowledgeGraphUrl="",this.config=new i}};return e.__decorate([r.property()],a.prototype,"inKnowledgeGraphUrl",void 0),e.__decorate([r.property()],a.prototype,"config",void 0),a=e.__decorate([n.subclass("esri.rest.knowledgeGraph.toolService.findPaths.FindPathsToolSettings")],a),a}));

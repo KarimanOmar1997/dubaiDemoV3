@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+*/
+import e from"../request.js";import{getJsonType as t,fromJSON as s}from"../geometry/support/jsonUtils.js";import{Z as r}from"./unitUtils.js";import{p as i}from"./utils10.js";import{urlToObject as o}from"../core/urlUtils.js";import{e as n,d as a}from"./utils11.js";async function m(o,n,a,m){const p=i(o),u=n[0].spatialReference,f={...m,responseType:"json",query:{...p.query,f:"json",sr:r(u),target:JSON.stringify({geometryType:t(n[0]),geometries:n}),cutter:JSON.stringify(a)}},c=await e(p.path+"/cut",f),{cutIndexes:y,geometries:g=[]}=c.data;return{cutIndexes:y,geometries:g.map((e=>{const t=s(e);return t.spatialReference=u,t}))}}async function p(s,i,m){const p="string"==typeof s?o(s):s,u=i[0].spatialReference,f=t(i[0]),c={...m,query:{...p.query,f:"json",sr:r(u),geometries:JSON.stringify(n(i))}},{data:y}=await e(p.path+"/simplify",c);return a(y.geometries,f,u)}export{m as c,p as s};

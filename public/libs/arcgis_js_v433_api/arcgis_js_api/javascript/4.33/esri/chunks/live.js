@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./componentsUtils","./directive-helpers"],(function(e,t,r){"use strict";const n=t.e(class extends t.i$1{constructor(e){if(super(e),e.type!==t.t.PROPERTY&&e.type!==t.t.ATTRIBUTE&&e.type!==t.t.BOOLEAN_ATTRIBUTE)throw Error("The `live` directive is not allowed on child or event bindings");if(!r.f(e))throw Error("`live` bindings can only contain a single expression")}render(e){return e}update(e,[n]){if(n===t.T||n===t.E)return n;const i=e.element,s=e.name;if(e.type===t.t.PROPERTY){if(n===i[s])return t.T}else if(e.type===t.t.BOOLEAN_ATTRIBUTE){if(!!n===i.hasAttribute(s))return t.T}else if(e.type===t.t.ATTRIBUTE&&i.getAttribute(s)===n+"")return t.T;return r.m(e),n}});e.l=n}));

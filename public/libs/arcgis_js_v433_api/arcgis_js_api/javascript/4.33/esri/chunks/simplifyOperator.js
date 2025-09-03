@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../geometry/operators/gx/operatorSimplify","../geometry/operators/support/apiConverter"],(function(e,t,r){"use strict";function o(e){const o=r.getSpatialReference(e);return r.toGeometry(t.execute(r.fromGeometry(e),r.fromSpatialReference(o),!1),o)}function p(e){const o=e.map(r.fromGeometry),p=r.getSpatialReference(e);return t.executeMany(o,r.fromSpatialReference(p),!1).map((e=>r.toGeometry(e,p)))}function n(e){return t.isSimpleAsFeature(r.fromGeometry(e),r.fromSpatialReference(r.getSpatialReference(e)),!1)}const a=t.supportsCurves(),i=Object.freeze(Object.defineProperty({__proto__:null,execute:o,executeMany:p,isSimple:n,supportsCurves:a},Symbol.toStringTag,{value:"Module"}));e.execute=o,e.executeMany=p,e.isSimple=n,e.simplifyOperator=i,e.supportsCurves=a}));

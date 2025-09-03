@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(e){"use strict";const t="esri-batch-attribute-form",i=`${t}__group`,o=`${t}__input`,n={base:t,form:`${t}__form`,formHeader:`${t}__form-header`,noticeError:`${t}__notice-error`,label:`${t}__label`,labelTextContent:`${t}__label-text-content`,fieldInput:`${o}`,inputRadio:`${o}--radio`,placeholderRadio:`${o}--radio-placeholder`,inputRadioGroup:`${o}--radio-group`,inputRadioLabel:`${o}--radio-label`,inputDisabled:`${o}--disabled`,inputSwitch:`${o}--switch`,centeredButton:`${t}__centered-button`,description:`${t}__description-text`,dateInputContainer:`${t}__date-input-container`,block:`${t}__block`,group:i,groupSequential:`${i}--sequential`,individualElement:`${i}__individual-element`};e.css=n,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(o){"use strict";o.featureUtilityNetworkFields={fromGlobalId:"fromglobalid",fromNetworkSourceId:"fromnetworksourceid",fromTerminalId:"fromterminalid",toGlobalId:"toglobalid",toNetworkSourceId:"tonetworksourceid",toTerminalId:"toterminalid",associationType:"associationtype",globalId:"globalid",status:"status",isContentVisible:"iscontentvisible",percentAlong:"percentalong",assetGroup:"assetgroup",assetType:"assettype"},Object.defineProperty(o,Symbol.toStringTag,{value:"Module"})}));

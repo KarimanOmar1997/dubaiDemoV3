@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../core/mathUtils","./circleUtils","./mathUtils"],(function(t,e,a,r){"use strict";t.deriveCircleFromEllipticArc4=function(t,i){const[c,n]=i.a,[l,o]=t,[s,h]=c,[p,u]=n,d=l-p,M=o-u,f=Math.sqrt(d*d+M*M),A=s-p,b=h-u,m=Math.sqrt(A*A+b*b),v=0===f||0===m||!e.floatEqualRelative(f,m),w=f,E=r.wrapAtan2(o-u,l-p),S=r.correctSweepAndWinding(r.wrapAtan2(h-u,s-p),E,i);return new a.DerivedCircle(p,u,w,E,S,v)},t.splitEllipticArc4=function(t,e,r){const{cx:i,cy:c,thetaStart:n,thetaEnd:l}=t,[o,s,h,p]=e.a,u=n*(1-r)+l*r;return[{a:[a.interpolateCircle(t,r),[i,c],Math.abs(u-n)<Math.PI?1:0,p]},{a:[[...o],[i,c],Math.abs(l-u)<Math.PI?1:0,p]}]},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

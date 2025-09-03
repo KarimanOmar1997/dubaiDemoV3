@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/Error"],(function(o,e){"use strict";const n="Expected location to be a Point instance";o.InvalidLocationError=class extends e{constructor(){super("invalid-input:location",n)}},o.componentNotFoundMessage="Provided component is not part of the list of components",o.invalidLocationMessage=n,o.invalidPolygonMessage="Expected polygon to be a Polygon instance",o.meshNotLoadedMessage="Mesh must be loaded before applying operations",Object.defineProperty(o,Symbol.toStringTag,{value:"Module"})}));

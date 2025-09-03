@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../core/shaderTechnique/ReloadableShaderModule","../../core/shaderTechnique/ShaderTechnique","../../../../../chunks/HazeCompositing.glsl","../../../../webgl/enums","../../../../webgl/renderState"],(function(e,n,r,i,o,t,a){"use strict";class l extends i.ShaderTechnique{constructor(n,i){super(n,i,new r.ReloadableShaderModule(o.HazeCompositing,(()=>new Promise(((n,r)=>e(["./HazeCompositing.glsl"],n,r))))))}initializePipeline(){return a.makePipelineState({blending:a.separateBlendingParams(t.BlendFactor.ONE,t.BlendFactor.ZERO,t.BlendFactor.ONE_MINUS_SRC_COLOR,t.BlendFactor.ONE),depthTest:{func:t.CompareFunction.ALWAYS},colorWrite:a.defaultColorWrite})}}n.HazeCompositingTechnique=l,Object.defineProperty(n,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../core/shaderTechnique/ReloadableShaderModule","../../core/shaderTechnique/ShaderTechnique","../../../../../chunks/HighlightDownsample.glsl","../../../../webgl/renderState"],(function(e,i,l,r,n,t){"use strict";class a extends r.ShaderTechnique{constructor(i,r){super(i,r,new l.ReloadableShaderModule(n.HighlightDownsample,(()=>new Promise(((i,l)=>e(["../../shaders/HighlightDownsample.glsl"],i,l))))))}initializePipeline(){return t.makePipelineState({colorWrite:t.defaultColorWrite})}}i.HighlightDownsampleTechnique=a,Object.defineProperty(i,Symbol.toStringTag,{value:"Module"})}));

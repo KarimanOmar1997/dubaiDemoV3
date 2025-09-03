@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../webgl-engine/lib/IntersectorResult","../webgl-engine/lib/IntersectorTarget","../webgl-engine/lib/IntersectorType"],(function(e,t,r,n){"use strict";class s extends r.Graphic3DTarget{constructor(e,t,r){super(e,t),this.triangleNr=r}}e.OverlayTarget=s,e.isOverlayIntersectorResult=function(e){return t.isValidIntersectorResult(e)&&e.intersector===n.IntersectorType.OVERLAY&&!!e.target},e.isTerrainIntersectorResult=function(e){return t.isValidIntersectorResult(e)&&e.intersector===n.IntersectorType.TERRAIN&&!!e.target},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../layers/support/labelFormatUtils","../../../../../layers/support/labelUtils","../../../arcade/callExpressionWithCursor","./AComputedField"],(function(e,t,r,a,s){"use strict";class l extends s.AComputedField{static async create(e,a){const s=r.sqlToTemplateString(e);return new l((e=>s.replaceAll(/{[^}]*}/g,(r=>{const a=r.slice(1,-1),s=e.metadata.fieldsIndex.get(a);if(null==s)return r;const l=e.readAttribute(a);return null==l?"":t.formatField(l,s)}))))}constructor(e){super(),this._evaluator=e}resize(e){}read(e,t){return this._evaluator(e)}readWithDefault(e,t,r){const s=this._evaluator(e);return a.isBadArcadeResult(s)?r:s}hasArcadeDependency(e){return!1}}e.ComputedLegacyLabelExpression=l,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

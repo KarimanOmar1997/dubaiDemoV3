@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../core/unitUtils","../geometry/operators/support/apiConverter"],(function(e,t,r){"use strict";function o(e,o={}){const{unit:n}=o;let a=r.fromGeometry(e).calculateArea2D();if(a&&n){const o=r.getSpatialReference(e);if(o.isGeographic)throw new Error("Unable to convert from an angular area unit to a linear area unit.");const i=t.areaUnitFromSpatialReference(o);i!==n&&(i?a=t.convertUnit(a,i,n):(a=Math.sqrt(a),a*=t.getMetersPerUnitForSR(o),a**=2,a=t.convertUnit(a,"square-meters",n)))}return a}const n=!0,a=Object.freeze(Object.defineProperty({__proto__:null,execute:o,supportsCurves:n},Symbol.toStringTag,{value:"Module"}));e.areaOperator=a,e.execute=o,e.supportsCurves=n}));

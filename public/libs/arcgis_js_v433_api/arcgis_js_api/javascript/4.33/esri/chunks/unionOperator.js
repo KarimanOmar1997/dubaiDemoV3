@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../geometry/operators/gx/operatorUnion","../geometry/operators/support/apiConverter"],(function(e,t,r){"use strict";function o(e,o){const n=r.getSpatialReference(e);return r.toGeometry(t.execute(r.fromGeometry(e),r.fromGeometry(o),r.fromSpatialReference(n)),n)}function n(e){const o=e.map(r.fromGeometry),n=r.getSpatialReference(e);return r.toGeometry(t.executeMany(o,r.fromSpatialReference(n)),n)}const u=t.supportsCurves(),p=Object.freeze(Object.defineProperty({__proto__:null,execute:o,executeMany:n,supportsCurves:u},Symbol.toStringTag,{value:"Module"}));e.execute=o,e.executeMany=n,e.supportsCurves=u,e.unionOperator=p}));

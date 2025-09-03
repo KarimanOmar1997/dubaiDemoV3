@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../../../../../chunks/tslib.es6","../../../../GraphShaderModule","../../../../graph/glsl","../surface","./BaseRasterProcessorShader"],(function(e,i,s,t,r,o){"use strict";class a extends o.BaseRasterProcessorShader{constructor(){super(...arguments),this.type="HillshadeShader",this.isMultidirectional=!1}_process(e){const{texture:i}=this.config,s=r.getSurfaceValues(i,e,this.config.srcImageSize),o=r.hillshade(s,this.hillshadeConfig,this.isMultidirectional);return new t.Vec4(o.rgb.multiply(255),o.a)}}i.__decorate([s.define],a.prototype,"isMultidirectional",void 0),i.__decorate([s.uniform(r.HillshadeConfig)],a.prototype,"hillshadeConfig",void 0),e.HillshadeShader=a,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

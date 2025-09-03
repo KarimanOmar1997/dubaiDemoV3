@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(e){"use strict";function t(){const e=new Float32Array(16);return e[0]=1,e[5]=1,e[10]=1,e[15]=1,e}function n(e){const t=new Float32Array(16);return t[0]=e[0],t[1]=e[1],t[2]=e[2],t[3]=e[3],t[4]=e[4],t[5]=e[5],t[6]=e[6],t[7]=e[7],t[8]=e[8],t[9]=e[9],t[10]=e[10],t[11]=e[11],t[12]=e[12],t[13]=e[13],t[14]=e[14],t[15]=e[15],t}function o(e,t,n,o,r,c,a,l,u,f,i,s,y,T,b,d){const m=new Float32Array(16);return m[0]=e,m[1]=t,m[2]=n,m[3]=o,m[4]=r,m[5]=c,m[6]=a,m[7]=l,m[8]=u,m[9]=f,m[10]=i,m[11]=s,m[12]=y,m[13]=T,m[14]=b,m[15]=d,m}const r=t(),c=Object.freeze(Object.defineProperty({__proto__:null,IDENTITY:r,clone:n,create:t,fromValues:o},Symbol.toStringTag,{value:"Module"}));e.IDENTITY=r,e.clone=n,e.create=t,e.fromValues=o,e.mat4f32=c,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

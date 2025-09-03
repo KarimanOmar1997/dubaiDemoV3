@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/has","./BindType"],(function(e,i,n){"use strict";e.Uniform=class{constructor(e,i,s,a,t=null){if(this.name=e,this.type=i,this.arraySize=t,this.bind={[n.BindType.Bind]:null,[n.BindType.Pass]:null,[n.BindType.Draw]:null},a)switch(s){case void 0:break;case n.BindType.Bind:this.bind[n.BindType.Bind]=a;break;case n.BindType.Pass:this.bind[n.BindType.Pass]=a;break;case n.BindType.Draw:this.bind[n.BindType.Draw]=a}}equals(e){return this.type===e.type&&this.name===e.name&&this.arraySize===e.arraySize}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

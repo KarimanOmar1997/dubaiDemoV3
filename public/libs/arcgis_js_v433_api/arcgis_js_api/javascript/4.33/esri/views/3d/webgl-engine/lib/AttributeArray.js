@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../core/typedArrayUtil","../../../../geometry/support/float16"],(function(r,t,a){"use strict";r.cloneAttributeData=function(r){if(r.length<t.nativeArrayMaxSize)return Array.from(r);if(Array.isArray(r))return Float64Array.from(r);if(!("BYTES_PER_ELEMENT"in r))return Array.from(r);switch(r.BYTES_PER_ELEMENT){case 1:return Uint8Array.from(r);case 2:return t.isFloat16Array(r)?a.getFloat16ArrayConstructor().from(r):t.isUint16Array(r)?Uint16Array.from(r):Int16Array.from(r);case 4:return Float32Array.from(r);default:return Float64Array.from(r)}},Object.defineProperty(r,Symbol.toStringTag,{value:"Module"})}));

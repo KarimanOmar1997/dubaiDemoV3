@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(e){"use strict";class n{constructor(e,n){this.near=e,this.far=n,this.near=t(e),this.far=t(n)}}const s={sunny:new n([.15,.05,.01,0,0],[1,.8,.6,.4,.2]),cloudy:new n([.15,.05,.01,0,0],[1,.8,.6,.4,.2]),rainy:new n([.15,.05,.01,0,0],[1,.8,.6,.4,.2]),snowy:new n([.15,.05,.01,0,0],[1,.8,.6,.4,.2]),foggy:new n([.15,.05,.01,0,0],[1,.8,.6,.4,.2])};function t(e,n=1){const s=e[0]+e[1]+e[2]+e[3]+e[4];return s<n?e:[e[0]/s,e[1]/s,e[2]/s,e[3]/s,e[4]/s]}e.blurRadiusPresets={sunny:.0022,cloudy:.0022,rainy:.0022,snowy:.0022,foggy:.0022},e.defaultExposure=2.6,e.lodFactorsPresets=s,e.normalizePreset=t,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

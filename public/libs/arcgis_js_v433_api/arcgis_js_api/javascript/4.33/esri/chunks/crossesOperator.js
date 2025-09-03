@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./OperatorCrosses","../geometry/operators/support/apiConverter"],(function(e,r,t){"use strict";const o=new r.OperatorCrosses;function s(e){const r=t.getSpatialReference(e);return o.accelerateGeometry(t.fromGeometry(e),t.fromSpatialReference(r),1)}function c(e,r){return o.execute(t.fromGeometry(e),t.fromGeometry(r),t.fromSpatialReference(e.spatialReference),null)}const n=o.supportsCurves(),a=Object.freeze(Object.defineProperty({__proto__:null,accelerateGeometry:s,execute:c,supportsCurves:n},Symbol.toStringTag,{value:"Module"}));e.accelerateGeometry=s,e.crossesOperator=a,e.execute=c,e.supportsCurves=n}));

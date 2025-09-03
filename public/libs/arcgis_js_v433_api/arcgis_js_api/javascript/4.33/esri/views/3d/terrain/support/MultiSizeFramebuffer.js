@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../webgl/enums","../../../webgl/FramebufferObject","../../../webgl/RenderbufferDescriptor","../../../webgl/TextureDescriptor"],(function(e,t,r,s,o){"use strict";e.MultiSizeFramebuffer=class{constructor(e){this._rctx=e,this._fbos=new Map}get(e){return this._getPool(e)}dispose(){this._fbos.forEach((e=>e.dispose())),this._fbos.clear()}_getPool(e){const i=this._fbos.get(e);if(i)return i;const f=new r.FramebufferObject(this._rctx,new o.TextureDescriptor(e),new s.RenderbufferDescriptor(t.SizedDepthStencilFormat.DEPTH24_STENCIL8,e));return this._fbos.set(e,f),f}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

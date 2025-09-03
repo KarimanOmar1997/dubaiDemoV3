@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./support/builderUtils","./support/shapeUtils","../support/executorUtils"],(function(e,t,o,r){"use strict";e.execute=function({templatePart:e,shape:s,edits:i,relationships:n,mode:p}){if(!r.isPolygon(s))return;const{rings:l}=s;for(let r=0;r<l.length;r++)if(l[r].length>0){const l=o.pointFromPolygonVertex(s,r,0);return void t.makeFeatureFromGroupPart({templatePart:e,shape:l,edits:i,relationships:n,mode:p},"V0")}},e.isAsync=!1,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

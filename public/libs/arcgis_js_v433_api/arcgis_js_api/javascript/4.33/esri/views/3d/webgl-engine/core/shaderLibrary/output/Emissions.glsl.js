@@ -1,0 +1,11 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../ShaderOutput","../attributes/VertexTextureCoordinates.glsl","../../shaderModules/Float3DrawUniform","../../shaderModules/Float3PassUniform","../../shaderModules/FloatDrawUniform","../../shaderModules/FloatPassUniform","../../shaderModules/glsl","../../shaderModules/Texture2DDrawUniform","../../shaderModules/Texture2DPassUniform","../../../lib/GLTextureMaterial","../../../../../webgl/BindType"],(function(e,s,o,i,r,n,t,m,a,l,u,d){"use strict";var v;e.EmissionSource=void 0,(v=e.EmissionSource||(e.EmissionSource={}))[v.None=0]="None",v[v.SymbolColor=1]="SymbolColor",v[v.EmissiveColor=2]="EmissiveColor",v[v.Texture=3]="Texture",v[v.COUNT=4]="COUNT";class f extends u.GLEmissiveTexturePassParameters{}e.Emissions=function(u,v){if(!s.isColorOrColorEmission(v.output))return;const{emissionSource:f,hasEmissiveTextureTransform:c,bindType:x}=v,E=f===e.EmissionSource.Texture;E&&(u.include(o.VertexTextureCoordinates,v),u.fragment.uniforms.add(x===d.BindType.Pass?new l.Texture2DPassUniform("texEmission",(e=>e.textureEmissive)):new a.Texture2DDrawUniform("texEmission",(e=>e.textureEmissive))));const T=f===e.EmissionSource.EmissiveColor||E;T&&u.fragment.uniforms.add(x===d.BindType.Pass?new r.Float3PassUniform("emissiveBaseColor",(e=>e.emissiveBaseColor)):new i.Float3DrawUniform("emissiveBaseColor",(e=>e.emissiveBaseColor)));const C=f!==e.EmissionSource.None;C&&u.fragment.uniforms.add(x===d.BindType.Pass?new t.FloatPassUniform("emissiveStrength",(e=>e.emissiveStrength)):new n.FloatDrawUniform("emissiveStrength",(e=>e.emissiveStrength)));const S=f===e.EmissionSource.SymbolColor;u.fragment.code.add(m.glsl`
+    vec4 getEmissions(vec3 symbolColor) {
+      vec4 emissions = ${T?"vec4(emissiveBaseColor, 1.0)":S?"vec4(symbolColor, 1.0)":"vec4(0.0)"};
+      ${m.If(E,`emissions *= textureLookup(texEmission, ${c?"emissiveUV":"vuv0"});\n         emissions.w = emissions.rgb == vec3(0.0) ? 0.0: emissions.w;`)}
+      ${m.If(C,"emissions.rgb *= emissiveStrength;")}
+      return emissions;
+    }
+  `)},e.EmissionsParameters=f,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

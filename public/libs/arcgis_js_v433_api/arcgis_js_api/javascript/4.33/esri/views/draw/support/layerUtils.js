@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../layers/support/editableLayers","../../../layers/support/layerUtils"],(function(e,r,a){"use strict";e.addUniqueLayer=function(e,r,a){if(!r||!e?.map)return;const{map:s}=e,n=s.layers.find((e=>e===r));n||s.add(r,a),n&&null!=a&&s.layers.reorder(n,a)},e.findLayerView=function(e,r){const a="subtype-sublayer"===r?.type?r.parent:r;return e.allLayerViews.find((e=>{const r=e.layer;return r===a||"sublayers"in r&&null!=r.sublayers&&r.sublayers.includes(a)}))},e.isConnectedReshapeSupportedLayer=function(e){return r.isEditableLayer(e)||a.isSubtypeSublayer(e)||a.isGraphicsLayer(e)||a.isKnowledgeGraphSublayer(e)},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

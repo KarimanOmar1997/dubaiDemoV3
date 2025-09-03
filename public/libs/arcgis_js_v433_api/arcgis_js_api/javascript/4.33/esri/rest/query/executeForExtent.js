@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../geometry/Extent","../utils","./operations/query","../support/Query"],(function(t,e,n,o,a){"use strict";t.executeForExtent=async function(t,r,u){const i=n.parseUrl(t),s=await o.executeQueryForExtent(i,a.from(r),{...u}),x=s.data.extent;return!x||isNaN(x.xmin)||isNaN(x.ymin)||isNaN(x.xmax)||isNaN(x.ymax)?{count:s.data.count,extent:null}:{count:s.data.count,extent:e.fromJSON(x)}},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

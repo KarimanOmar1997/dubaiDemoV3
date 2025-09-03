@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../request","../../utils","./support/EditUnitIdentifiersResult"],(function(t,e,s,o){"use strict";t.reset=async function(t,i,n){const r=s.parseUrl(t),u=i.toJSON();i.objects&&(u.objects=JSON.stringify(i.objects));const a={...u,f:"json"},c=s.encode({...r.query,...a}),d=s.asValidOptions(c,{...n,method:"post"}),f=`${r.path}/unitIdentifiers/reset`,{data:p}=await e(f,d);return o.fromJSON(p)},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

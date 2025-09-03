@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../core/promiseUtils"],(function(t,o){"use strict";t.createLoadLayersFunction=function(){let t=new AbortController;return async a=>{t.abort(),t=new AbortController;const r={signal:t.signal},e=a.toArray().map((t=>async function(t,a){await t.load(a),await t.loadAll(),o.throwIfAborted(a),t.summaryStatistics&&await t.summaryStatistics.load(a)}(t,r)));await Promise.all(e),o.throwIfAborted(r)}},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

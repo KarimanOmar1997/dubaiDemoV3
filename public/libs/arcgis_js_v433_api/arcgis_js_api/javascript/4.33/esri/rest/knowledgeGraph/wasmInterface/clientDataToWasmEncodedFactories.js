@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./wasmUtils"],(function(e,t){"use strict";function n(e,t,n,a){const r=new n.ClientDataKey;r.deleteLater(),r.key_string=e;const o=new n.ClientDataFetchRequestParameter;o.deleteLater(),o.set_key(r);const c=t.get(e);return c&&!a&&(o.v_tag={v_tag:c.version}),o}e.clientDataKeyToWasmFetchRequestParam=n,e.encodeClientDataAtKeysRequest=function(e,a,r,o=!1){const c=new r.ClientDataFetchRequestEncoder;c.deleteLater();for(const t of e){const e=n(t,a,r,o);c.add_client_data_fetch_request_parameter(e)}c.encode();const s=c.get_encoding_result();return t.checkWasmError(s.error,"knowledge-graph:fetchClientDataAtKeys-encoding-failed","Attempting to encode the fetchClientDataAtKeys failed"),structuredClone(s.get_byte_buffer())},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./ChapmanRaymarching.glsl","../webgl-engine/core/shaderLibrary/shading/Gamma.glsl","../webgl-engine/core/shaderLibrary/shading/MainLighting.glsl","../webgl-engine/core/shaderModules/Float3PassUniform","../webgl-engine/core/shaderModules/FloatPassUniform","../webgl-engine/core/shaderModules/glsl","../webgl-engine/core/shaderModules/Texture2DBindUniform","../webgl-engine/shaders/ScreenSpacePassAtmosphere.glsl","../webgl-engine/shaders/SphereIntersect.glsl","../webgl-engine/shaders/ToneMapping.glsl","../../webgl/ShaderBuilder","../../../chunks/ChapmanAtmosphere.glsl"],(function(e,n,s,l,r,g,a,i,o,d,h,b,t){"use strict";e.build=t.build,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

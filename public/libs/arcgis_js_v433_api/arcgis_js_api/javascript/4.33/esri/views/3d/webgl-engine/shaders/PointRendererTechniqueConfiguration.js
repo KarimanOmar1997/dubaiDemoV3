@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../chunks/tslib.es6","../core/shaderTechnique/ShaderTechniqueConfiguration","../materials/DefaultTechniqueConfiguration"],(function(e,t,i,r){"use strict";class o extends r.DefaultTechniqueConfiguration{constructor(){super(...arguments),this.drawScreenSize=!1,this.useFixedSizes=!1,this.hasOccludees=!1,this.clippingEnabled=!1,this.draped=!1}}t.__decorate([i.parameter()],o.prototype,"drawScreenSize",void 0),t.__decorate([i.parameter()],o.prototype,"useFixedSizes",void 0),t.__decorate([i.parameter()],o.prototype,"hasOccludees",void 0),t.__decorate([i.parameter()],o.prototype,"clippingEnabled",void 0),e.PointRendererTechniqueConfiguration=o,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

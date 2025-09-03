@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./support/builderUtils","./support/offsetUtils","./support/shapeUtils","../support/executorUtils","../../../../geometry/Polyline"],(function(e,t,s,i,o,a){"use strict";e.execute=function({templatePart:e,shape:r,edits:l,relationships:n,mode:p}){let f=[];if(o.isRadial(r))f=i.convertRadialToPolylines(r);else{if(!o.isPolyline(r))return;f=[r]}const c=t.readOffsetDistance(e.builderConfig);for(const i of f){const r=i.clone();for(const i of r.paths){let o=new a({spatialReference:r.spatialReference,paths:[i],hasZ:r.hasZ,hasM:r.hasM});o&&c&&(o=s.offset(o,c)),o&&t.makeFeatureFromGroupPart({templatePart:e,shape:o,edits:l,relationships:n,mode:p})}if("digitizing"===p&&l.length>o.maxDigitizingDisplayEdits)break}},e.isAsync=!1,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

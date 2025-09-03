@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/handleUtils","../../core/has","../../core/reactiveUtils"],(function(e,n,t,o){"use strict";e.connectDelayedLoading=function({getLoading:e,setEffectiveLoading:t}){let i,a;function c(){clearTimeout(a),a=void 0}function r(e){i=e?Date.now():void 0,t(e)}function u(e,n){if(e<=0)return r(n);a=setTimeout((()=>{c(),r(n)}),e)}return r(e()),n.handlesGroup([o.watch(e,(e=>{c(),e?u(500,!0):u(null!=i?1e3-(Date.now()-i):0,!1)}),o.sync),n.makeHandle(c)])},e.minShownDuration=1e3,e.showDelay=500,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

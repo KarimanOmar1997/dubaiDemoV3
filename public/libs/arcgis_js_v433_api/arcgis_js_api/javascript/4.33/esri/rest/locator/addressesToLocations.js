@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../request","../utils","../support/AddressCandidate","../support/AddressesToLocationsParameters"],(function(e,t,s,o,n){"use strict";function r(e){const{data:t}=e;if(!t)return[];const{locations:s,spatialReference:n}=t;return s?s.map((e=>{const{location:t}=e;return t&&(t.spatialReference=n),o.fromJSON(e)})):[]}e.addressesToLocations=async function(e,o,a){o=n.from(o);const c=s.parseUrl(e),i={...o.toJSON?.(),f:"json"},d=s.encode({...c.query,...i}),u=s.asValidOptions(d,a),p=`${c.path}/geocodeAddresses`;return t(p,u).then(r)},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

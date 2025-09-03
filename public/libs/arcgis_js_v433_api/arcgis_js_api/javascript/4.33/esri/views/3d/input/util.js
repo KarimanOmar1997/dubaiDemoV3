@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(t){"use strict";t.ExponentialFalloff=class{constructor(t){this._gain=t}reset(t){this._value=t}set gain(t){this._gain=t}get value(){return void 0===this._value?0:this._value}update(t){void 0===this._value?this._value=t:this._value=this._gain*t+(1-this._gain)*this._value}},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

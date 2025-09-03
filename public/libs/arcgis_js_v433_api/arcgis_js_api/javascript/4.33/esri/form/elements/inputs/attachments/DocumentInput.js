@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../../../chunks/tslib.es6","../../../../core/accessorSupport/decorators/property","../../../../core/has","../../../../core/Logger","../../../../core/RandomLCG","../../../../core/accessorSupport/decorators/subclass","./Input"],(function(e,t,r,o,s,c,p){"use strict";let n=class extends p{constructor(e){super(e),this.type="document",this.maxFileSize=null}};return e.__decorate([t.property({type:["document"],readOnly:!0,json:{write:!0}})],n.prototype,"type",void 0),e.__decorate([t.property({type:Number,json:{write:!0}})],n.prototype,"maxFileSize",void 0),n=e.__decorate([c.subclass("esri.form.elements.inputs.attachments.DocumentInput")],n),n}));

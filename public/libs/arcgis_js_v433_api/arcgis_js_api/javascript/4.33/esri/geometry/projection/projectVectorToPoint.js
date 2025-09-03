@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/libs/gl-matrix-2/factories/vec3f64","../projectionUtils","./projectVectorToVector"],(function(e,t,o,r){"use strict";function c(e,t,o){return!!r.projectVectorToVector(e,t,i,o.spatialReference)&&(o.x=i[0],o.y=i[1],o.z=i[2],!0)}const i=t.create();e.projectVectorToPoint=c,e.projectVectorToPointAsync=async function(e,t,r,i){return await o.initializeProjection(t,r.spatialReference,null,i),c(e,t,r)},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

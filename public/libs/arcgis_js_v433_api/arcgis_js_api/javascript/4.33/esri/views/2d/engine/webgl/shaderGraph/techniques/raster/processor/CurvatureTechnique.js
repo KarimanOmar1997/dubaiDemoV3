@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../TechniqueType","./BaseRasterProcessorTechnique","../../shaders/raster/processor/CurvatureShader"],(function(e,r,t,s){"use strict";class u extends t.BaseRasterProcessorTechnique{constructor(){super(...arguments),this.name="RasterCurvatureProcessor",this.type=r.RasterTechniqueType.Curvature,this.shaders={curvature:new s.CurvatureShader}}_process(e,r){const t=e.rasterFunction.parameters,s={curvatureType:t.curvatureType},u=r.getRasterCellSize(),a={zlFactor:200*t.zFactor/u[0]/u[1]},o=this._getCommonConfig(e,r),c={shader:this.shaders.curvature,uniforms:{config:o,curvatureConfig:a},defines:s,optionalAttributes:null,useComputeBuffer:!1},{painter:n,context:i}=e;n.submitDrawMesh(i,c,n.quadMesh)}}e.CurvatureTechnique=u,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../layers/support/arcgisLayerUrl","./FeatureService"],(function(e,r,t){"use strict";const u=(e,s)=>{for(const o of e)if("feature"===o.type||"subtype-group"===o.type){if(!o.url)continue;const e=r.parse(o.url).url.path,u=s.get(e);if(u)u.layers.push(o);else{const r=new t({url:e}),u=[o];s.set(e,{featureService:r,layers:u})}}else"group"===o.type&&u(o.layers.filter((e=>"feature"===e.type||"subtype-group"===e.type||"group"===e.type)),s)};e.createFeatureServices=function(e){const r=new Map;return u(e,r),r},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

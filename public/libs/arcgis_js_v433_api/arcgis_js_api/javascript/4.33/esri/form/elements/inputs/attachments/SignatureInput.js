@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../../../chunks/tslib.es6","../../../../core/accessorSupport/decorators/property","../../../../core/has","../../../../core/Logger","../../../../core/RandomLCG","../../../../core/accessorSupport/decorators/subclass","./Input","./support/utils"],(function(e,t,r,o,s,p,c,n){"use strict";let a=class extends c{constructor(e){super(e),this.type="signature",this.inputMethod="any"}};return e.__decorate([t.property({type:["signature"],readOnly:!0,json:{write:!0}})],a.prototype,"type",void 0),e.__decorate([t.property({type:n.mediaInputArray,json:{write:!0}})],a.prototype,"inputMethod",void 0),a=e.__decorate([p.subclass("esri.form.elements.inputs.attachments.SignatureInput")],a),a}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["./constants"],(function(e){"use strict";class t{constructor(s){this.extent=e.tileCoordSize,this.keys=[],this.values=[],this._pbfLayer=s.clone();const r=s.asUnsafe();for(;r.next();)switch(r.tag()){case 1:this.name=r.getString();break;case 3:this.keys.push(r.getString());break;case 4:this.values.push(r.processMessage(t._parseValue));break;case 5:this.extent=r.getUInt32();break;default:r.skip()}}getData(){return this._pbfLayer}static _parseValue(e){for(;e.next();)switch(e.tag()){case 1:return e.getString();case 2:return e.getFloat();case 3:return e.getDouble();case 4:return e.getInt64();case 5:return e.getUInt64();case 6:return e.getSInt64();case 7:return e.getBool();default:e.skip()}return null}}return t}));

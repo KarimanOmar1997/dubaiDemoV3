@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./ref","./keyed","./componentsUtils"],(function(t,e,i,s){"use strict";const a={width:12,height:6,strokeWidth:1};t.FloatingArrow=({floatingLayout:t,key:o,ref:r})=>{const{width:$,height:n,strokeWidth:h}=a,l=$/2,c="vertical"===t,d=`M0,0 H${$} L${$-l},${n} Q${l},${n} ${l},${n} Z`;return i.i(o,s.x`<svg aria-hidden=true class=${s.safeClassMap("calcite-floating-ui-arrow")} height=${$} viewBox=${`0 0 ${$} ${$+(c?0:h)}`} width=${$+(c?h:0)} ${e.n(r)}>${s.b`${s.b`<path class=${s.safeClassMap("calcite-floating-ui-arrow__stroke")} d=${d??s.E} fill=none stroke-width=${h+1} />`||""}<path d=${d??s.E} stroke=none />`}</svg>`)}}));

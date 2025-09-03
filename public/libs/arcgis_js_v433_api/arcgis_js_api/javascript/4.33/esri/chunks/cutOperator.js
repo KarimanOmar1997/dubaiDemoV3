@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../core/arrayUtils","../geometry/operators/gx/operatorCut","../geometry/operators/support/apiConverter"],(function(e,r,t,o){"use strict";function p(e,p){const s=o.getSpatialReference(e);return t.execute(o.fromGeometry(e),o.fromPolyline(p),o.fromSpatialReference(s)).map((e=>o.toGeometry(e,s))).filter(r.isSome)}const s=t.supportsCurves(),u=Object.freeze(Object.defineProperty({__proto__:null,execute:p,supportsCurves:s},Symbol.toStringTag,{value:"Module"}));e.cutOperator=u,e.execute=p,e.supportsCurves=s}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../utils","../Technique","../TechniqueType","../shaders/GridShader"],(function(e,i,t,s,r){"use strict";class n extends t.Technique{constructor(){super(...arguments),this.type=s.TechniqueType.Grid,this.shaders={grid:new r.GridShader}}render(e,t){const{context:s,painter:r}=e;r.setPipelineState(i.simplePipelineState),r.submitDrawMesh(s,{shader:this.shaders.grid,uniforms:t,defines:null,optionalAttributes:null,useComputeBuffer:!1},r.quadMesh)}}e.GridTechnique=n,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../Color","../../core/Accessor","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./DurationMode"],(function(o,e,r,t,s,c,n,u,a){"use strict";let p=class extends r{constructor(o){super(o),this.color=new e([0,0,255,.7]),this.mode=a.DurationMode.Continuous}};return o.__decorate([t.property({type:e,nonNullable:!0})],p.prototype,"color",void 0),o.__decorate([t.property({type:["continuous","hourly"]})],p.prototype,"mode",void 0),p=o.__decorate([u.subclass("esri.widgets.ShadowCast.DurationOptions")],p),p}));

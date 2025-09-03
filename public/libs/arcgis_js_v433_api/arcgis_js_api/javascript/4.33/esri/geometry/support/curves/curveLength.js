@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./bezierCurveUtils","./circleUtils","./circularArcUtils","./curveUtils","./ellipticArc4Utils","./ellipticArc7Utils","./mathUtils"],(function(r,i,e,t,c,l,n,s){"use strict";r.curveLength=function(r,u,a=1){if(c.isBezierCurve(u))return i.bezierCurveLength(r,u,a);if(c.isCircularArc(u)){const i=t.deriveCircleFromCircularArc(r,u);return i.isInvalid?Math.sqrt(s.distance2(r,u.c[0])):e.circularCurveLength(i)}if(c.isEllipticArc(u)){if(c.isEllipticArc4(u)){const i=l.deriveCircleFromEllipticArc4(r,u);return i.isInvalid?Math.sqrt(s.distance2(r,u.a[0])):e.circularCurveLength(i)}return n.ellipticArcLength(r,u,a)}return 0},Object.defineProperty(r,Symbol.toStringTag,{value:"Module"})}));

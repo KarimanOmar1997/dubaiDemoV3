@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../../../chunks/tslib.es6","../../../../core/JSONSupport","../../../../core/accessorSupport/decorators/property","../../../../core/has","../../../../core/Logger","../../../../core/RandomLCG","../../../../core/accessorSupport/decorators/subclass","../../../../geometry/Geometry"],(function(e,r,t,o,s,c,p,u){"use strict";let i=class extends r{constructor(e){super(e),this.error=null,this.geometry=null,this.name=null}};return e.__decorate([t.property({type:Object})],i.prototype,"error",void 0),e.__decorate([t.property({type:u})],i.prototype,"geometry",void 0),e.__decorate([t.property({type:String})],i.prototype,"name",void 0),i=e.__decorate([p.subclass("esri.rest.networks.circuits.support.CircuitVerifyResult")],i),i}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../core/unitUtils","../geometry/operators/support/apiConverter"],(function(e,t,r){"use strict";function o(e,o={}){const{unit:n}=o;let u=r.fromGeometry(e).calculateLength2D();if(u&&n){const o=r.getSpatialReference(e);u=t.convertFromSpatialReferenceUnit(u,o,n)}return u}const n=!0,u=Object.freeze(Object.defineProperty({__proto__:null,execute:o,supportsCurves:n},Symbol.toStringTag,{value:"Module"}));e.execute=o,e.lengthOperator=u,e.supportsCurves=n}));

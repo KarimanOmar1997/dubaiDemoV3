@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../../chunks/pe"],(function(e,n,t){"use strict";let o;function r(){return!!o&&t.isLoaded()}n.execute=function(e,n,t){return o.execute(e,n,t,null)},n.isLoaded=r,n.load=async function(){if(!r()){const[n,r]=await Promise.all([new Promise(((n,t)=>e(["../../../chunks/OperatorGeodeticLength"],n,t))),new Promise(((n,t)=>e(["../../../chunks/ProjectionTransformation"],n,t))).then((e=>e.SpatialReference)).then((({injectPe:e})=>e)),t.load()]);o=new n.OperatorGeodeticLength,r(t.pe)}},n.supportsCurves=function(){return o.supportsCurves()},Object.defineProperty(n,Symbol.toStringTag,{value:"Module"})}));

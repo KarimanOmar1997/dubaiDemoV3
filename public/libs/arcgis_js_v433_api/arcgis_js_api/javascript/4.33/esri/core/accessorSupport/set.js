@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../Error","../has","../Logger","./get"],(function(e,t,n,o,r){"use strict";e.set=function e(o,s,i){if(o&&s)if("object"==typeof s)for(const t of Object.getOwnPropertyNames(s))e(o,t,s[t]);else{if(s.includes(".")){const t=s.split("."),n=t.splice(-1,1)[0];return void e(r.get(o,t),n,i)}const c=o.__accessor__;null!=c&&function(e,o){if(n("esri-unknown-property-errors")&&!function(e,t){return null!=t.metadata[e]}(e,o))throw new t("set:unknown-property",function(e,t){return"setting unknown property '"+e+"' on instance of "+t.host.declaredClass}(e,o))}(s,c),o[s]=i}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

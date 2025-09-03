@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./index-p4VH55K1"],(function(e,n){"use strict";const r={CET:"Europe/Brussels",CST6CDT:"America/Chicago",EET:"Europe/Athens",EST:"America/Panama",EST5EDT:"America/New_York",HST:"Pacific/Honolulu",MET:"Europe/Brussels",MST:"America/Phoenix",MST7MDT:"America/Denver",PST8PDT:"America/Los_Angeles",WET:"Europe/Lisbon"},i=(()=>{const e=Object.keys(r);return Object.keys(n.getAllTimezones()).filter((n=>!e.includes(n)))})();e.normalize=function(e){const i=r[e];if(i)return i;const o=n.getTimezone(e);return o?.aliasOf??e},e.timeZones=i,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

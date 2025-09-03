@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../arcade"],(function(e,t){"use strict";const r=t.createArcadeProfile("form-calculation");e.ArcadeExecutorProvider=class{constructor(){this._executors=new Map,this._executorPromises=new Map}async getArcadeExecutor(e){return this._executors.has(e)?this._executors.get(e):this._executorPromises.has(e)?this._executorPromises.get(e):this._createExecutor(e)}async _createExecutor(e){try{const s=t.createArcadeExecutor(e,r);this._executorPromises.set(e,s);const c=await s;return this._executors.set(e,c),c}finally{this._executorPromises.delete(e)}}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

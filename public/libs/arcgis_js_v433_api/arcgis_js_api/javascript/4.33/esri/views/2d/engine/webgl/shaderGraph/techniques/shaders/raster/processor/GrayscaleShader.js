@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../../../../../chunks/tslib.es6","../../../../GraphShaderModule","../../../../graph/glsl","./BaseRasterProcessorShader"],(function(e,r,s,t,o){"use strict";class a extends s.UniformGroup{}r.__decorate([s.uniform(t.Vec3)],a.prototype,"weights",void 0);class c extends o.BaseRasterProcessorShader{constructor(){super(...arguments),this.type="GrayscaleShader"}_process(e){const r=this._getPixel(e),{weights:s}=this.grayscaleConfig,o=t.dot(s,r.rgb);return new t.Vec4(o,o,o,r.a)}}r.__decorate([s.uniform(a)],c.prototype,"grayscaleConfig",void 0),e.GrayscaleShader=c,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

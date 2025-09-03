@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../chunks/tslib.es6","../core/Clonable","../core/JSONSupport","../core/accessorSupport/decorators/property","../core/accessorSupport/decorators/subclass"],(function(e,o,r,s,t){"use strict";let c=class extends(o.ClonableMixin(r)){constructor(e){super(e),this.visible=!1}};return e.__decorate([s.property({type:Boolean,json:{default:!1,write:!0}})],c.prototype,"visible",void 0),c=e.__decorate([t.subclass("esri.webscene.SlideLegendInfo")],c),c}));

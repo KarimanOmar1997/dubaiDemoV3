@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../core/Collection","../../../../core/handleUtils","../../../../support/guards"],(function(e,r,t,i){"use strict";function o(e){return"number"==typeof e||"string"==typeof e}const n=[],l=t.makeHandle();e.emptyHighlightHandle=l,e.isObjectId=o,e.normalizeHighlightTargetExceptQuery=function(e){return r.isCollection(e)?e.toArray():Array.isArray(e)?e:o(e)||i.isGraphic(e)||"esri.views.3d.layers.i3s.PointCloudGraphic"===e.declaredClass?[e]:n},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

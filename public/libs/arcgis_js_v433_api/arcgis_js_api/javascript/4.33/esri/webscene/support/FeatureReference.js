@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../core/Clonable","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./FeatureReferenceObjectId","./featureReferenceUtils","./LayerReference"],(function(e,r,o,t,s,c,n,a,p,i,u){"use strict";let l=class extends(r.ClonableMixin(o)){constructor(e){super(e),this.layerReference=new u,this.id=new p}};return e.__decorate([t.property({nonNullable:!0,json:{write:{isRequired:!0}},type:u})],l.prototype,"layerReference",void 0),e.__decorate([t.property({json:{read:!0,write:{isRequired:!0}},nonNullable:!0,types:i.featureReferenceIdType})],l.prototype,"id",void 0),l=e.__decorate([a.subclass("esri.webscene.support.FeatureReference")],l),l}));

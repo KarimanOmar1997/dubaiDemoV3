@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(e){"use strict";function t(){return[0,0,0,1,0,0,0,0]}function n(e){return[e[0],e[1],e[2],e[3],e[4],e[5],e[6],e[7]]}function o(e,t,n,o,r,u,a,l){return[e,t,n,o,r,u,a,l]}function r(e,t,n,o,r,u,a){const l=.5*r,c=.5*u,i=.5*a;return[e,t,n,o,l*o+c*n-i*t,c*o+i*e-l*n,i*o+l*t-c*e,-l*e-c*t-i*n]}const u=Object.freeze(Object.defineProperty({__proto__:null,clone:n,create:t,fromRotationTranslationValues:r,fromValues:o},Symbol.toStringTag,{value:"Module"}));e.clone=n,e.create=t,e.fromRotationTranslationValues=r,e.fromValues=o,e.quat2f64=u,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

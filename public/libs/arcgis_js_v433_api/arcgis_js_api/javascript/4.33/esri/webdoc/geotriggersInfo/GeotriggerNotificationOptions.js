@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../core/Clonable","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./ExpressionInfo"],(function(e,o,r,s,t,c,n,i,p){"use strict";let a=class extends(o.ClonableMixin(r)){constructor(e){super(e),this.expressionInfo=null,this.requestedActions=null}};return e.__decorate([s.property({type:p,json:{write:!0}})],a.prototype,"expressionInfo",void 0),e.__decorate([s.property({type:[String],json:{write:!0}})],a.prototype,"requestedActions",void 0),a=e.__decorate([i.subclass("esri.webdoc.geotriggersInfo.GeotriggerNotificationOptions")],a),a}));

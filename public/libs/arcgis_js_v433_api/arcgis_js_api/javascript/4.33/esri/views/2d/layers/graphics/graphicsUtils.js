@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../core/screenUtils","../../../../geometry/Polygon","../../engine/webgl/definitions"],(function(e,n,t,i){"use strict";e.getLineWidth=function(e){const t=n.px2pt(i.minTextLineWidth),o=n.px2pt(i.maxTextLineWidth);return Math.max(t,Math.min(e||o,o))},e.pixelBuffer=50,e.polygonFromExtent=function(e){if(!e)return null;const{xmin:n,ymin:i,xmax:o,ymax:r,spatialReference:x}=e;return new t({rings:[[[n,i],[n,r],[o,r],[o,i],[n,i]]],spatialReference:x})},e.roundPtToWholePixel=function(e){return n.px2pt(Math.round(n.pt2px(e)))},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

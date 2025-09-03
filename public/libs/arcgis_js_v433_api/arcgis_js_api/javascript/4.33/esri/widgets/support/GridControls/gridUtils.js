@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../Color","../../../core/mathUtils"],(function(o,r,t){"use strict";o.applyColorToGrid=(o,t)=>{if(!o||t.length<3)return;const[e,i,n,l]=t,[u,a]=void 0===l?[1,.25]:[l,.25*l];o.majorLineColor=r.fromArray([e,i,n,u]),o.minorLineColor=r.fromArray([e,i,n,a])},o.gridRotationToDegrees=o=>{if(null==o||isNaN(o))return 0;const r=o+180;return Math.trunc(t.moduloPositive(r,360))},o.userInputToGridRotation=o=>{let r=o;return null==r?0:("string"==typeof r&&(r=parseInt(r,10)),isNaN(r)?0:t.moduloPositive(Math.trunc(r),360)-180)},Object.defineProperty(o,Symbol.toStringTag,{value:"Module"})}));

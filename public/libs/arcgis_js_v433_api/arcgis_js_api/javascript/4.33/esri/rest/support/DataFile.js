@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,t,r,o,s,c,u,a){"use strict";return e.default=class extends r{constructor(e){super(e),this.itemId=null,this.url=null}},t.__decorate([o.property({type:String,json:{read:{source:"itemID"},write:{target:"itemID"}}})],e.default.prototype,"itemId",void 0),t.__decorate([o.property({type:String,json:{write:!0}})],e.default.prototype,"url",void 0),e.default=t.__decorate([a.subclass("esri.rest.support.DataFile")],e.default),e.default}));

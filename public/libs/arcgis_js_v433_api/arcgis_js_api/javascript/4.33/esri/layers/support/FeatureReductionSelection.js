@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./FeatureReduction"],(function(e,t,r,o,s,c,u,a){"use strict";var n;return e.default=n=class extends a.FeatureReduction{constructor(e){super(e),this.type="selection"}clone(){return new n}},t.__decorate([r.property({type:["selection"]})],e.default.prototype,"type",void 0),e.default=n=t.__decorate([u.subclass("esri.layers.support.FeatureReductionSelection")],e.default),e.default}));

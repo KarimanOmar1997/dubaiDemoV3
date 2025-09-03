@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../core/Accessor","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,r,o,t,s,p,c){"use strict";let d=class extends r{constructor(e){super(e),this.decoderError=null,this.resultsCount=0,this.results=[],this.updatedKnowledgeGraph=null}};return e.__decorate([o.property()],d.prototype,"decoderError",void 0),e.__decorate([o.property()],d.prototype,"resultsCount",void 0),e.__decorate([o.property()],d.prototype,"results",void 0),e.__decorate([o.property()],d.prototype,"updatedKnowledgeGraph",void 0),d=e.__decorate([c.subclass("esri.rest.knowledgeGraph.GraphDataModelOperationResult")],d),d}));

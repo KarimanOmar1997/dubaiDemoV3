@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(t){"use strict";t.isAttachmentsColumn=function(t){return!(!t||!("onShowAttachments"in t))},t.isFieldColumn=function(t){return!(!t||!("field"in t))},t.isGroupColumn=function(t){return!(!t||!("columns"in t))},t.isRelationshipColumn=function(t){return!(!t||!("relationshipId"in t))},t.isTemplateObjectWithType=function(t){return null!=t&&"object"==typeof t&&"type"in t&&null!==t.type&&("column"===t.type||"field"===t.type||"group"===t.type||"attachment"===t.type||"relationship"===t.type)},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

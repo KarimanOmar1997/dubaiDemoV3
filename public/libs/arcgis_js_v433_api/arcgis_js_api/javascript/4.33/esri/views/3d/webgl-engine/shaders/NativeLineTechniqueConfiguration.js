@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../chunks/tslib.es6","../core/shaderTechnique/ShaderTechniqueConfiguration","../materials/DefaultTechniqueConfiguration"],(function(e,t,r,o){"use strict";class a extends o.DefaultTechniqueConfiguration{constructor(){super(...arguments),this.hasVertexColors=!1,this.transparent=!1,this.hasOccludees=!1,this.draped=!1}}t.__decorate([r.parameter()],a.prototype,"hasVertexColors",void 0),t.__decorate([r.parameter()],a.prototype,"transparent",void 0),t.__decorate([r.parameter()],a.prototype,"hasOccludees",void 0),e.NativeLineTechniqueConfiguration=a,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

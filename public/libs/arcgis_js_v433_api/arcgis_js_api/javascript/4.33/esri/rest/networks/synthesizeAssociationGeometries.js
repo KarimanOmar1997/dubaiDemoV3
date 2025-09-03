@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../request","../utils","./support/AssociationGeometriesResult"],(function(e,t,o,s){"use strict";e.synthesizeAssociationGeometries=async function(e,n,i){const r=o.parseUrl(e),a={...n.toJSON(),f:"json"},c=o.encode({...r.query,...a});i?i.method="post":i={method:"post"};const u=o.asValidOptions(c,i),f=`${r.path}/synthesizeAssociationGeometries`;return t(f,u).then((e=>function(e,t){const{data:o}=e;if(t)for(const e of o.associations)e.geometry.spatialReference||(e.geometry.spatialReference=t.clone());return s.fromJSON(o)}(e,n.outSpatialReference)))},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

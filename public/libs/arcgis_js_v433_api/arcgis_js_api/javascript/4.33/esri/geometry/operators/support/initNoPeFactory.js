@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../../chunks/Envelope2D","../../../chunks/Geometry","../../../chunks/MultiPathImpl","../../../chunks/Envelope","../../../chunks/Point2D","../../../chunks/ProjectionTransformation","../../../core/unitUtils","../../support/spatialReferenceUtils"],(function(e,t,s,n,r,i,o,c){"use strict";i.injectNoPe$1((e=>{let t,s;"number"==typeof e?t=e:s=e;const n={wkid:t,wkt:s};let r,i;if(s){r=o.isProjectedWKT(s);const e=c.isGeographic(n);if(!r&&!e)throw new Error(`Unsupported WKT type: ${s}`)}else r=!c.isGeographic(n);return i=t&&o.gradGcsIds.has(t)?Math.PI/200:r?o.getMetersPerUnit(n):Math.PI/180,{isPCS:r,metersOrRadiansPerUnit:i,semiMajor:0,wkidOrWkt:e}}))}));

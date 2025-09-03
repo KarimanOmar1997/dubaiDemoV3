@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../core/time","../../webgl/RenderCamera","../core/shaderLibrary/ShaderOutput","./BindParameters","./Material"],(function(e,t,r,d,n,a){"use strict";const c=a.RenderOccludedFlag.Occlude|a.RenderOccludedFlag.OccludeAndTransparent|a.RenderOccludedFlag.OccludeAndTransparentStencil;e.RenderContext=class{constructor(e,a,i){this.rctx=e,this.techniques=i,this.lastFrameCamera=new r,this.output=d.ShaderOutput.Color,this.renderOccludedMask=c,this.time=t.Milliseconds(0),this.bind=new n.BindParameters(a),this.bind.alignPixelEnabled=!0}},e.defaultRenderOccludedMask=c,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/colorUtils","../../core/events","../../core/has","../../core/number","../../core/uuid","../../views/animation/easing"],(function(n,e,t,r,o,u,i){"use strict";n.EasingFunctions=i.EasingFunctions,n.format=function(...n){return o.format(...n)},n.generateUUID=function(){return u.generateUUID()},n.has=function(n){return r(n)},n.on=function(...n){return t.on(...n)},n.once=function(...n){return t.once(...n)},n.parse=function(...n){return o.parse(...n)},n.pausable=function(...n){return t.pausable(...n)},n.toHSV=function(...n){return e.toHSV(...n)},n.toRGB=function(...n){return e.toRGB(...n)},Object.defineProperty(n,Symbol.toStringTag,{value:"Module"})}));

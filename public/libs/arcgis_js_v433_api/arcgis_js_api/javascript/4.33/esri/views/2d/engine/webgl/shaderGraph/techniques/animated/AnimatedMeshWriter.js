@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../fill/meshWriterUtils","../markers/markerConstants","../mesh/MeshWriter"],(function(t,e,s,r){"use strict";class i extends r.MeshWriter{}t.AAnimatedMeshWriter=i,t.packAnimatedBitset=function(t){const{sprite:r,isMapAligned:i,colorLocked:a,scaleSymbolsProportionally:o,isStroke:n}=t;let l=0;return i&&(l|=e.getBitMask(s.MarkerConstants.bitset.isMapAligned)),a&&(l|=e.getBitMask(s.MarkerConstants.bitset.colorLocked)),r.sdf&&(l|=e.getBitMask(s.MarkerConstants.bitset.isSDF)),o&&(l|=e.getBitMask(s.MarkerConstants.bitset.scaleSymbolsProportionally)),n&&(l|=e.getBitMask(s.MarkerConstants.bitset.isStroke)),l},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

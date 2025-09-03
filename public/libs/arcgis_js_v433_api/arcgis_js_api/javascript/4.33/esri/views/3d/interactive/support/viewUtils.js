@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../core/screenUtils","../../../../core/libs/gl-matrix-2/math/vec2","../../../../chunks/vec32","../../../../core/libs/gl-matrix-2/factories/vec3f64","../../../../support/elevationInfoUtils"],(function(e,r,t,n,o,c){"use strict";const i=o.create(),a=r.createRenderScreenPointArray(),s=r.createRenderScreenPointArray();e.renderScreenSpaceTangent=function(e,r,n,o){n.projectToRenderScreen(e,a),n.projectToRenderScreen(r,s),t.subtract(o,s,a),t.normalize(o,o)},e.vectorToRender=function(e,r,t,a,s=o.create()){const d=n.copy(i,e);return d[2]=c.getConvertedElevationFromVector(a,d,r,t)||0,a.renderCoordsHelper.toRenderCoords(d,r,s),s},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

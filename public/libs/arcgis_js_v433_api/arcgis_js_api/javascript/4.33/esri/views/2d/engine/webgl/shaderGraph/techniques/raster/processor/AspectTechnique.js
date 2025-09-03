@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../TechniqueType","./BaseRasterProcessorTechnique","../../shaders/raster/processor/AspectShader"],(function(e,s,t,r){"use strict";class c extends t.BaseRasterProcessorTechnique{constructor(){super(...arguments),this.name="RasterAspectProcessor",this.type=s.RasterTechniqueType.Aspect,this.shaders={aspect:new r.AspectShader}}_process(e,s){const t={cellSize:s.getRasterCellSize()},r=this._getCommonConfig(e,s),c={shader:this.shaders.aspect,uniforms:{config:r,aspectConfig:t},defines:{},optionalAttributes:null,useComputeBuffer:!1},{painter:o,context:i}=e;o.submitDrawMesh(i,c,o.quadMesh)}}e.AspectTechnique=c,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

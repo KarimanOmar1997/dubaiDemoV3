@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../core/arrayUtils","../gx/operatorIntersection","../support/jsonConverter"],(function(e,t,o,r){"use strict";e.execute=function(e,t){const n=r.fromGeometry(e),m=n.getSpatialReference();return r.toGeometry(o.execute(n.getGeometry(),r.fromGeometryToGXGeometry(t),m),m)},e.executeMany=function(e,n){const[m,c]=r.fromGeometries(e);return o.executeMany(m,r.fromGeometryToGXGeometry(n),c,7).map((e=>r.toGeometry(e,c))).filter(t.isSome)},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

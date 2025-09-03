@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../request","../utils","./utils","../support/AddressCandidate","../support/AddressToLocationsParameters"],(function(e,t,s,n,r,a){"use strict";function o({data:e}){if(!e)return[];const{candidates:t,spatialReference:s}=e;return t?t.map((e=>{if(!e)return;const{extent:t,location:a}=e,o=!t||n.isValidExtent(t);return n.isValidLocation(a)&&o?(t&&(t.spatialReference=s),a&&(a.spatialReference=s),r.fromJSON(e)):void 0})):[]}e.addressToLocations=async function(e,n,r){n=a.from(n);const i=s.parseUrl(e),{address:d,...c}=n.toJSON(),u={...d,...c,f:"json"},f=s.encode({...i.query,...u}),l=s.asValidOptions(f,r),p=`${i.path}/findAddressCandidates`;return t(p,l).then(o)},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../chunks/vec32","./ConstraintOptions","./ConstraintTypes"],(function(n,t,a,i){"use strict";const o=new a.ConstraintOptions(i.ConstraintTypes.NONE);n.adjustRangeForInteraction=function(n,t,a,i,o,e){0!==n&&(a?(e.min=Math.min(e.min,t),e.max=Math.max(e.max,t)):null!=i?(e.min-=Math.max(0,(t-e.min)*(1-i)),e.max+=Math.max(0,(t-e.max)*(1-i))):o&&(e.min-=Math.max(0,t-e.min-o),e.max+=Math.max(0,t-e.max-o)))},n.defaultConstraintOptions=o,n.hasConstraintType=function(n,t){return 0!==(n&t)},n.interactionDirectionTowardsConstraintMinimization=function(n,a,i,o){return a=a||n.viewForward,t.copy(o,a),t.scale(o,o,Math.sign(t.dot(a,i))),o},Object.defineProperty(n,Symbol.toStringTag,{value:"Module"})}));

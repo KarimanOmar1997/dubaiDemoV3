@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["require","exports"],(function(n,e){"use strict";let r;async function t(){return null==r&&(r=new Promise(((e,r)=>n(["./sql/WhereClauseCache"],e,r))).then((n=>new n.WhereClauseCache(500,500)))),r}e.parseWhereClause=async function(n,e){const r=await t(),l=r.get(n,e);if(null==l)throw r.getError(n,e);return l},e.sqlAnd=function(n,e){return n||=null,e||=null,"1=1"===n?e??n:"1=1"===e?n??e:n&&e?`(${n}) AND (${e})`:n??e},e.sqlIn=function(n,e){return 0===e.length?null:`${n} IN (${function(n){return n.map((n=>"string"==typeof n?function(n){return`'${n.replaceAll("'","''")}'`}(n):n)).join(",")}(e)})`},e.sqlOr=function(n,e){return n||=null,e||=null,"1=1"===n||"1=1"===e||n===e?"1=1"===n?n:e:n&&e?`(${n}) OR (${e})`:n??e},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

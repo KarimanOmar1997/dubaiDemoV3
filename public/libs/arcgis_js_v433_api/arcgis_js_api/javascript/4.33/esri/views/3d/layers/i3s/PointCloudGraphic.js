@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../chunks/tslib.es6","../../../../Graphic","../../../../core/accessorSupport/decorators/property","../../../../core/has","../../../../core/Logger","../../../../core/RandomLCG","../../../../core/accessorSupport/decorators/subclass"],(function(o,e,r,t,c,s,a,i){"use strict";o.PointCloudGraphic=class extends r{constructor(o){super(o),this.pointCloudMetadata=null}},e.__decorate([t.property({constructOnly:!0,clonable:"reference"})],o.PointCloudGraphic.prototype,"pointCloudMetadata",void 0),o.PointCloudGraphic=e.__decorate([i.subclass("esri.views.3d.layers.i3s.PointCloudGraphic")],o.PointCloudGraphic),Object.defineProperty(o,Symbol.toStringTag,{value:"Module"})}));

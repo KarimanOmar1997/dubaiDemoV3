@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../chunks/tslib.es6","../../../../core/JSONSupport","../../../../core/accessorSupport/decorators/property","../../../../core/has","../../../../core/Logger","../../../../core/RandomLCG","../../../../core/accessorSupport/decorators/subclass"],(function(e,t,r,s,o,c,u,i){"use strict";return e.default=class extends r{constructor(e){super(e),this.circuits=null,this.circuitNames=null}},t.__decorate([s.property({type:[Object],json:{type:[Object],write:!0}})],e.default.prototype,"circuits",void 0),t.__decorate([s.property({type:[String],json:{write:!0}})],e.default.prototype,"circuitNames",void 0),e.default=t.__decorate([i.subclass("esri.rest.networks.circuits.support.QueryCircuitsResult")],e.default),e.default}));

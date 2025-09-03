@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../../../chunks/TextureOnly.glsl","../core/shaderTechnique/ReloadableShaderModule","../core/shaderTechnique/ShaderTechnique","../../../webgl/renderState"],(function(e,r,l,i,t,a){"use strict";class n extends t.ShaderTechnique{constructor(r,t){super(r,t,new i.ReloadableShaderModule(l.TextureOnly,(()=>new Promise(((r,l)=>e(["../core/shaderLibrary/util/TextureOnly.glsl"],r,l))))))}initializePipeline(e){return e.hasAlpha?a.makePipelineState({blending:a.unpremultipliedAlphaToPremultipliedAlpha,colorWrite:a.defaultColorWrite}):a.makePipelineState({colorWrite:a.defaultColorWrite})}}r.TextureTechnique=n,Object.defineProperty(r,Symbol.toStringTag,{value:"Module"})}));

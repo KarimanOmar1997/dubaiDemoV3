@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../TechniqueType","./BaseRasterProcessorTechnique","../../shaders/raster/processor/GrayscaleShader"],(function(e,s,r,a){"use strict";class t extends r.BaseRasterProcessorTechnique{constructor(){super(...arguments),this.name="RasterGrayscaleProcessor",this.type=s.RasterTechniqueType.Grayscale,this.shaders={grayscale:new a.GrayscaleShader}}_process(e,s){const r={weights:e.rasterFunction.parameters.weights},a=this._getCommonConfig(e,s),t={shader:this.shaders.grayscale,uniforms:{config:a,grayscaleConfig:r},defines:{},optionalAttributes:null,useComputeBuffer:!1},{painter:o,context:c}=e;o.submitDrawMesh(c,t,o.quadMesh)}}e.GrayscaleTechnique=t,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

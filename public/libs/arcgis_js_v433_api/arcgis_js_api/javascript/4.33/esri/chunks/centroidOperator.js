@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./Centroid-DZi-eb9F","../geometry/operators/support/apiConverter"],(function(e,t,r){"use strict";const o=new class{getOperatorType(){return 10205}accelerateGeometry(e,t,r){return!1}canAccelerateGeometry(e){return!1}supportsCurves(){return!0}execute(e,r){return t.calculateCentroid2D(e)}};function u(e){const t=o.execute(r.fromGeometry(e),null);return r.toPoint(t,r.getSpatialReference(e))}const n=o.supportsCurves(),c=Object.freeze(Object.defineProperty({__proto__:null,execute:u,supportsCurves:n},Symbol.toStringTag,{value:"Module"}));e.centroidOperator=c,e.execute=u,e.supportsCurves=n}));

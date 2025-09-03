@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(e){"use strict";e.QueryEngineContext=class{constructor(e,r,t,o,s,l){this.spatialReference=e,this.layer=r,this.resourceController=t,this._getFeatureStore=o,this.hasZ=s,this.hasM=l}get scheduler(){return this.resourceController.scheduler}get memoryController(){return this.resourceController.memoryController}get featureStore(){return this._getFeatureStore()}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

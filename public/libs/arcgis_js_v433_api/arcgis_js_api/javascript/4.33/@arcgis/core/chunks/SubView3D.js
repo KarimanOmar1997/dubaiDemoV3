@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+*/
+import{_ as e}from"./tslib.es6.js";import t from"../core/Accessor.js";import{property as r}from"../core/accessorSupport/decorators/property.js";import"../core/lang.js";import"./Logger.js";import{subclass as s}from"../core/accessorSupport/decorators/subclass.js";import{U as o}from"./UpdatingHandles.js";let p=class extends t{constructor(e){super(e),this.updatingHandles=new o}destroy(){this.updatingHandles.destroy()}get updating(){return this.updatingHandles.updating}get layer(){return this.layerView.layer}get view(){return this.layerView.view}get suspended(){return this.layerView.suspended}get fullOpacity(){return this.layerView.fullOpacity}};e([r({constructOnly:!0})],p.prototype,"layerView",void 0),e([r({readOnly:!0})],p.prototype,"updatingHandles",void 0),e([r()],p.prototype,"updating",null),e([r()],p.prototype,"layer",null),e([r()],p.prototype,"view",null),e([r()],p.prototype,"suspended",null),e([r()],p.prototype,"fullOpacity",null),p=e([s("esri.views.3d.layers.SubView3D")],p);export{p as S};

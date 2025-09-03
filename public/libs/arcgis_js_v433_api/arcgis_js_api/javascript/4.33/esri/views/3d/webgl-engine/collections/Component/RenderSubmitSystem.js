@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./DepthRange"],(function(e,t){"use strict";e.RenderSubmitSystem=class{constructor(e){this._objects=e}submit(e,t){this._objects.preSubmit(t),this._objects.visibleObjects.forAll((s=>s.renderable.material.submit(e,t,s)))}queryDepthRange(e){return this._objects.visibleObjects.length?t.computeDepthRange(e,this._objects.visibleObjects):null}get hasEmissions(){return this._objects.visibleObjects.some((e=>e.renderable.material.hasEmissions))}hasHighlight(e){return this._objects.hasHighlight(e)}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

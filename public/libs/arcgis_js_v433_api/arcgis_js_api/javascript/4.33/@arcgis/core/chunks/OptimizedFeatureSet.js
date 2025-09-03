@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+*/
+class e{constructor(){this.globalIdFieldName=null,this.geohashFieldName=null,this.geometryProperties=null,this.geometryType=null,this.spatialReference=null,this.hasZ=!1,this.hasM=!1,this.features=[],this.fields=[],this.transform=null,this.exceededTransferLimit=!1,this.uniqueIdField=null,this.queryGeometryType=null,this.queryGeometry=null}weakClone(){const s=new e;return s.globalIdFieldName=this.globalIdFieldName,s.geohashFieldName=this.geohashFieldName,s.geometryProperties=this.geometryProperties,s.geometryType=this.geometryType,s.spatialReference=this.spatialReference,s.hasZ=this.hasZ,s.hasM=this.hasM,s.features=this.features,s.fields=this.fields,s.transform=this.transform,s.exceededTransferLimit=this.exceededTransferLimit,s.uniqueIdField=this.uniqueIdField,s.queryGeometry=this.queryGeometry,s.queryGeometryType=this.queryGeometryType,s}}export{e as O};

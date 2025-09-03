@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./Pattern3D","./styles"],(function(e,t,r,s,o,a,c,l,p){"use strict";var d;return e.default=d=class extends l{constructor(e){super(e),this.type="style",this.style="solid"}clone(){return new d({style:this.style})}},t.__decorate([r.property({type:["style"],json:{write:{isRequired:!0}}})],e.default.prototype,"type",void 0),t.__decorate([r.property({type:p,json:{read:!0,write:{isRequired:!0}}})],e.default.prototype,"style",void 0),e.default=d=t.__decorate([c.subclass("esri.symbols.patterns.StylePattern3D")],e.default),e.default}));

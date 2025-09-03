@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(e){"use strict";const o=new Float32Array(2);e.decodeDoubleArray=function(e,o,n){for(let t=0;t<n;++t)o[t]=e[2*t]+e[2*t+1]},e.encodeDoubleArray=function(e,o,n){for(let t=0;t<n;++t)o[2*t]=e[t],o[2*t+1]=e[t]-o[2*t]},e.encodeDoubleHi=function(e,n){const t=e.length;for(let r=0;r<t;++r)o[0]=e[r],n[r]=o[0];return n},e.encodeDoubleLo=function(e,n){const t=e.length;for(let r=0;r<t;++r)o[0]=e[r],o[1]=e[r]-o[0],n[r]=o[1];return n},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

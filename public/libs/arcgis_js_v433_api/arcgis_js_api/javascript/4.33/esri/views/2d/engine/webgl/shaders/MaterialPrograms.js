@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./sources/resolver","../../../../webgl/programUtils"],(function(e,t,r){"use strict";const s=e=>{let t="";t+=e[0].toUpperCase();for(let r=1;r<e.length;r++){const s=e[r];s===s.toUpperCase()?(t+="_",t+=s):t+=s.toUpperCase()}return t};e.createProgramTemplate=(e,a,o,n)=>{const l=e+e.slice(Math.max(0,e.lastIndexOf("/"))),c=a+a.slice(Math.max(0,a.lastIndexOf("/"))),i=(e=>{const t={};for(const r in e)t[s(r)]=e[r];return r.glslifyDefineMap(t)})(n);return{attributes:o,shaders:{vertexShader:i+t.resolveIncludes(`${l}.vert`),fragmentShader:i+t.resolveIncludes(`${c}.frag`)}}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

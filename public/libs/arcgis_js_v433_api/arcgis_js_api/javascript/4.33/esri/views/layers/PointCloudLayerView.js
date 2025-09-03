@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,r,t,o,s,a){"use strict";return t=>{let o=class extends t{constructor(){super(...arguments),this.layer=null}get availableFields(){return[]}highlight(){throw new Error("Not implemented")}queryFeatures(){throw new Error("Not implemented")}queryFeatureCount(){throw new Error("Not implemented")}createQuery(){throw new Error("Not implemented")}queryExtent(){throw new Error("Not implemented")}};return e.__decorate([r.property()],o.prototype,"layer",void 0),e.__decorate([r.property()],o.prototype,"availableFields",null),o=e.__decorate([a.subclass("esri.views.layers.PointCloudLayerView")],o),o}}));

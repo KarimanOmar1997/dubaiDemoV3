@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../LRUCache","./WhereClause"],(function(e,t,c){"use strict";e.WhereClauseCache=class{constructor(e,c){this._cache=new t.LRUCache(e),this._invalidCache=new t.LRUCache(c)}get(e,t){const i=`${t?.uid}:${e}`,n=this._cache.get(i);if(n)return n;if(null!=this._invalidCache.get(i))return null;try{const n=c.create(e,{fieldsIndex:t});return this._cache.put(i,n),n}catch(e){return this._invalidCache.put(i,e),null}}getError(e,t){const c=`${t?.uid}:${e}`;return this._invalidCache.get(c)??null}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

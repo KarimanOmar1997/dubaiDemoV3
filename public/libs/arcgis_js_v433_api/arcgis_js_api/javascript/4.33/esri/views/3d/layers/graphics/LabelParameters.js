@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../core/libs/gl-matrix-2/factories/vec2f64","../../../../core/libs/gl-matrix-2/factories/vec3f64","../../../../core/libs/gl-matrix-2/factories/vec4f64"],(function(e,t,s,i){"use strict";e.LabelParameters=class{constructor(e,s="center",i="center",r=null,c=t.create(),a=!0){this.placement=e,this.horizontalPlacement=s,this.verticalPlacement=i,this.text=r,this.displaySize=c,this.isFocused=a}},e.LabelPlacement=class{constructor(e,r="center",c=!1,a=t.create(),l=i.fromValues(0,0,0,-1),n="world",o=s.create(),f=0){this.verticalOffset=e,this.anchor=r,this.hasLabelVerticalOffset=c,this.screenOffset=a,this.centerOffset=l,this.centerOffsetUnits=n,this.translation=o,this.elevationOffset=f}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

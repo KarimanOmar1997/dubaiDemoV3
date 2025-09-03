@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(e){"use strict";const t=/^(\$feature\[(?:"(?<doubleQuoted>[^"]+)"|'(?<singleQuoted>[^']+)')\]|\$feature\.(?<dotNotation>[a-zA-Z_][a-zA-Z0-9_]*))$/i,o=/^hash\(\$feature\['((\\'|[^'])+)'\]\) \* 8\.381e-8$/;e.getFieldNameFromSimpleExpression=function(e){if(!e)return;const o=e.match(t);return o?.groups?o.groups.doubleQuoted??o.groups.singleQuoted??o.groups.dotNotation:void 0},e.matchRandomRotationExpression=function(e){return e.match(o)?.[1]?.replace(/\\'/g,"'")??null},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

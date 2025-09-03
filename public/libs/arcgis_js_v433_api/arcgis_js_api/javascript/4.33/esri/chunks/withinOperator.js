@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./OperatorWithin","../geometry/operators/support/apiConverter"],(function(e,r,t){"use strict";const o=new r.OperatorWithin;function n(e){const r=t.getSpatialReference(e);return o.accelerateGeometry(t.fromGeometry(e),t.fromSpatialReference(r),1)}function c(e,r){return o.execute(t.fromGeometry(e),t.fromGeometry(r),t.fromSpatialReference(e.spatialReference),null)}const a=o.supportsCurves(),p=Object.freeze(Object.defineProperty({__proto__:null,accelerateGeometry:n,execute:c,supportsCurves:a},Symbol.toStringTag,{value:"Module"}));e.accelerateGeometry=n,e.execute=c,e.supportsCurves=a,e.withinOperator=p}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./ImageVolume"],(function(e,o,r,s,t,c,u,a,p){"use strict";return e.default=class extends r{constructor(){super(...arguments),this.volumes=[]}},o.__decorate([s.property({type:[p],json:{write:!0}})],e.default.prototype,"volumes",void 0),e.default=o.__decorate([a.subclass("esri.rest.support.ImageVolumeResult")],e.default),e.default}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../core/unitUtils","../../../geometry/Extent","../../../layers/orientedImagery/transformations/utils"],(function(e,t,n,r){"use strict";e.createExtentAroundPoint=function(e,i){const{x:a,y:o,spatialReference:c}=e,s=i*r.getWebMercatorScalingFactor(o,c)/t.getMetersPerUnitForSR(c);return new n({xmin:a-s,xmax:a+s,ymin:o-s,ymax:o+s,spatialReference:e.spatialReference})},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

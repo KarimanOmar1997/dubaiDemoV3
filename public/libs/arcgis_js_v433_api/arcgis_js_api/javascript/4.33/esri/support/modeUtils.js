@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(e){"use strict";const t="calcite-mode-",o="dark",s=/\W/g,r="--esri-calcite-mode-name";function c(){return getComputedStyle(document.body).getPropertyValue(r).replaceAll(s,"").toLowerCase()}function a(){const e=c();switch(e){case o:case"light":return`${t}${e}`;default:return null}}e.getCalciteModeClass=a,e.isDarkMode=function(){return c()===o},e.modeNameCustomCSSProp=r,e.setCalciteModeClass=function(e){const o=a();o&&(function(e){Array.from(e.classList).forEach((o=>{o.startsWith(t)&&e.classList.remove(o)}))}(e),e.classList.add(o))},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

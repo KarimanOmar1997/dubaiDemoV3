@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(t){"use strict";var n;t.Vec3Compact=void 0,(n=t.Vec3Compact||(t.Vec3Compact={})).length=function(t,n){const c=t[n],o=t[n+1],e=t[n+2];return Math.sqrt(c*c+o*o+e*e)},n.normalize=function(t,n){const c=t[n],o=t[n+1],e=t[n+2],a=1/Math.sqrt(c*c+o*o+e*e);t[n]*=a,t[n+1]*=a,t[n+2]*=a},n.scale=function(t,n,c){t[n]*=c,t[n+1]*=c,t[n+2]*=c},n.add=function(t,n,c,o,e,a=n){(e=e||t)[a]=t[n]+c[o],e[a+1]=t[n+1]+c[o+1],e[a+2]=t[n+2]+c[o+2]},n.subtract=function(t,n,c,o,e,a=n){(e=e||t)[a]=t[n]-c[o],e[a+1]=t[n+1]-c[o+1],e[a+2]=t[n+2]-c[o+2]},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

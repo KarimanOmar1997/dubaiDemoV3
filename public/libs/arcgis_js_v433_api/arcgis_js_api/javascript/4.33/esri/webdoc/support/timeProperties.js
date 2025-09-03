@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/Error","../../core/accessorSupport/ensureType","../../chunks/TimeExtent"],(function(e,t,r,n){"use strict";const i={type:n.TimeExtent,json:{read:{source:"timeExtent",reader:e=>e?Array.isArray(e)?n.TimeExtent.fromArray(e):n.TimeExtent.fromJSON(e):null},write:{writer:(e,r,n,i)=>{e&&(e.isEmpty?i?.messages&&i.messages.push(new t("invalid-timeExtent","TimeExtent cannot be empty")):r[n]=e.toArray())},target:{timeExtent:{type:[[r.Integer,r.Null]]}}}}};e.timeExtent=i,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

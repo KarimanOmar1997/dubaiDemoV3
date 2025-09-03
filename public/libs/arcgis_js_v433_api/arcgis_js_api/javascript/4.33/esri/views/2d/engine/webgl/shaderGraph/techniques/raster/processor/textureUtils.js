@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../../../webgl/enums","../../../../../../../webgl/FramebufferObject","../../../../../../../webgl/Texture","../../../../../../../webgl/TextureDescriptor"],(function(e,t,r,n,o){"use strict";function u(e,r){const n=new o.TextureDescriptor;return n.width=e,n.height=r,n.internalFormat=t.SizedPixelFormat.RGBA32F,n.samplingMode=t.TextureSamplingMode.NEAREST,n.dataType=t.PixelType.FLOAT,n.isImmutable=!0,n.wrapMode=t.TextureWrapMode.CLAMP_TO_EDGE,n}e.createNewFBO=function(e,t,n){const o=u(t,n);return new r.FramebufferObject(e,o)},e.createProcessedTexture=function(e,t,r){const o=u(t,r);return new n.Texture(e,o)},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

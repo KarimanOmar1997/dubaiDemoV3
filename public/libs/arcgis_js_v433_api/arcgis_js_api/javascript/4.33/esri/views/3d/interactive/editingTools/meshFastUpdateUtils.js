@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../core/handleUtils","../../../../core/reactiveUtils","../../../../layers/graphics/sources/interfaces"],(function(e,a,n,s){"use strict";e.meshTransformFastUpdateHandles=function(e){const t=e.graphic;return t?[n.watch((()=>"visible"in e?e.visible:e.displaying),(e=>{e&&t.notifyMeshTransformChanged({action:s.MeshTransformUpdateAction.EnableFastUpdates})}),{...n.syncAndInitial}),a.makeHandle((()=>t.notifyMeshTransformChanged({action:s.MeshTransformUpdateAction.DisableFastUpdates})))]:[]},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

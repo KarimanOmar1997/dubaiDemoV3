@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../../../symbols/cim/utils"],(function(t,s){"use strict";t.TextMeshTransformProps=class{constructor(t){const{offsetX:o,offsetY:e,postAngle:i,fontSize:f,haloSize:n,outlineSize:h,scaleFactor:r,transforms:l}=t;if(this.offsetX=o,this.offsetY=e,this.postAngle=i,this.fontSize=Math.min(f,96),this.haloSize=n??0,this.outlineSize=h??0,this.transforms=l,l&&l.infos.length>1){const t=s.applyParentTransform(f,i,!1,o,e,l,!1);this.fontSize=Math.min(t.size,96);const n=t.size/f;this.haloSize*=n,this.outlineSize*=n,this.postAngle=t.rotation,this.offsetX=t.offsetX,this.offsetY=t.offsetY}r&&(this.fontSize*=r,this.offsetX*=r,this.offsetY*=r)}},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

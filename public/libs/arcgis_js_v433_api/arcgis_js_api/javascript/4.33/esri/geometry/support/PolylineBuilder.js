@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define((function(){"use strict";return class{constructor(){this._polyline=[]}beginPath(t){this._polyline.push([t])}lineTo(t){if(0===this._polyline.length)throw new Error("No path started. Call beginPath first.");this._polyline[this._polyline.length-1].push(t)}getPointCount(){return this._polyline.reduce(((t,e)=>t+e.length),0)}addSegment(t,e,n){n&&this.beginPath(t),this.lineTo(e)}getXY(t){let e=0;for(const n of this._polyline){if(t<e+n.length)return n[t-e];e+=n.length}return null}getGeometry(){return this._polyline}}}));

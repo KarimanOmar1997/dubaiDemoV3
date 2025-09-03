@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./SimpleGeometryCursor","./Geometry","./MultiPathImpl"],(function(e,t,r,n){"use strict";var s=n.Densificator;class i extends t.GeometryCursor{constructor(e,t,r,n,i,u){super(),this.m_densificator=new s(t,r,n,u,!1,i),this.m_index=-1,this.m_inputGeoms=e}tock(){return!0}getRank(){return 1}next(){let e=null;for(;e=this.m_inputGeoms.next();)return r.throwIfMesh(e),this.m_index=this.m_inputGeoms.getGeometryID(),this.densify(e);return null}getGeometryID(){return this.m_index}densify(e){return this.m_densificator.densify(e)}}e.OperatorDensify=class{getOperatorType(){return 10202}accelerateGeometry(e,t,r){return!1}canAccelerateGeometry(e){return!1}supportsCurves(){return!0}executeMany(e,t,r,n,s,u=12e3){return new i(e,t,r,n,u,s)}execute(e,t,r,s,i,u=12e3){return n.densify(e,t,r,s,i,u)}}}));

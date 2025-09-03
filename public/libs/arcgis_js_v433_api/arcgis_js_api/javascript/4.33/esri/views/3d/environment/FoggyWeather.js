@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../../chunks/tslib.es6","../../../core/JSONSupport","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/enumeration","../../../core/accessorSupport/decorators/subclass"],(function(e,r,o,t,s,c,n,p){"use strict";var a;let g=a=class extends r{constructor(e){super(e),this.type="foggy",this.fogStrength=.5}clone(){return new a({fogStrength:this.fogStrength})}};return e.__decorate([n.enumeration({foggy:"foggy"}),o.property({json:{write:{isRequired:!0}}})],g.prototype,"type",void 0),e.__decorate([o.property({type:Number,nonNullable:!0,range:{min:0,max:1},json:{write:!0}})],g.prototype,"fogStrength",void 0),g=a=e.__decorate([p.subclass("esri.views.3d.environment.FoggyWeather")],g),g}));

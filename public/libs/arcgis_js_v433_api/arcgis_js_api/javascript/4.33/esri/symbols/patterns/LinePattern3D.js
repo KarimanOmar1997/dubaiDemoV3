@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,r,o,t,s,c,a,n){"use strict";return e.default=class extends o{constructor(e){super(e)}clone(){throw new Error("Subclasses of LinePattern3D should implement their own clone method.")}},r.__decorate([t.property({type:["style"],readOnly:!0,json:{read:!0,write:{ignoreOrigin:!0}}})],e.default.prototype,"type",void 0),e.default=r.__decorate([n.subclass("esri.symbols.patterns.LinePattern3D")],e.default),e.default}));

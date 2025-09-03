@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(e){"use strict";e.Timeline=class{constructor(){this._names=new Map}begin(e){this._names.has(e)||(this._names.set(e,!1),(e=>e.includes("Brush"))(e)&&this.record("Esri.FirstDraw"),performance.mark(`Esri.${e}.Start`))}end(e){this._names.has(e)&&!this._names.get(e)&&(this._names.set(e,!0),performance.mark(`Esri.${e}.End`))}record(e){this._names.has(e)||(this._names.set(e,!0),performance.mark(`Esri.${e}`))}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

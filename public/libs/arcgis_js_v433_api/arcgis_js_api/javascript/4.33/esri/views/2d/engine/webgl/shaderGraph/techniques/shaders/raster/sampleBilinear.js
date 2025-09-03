@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../graph/glsl","../utils"],(function(e,t,n){"use strict";e.sampleBilinear=function(e,l,i,x){const a=t.floor(l.multiply(i)),c=new t.IVec2(new t.Int(a.x),new t.Int(a.y)),u=new t.IVec2(c.x.add(1),c.y),d=new t.IVec2(c.x,c.y.add(1)),r=new t.IVec2(c.x.add(1),c.y.add(1)),y=t.texelFetch(e,c,new t.Int(0)),o=t.texelFetch(e,u,new t.Int(0)),w=t.texelFetch(e,d,new t.Int(0)),m=t.texelFetch(e,r,new t.Int(0)),p=t.fract(l.multiply(i)),I=t.mix(y,o,p.x),s=t.mix(w,m,p.x),f=t.mix(I,s,p.y);if(!x)return f;const h=new t.Vec4(y.a,o.a,w.a,m.a),V=h.xy.multiply(h.zw),g=t.floor(V.x.multiply(V.y).add(.5)),F=f.multiply(g),b=n.oneMinus(g).multiply(t.texture2D(e,l));return F.add(b)},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

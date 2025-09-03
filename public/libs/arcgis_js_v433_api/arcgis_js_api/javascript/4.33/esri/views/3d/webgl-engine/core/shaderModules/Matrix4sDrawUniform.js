@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../webgl/BindType","../../../../webgl/Uniform"],(function(e,r,t){"use strict";class i extends t.Uniform{constructor(e,t,i){super(e,"mat4",r.BindType.Draw,((r,i,n,o)=>r.setUniformMatrix4fv(e,t(i,n,o))),i)}}e.Matrix4sDrawUniform=i,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

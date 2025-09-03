@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./BaseImageMeasureResult","./imageMeasureUtils"],(function(e,s,t,r,o,a,u,c,l){"use strict";return e.default=class extends c{constructor(){super(...arguments),this.height=null}},s.__decorate([t.property({type:l.ImageMeasureResultLengthValue,json:{read:!0,write:!0}})],e.default.prototype,"height",void 0),e.default=s.__decorate([u.subclass("esri.rest.support.ImageHeightResult")],e.default),e.default}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(e){"use strict";e.createFeatureId=function(e,t){switch(t.type){case"object-id":case"unique-id-simple":return e.attributes[t.fieldName];case"unique-id-composite":{const i=[];for(const u of t.fieldNames)i.push(e.attributes[u]??null);return JSON.stringify(i)}}},e.createFeatureIdFromLayer=function(e,t){if("uniqueIdFields"in t&&t.uniqueIdFields?.length){if(1===t.uniqueIdFields.length)return e.attributes?.[t.uniqueIdFields[0]];const i=t.uniqueIdFields.map((t=>e.attributes?.[t]));return JSON.stringify(i)}return"objectIdField"in t&&t.objectIdField?e.attributes?.[t.objectIdField]:null},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../core/maybe"],(function(e,t){"use strict";e.ComponentObject=class{constructor(e,t,o,s,i,r){this.transform=e,this.toMapSpace=t,this.obb=o,this.componentData=s,this.renderable=i,this.intersectionGeometry=r,this.visible=!1,this.offsetObb=null}destroy(){this.intersectionGeometry=t.destroyMaybe(this.intersectionGeometry),this.renderable=t.destroyMaybe(this.renderable),this.componentData=t.destroyMaybe(this.componentData)}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

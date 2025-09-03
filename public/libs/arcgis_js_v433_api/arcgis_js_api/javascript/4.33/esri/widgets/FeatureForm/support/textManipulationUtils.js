@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["require","exports"],(function(e,t){"use strict";let n;const r=["blockquote","html","hr","checkbox","table","tablerow","tablecell","image"];t.compileTextElementMarkdownToHTML=async function(t){return n||await async function(){const{Marked:t}=await new Promise(((t,n)=>e(["../../../chunks/marked.esm"],t,n))),o=()=>"",l={};for(const e of r)l[e]=o;n=new t({renderer:{del:function({text:e}){return`<span style="text-decoration:line-through;">${e}</span>`},link:function({href:e,text:t,title:n}){return`<a${null!=e?` href="${e}"`:""}${null!=n?` title="${n}"`:""} target="_blank">${t??""}</a>`},...l}})}(),n.parse(t)},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

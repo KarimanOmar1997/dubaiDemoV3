@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["require","exports"],(function(e,a){"use strict";let r;a.loadArcade=function(){return r||(r=(async()=>{const[a,r,c]=await Promise.all([new Promise(((a,r)=>e(["./arcadeUtils"],a,r))),new Promise(((a,r)=>e(["../arcade/batchExec"],a,r))),new Promise(((a,r)=>e(["../arcade/functions/aiServices"],a,r)))]);return{arcade:a.arcade,arcadeUtils:a,batchExec:r,aiServices:c,Dictionary:a.Dictionary,Feature:a.arcadeFeature,Voxel:a.Voxel}})()),r},Object.defineProperty(a,Symbol.toStringTag,{value:"Module"})}));

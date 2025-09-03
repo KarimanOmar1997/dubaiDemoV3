@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../core/accessorSupport/decorators/enumeration","../../core/accessorSupport/decorators/property","../../core/accessorSupport/decorators/subclass","./FeatureReferenceId"],(function(e,r,t,o,s){"use strict";let c=class extends s{constructor(e){super(e),this.type="object-id",this.value=null}};return e.__decorate([r.enumeration({objectId:"object-id"}),t.property({type:["object-id"],json:{read:!1,write:{isRequired:!0}},nonNullable:!0})],c.prototype,"type",void 0),e.__decorate([t.property({type:[Number,String],json:{read:!0,write:{isRequired:!0}}})],c.prototype,"value",void 0),c=e.__decorate([o.subclass("esri.webscene.support.FeatureReferenceObjectId")],c),c}));

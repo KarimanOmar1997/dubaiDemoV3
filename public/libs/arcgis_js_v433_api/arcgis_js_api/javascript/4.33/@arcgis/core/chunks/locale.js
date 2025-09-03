@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+*/
+import{m as n}from"./handleUtils.js";import"../core/lang.js";let e,o;const t=globalThis.esriConfig?.locale??globalThis.dojoConfig?.locale,a=globalThis.document?.documentElement;function i(){const n=a?.getAttribute("lang"),e=globalThis.navigator?.language;return t??n??e??"en"}function s(){return void 0===o&&(o=i()),o}function r(n){e=n||void 0,b()}const l=/^(?<language>[a-z]{2,3})(?:-[a-z]{3})?(?:-[A-Z][a-z]{3})?(?:-(?<region>[A-Z]{2}|\d{3}))?(?:-.*)?$/;function c(n=s()){return l.exec(n)?.groups}function u(n=s()){const e=c(n)?.language;return"he"===e||"ar"===e}const g=[];function f(e){return g.push(e),n((()=>{g.splice(g.indexOf(e),1)}))}const h=[];function d(e){return h.push(e),n((()=>h.splice(h.indexOf(e),1)))}function b(){const n=e??i();o!==n&&([...h].forEach((e=>e(n))),o=n,[...g].forEach((e=>e(n))))}globalThis.addEventListener?.("languagechange",b),a&&new MutationObserver((()=>{b()})).observe(a,{attributeFilter:["lang"]});export{c as a,d as b,s as g,f as o,u as p,r as s};

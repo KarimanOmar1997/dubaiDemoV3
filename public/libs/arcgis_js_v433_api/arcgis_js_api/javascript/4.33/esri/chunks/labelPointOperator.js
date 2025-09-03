@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../geometry/operators/gx/operatorLabelPoint","../geometry/operators/support/apiConverter"],(function(e,t,o){"use strict";function r(e){return o.toPoint(t.execute(o.fromGeometry(e)),o.getSpatialReference(e))}function n(e){const r=e.map(o.fromGeometry),n=o.getSpatialReference(e);return t.executeMany(r).map((e=>o.toPoint(e,n)))}const u=t.supportsCurves(),p=Object.freeze(Object.defineProperty({__proto__:null,execute:r,executeMany:n,supportsCurves:u},Symbol.toStringTag,{value:"Module"}));e.execute=r,e.executeMany=n,e.labelPointOperator=p,e.supportsCurves=u}));

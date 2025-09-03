@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../core/Error","../../../renderers/support/rasterRendererHelper","../support/utils"],(function(e,r,t,n){"use strict";e.createRenderer=async function(e){e=await async function(e){return await n.processRasterRendererParameters(e)}(e);const o=t.createVectorFieldRenderer(e.layer.serviceRasterInfo);if(null==o)throw new r("vector-field-renderer:not-supported","Only vector data is supported");return e.flowRepresentation&&(o.flowRepresentation=e.flowRepresentation),e.rotationType&&(o.rotationType=e.rotationType),e.style&&(o.style=e.style),{renderer:o}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

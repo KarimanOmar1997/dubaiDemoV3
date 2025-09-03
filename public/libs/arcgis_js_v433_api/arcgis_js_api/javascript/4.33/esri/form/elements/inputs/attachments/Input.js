@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../../../chunks/tslib.es6","../../../../core/Clonable","../../../../core/JSONSupport","../../../../core/accessorSupport/decorators/property","../../../../core/has","../../../../core/Logger","../../../../core/RandomLCG","../../../../core/accessorSupport/decorators/subclass"],(function(e,r,o,t,s,c,p,n){"use strict";let a=class extends(r.ClonableMixin(o)){constructor(e){super(e),this.type=null}};return e.__decorate([t.property()],a.prototype,"type",void 0),a=e.__decorate([n.subclass("esri.form.elements.inputs.attachments.Input")],a),a}));

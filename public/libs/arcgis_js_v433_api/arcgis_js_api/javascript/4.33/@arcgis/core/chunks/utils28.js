@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+*/
+import{g as e}from"./watch.js";import{g as t,c as n}from"./projectBuffer.js";function o(t=""){return`${t}${e()}`}function r(e,o,r,s,c){const l=s.spatialReference,f=t(o,l);if(null==f)return e;let i=t=>[e[t],e[t+1],e[t+2]];f!==n&&(i=t=>(f(e,t,a,0),[a[0],a[1],a[2]]));const u=e.length/3,g=r.mode;switch(r.mode){case"on-the-ground":for(let t=0;t<u;++t){const n=3*t,[o,r]=i(n);e[n+2]=s.getElevation(o,r,0,s.spatialReference,"ground")??0}break;case"relative-to-ground":case"relative-to-scene":{const t="relative-to-ground"===g?"ground":"scene";for(let n=0;n<u;++n){const o=3*n,[a,l,f]=i(o),u=r.calculateOffsetRenderUnits(c),g=s.getElevation(a,l,0,s.spatialReference,t)??0;e[o+2]=f+u+g}}break;case"absolute-height":for(let t=0;t<u;++t){const n=3*t,o=e[n+2],a=r.calculateOffsetRenderUnits(c);e[n+2]=o+a}}return e}const a=new Float64Array(3);export{r as a,o as g};

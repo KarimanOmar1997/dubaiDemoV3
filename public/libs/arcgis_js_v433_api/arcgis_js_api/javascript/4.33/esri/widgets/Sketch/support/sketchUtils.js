@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(e){"use strict";var o;e.LayoutPriority=void 0,(o=e.LayoutPriority||(e.LayoutPriority={}))[o.ForceCollapse=-1]="ForceCollapse",o[o.Low=0]="Low",o[o.Medium=10]="Medium",o[o.High=100]="High",o[o.Max=1e3]="Max",e.getDrawToolGeometryTypeFromCreateTool=function(e){switch(e){case"freehandPolygon":return"polygon";case"freehandPolyline":return"polyline";default:return e}},e.getModeFromCreateOptions=function(e,o){return"freehandPolygon"===o||"freehandPolyline"===o?"freehand":e??("rectangle"===o||"circle"===o?"hybrid":"click")},e.isDrawGraphicTool=function(e){return!!e&&("draw-2d"===e.type||"draw-3d"===e.type)},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/Accessor","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,t,r,o,s,c,a,u){"use strict";return e.default=class extends r{constructor(){super(...arguments),this.updating=!1,this.status="unknown"}},t.__decorate([o.property()],e.default.prototype,"updating",void 0),t.__decorate([o.property()],e.default.prototype,"status",void 0),e.default=t.__decorate([u.subclass("esri.layers.support.PublishingInfo")],e.default),e.default}));

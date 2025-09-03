@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../layers/graphics/OptimizedFeature","./support/FeatureSetReaderJSON"],(function(e,t,r){"use strict";class a{static{this.Shared=new a}getObjectId(e){return e.getObjectId()}getAttributes(e){return e.readAttributes()}getAttribute(e,t){return e.readAttribute(t)}getAttributeAsTimestamp(e,t){return e.readAttributeAsTimestamp(t)}cloneWithGeometry(e,a){const i=e.readAttributes(),u=new t.OptimizedFeature(a,i,null,e.getObjectId(),e.getDisplayId()),d=r.FeatureSetReaderJSON.fromOptimizedFeatures([u],e.metadata);return d.setIndex(0),d}getGeometry(e){return e.readGeometryWorldSpace()}getCentroid(e,t){return e.readCentroidForDisplay()}}e.FeatureStoreQueryAdapter=a,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

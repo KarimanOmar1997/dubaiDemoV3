@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/lang","../../core/Logger","../../core/urlUtils","./arcgisLayerUrl","./commonProperties"],(function(r,e,t,l,n,o){"use strict";r.normalizeParsedUrlObject=function(r){const e=l.urlToObject(r.url);return null!=e&&null!=r.layerId&&(e.path=l.join(e.path,r.layerId.toString())),e},r.urlProperty=function(){const r=e.clone(o.url),l=r.json?.write;return"object"==typeof l&&l&&(l.writer=function(r,e,t,l){n.writeUrlWithLayerId(this,r,null,e,l)}),{...r,set:function(r){if(null==r)return void this._set("url",r);const e=n.sanitizeUrlWithLayerId({layer:this,url:r,nonStandardUrlAllowed:!0,logger:t.getLogger(this)});this._set("url",e.url),null!=e.layerId&&this._set("layerId",e.layerId)}}},Object.defineProperty(r,Symbol.toStringTag,{value:"Module"})}));

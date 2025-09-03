@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/arrayUtils","./gx/operatorMultiPartToSinglePart","./support/apiConverter"],(function(e,t,r,o){"use strict";const n=r.supportsCurves();e.executeMany=function(e,n={}){const{simplifyPolygons:a=!0}=n,i=a?1:2,s=e.map(o.fromGeometry),p=o.getSpatialReference(e);return r.executeMany(s,o.fromSpatialReference(p),i).map((e=>o.toGeometry(e,p))).filter(t.isSome)},e.supportsCurves=n,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

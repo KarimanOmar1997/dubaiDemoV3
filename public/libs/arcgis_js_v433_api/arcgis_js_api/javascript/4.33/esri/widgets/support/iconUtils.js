@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(e){"use strict";e.getIconForLayer=function(e){if(null==e||"object"!=typeof e)return"layer";if("isTable"in e&&e.isTable)return"table";if("type"in e){if("feature"===e.type)return"feature-layer";if("group"===e.type)return"layers";if("subtype-group"===e.type)return"subtype";if("graphics"===e.type)return"layer-graphics"}return"layer"},e.iconByKind={danger:"exclamation-mark-circle",info:"information",success:"check",warning:"exclamation-mark-triangle",brand:void 0},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

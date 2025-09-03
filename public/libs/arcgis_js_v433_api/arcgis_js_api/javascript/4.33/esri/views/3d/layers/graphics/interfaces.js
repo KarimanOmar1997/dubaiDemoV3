@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(e){"use strict";var t,a;e.ApplyRendererDiffResult=void 0,(t=e.ApplyRendererDiffResult||(e.ApplyRendererDiffResult={}))[t.RecreateSymbol=0]="RecreateSymbol",t[t.RecreateGraphics=1]="RecreateGraphics",t[t.FastUpdate=2]="FastUpdate",e.FastUpdateStatus=void 0,(a=e.FastUpdateStatus||(e.FastUpdateStatus={}))[a.Slow=0]="Slow",a[a.Fast=1]="Fast",a[a.Mixed=2]="Mixed",a[a.Loading=3]="Loading",a[a.Undefined=4]="Undefined",Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

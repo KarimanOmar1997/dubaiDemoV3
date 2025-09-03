@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../input/InputHandler"],(function(e,t){"use strict";class o extends t.InputHandler{constructor(e,t){super(!0),this._view=e,this._canZoom=!0,this.registerIncoming("mouse-wheel",t,(e=>this._handleMouseWheel(e)))}_handleMouseWheel(e){if("zoom"!==this._view.navigation.actionMap.mouseWheel)return;if(e.preventDefault(),e.stopPropagation(),!this._canZoom)return;const t=this._view.mapViewNavigation,{x:o,y:n,deltaY:i}=e.data,a=1/.6**(1/60*i),s=t.zoom(a,[o,n]);s&&(this._canZoom=!1,s.catch((()=>{})).then((()=>{this._canZoom=!0,t.end()})))}}e.MouseWheelZoom=o,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

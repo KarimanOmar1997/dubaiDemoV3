@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../core/mathUtils","../../../geometry/support/aaBoundingRect","./TilingScheme"],(function(e,o,t,a){"use strict";const r=o.clampFloat32(o.numberMaxFloat32/10),l=t.create();a.TilingScheme.WebMercatorAuxiliarySphere.getExtent(0,0,0,l);const i=t.create([-180,-90,180,90]);e.elevationNoDataValue=r,e.geographicWorldExtent=i,e.maxMemoryLodBias=2.5,e.maxPatchTesselation=512,e.maxRootTiles=64,e.maxTileNeighborLevelDelta=4,e.progressiveLoadingModulo=2,e.tooManyRootTilesAfterChangeError="Cannot extend surface to encompass all layers because it would result in too many root tiles.",e.tooManyRootTilesForLayerError="Surface extent is too large for tile resolution at level 0.",e.webMercatorWorldExtent=l,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

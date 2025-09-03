@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./BaseImageMeasureResult","./imageMeasureUtils"],(function(e,r,t,s,a,o,u,c,p){"use strict";return e.default=class extends c{constructor(){super(...arguments),this.area=null,this.perimeter=null}},r.__decorate([t.property({type:p.ImageMeasureResultAreaValue,json:{read:!0,write:!0}})],e.default.prototype,"area",void 0),r.__decorate([t.property({type:p.ImageMeasureResultLengthValue,json:{read:!0,write:!0}})],e.default.prototype,"perimeter",void 0),e.default=r.__decorate([u.subclass("esri.rest.support.ImageAreaResult")],e.default),e.default}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../geometry/support/aaBoundingRect"],(function(n,e){"use strict";function t(n,e){return null==e?n:Math.max(n,e)}function l(n,e){return null==e?n:Math.min(n,e)}n.boundingRectOfTileTree=function(n,u,r){let[i,o,c,f]=[null,null,null,null];for(u.reset(n);!u.done;){const n=u.next();if(null==n)continue;if(!n.visible){u.skipSubtree();continue}const s=n.extent;n.leaf&&n.rendered&&e.intersects(s,r)&&(i=l(s[0],i),o=l(s[1],o),c=t(s[2],c),f=t(s[3],f))}return null==i||null==o||null==c||null==f?null:e.create([i,o,c,f])},Object.defineProperty(n,Symbol.toStringTag,{value:"Module"})}));

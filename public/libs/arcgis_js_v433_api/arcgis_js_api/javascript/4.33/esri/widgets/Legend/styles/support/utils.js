@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../support/styleUtils"],(function(t,e){"use strict";t.getLegendElementTitle=function(t,r){if(!t.title||"string"==typeof t.title)return t.title;const i="color-ramp"===t.type||"opacity-ramp"===t.type,l=t.title,n=e.getTitle(r,l,i);return e.isRendererTitle(l,i)&&l.title?`${l.title} (${n})`:n},t.getRampStopLabel=function(t,r,i){switch(r){case"heatmap-ramp":return i[t.label]||t.label;case"stretch-ramp":return e.getStretchStopLabel(t,i);default:return t.label}},t.isWidthAndHeight=function(t){return!(!t||"object"!=typeof t)},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../chunks/tslib.es6","../../../core/Accessor","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass"],(function(e,t,r,o,s,c,a,l){"use strict";return e.default=class extends r{constructor(e){super(e),this.length=null,this.verticalLength=null,this.area=null}},t.__decorate([o.property()],e.default.prototype,"length",void 0),t.__decorate([o.property()],e.default.prototype,"verticalLength",void 0),t.__decorate([o.property()],e.default.prototype,"area",void 0),e.default=t.__decorate([l.subclass("esri.views.interactive.sketch.Units")],e.default),e.default}));

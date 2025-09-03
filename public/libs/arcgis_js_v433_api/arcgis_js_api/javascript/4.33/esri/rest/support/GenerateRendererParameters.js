@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,r,t,o,s,c,a,i){"use strict";return e.default=class extends t{constructor(e){super(e),this.classificationDefinition=null,this.where=null}},r.__decorate([o.property({json:{name:"classificationDef",write:!0}})],e.default.prototype,"classificationDefinition",void 0),r.__decorate([o.property({type:String,json:{write:!0}})],e.default.prototype,"where",void 0),e.default=r.__decorate([i.subclass("esri.rest.support.GenerateRendererParameters")],e.default),e.default}));

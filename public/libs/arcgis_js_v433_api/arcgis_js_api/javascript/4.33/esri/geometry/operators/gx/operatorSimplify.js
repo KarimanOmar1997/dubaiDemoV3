@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../chunks/SimpleGeometryCursor","../../../chunks/Geometry","../../../chunks/MultiPathImpl","../../../chunks/ProjectionTransformation","../../../chunks/Envelope"],(function(e,n,r,t,u,o){"use strict";const s=new u.OperatorSimplify;e.execute=function(e,n,r){return s.execute(e,n,r,null)},e.executeMany=function(e,r,t){const u=s.executeMany(new n.SimpleGeometryCursor(e),r,t,null);return Array.from(u)},e.isSimpleAsFeature=function(e,n,r){return s.isSimpleAsFeature(e,n,r,null,null)},e.supportsCurves=function(){return s.supportsCurves()},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

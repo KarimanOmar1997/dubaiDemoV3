@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(t){"use strict";t.add=function(t,e,n){(n=n||t).length=t.length;for(let r=0;r<t.length;r++)n[r]=t[r]+e[r];return n},t.dotProduct=function(t,e){let n=0;for(let r=0;r<t.length;r++)n+=t[r]*e[r];return n},t.elementwiseProduct=function(t,e,n){(n=n||t).length=t.length;for(let r=0;r<t.length;r++)n[r]=t[r]*e[r];return n},t.scalarProduct=function(t,e,n){(n=n||t).length=t.length;for(let r=0;r<t.length;r++)n[r]=t[r]*e;return n},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

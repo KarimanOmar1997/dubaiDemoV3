@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+*/
+import"../core/lang.js";import{c as r}from"./unitUtils.js";import{l as e,e as t,i as o}from"./operatorGeodesicBuffer.js";import{g as s}from"./geodeticCurveType.js";import"./jsonMap.js";import"../config.js";import"./Logger.js";import"./pe.js";import"./assets.js";import"../request.js";import"../kernel.js";import"../core/urlUtils.js";import"../core/Error.js";import"./jsonUtils.js";import"./MapUtils.js";import"../core/promiseUtils.js";import"./handleUtils.js";import"./events.js";import"./maybe.js";import"./persistableUrlUtils.js";import"./SimpleGeometryCursor.js";let i,m,p;function j(){return!!i&&o()}async function n(){if(!j()){const[r]=await Promise.all([import("./jsonConverter.js"),e()]);i=r.fromGeometries,m=r.fromGeometry,p=r.toGeometry}}function a(e,o,i={}){let{curveType:j="geodesic",maxDeviation:n=NaN,unit:a}=i;a&&(o=r(o,a,"meters"),n&&(n=r(n,a,"meters")));const l=m(e),c=l.getSpatialReference();return p(t(l.getGeometry(),c,s[j],o,n),c)}export{a as execute,j as isLoaded,n as load};

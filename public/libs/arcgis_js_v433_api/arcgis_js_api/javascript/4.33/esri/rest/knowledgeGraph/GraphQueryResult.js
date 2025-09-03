@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/Accessor","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./GraphQueryResultHeader"],(function(e,r,s,t,o,c,a,u,d){"use strict";return e.default=class extends s{constructor(e){super(e),this.resultRows=[],this.resultHeader=new d}},r.__decorate([t.property()],e.default.prototype,"resultRows",void 0),r.__decorate([t.property()],e.default.prototype,"resultHeader",void 0),e.default=r.__decorate([u.subclass("esri.rest.knowledgeGraph.GraphQueryResult")],e.default),e.default}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../core/has","../../../core/PooledArray"],(function(t,e,s){"use strict";class o{constructor(t,e){this._factoryCallback=t,this._lengthCallback=e,this._pool=new Map}acquire(t){if(!o.test.disabled){const e=this._pool.get(t);if(e&&0!==e.length)return e.pop()}try{return this._factoryCallback(t)}catch(t){throw t}}release(t){if(o.test.disabled)return;const e=this._lengthCallback(t);let l=this._pool.get(e);l||(l=new s({shrink:!0}),this._pool.set(e,l)),l.push(t)}clear(){this._pool.clear()}get test(){}static{this.test={disabled:!1}}}t.BufferPool=o,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

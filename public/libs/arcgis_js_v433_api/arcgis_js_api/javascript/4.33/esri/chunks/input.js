@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(t){"use strict";const e=["date","datetime-local","month","number","range","time","week"],n=["email","password","search","tel","text","url"],s=["email","password","search","tel","text","textarea","url"];function a(t,e,n,s){const a=n.toLowerCase(),r=t[n];s&&null!=r?e.setAttribute(a,`${r}`):e.removeAttribute(a)}t.syncHiddenFormInput=function(t,r,i){i.type="textarea"===t?"text":t;const o=e.includes(t),c=r;a(c,i,"min",o),a(c,i,"max",o),a(c,i,"step",o);const u=s.includes(t),l=r;a(l,i,"minLength",u),a(l,i,"maxLength",u),a(l,i,"pattern",n.includes(t))}}));

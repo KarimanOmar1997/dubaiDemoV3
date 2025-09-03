@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./GraphObject"],(function(e,t,r,o,s,a,c,p){"use strict";return e.default=class extends p{constructor(e){super(e),this.typeName=null,this.id=null}},t.__decorate([r.property({type:String,json:{write:!0}})],e.default.prototype,"typeName",void 0),t.__decorate([r.property({type:String,json:{write:!0}})],e.default.prototype,"id",void 0),e.default=t.__decorate([c.subclass("esri.rest.knowledgeGraph.GraphNamedObject")],e.default),e.default}));

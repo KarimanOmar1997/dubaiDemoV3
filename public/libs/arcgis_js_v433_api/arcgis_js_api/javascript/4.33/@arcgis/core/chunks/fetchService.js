@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+*/
+import{q as e,r as a}from"./layerUtils.js";import{f as r}from"./requestPresets.js";const t=new Set(["Catalog Layer","Feature Layer","Oriented Imagery Layer"]);async function s(t,s){const{loadContext:n,...c}=s||{},y=n?await n.fetchServiceMetadata(t,c):await r(t,c),i=e();l(y),o(y);const u={serviceJSON:y,preferredHost:i};if((y.currentVersion??0)<10.5)return u;const f=`${a()??t}/layers`,L=n?await n.fetchServiceMetadata(f,c):await r(f,c);return l(L),o(L),u.layersJSON={layers:L.layers,tables:L.tables},u}function n(e){const{type:a}=e;return!!a&&t.has(a)}function c(e){return"Table"===e.type}function o(e){e.layers=e.layers?.filter(n),e.tables=e.tables?.filter(c)}function y(e){e.type||="Feature Layer"}function i(e){e.type||="Table"}function l(e){e.layers?.forEach(y),e.tables?.forEach(i)}function u(e){switch(e){case"Feature Layer":case"Table":return"FeatureLayer";case"Oriented Imagery Layer":return"OrientedImageryLayer";case"Catalog Layer":return"CatalogLayer"}return"FeatureLayer"}export{s as f,u as g};

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+*/
+import{o}from"./ProjectionTransformation.js";import{fromGeometry as r,fromGeometryToGXGeometry as t}from"./jsonConverter.js";import"./Envelope2D.js";import"./Point2D.js";import"./Envelope.js";import"./Transformation2D.js";import"./SimpleGeometryCursor.js";import"./tslib.es6.js";import"./OperatorDefinitions.js";import"./unitUtils.js";import"../core/lang.js";import"./jsonMap.js";import"../config.js";import"./Logger.js";import"./pe.js";import"./assets.js";import"../request.js";import"../kernel.js";import"../core/urlUtils.js";import"../core/Error.js";import"./jsonUtils.js";import"./MapUtils.js";import"../core/promiseUtils.js";import"./handleUtils.js";import"./events.js";import"./maybe.js";import"./persistableUrlUtils.js";const s=new o;function i(o,i){const e=r(o);return s.execute(e.getGeometry(),t(i),e.getSpatialReference())}export{i as execute};

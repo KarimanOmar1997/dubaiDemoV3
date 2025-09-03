@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../core/arrayUtils","../geometry/operators/gx/operatorSymmetricDifference","../geometry/operators/support/apiConverter"],(function(e,r,t,o){"use strict";function n(e,r){const n=o.getSpatialReference(e);return o.toGeometry(t.execute(o.fromGeometry(e),o.fromGeometry(r),o.fromSpatialReference(n)),n)}function c(e,n){const c=e.map(o.fromGeometry),a=o.getSpatialReference(e);return t.executeMany(c,o.fromGeometry(n),o.fromSpatialReference(a)).map((e=>o.toGeometry(e,a))).filter(r.isSome)}const a=t.supportsCurves(),m=Object.freeze(Object.defineProperty({__proto__:null,execute:n,executeMany:c,supportsCurves:a},Symbol.toStringTag,{value:"Module"}));e.execute=n,e.executeMany=c,e.supportsCurves=a,e.symmetricDifferenceOperator=m}));

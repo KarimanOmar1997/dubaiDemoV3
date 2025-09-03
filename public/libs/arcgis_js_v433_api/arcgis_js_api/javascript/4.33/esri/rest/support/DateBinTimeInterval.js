@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../core/Clonable","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/accessorSupport/ensureType","../../core/has","../../core/RandomLCG","../../core/accessorSupport/decorators/enumeration","../../core/accessorSupport/decorators/subclass","./DateBinUtils"],(function(e,r,o,t,s,c,n,u,a,p){"use strict";let i=class extends(r.ClonableMixin(o)){constructor(e){super(e),this.value=null,this.unit=null}};e.__decorate([t.property({type:Number,json:{name:"number",write:!0}})],i.prototype,"value",void 0),e.__decorate([u.enumeration(p.unitsDict)],i.prototype,"unit",void 0),i=e.__decorate([a.subclass("esri.rest.support.DateBinTimeInterval")],i);const l=i;return i.from=s.ensureType(i),l}));

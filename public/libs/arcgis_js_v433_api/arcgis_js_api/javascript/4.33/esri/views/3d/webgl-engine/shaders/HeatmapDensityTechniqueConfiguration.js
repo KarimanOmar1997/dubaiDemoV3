@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../chunks/tslib.es6","../core/shaderTechnique/ShaderTechniqueConfiguration","../materials/DefaultTechniqueConfiguration"],(function(e,t,i,r){"use strict";class o extends r.DefaultTechniqueConfiguration{constructor(){super(...arguments),this.isAttributeDriven=!1,this.usesHalfFloat=!1}}t.__decorate([i.parameter()],o.prototype,"isAttributeDriven",void 0),t.__decorate([i.parameter()],o.prototype,"usesHalfFloat",void 0),e.HeatmapDensityTechniqueConfiguration=o,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

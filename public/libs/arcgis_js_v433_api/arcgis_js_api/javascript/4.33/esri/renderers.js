@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./core/deprecate","./core/Logger","./renderers/ClassBreaksRenderer","./renderers/DictionaryRenderer","./renderers/DotDensityRenderer","./renderers/HeatmapRenderer","./renderers/PieChartRenderer","./renderers/SimpleRenderer","./renderers/UniqueValueRenderer"],(function(e,r,n,d,t,s,i,a,o,R){"use strict";const c=d,l=t,u=s,p=i,m=a,g=o,y=R;r.deprecatedModule(n.getLogger("esri.renderers"),"esri.renderers",{replacement:"Individual renderer module imports",version:"4.32",warnOnce:!0}),e.ClassBreaksRenderer=c,e.DictionaryRenderer=l,e.DotDensityRenderer=u,e.HeatmapRenderer=p,e.PieChartRenderer=m,e.SimpleRenderer=g,e.UniqueValueRenderer=y,e.__exported__=function(){},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../../chunks/tslib.es6","../../../core/JSONSupport","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass"],(function(e,r,o,s,t,c,i){"use strict";let p=class extends r{constructor(e){super(e),this.versionName=void 0,this.sessionId=void 0}};return e.__decorate([o.property({type:String,json:{write:!0}})],p.prototype,"versionName",void 0),e.__decorate([o.property({type:String,json:{write:!0}})],p.prototype,"sessionId",void 0),p=e.__decorate([i.subclass("esri.rest.versionManagement.support.DeleteVersionParameters")],p),p}));

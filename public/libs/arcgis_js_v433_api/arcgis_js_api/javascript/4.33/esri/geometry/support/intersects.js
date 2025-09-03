@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./intersectsBase"],(function(t,e){"use strict";t.extentIntersectsExtent=e.extentIntersectsExtent,t.extentIntersectsMultipoint=e.extentIntersectsMultipoint,t.extentIntersectsPoint=e.extentIntersectsPoint,t.extentIntersectsPolygon=e.extentIntersectsPolygon,t.extentIntersectsPolyline=e.extentIntersectsPolyline,t.getFeatureExtentIntersector=e.getFeatureExtentIntersector,t.isSelfIntersecting=e.isSelfIntersecting,t.segmentIntersects=e.segmentIntersects,t.getExtentIntersector=function(t){return"mesh"===t?e.extentIntersectsExtent:e.getFeatureExtentIntersector(t)},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

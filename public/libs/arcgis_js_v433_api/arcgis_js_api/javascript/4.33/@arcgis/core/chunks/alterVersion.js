@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+*/
+import r from"../request.js";import s from"../core/Error.js";import{p as i,a as e,e as t}from"./utils10.js";import{a as o}from"./serverVersionUtils.js";import"../config.js";import"../core/lang.js";import"../kernel.js";import"../core/urlUtils.js";import"./Logger.js";import"./jsonUtils.js";import"./MapUtils.js";import"../core/promiseUtils.js";import"./handleUtils.js";import"./events.js";import"./maybe.js";import"./persistableUrlUtils.js";const n=new Map;async function a(a,m,p,j){n.has(a)||await o(n,a);const l=n.get(a);if((l?.serverVersion??0)<=11.1)throw new s("alterVersion:enterprise-version","versioning API requires ArcGIS Enterprise version 11.2 or higher");if(!m)throw new s("alterVersion:missing-guid","guid for version is missing");const c=i(a),u=p.toJSON(),g=e(c.query,{query:t({...u,f:"json"}),...j,authMode:"immediate",method:"post"});m.startsWith("{")&&(m=m.slice(1,-1));const f=`${c.path}/versions/${m}/alter`,{data:h}=await r(f,g);return!!h&&h.success}export{a as alterVersion,n as serverVersionCacheMap};

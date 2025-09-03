@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./support/builderUtils","../support/executorUtils","../../../../chunks/bufferOperator"],(function(e,t,r,i){"use strict";e.execute=function({edits:e,mode:o,relationships:s,shape:n,templatePart:u}){if(!r.isPolyline(n))return;const a=u.builderConfig.distanceValue??0;if(a<=0)return;const l=t.correctZandMFollowingBuffer(i.execute(n,a),n);l&&t.makeFeatureFromGroupPart({templatePart:u,shape:l,edits:e,relationships:s,mode:o})},e.isAsync=!1,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

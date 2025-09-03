@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../graph/glsl"],(function(e,t){"use strict";e.computeMapValue=function(e,n,u){const i=new t.Vec3(e);let c=new t.Vec3(0,0,0),o=new t.Float(0);for(let e=0;e<u/3;e++){const u=9*e,r=new t.Vec3(n[u],n[u+3],n[u+6]),l=new t.Vec3(n[u+1],n[u+4],n[u+7]),a=t.step(r,i).multiply(t.step(i,l)),s=new t.Vec3(n[u+2],n[u+5],n[u+8]);o=t.mix(o,s.x,a.x),o=t.mix(o,s.y,a.y),o=t.mix(o,s.z,a.z),c=c.add(a)}return{mapValue:o,includeMask:t.sign(t.dot(c,new t.Vec3(1,1,1)))}},e.getRangeClipFactor=function(e,n){return t.step(n.x,e).multiply(t.step(e,n.y))},e.invertValue=function(e){const n=t.sign(e),u=e.add(t.abs(n).subtract(1));return n.multiply(n).divide(u)},e.roundOutput=function(e){return new t.Vec4(t.floor(e.rgb.add(.5)),e.a)},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

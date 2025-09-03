@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../../chunks/tslib.es6","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass","../DefaultUI"],(function(e,o,r,s,t,c,a){"use strict";let u=class extends a{constructor(e){super(e),this.components=["attribution","zoom"]}};return e.__decorate([o.property()],u.prototype,"components",void 0),u=e.__decorate([c.subclass("esri.views.ui.2d.DefaultUI2D")],u),u}));

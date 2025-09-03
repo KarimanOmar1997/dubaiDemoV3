@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../core/shaderTechnique/ReloadableShaderModule","../../core/shaderTechnique/ShaderTechnique","../../../../../chunks/OITBlend.glsl","../../../../webgl/enums","../../../../webgl/renderState"],(function(e,l,r,n,t,i,o){"use strict";class a extends n.ShaderTechnique{constructor(l,n){super(l,n,new r.ReloadableShaderModule(t.OITBlend,(()=>new Promise(((l,r)=>e(["./OITBlend.glsl"],l,r))))))}initializePipeline(e){return o.makePipelineState({blending:o.unpremultipliedAlphaToPremultipliedAlpha,colorWrite:o.defaultColorWrite,drawBuffers:e.hasEmission?{buffers:[i.ColorAttachment0,i.ColorAttachment1]}:{buffers:[i.ColorAttachment0]}})}}l.OITBlendTechnique=a,Object.defineProperty(l,Symbol.toStringTag,{value:"Module"})}));

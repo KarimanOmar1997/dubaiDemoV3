@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define((function(){"use strict";return class{constructor(s,t=30){this.name=s,this._counter=0,this._samples=new Array(t)}push(s){null!=s&&(this._samples[++this._counter%this._samples.length]=s)}set(s){null!=s&&(this._samples[this._counter%this._samples.length]=s)}get median(){return this._samples.slice().sort(((s,t)=>s-t))[Math.floor(this._samples.length/2)]}get average(){return this._samples.reduce(((s,t)=>s+t),0)/this._samples.length}get last(){return this._samples[this._counter%this._samples.length]}}}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/mathUtils","../../core/workers/WorkerHandle","../webgl/enums"],(function(e,r,t,o){"use strict";function n(e,t){let n=t.width,s=t.height;return(e instanceof HTMLImageElement||e instanceof HTMLCanvasElement)&&(n=e.width,s=e.height),(e instanceof HTMLImageElement||e instanceof HTMLCanvasElement||e instanceof Uint8Array)&&(t.pixelFormat===o.PixelFormat.RGBA||t.pixelFormat===o.PixelFormat.RGB)&&r.isPowerOfTwo(n)&&r.isPowerOfTwo(s)&&n>=16&&s>=16}class s extends t.WorkerHandle{constructor(e){super("TextureCompressionWorker","compress",{compress:e=>[e.data]},e)}isCompressible(e,r){return n(e,r)}}e.TextureCompressionWorkerHandle=s,e.isCompressible=n,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

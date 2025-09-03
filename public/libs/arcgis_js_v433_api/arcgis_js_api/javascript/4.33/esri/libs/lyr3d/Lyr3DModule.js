@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../assets"],(function(e,n,t){"use strict";function r(e){return t.getAssetUrl(`esri/libs/lyr3d/${e}`)}n.loadLyr3DMainWASM=function(){return new Promise((n=>new Promise(((n,t)=>e(["../../chunks/lyr3DMain"],n,t))).then((e=>e.lyr3DMain)).then((({default:e})=>{const t=e({locateFile:r,onRuntimeInitialized:()=>n(t)})})))).catch((e=>{throw e}))},n.loadLyr3DWorkerWASM=function(){return new Promise((n=>new Promise(((n,t)=>e(["../../chunks/lyr3DWorker"],n,t))).then((e=>e.lyr3DWorker)).then((({default:e})=>{const t=e({locateFile:r,onRuntimeInitialized:()=>n(t)})})))).catch((e=>{throw e}))},Object.defineProperty(n,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(t){"use strict";t.Sync=class{constructor(t){this._gl=t,this._sync=t.fenceSync(t.SYNC_GPU_COMMANDS_COMPLETE,0)}poll(){const t=this._gl,n=t.clientWaitSync(this._sync,t.SYNC_FLUSH_COMMANDS_BIT,0);if(n===t.WAIT_FAILED)throw new Error("clientWaitSync failed");return n!==t.TIMEOUT_EXPIRED}destroy(){this._gl.deleteSync(this._sync),this._sync=null}},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../core/uid","./basicInterfaces"],(function(e,t,c){"use strict";class s{constructor(){this.uid=t.generateUID()}}e.Object3DHighlightStateID=class extends s{constructor(e){super(),this.highlightName=e,this.channel=c.Object3DState.Highlight}},e.Object3DOccludeeStateID=class extends s{constructor(){super(...arguments),this.channel=c.Object3DState.MaskOccludee}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

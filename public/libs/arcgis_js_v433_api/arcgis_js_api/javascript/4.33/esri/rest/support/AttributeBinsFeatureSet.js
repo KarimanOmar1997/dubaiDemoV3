@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../AttributeBinsGraphic","../../core/Clonable","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/reader","../../core/accessorSupport/decorators/subclass","./FeatureSet"],(function(e,r,t,s,o,a,u,c,d,p,i){"use strict";return e.default=class extends(s.ClonableMixin(i)){constructor(){super(...arguments),this.features=[]}readFeatures(e,r){return this.readFeaturesWithClass(e,r,t)}},r.__decorate([o.property({type:[t],json:{write:!0}})],e.default.prototype,"features",void 0),r.__decorate([d.reader("features")],e.default.prototype,"readFeatures",null),e.default=r.__decorate([p.subclass("esri.rest.support.AttributeBinsFeatureSet")],e.default),e.default}));

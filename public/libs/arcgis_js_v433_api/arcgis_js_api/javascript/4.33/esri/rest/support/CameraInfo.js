@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./CameraInfoMixin"],(function(r,e,o,s,t,c,a,n){"use strict";let p=class extends(n.CameraInfoMixin(e)){constructor(){super(...arguments),this.id=null}};return r.__decorate([o.property({json:{write:!0}})],p.prototype,"id",void 0),p=r.__decorate([a.subclass("esri.rest.support.CameraInfo")],p),p}));

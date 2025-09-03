@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./core/deprecate","./core/Logger","./renderers/PointCloudClassBreaksRenderer","./renderers/PointCloudRGBRenderer","./renderers/PointCloudStretchRenderer","./renderers/PointCloudUniqueValueRenderer"],(function(e,r,n,o,d,t,i){"use strict";const u=o,l=d,s=t,c=i;r.deprecatedModule(n.getLogger("esri.pointCloudRenderers"),"esri.pointCloudRenderers",{replacement:"Individual point cloud renderer module imports",version:"4.32",warnOnce:!0}),e.PointCloudClassBreaksRenderer=u,e.PointCloudRGBRenderer=l,e.PointCloudStretchRenderer=s,e.PointCloudUniqueValueRenderer=c,e.__exported__=function(){},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

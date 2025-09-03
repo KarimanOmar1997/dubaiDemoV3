@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../core/time"],(function(t,i){"use strict";t.AnimationTimer=class{constructor(t,e){this._camera=t,this._dt=i.Milliseconds(0),this._time=i.Milliseconds(0),this._lastUpdate=i.Milliseconds(0),this._lastUpdate=e,this._time=e}advance(t,e,s){const a=i.Milliseconds(e-this._lastUpdate);this._dt=i.Milliseconds(a/s),this._time=i.Milliseconds(this._time+a),this._lastUpdate=e,this._camera=t}get camera(){return this._camera}get dt(){return this._dt}get time(){return this._time}},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

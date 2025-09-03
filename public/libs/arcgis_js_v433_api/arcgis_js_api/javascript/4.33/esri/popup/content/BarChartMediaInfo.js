@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./mixins/ChartMediaInfo","./support/chartMediaInfoUtils"],(function(e,t,r,o,a,s,c,i){"use strict";var p;let n=p=class extends c{constructor(e){super(e),this.type="bar-chart"}clone(){return new p({altText:this.altText,title:this.title,caption:this.caption,value:this.value?.clone()})}};return e.__decorate([t.property({type:["bar-chart"],readOnly:!0,json:{type:["barchart"],read:!1,write:{writer:i.chartTypeKebabDict.write,isRequired:!0}}})],n.prototype,"type",void 0),n=p=e.__decorate([s.subclass("esri.popup.content.BarChartMediaInfo")],n),n}));

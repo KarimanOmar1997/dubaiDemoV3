@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../projectionUtils","../SpatialReference","./projectPointToVector","../../layers/graphics/dehydratedPoint"],(function(e,t,o,n,r){"use strict";function c(e,t,o,r,c){return!(null==t||null==r||e.length<2)&&(i.x=e[0],i.y=e[1],i.z=e[2],i.spatialReference=t,n.projectPointToVector(i,o,r,c))}const i=r.makeDehydratedPoint(0,0,0,o.WGS84);e.projectVectorToVector=c,e.projectVectorToVectorAsync=async function(e,o,n,r,i,a){return await t.initializeProjection(o,r,null,a),c(e,o,n,r,i)},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

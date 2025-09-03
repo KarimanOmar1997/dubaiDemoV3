@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./support/builderUtils","./support/shapeUtils","../support/executorUtils","../../../../geometry/Polyline"],(function(e,t,s,i,o){"use strict";e.execute=function({templatePart:e,shape:n,edits:r,relationships:a,mode:p}){if(!i.isPolygon(n))return;const l=[];for(const e of n.rings){const t=e.slice();s.sameStartEndPoint(e)||t.push(t[0].slice()),l.push(t)}if(l.length>0){const c=new o({paths:l,spatialReference:n.spatialReference,hasZ:n.hasZ,hasM:n.hasM}),u=s.convertToTwoPoint(c);for(const s of u){if("digitizing"===p&&r.length>i.maxDigitizingDisplayEdits)break;t.makeFeatureFromGroupPart({templatePart:e,shape:s,edits:r,relationships:a,mode:p})}}},e.isAsync=!1,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./sdfPrimitives","../../../webgl/enums","../../../webgl/Texture","../../../webgl/TextureDescriptor"],(function(e,r,t,i,n){"use strict";e.createMarkerTexture=function(e,a){const o=r.createPrimitive(e,64,32,6.4),u=new n.TextureDescriptor;return u.internalFormat=t.PixelFormat.RGBA,u.width=64,u.height=64,u.wrapMode=t.TextureWrapMode.CLAMP_TO_EDGE,new i.Texture(a,u,o)},e.markerSizePerLineWidth=10,e.markerSymbolSize=32,e.markerTextureSize=64,e.markerThickness=6.4,e.markerTipThicknessFactor=.25,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

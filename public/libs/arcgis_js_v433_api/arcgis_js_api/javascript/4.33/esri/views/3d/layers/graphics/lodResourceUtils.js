@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../webgl-engine/lib/lodRendering/LodResources"],(function(e,o){"use strict";e.makeLodResources=function(e){return new o.LodResources(e.map(((e,n)=>function(e,n){const s=e.stageResources.geometries.map((n=>new o.LodComponentResources(new o.LodComponentEngineGeometry(n),e.stageResources.textures))),t=null==e.lodThreshold||0===e.lodThreshold&&n>0?function(e){const o=e.reduce(((e,o)=>e+o.numTriangles),0);return Math.sqrt(20*o/Math.PI)}(s):e.lodThreshold;return new o.LodLevelResources(s,t,e.pivotOffset)}(e,n))))},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(t){"use strict";class e{constructor(){this._defaultResult=null,this._backgroundFillResult=null}static async from(t,s){const r=new e;return r.setDefault(await t.createMeshWriters(s.meshes)),r}size(){return 1}getDefault(){return this._defaultResult}setDefault(t){this._defaultResult=t}getBackgroundFill(){return this._backgroundFillResult}setBackgroundFill(t){this._backgroundFillResult=t}hasArcadeDependency(t){return this._defaultResult?.some((e=>e.hasArcadeDependency(t)))??!1}match(t,e,s){const r=this.doMatch(t,e)||this.getDefault();if(r&&r.length>0){const t=this.getBackgroundFill();if(t)return[...t,...r]}return r}getSortKey(t,e){return 0}doMatch(t,e){return null}async fetchResources(t,e){}}t.FeatureMatcher=e,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

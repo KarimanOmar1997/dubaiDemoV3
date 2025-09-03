@@ -1,0 +1,114 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Various build info</title>
+    <link rel="stylesheet" href="esri/themes/light/main.css" />
+    <script src="init.js"></script>
+  </head>
+
+  <body>
+    <h3>Build info</h3>
+    <div id="buildDiv"></div>
+    <h3>Version info from kernel</h3>
+    <div id="kernelDiv">...</div>
+    <h3>Supported browsers</h3>
+    <div id="browserDiv">...</div>
+
+    <script type="module">
+      await processFile("builddate.txt", buildDiv);
+      await processFile("browserslist.txt", browserDiv);
+
+      async function processFile(file, thisDiv) {
+        try {
+          await fetch(file)
+            .then(function (response) {
+              if (response.ok) {
+                return response.text();
+              }
+            })
+            .then(function (text) {
+              if (file.endsWith("builddate.txt")) {
+                let bdate;
+                try {
+                  text = JSON.parse(text);
+                  bdate = new Date(Date.parse(text["builddate"]));
+                } catch (e) {
+                  // when builddate.txt isn't JSON
+                  bdate = new Date(Date.parse(text));
+                }
+                if (text.branch){
+                  thisDiv.innerHTML = `Branch: <b>${text.branch}</b>`;
+                }
+                if (text.commit){
+                  thisDiv.innerHTML += `<br/>Commit: <b>${text.commit}</b>`;
+                }
+                if (text.version){
+                  thisDiv.innerHTML += `<br/>Version: <b>${text.version}</b>`;
+                }
+                if (text["@esri/calcite-components"]){
+                  thisDiv.innerHTML += `<br/>Using calcite-components: <b>${text["@esri/calcite-components"]}</b>`;
+                }
+                if (text["@esri/arcgis-html-sanitizer"]){
+                  thisDiv.innerHTML += `<br/>Using arcgis-html-sanitizer: <b>${text["@esri/arcgis-html-sanitizer"]}</b>`;
+                }
+                if (text["arcadeVersion"]){
+                  thisDiv.innerHTML += `<br/>Using arcade: <b>${text["arcadeVersion"]}</b>`;
+                }
+                const options = {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                  second: "numeric",
+                  hour12: false,
+                  timeZoneName: "long",
+                };
+                thisDiv.innerHTML += "<h4>Build times</h4>";
+                thisDiv.innerHTML += `Your time: <b>${bdate.toLocaleString(undefined /*uses browser locale*/, { dateStyle: "full", timeStyle: "full" })}</b>`;
+                options.timeZone = "America/Los_Angeles";
+                thisDiv.innerHTML += `<br>- California: ${bdate.toLocaleString(undefined, options)}\n`;
+                options.timeZone = "Europe/Zurich";
+                thisDiv.innerHTML += `<br>- Switzerland: ${bdate.toLocaleString(undefined, options)}\n`;
+              } else if (file.endsWith("browserslist.txt")) {
+                const lines = text.split("\n");
+                thisDiv.innerHTML = "";
+                let lastBrowser;
+                for (const line of lines) {
+                  const fields = line.split(" ");
+                  if (fields.length === 2) {
+                    const browser = fields[0];
+                    const version = fields[1];
+                    if (!lastBrowser) {
+                      thisDiv.innerHTML += `${browser}: ${version}`;
+                      lastBrowser = browser;
+                    } else if (lastBrowser != browser) {
+                      thisDiv.innerHTML += `<br>${browser}: ${version}`;
+                      lastBrowser = browser;
+                    } else {
+                      thisDiv.innerHTML += ", " + version;
+                    }
+                  }
+                }
+              }
+            })
+            .catch((error) => {
+              const fullUrl = window.location.href;
+              const pathWithoutFilename = fullUrl.substring(0, fullUrl.lastIndexOf("/"));
+              thisDiv.innerHTML = "Missing " + pathWithoutFilename + "/" + file;
+            });
+        } catch (error) {
+          console.log("Tried, but", error);
+        }
+      }
+      const esriNS = await $arcgis.import("@arcgis/core/kernel.js");
+      if (esriNS.version) {
+        kernelDiv.innerText = "version: " + esriNS.version + "\n";
+        kernelDiv.innerText += "fullVersion: " + esriNS.fullVersion + "\n";
+        kernelDiv.innerText += "buildDate: " + esriNS.buildDate + "\n";
+        kernelDiv.innerText += "revision: " + esriNS.revision + "\n";
+      }
+    </script>
+  </body>
+</html>

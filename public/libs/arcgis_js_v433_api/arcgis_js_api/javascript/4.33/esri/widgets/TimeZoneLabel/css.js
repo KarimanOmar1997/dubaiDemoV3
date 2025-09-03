@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(e){"use strict";const d="esri-time-zone-label",a={base:d,badge:`${d}__badge`,badgeDisabled:`${d}__badge--disabled`,badgeHidden:`${d}__badge--hidden`,badgeIcon:`${d}__badge-icon`,name:`${d}__name`,nameHidden:`${d}__name--hidden`,label:`${d}__label`,labelDisabled:`${d}__label--disabled`,labelHidden:`${d}__label--hidden`,expander:`${d}__expander`};e.css=a,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

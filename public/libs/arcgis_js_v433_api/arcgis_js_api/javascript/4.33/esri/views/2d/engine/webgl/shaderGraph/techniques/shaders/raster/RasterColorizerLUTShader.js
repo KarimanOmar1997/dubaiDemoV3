@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../../../../chunks/tslib.es6","../../../GraphShaderModule","../../../graph/glsl","./BaseRasterColorizerShader","./lut"],(function(e,o,r,t,s,a){"use strict";class l extends s.BaseRasterColorizerShader{constructor(){super(...arguments),this.type="RasterColorizerLUTShader"}_colorize(e){const o=this._getPixel(e);return a.lookupColor(o,new t.Float(1),this.colormapConfig,!1)}}o.__decorate([r.uniform(a.ColormapConfig)],l.prototype,"colormapConfig",void 0),e.RasterColorizerLUTShader=l,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../request","../../geometry/support/jsonUtils","../utils"],(function(e,t,s,n){"use strict";e.densify=async function(e,r,o){const i=r.geometries?.[0].spatialReference,a=n.parseUrl(e),f={...a.query,f:"json",...r.toJSON()},p=n.asValidOptions(f,o);return t(a.path+"/densify",p).then((({data:e})=>(e.geometries||[]).map((e=>s.fromJSON(e).set({spatialReference:i})))))},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

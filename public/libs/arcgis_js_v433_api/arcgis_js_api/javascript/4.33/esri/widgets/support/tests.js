@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/handleUtils","../../core/has"],(function(e,t,n){"use strict";const i=new Set,r=new Map;e.assertNoAlive=function(){const e=Array.from(r.values())[0],t=r.size;if(r.clear(),0!==t)throw new Error(`Still ${t} alive widget instances.${e?` For example:\n${e}`:" Set enableLiveTracing in esri/widgets/support/tests.ts to include a stack trace."}`)},e.hasPendingLoading=function(){return i.size>0},e.registerAlive=function(e){return t.makeHandle()},e.registerLoading=function(e){i.add(e),e.finally((()=>i.delete(e)))},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["require","exports"],(function(e,t){"use strict";async function r(t){const{BlobReader:r,ZipReader:i,BlobWriter:n}=await new Promise(((t,r)=>e(["./zipjs-wrapper"],t,r))),a=[],o=new i(new r(t));return(await o.getEntries()).forEach((e=>{if(e.directory||/^__MACOS/i.test(e.filename))return;const t=new n,r=e.getData?.(t).then((t=>new File([t],e.filename)));r&&a.push(r)})),Promise.all(a)}t.extractZipFile=r,t.extractZipFiles=async function(e){const t=[];for(const i of e)i.name.toLowerCase().endsWith(".zip")?t.push(r(i)):t.push(Promise.resolve(i));return(await Promise.all(t)).flat()},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

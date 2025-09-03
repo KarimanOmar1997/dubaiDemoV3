@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../request","../../core/Error","../../core/urlUtils"],(function(e,r,t,s){"use strict";function a(e){return Array.isArray(e)?e.join(","):""}e.querySharedTemplates=async function({serviceUrl:e,query:l,requestOptions:n={}}){if(null==l.layers&&null==l.templateIds)throw new t("query-shared-templates:invalid-parameters","Must supply a value for either the 'layers' or the 'templateIds' parameters");const o=s.join(e,"sharedTemplates","query"),u={f:"json",...n.query,...l};u.layers&&(u.layers=a(u.layers)),u.templateIds&&(u.templateIds=a(u.templateIds)),u.tags&&(u.tags=a(u.tags));const i={...n,responseType:"json",query:u};return(await r(o,i)).data.templates},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

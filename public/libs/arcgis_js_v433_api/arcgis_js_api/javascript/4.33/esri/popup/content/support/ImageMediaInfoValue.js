@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../../chunks/tslib.es6","../../../core/JSONSupport","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass"],(function(e,r,o,t,s,c,n){"use strict";var p;let i=p=class extends r{constructor(e){super(e),this.linkURL=null,this.sourceURL=null}clone(){return new p({linkURL:this.linkURL,sourceURL:this.sourceURL})}};return e.__decorate([o.property({type:String,json:{write:!0}})],i.prototype,"linkURL",void 0),e.__decorate([o.property({type:String,json:{write:{isRequired:!0}}})],i.prototype,"sourceURL",void 0),i=p=e.__decorate([n.subclass("esri.popup.content.support.ImageMediaInfoValue")],i),i}));

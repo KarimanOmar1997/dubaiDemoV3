@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../core/Accessor","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,r,o,t,s,i,c){"use strict";let d=class extends r{constructor(e){super(e),this.featureTitleFields=!1,this.utilityNetworkFields=!1,this.globalIdField=!1}};return e.__decorate([o.property()],d.prototype,"featureTitleFields",void 0),e.__decorate([o.property()],d.prototype,"utilityNetworkFields",void 0),e.__decorate([o.property()],d.prototype,"globalIdField",void 0),d=e.__decorate([c.subclass("esri.views.support.RequiredFieldsOptions")],d),d}));

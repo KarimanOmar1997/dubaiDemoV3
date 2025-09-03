@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/has"],(function(e,t){"use strict";const i=new class{get forceStaticPath(){return"disabled"===t("esri-cim-animations-enable-status")}get forceAnimatedPath(){return"forced"===t("esri-cim-animations-enable-status")}get freezeGlobalTime(){return t("esri-cim-animations-freeze-time")??!1}get spotlightAnimatedSymbols(){return!!t("esri-cim-animations-spotlight")}get forceGlobalTimeOrigin(){return!1!==t("esri-cim-animations-freeze-time")}};e.animationDebugFlags=i,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

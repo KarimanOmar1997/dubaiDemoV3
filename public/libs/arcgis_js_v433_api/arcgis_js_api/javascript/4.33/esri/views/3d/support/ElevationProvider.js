@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../layers/graphics/dehydratedFeatureUtils"],(function(e,t){"use strict";function r(e){return"array"in e}e.SamplePosition=class{constructor(e,t=null,r=0){this.array=e,this.spatialReference=t,this.offset=r}},e.getElevationAtPoint=function(e,a,i="ground"){if(t.isDehydratedPoint(a))return e.getElevation(a.x,a.y,a.z||0,a.spatialReference,i);if(r(a)){let t=a.offset;return e.getElevation(a.array[t++],a.array[t++],a.array[t]||0,a.spatialReference??e.spatialReference,i)}return e.getElevation(a[0],a[1],a[2]||0,e.spatialReference,i)},e.isSamplePosition=r,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(e){"use strict";class t{constructor(e){this.texture=e,this.previousToken=-1}}e.TextureUpdater=class{constructor(){this._updating=new Map}add(e){this._updating.set(e.id,new t(e))}remove(e){this._updating.delete(e.id)}run(){let e=!1;return this._updating.forEach((t=>{const r=t.texture.update(t.previousToken);r>=0&&r!==t.previousToken&&(t.previousToken=r,e=!0)})),e}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

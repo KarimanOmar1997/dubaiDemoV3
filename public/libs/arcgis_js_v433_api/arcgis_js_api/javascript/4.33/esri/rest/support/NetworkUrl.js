@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/Clonable","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,t,o,r,s,c,l,a,p){"use strict";return e.default=class extends(o.ClonableMixin(r)){constructor(e){super(e),this.doNotLocateOnRestrictedElements=null,this.url=null}},t.__decorate([s.property({type:Boolean,json:{write:!0}})],e.default.prototype,"doNotLocateOnRestrictedElements",void 0),t.__decorate([s.property({type:String,json:{write:!0}})],e.default.prototype,"url",void 0),e.default=t.__decorate([p.subclass("esri.rest.support.NetworkUrl")],e.default),e.default}));

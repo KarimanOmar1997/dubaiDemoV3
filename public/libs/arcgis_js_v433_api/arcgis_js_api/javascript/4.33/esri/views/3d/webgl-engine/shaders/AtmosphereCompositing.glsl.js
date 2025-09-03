@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../core/shaderLibrary/ScreenSpacePass.glsl","../core/shaderModules/glsl","../core/shaderModules/Texture2DBindUniform","../core/shaderModules/Texture2DPassUniform","../../../webgl/NoParameters","../../../webgl/ShaderBuilder","../../../../chunks/AtmosphereCompositing.glsl"],(function(e,r,s,o,a,t,i,l){"use strict";e.AtmosphereCompositingPassParameters=l.AtmosphereCompositingPassParameters,e.build=l.build,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

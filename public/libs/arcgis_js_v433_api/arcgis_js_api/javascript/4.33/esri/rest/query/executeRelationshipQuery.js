@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../utils","./operations/queryRelatedRecords","../support/FeatureSet","../support/RelationshipQuery"],(function(e,t,r,o,n){"use strict";e.executeRelationshipQuery=async function(e,u,s){u=n.from(u);const a=t.parseUrl(e);return r.executeRelationshipQuery(a,u,s).then((e=>{const t=e.data,r={};return Object.keys(t).forEach((e=>r[e]=o.fromJSON(t[e]))),r}))},e.executeRelationshipQueryForCount=async function(e,o,u){o=n.from(o);const s=t.parseUrl(e);return r.executeRelationshipQueryForCount(s,o,{...u}).then((e=>e.data))},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

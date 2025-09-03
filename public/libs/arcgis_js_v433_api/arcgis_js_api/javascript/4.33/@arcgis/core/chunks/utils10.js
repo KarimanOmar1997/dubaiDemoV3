@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+*/
+import t from"../config.js";import{id as n}from"../kernel.js";import{clone as r}from"../core/lang.js";import{urlToObject as e}from"../core/urlUtils.js";import{a as i,g as o}from"../request.js";function s(t,n){return n?{...n,query:{...t??{},...n.query}}:{query:t}}function f(t){return"string"==typeof t?e(t):r(t)}function a(t,n,r){const e={};for(const i in t){if("declaredClass"===i)continue;const o=t[i];if(null!=o&&"function"!=typeof o)if(Array.isArray(o))e[i]=o.map((t=>a(t)));else if("object"==typeof o)if(o.toJSON){const t=o.toJSON(r?.[i]);e[i]=n?t:JSON.stringify(t)}else e[i]=n?o:JSON.stringify(o);else e[i]=o}return e}function u(t,r){return t?r&&i(t)?r:o(t)??n?.findCredential(t)?.token:null}async function c(r,e,i){const o=u(r,e);if(o)return o;!n&&t.request.useIdentity&&await import("../identity/IdentityManager.js");const s=await n.getCredential(r,i);return s?.token}export{s as a,a as e,u as f,c as g,f as p};

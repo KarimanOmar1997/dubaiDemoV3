@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../core/libs/gl-matrix-2/factories/vec3f64"],(function(t,i){"use strict";t.AmbientLight=class{constructor(t=i.zeros()){this.intensity=t}},t.FillLight=class{constructor(t=i.zeros(),s=i.fromValues(.57735,.57735,.57735)){this.intensity=t,this.direction=s}},t.MainLight=class{constructor(t=i.zeros(),s=i.fromValues(.57735,.57735,.57735),e=!0,r=1,n=1){this.intensity=t,this.direction=s,this.castShadows=e,this.specularStrength=r,this.environmentStrength=n}},t.SphericalHarmonicsAmbientLight=class{constructor(){this.r=[0],this.g=[0],this.b=[0]}},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

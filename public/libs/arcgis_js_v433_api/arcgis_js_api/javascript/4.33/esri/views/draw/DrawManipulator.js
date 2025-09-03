@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/Evented"],(function(e,t){"use strict";e.DrawManipulator=class{constructor({consumesClicks:e,grabbableForEvent:n}){this.events=new t,this.interactive=!0,this.selectable=!1,this.cursor=null,this.grabbable=!0,this.consumesClicks=e,this.grabbableForEvent=n}destroy(){}intersectionDistance(e,t){return 0}attach(){}detach(){}onElevationChange(){}onViewChange(){}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

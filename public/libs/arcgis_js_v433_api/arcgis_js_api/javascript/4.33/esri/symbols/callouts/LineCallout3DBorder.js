@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../Color","../../core/JSONSupport","../../core/lang","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/accessorSupport/decorators/subclass","../support/materialUtils"],(function(r,o,e,c,s,t,l,a,n){"use strict";var p;let u=p=class extends e{constructor(r){super(r),this.color=new o("white")}clone(){return new p({color:c.clone(this.color)})}};return r.__decorate([s.property(n.colorAndTransparencyProperty({colorRequiredOnWrite:!0}))],u.prototype,"color",void 0),u=p=r.__decorate([a.subclass("esri.symbols.callouts.LineCallout3DBorder")],u),u}));

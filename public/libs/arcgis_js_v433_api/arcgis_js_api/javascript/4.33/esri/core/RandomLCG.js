@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define((function(){"use strict";class t{static{this._m=2147483647}static{this._a=48271}static{this._c=0}constructor(t=1){this._seed=t}set seed(e){this._seed=e??Math.random()*t._m}getInt(){return this._seed=(t._a*this._seed+t._c)%t._m,this._seed}getFloat(){return this.getInt()/(t._m-1)}getIntRange(t,e){return Math.round(this.getFloatRange(t,e))}getFloatRange(e,s){const n=s-e;return e+this.getInt()/t._m*n}}return t}));

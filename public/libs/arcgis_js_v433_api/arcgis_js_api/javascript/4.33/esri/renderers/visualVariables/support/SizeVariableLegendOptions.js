@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../../chunks/tslib.es6","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass","./VisualVariableLegendOptions"],(function(e,r,s,o,t,c,a){"use strict";let u=class extends a{constructor(){super(...arguments),this.customValues=null}};return e.__decorate([r.property({type:[Number],json:{write:!0}})],u.prototype,"customValues",void 0),u=e.__decorate([c.subclass("esri.renderers.visualVariables.support.SizeVariableLegendOptions")],u),u}));

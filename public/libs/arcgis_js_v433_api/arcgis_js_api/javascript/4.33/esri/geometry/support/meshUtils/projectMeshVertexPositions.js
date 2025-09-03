@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../projection/projectBuffer","../MeshGeoreferencedVertexSpace","../spatialReferenceUtils","./vertexSpaceConversion"],(function(e,t,r,o,n){"use strict";e.projectMeshVertexPositions=function(e,i){const s=n.convertVertexSpace(e,r.absolute);if(!s)return null;let c=s.position;return o.equals(e.spatialReference,i)||(c=new Float64Array(s.position.length),t.projectBuffer(s.position,e.spatialReference,0,c,i,0))?c:null},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

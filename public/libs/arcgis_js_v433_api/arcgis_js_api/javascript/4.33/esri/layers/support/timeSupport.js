@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../support/timeUtils"],(function(e,t){"use strict";e.combineTimeExtent=function(e,n,i){if(null==e?.timeInfo)return null;const{datesInUnknownTimezone:o=!1,timeOffset:l,useViewTime:s}=e;let u=e.timeExtent;o&&(u=t.toLocalTimeExtent(u));let m=s?n&&u?n.intersection(u):n||u:u;return!m||m.isEmpty||m.isAllTime?m:(l&&(m=m.offset(-l.value,l.unit)),o&&(m=t.toUTCTimeExtent(m)),m.equals(i)?i:m)},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

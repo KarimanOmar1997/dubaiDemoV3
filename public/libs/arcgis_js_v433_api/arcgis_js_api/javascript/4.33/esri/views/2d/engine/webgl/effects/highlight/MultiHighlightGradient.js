@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./HighlightGradient"],(function(t,e){"use strict";t.MultiHighlightGradient=class{constructor(){this.type="multi",this.gradients=[]}setHighlightOptions(t){for(let i=0;i<t.length;i++)this.gradients[i]||(this.gradients[i]=new e),this.gradients[i].setHighlightOptions(t[i]);for(let e=t.length+1;e<this.gradients.length;e++)this.gradients[e].destroy();this.gradients.length=t.length}destroy(){for(const t of this.gradients)t.destroy()}getReasonsWithGradients(){let t=1;const e=[];for(let i=0;i<this.gradients.length;i++){const s=this.gradients[i];e.push({activeReasons:t,activeGradient:s}),t<<=1}return e}},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

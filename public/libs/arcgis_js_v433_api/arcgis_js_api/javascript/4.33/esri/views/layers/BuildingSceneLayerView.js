@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/Warning","../../core/Error","./LayerView"],(function(r,e,o,t,s,c,i,n){"use strict";class p extends n{constructor(r){super(r),this.layer=null,this.sublayerViews=null}highlight(r){throw new Error("Not implemented")}}return r.__decorate([e.property()],p.prototype,"layer",void 0),r.__decorate([e.property()],p.prototype,"sublayerViews",void 0),p}));

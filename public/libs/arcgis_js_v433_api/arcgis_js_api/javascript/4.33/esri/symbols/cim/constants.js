@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./defaultCIMValues"],(function(e,t){"use strict";const i={outlineWidth:.75,referenceWidth:.75,cap:t.defaultCIMValues.CIMSolidStroke.capstyle,join:t.defaultCIMValues.CIMSolidStroke.joinstyle,miterLimit:t.defaultCIMValues.CIMSolidStroke.miterlimit};e.antialiasingOutlineFillSettings=i,e.dashRadius=15.5,e.dashSdfDistanceNormalization=64,e.dashSdfRasterizationScale=4,e.maxTileCoordValue=1024,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/lang","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/accessorSupport/decorators/subclass","./AlgorithmicColorRamp","./ColorRamp"],(function(r,o,e,t,s,p,a,c,l){"use strict";var u;return r.default=u=class extends l{constructor(r){super(r),this.colorRamps=null,this.type="multipart"}clone(){return new u({colorRamps:e.clone(this.colorRamps)})}},o.__decorate([t.property({type:[c],json:{write:!0}})],r.default.prototype,"colorRamps",void 0),o.__decorate([t.property({type:["multipart"]})],r.default.prototype,"type",void 0),r.default=u=o.__decorate([a.subclass("esri.rest.support.MultipartColorRamp")],r.default),r.default}));

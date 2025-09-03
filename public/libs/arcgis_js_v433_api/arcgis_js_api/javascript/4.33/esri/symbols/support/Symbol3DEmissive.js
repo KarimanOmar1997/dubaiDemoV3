@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,s,o,r,t,c,i,p){"use strict";var n;e.Symbol3DEmissive=n=class extends o{constructor(){super(...arguments),this.strength=null,this.source="emissive"}clone(){const e={strength:this.strength,source:this.source};return new n(e)}},s.__decorate([r.property({json:{write:!1}})],e.Symbol3DEmissive.prototype,"strength",void 0),s.__decorate([r.property({json:{write:!1}})],e.Symbol3DEmissive.prototype,"source",void 0),e.Symbol3DEmissive=n=s.__decorate([p.subclass("esri.symbols.support.Symbol3DEmissive")],e.Symbol3DEmissive),Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

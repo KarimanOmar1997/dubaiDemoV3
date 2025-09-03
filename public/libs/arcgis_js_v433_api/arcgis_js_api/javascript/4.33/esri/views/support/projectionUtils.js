@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../core/promiseUtils","../../geometry/projectionUtils"],(function(e,t,r,n){"use strict";let o,i=null;async function c(t){i||(i=new Promise(((t,r)=>e(["../../portal/support/geometryServiceUtils"],t,r))).then((e=>o=e))),await i,r.throwIfAborted(t)}t.projectWithEngineOrService=async function e(t,r,i,a){if(!t)return null;const l=t.spatialReference;return n.isLoaded()||n.canProjectWithoutEngine(l,r)?n.project(t,r):o?o.projectGeometry(t,r,i,a):(await Promise.race([c(a),n.load(a)]),e(t,r,i,a))},t.projectWithZConversionSilent=async function(e,t){try{return e?.spatialReference?await n.projectWithZConversion(e,t):null}catch{return null}},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../Color"],(function(e,t){"use strict";const a=new t("cyan"),l=new t("black"),o=new t("yellow");e.defaultColor=a,e.defaultFillOpacity=.25,e.defaultHaloOpacity=1,e.defaultHighlightName="default",e.defaultOccludedFactor=.25,e.defaultShadowColor=l,e.defaultShadowDifference=.2,e.defaultShadowOpacity=.4,e.maximumHighlights=8,e.temporaryHighlightColor=o,e.temporaryHighlightName="temporary",Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

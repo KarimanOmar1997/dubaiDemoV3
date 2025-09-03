@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/enumeration","../../core/accessorSupport/decorators/subclass","./networkEnums"],(function(e,r,o,t,s,a,c,u,n,p){"use strict";return e.default=class extends o{constructor(e){super(e),this.area=0,this.units=null}},r.__decorate([t.property({json:{write:!0}})],e.default.prototype,"area",void 0),r.__decorate([u.enumeration(p.areaUnitJsonMap)],e.default.prototype,"units",void 0),e.default=r.__decorate([n.subclass("esri.rest.support.ArealUnit")],e.default),e.default}));

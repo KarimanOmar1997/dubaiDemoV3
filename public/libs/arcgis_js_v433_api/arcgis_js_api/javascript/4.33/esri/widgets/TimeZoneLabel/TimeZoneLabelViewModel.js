@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../core/Accessor","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,r,o,s,t,c,a){"use strict";let d=class extends r{constructor(e){super(e),this.view=null}get state(){return this.view?.ready?"ready":"disabled"}};return e.__decorate([o.property({readOnly:!0})],d.prototype,"state",null),e.__decorate([o.property()],d.prototype,"view",void 0),d=e.__decorate([a.subclass("esri.widgets.TimeZoneLabel.TimeZoneLabelViewModel")],d),d}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(e){"use strict";function r(e,r,t,n){const{loggerTag:o,stride:i}=r;return e.length%i!==0?(n.error(o,`Invalid array length, expected a multiple of ${i}`),new t([])):e}e.castArray=function(e,t,n,o,i){if(!e)return e;if(e instanceof t)return r(e,o,t,i);for(const a of n)if(e instanceof a)return r(new t(e),o,t,i);if(Array.isArray(e))return r(new t(e),o,t,i);{const r=n.map((e=>`'${e.name}'`));return i.error(`Failed to set property, expected one of ${r}, but got ${e.constructor.name}`),new t([])}},e.writeTypedArray=function(e,r,t){r[t]=function(e){const r=new Array(e.length);for(let t=0;t<e.length;t++)r[t]=e[t];return r}(e)},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

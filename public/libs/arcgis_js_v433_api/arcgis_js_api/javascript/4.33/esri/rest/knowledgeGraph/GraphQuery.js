@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/Accessor","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,r,o,s,t,c,a,p){"use strict";return e.default=class extends o{constructor(e){super(e),this.openCypherQuery=""}},r.__decorate([s.property()],e.default.prototype,"openCypherQuery",void 0),e.default=r.__decorate([p.subclass("esri.rest.knowledgeGraph.GraphQuery")],e.default),e.default}));

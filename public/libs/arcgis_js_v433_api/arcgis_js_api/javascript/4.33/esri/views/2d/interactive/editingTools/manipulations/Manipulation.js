@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(r){"use strict";var t;r.ManipulatorType=void 0,(t=r.ManipulatorType||(r.ManipulatorType={}))[t.TRANSLATE_XY=0]="TRANSLATE_XY",t[t.SCALE=1]="SCALE",t[t.ROTATE=2]="ROTATE",r.Manipulation=class{get hovering(){return this.someManipulator((r=>r.hovering))}get grabbing(){return this.someManipulator((r=>r.grabbing))}get dragging(){return this.someManipulator((r=>r.dragging))}hasManipulator(r){return this.someManipulator((t=>t===r))}someManipulator(r){let t=!1;return this.forEachManipulator((a=>{!t&&r(a)&&(t=!0)})),t}},Object.defineProperty(r,Symbol.toStringTag,{value:"Module"})}));

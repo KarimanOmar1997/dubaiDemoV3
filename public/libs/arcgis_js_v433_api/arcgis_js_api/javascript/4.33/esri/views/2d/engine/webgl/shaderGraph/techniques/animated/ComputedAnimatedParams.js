@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../../../core/screenUtils"],(function(e,t){"use strict";e.createComputedAnimatedMeshParams=function(e){let{pixelDimensions:i,texelDimensions:s,baseSize:n,referenceSize:r,strokeWidth:o,sizeRatio:p}=e;if(i||(i=e.sprite.sdf?[0,0]:[e.sprite.width,e.sprite.height]),s||(s=e.sprite.sdf?[0,0]:i),null!=e.patternHeight){const t=e.patternHeight/i[1];i[1]*=t,i[0]*=t}-1===n&&(n=i[1]),n=t.pt2px(n),r=t.pt2px(r),o=t.pt2px(o);const f=(e.sprite.sdfDecodeCoeff??1)*p;return{...e,pixelDimensions:i,texelDimensions:s,baseSize:n,referenceSize:r,strokeWidth:o,sdfDecodeCoeff:f}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../core/libs/gl-matrix-2/factories/vec2f64","../../../../webgl/NoParameters"],(function(e,r,s){"use strict";class t extends s.NoParameters{constructor(){super(...arguments),this.projScale=1}}class a extends s.NoParameters{}e.BlurDrawParameters=class extends a{constructor(){super(...arguments),this.blurSize=r.create()}},e.BlurPassParameters=t,e.SSAODrawParameters=a,e.SSAOPassParameters=class extends t{constructor(){super(...arguments),this.intensity=1}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../chunks/tslib.es6","../../../core/JSONSupport","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass","./Association"],(function(e,o,t,s,r,c,a,p,u){"use strict";return e.default=class extends t{constructor(e){super(e),this.maxGeometryCountExceeded=!1,this.associations=[]}},o.__decorate([s.property({type:Boolean,json:{write:!0}})],e.default.prototype,"maxGeometryCountExceeded",void 0),o.__decorate([s.property({type:[u],json:{write:!0}})],e.default.prototype,"associations",void 0),e.default=o.__decorate([p.subclass("esri.rest.networks.support.AssociationGeometriesResult")],e.default),e.default}));

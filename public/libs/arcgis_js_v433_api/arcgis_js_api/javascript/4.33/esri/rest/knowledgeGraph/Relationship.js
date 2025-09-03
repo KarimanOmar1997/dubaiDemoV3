@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","../../geometry/Polyline","./GraphNamedObject"],(function(e,t,o,r,s,a,d,i,p){"use strict";return e.default=class extends p{constructor(e){super(e),this.originId=null,this.destinationId=null,this.layoutGeometry=null}},t.__decorate([o.property({type:String,json:{write:!0}})],e.default.prototype,"originId",void 0),t.__decorate([o.property({type:String,json:{write:!0}})],e.default.prototype,"destinationId",void 0),t.__decorate([o.property({type:i,json:{write:!0}})],e.default.prototype,"layoutGeometry",void 0),e.default=t.__decorate([d.subclass("esri.rest.knowledgeGraph.Relationship")],e.default),e.default}));

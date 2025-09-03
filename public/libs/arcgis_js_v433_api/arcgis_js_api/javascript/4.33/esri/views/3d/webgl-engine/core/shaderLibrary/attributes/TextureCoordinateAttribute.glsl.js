@@ -1,0 +1,7 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../../core/compilerUtils","../../shaderModules/glsl","../../../lib/VertexAttribute"],(function(e,t,r,o){"use strict";var d;e.TextureCoordinateType=void 0,(d=e.TextureCoordinateType||(e.TextureCoordinateType={}))[d.None=0]="None",d[d.Default=1]="Default",d[d.Atlas=2]="Atlas",d[d.COUNT=3]="COUNT",e.TextureCoordinateAttribute=function(d,a){switch(a.textureCoordinateType){case e.TextureCoordinateType.Default:return d.attributes.add(o.VertexAttribute.UV0,"vec2"),d.varyings.add("vuv0","vec2"),void d.vertex.code.add(r.glsl`void forwardTextureCoordinates() { vuv0 = uv0; }`);case e.TextureCoordinateType.Atlas:return d.attributes.add(o.VertexAttribute.UV0,"vec2"),d.attributes.add(o.VertexAttribute.UVREGION,"vec4"),d.varyings.add("vuv0","vec2"),d.varyings.add("vuvRegion","vec4"),void d.vertex.code.add(r.glsl`void forwardTextureCoordinates() {
+vuv0 = uv0;
+vuvRegion = uvRegion;
+}`);default:t.neverReached(a.textureCoordinateType);case e.TextureCoordinateType.None:return void d.vertex.code.add(r.glsl`void forwardTextureCoordinates() {}`);case e.TextureCoordinateType.COUNT:return}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

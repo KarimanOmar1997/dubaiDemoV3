@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/mathUtils","./constants"],(function(t,n,e){"use strict";function o({x:t,y:e}){const o=Math.atan2(t,e);return n.rad2deg(o)}t.angleToUnitVector=function(t){const e=n.deg2rad(t);return{x:Math.sin(e),y:Math.cos(e)}},t.findElementCenter=function(t){const{x:n,y:e,width:o,height:r}=t.getBoundingClientRect();return{x:n+o/2,y:e+r/2}},t.toUnitVector=function(t,n){const e=n.y-t.y,o=n.x-t.x,r=Math.sqrt(o*o+e*e);return{x:o/r,y:e/r}},t.unitVectorToAngle=o,t.vectorToClosestAngle=function(t){const n=o(t),r=e.directionalPadCyclicalAngles.map((t=>({angle:t,offset:Math.abs(t-n)}))).sort(((t,n)=>t.offset-n.offset))[0].angle;return-180===r?180:r},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

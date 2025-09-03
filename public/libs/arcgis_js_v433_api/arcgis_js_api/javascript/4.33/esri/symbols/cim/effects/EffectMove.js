@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(t){"use strict";class e{static{this.instance=null}static local(){return null===e.instance&&(e.instance=new e),e.instance}execute(t,e,n,i,o){return new s(t,e,n)}}class s{constructor(t,e,s){this._inputGeometries=t,this._offsetX=void 0!==e.offsetX?e.offsetX*s:0,this._offsetY=void 0!==e.offsetY?e.offsetY*s:0}next(){let t=this._inputGeometries.next();for(;t;){if(t.totalSize>0)return this._move(t.clone(),this._offsetX,this._offsetY);t=this._inputGeometries.next()}return null}_move(t,e,s){for(;t.nextPath();)for(;t.nextPoint();)t.x=t.x+e,t.y=t.y+s;return t.reset(),t}}t.EffectMove=e,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

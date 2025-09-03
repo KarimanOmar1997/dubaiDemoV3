@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../request"],(function(e,r){"use strict";e.addServerVersion=async function(e,t){let n=null;const a="string"==typeof t?t:t.path;if(!e.has(a)){const s=await r(a.replace(/\/VersionManagementServer/i,"/FeatureServer"),{query:{f:"json"}});n={serverVersion:Number(s.data.currentVersion),featureServerUrl:a.replace(/\/VersionManagementServer/i,"/FeatureServer")},e.set(t,n)}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

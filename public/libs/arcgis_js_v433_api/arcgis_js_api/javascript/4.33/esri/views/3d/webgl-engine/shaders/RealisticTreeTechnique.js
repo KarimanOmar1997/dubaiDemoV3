@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../core/shaderTechnique/ReloadableShaderModule","./DefaultMaterialTechnique","../../../../chunks/RealisticTree.glsl"],(function(e,i,l,r,t){"use strict";class a extends r.DefaultMaterialTechnique{constructor(i,r){super(i,r,new l.ReloadableShaderModule(t.RealisticTree,(()=>new Promise(((i,l)=>e(["./RealisticTree.glsl"],i,l)))))),this.type="RealisticTreeTechnique"}}i.RealisticTreeTechnique=a,Object.defineProperty(i,Symbol.toStringTag,{value:"Module"})}));

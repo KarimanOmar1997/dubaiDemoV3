@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./ref","./keyed","./componentsUtils","./component"],(function(t,n,o,e,c){"use strict";const l={button:"x-button",buttonRound:"x-button--round"};t.CSS=l,t.XButton=({disabled:t,focusable:u,key:a,label:i,onClick:b,ref:s,round:d=!0,scale:$,title:r})=>o.i(a,e.x`<button .ariaLabel=${i} class=${e.safeClassMap({[(t=>`x-button--${t}`)($)]:!0,[l.button]:!0,[l.buttonRound]:d})} .disabled=${t} @click=${b} .tabIndex=${u?0:-1} title=${r??e.E} type=button ${n.n(s)}><calcite-icon icon=x .scale=${c.getIconScale($)}></calcite-icon></button>`)}));

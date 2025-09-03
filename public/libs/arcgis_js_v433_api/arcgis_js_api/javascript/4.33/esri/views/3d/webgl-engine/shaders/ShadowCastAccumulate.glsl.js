@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../core/shaderLibrary/ScreenSpacePass.glsl","../core/shaderLibrary/shading/calculateUVZShadowFromDepth.glsl","../core/shaderLibrary/shading/ReadShadowMap.glsl","../core/shaderModules/glsl","../core/shaderModules/Texture2DBindUniform","../core/shaderModules/Texture2DShadowBindUniform","./ReadShadowMapConfiguration","./ShadowCastAccumulateTechniqueConfiguration","../../../webgl/ShaderBuilder","../../../../chunks/ShadowCastAccumulate.glsl"],(function(e,a,r,d,o,s,l,i,u,h,t){"use strict";e.ShadowCastMaxSamples=t.ShadowCastMaxSamples,e.build=t.build,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

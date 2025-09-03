@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./ArcadeModule","../chunks/languageUtils","../support/guards"],(function(e,r,a,t){"use strict";let i;e.configureDeepClone=function(e){i=e},e.deepClone=function e(n){return null===n?null:a.isDate(n)?n.clone():a.isSimpleType(n)?n:a.isGeometry(n)?n.clone():a.isImmutableArray(n)?n.toArray().map((r=>e(r))):t.isArray(n)?n.map((r=>e(r))):a.isFeature(n)?i.createFromArcadeFeature(n):a.isFeatureSetCollection(n)||a.isFeatureSet(n)?n:a.isDictionary(n)||"esri.arcade.Attachment"===n?.declaredClass?n.deepClone():("esri.arcade.Portal"===n?.declaredClass||a.isKnowledgeGraph(n)||n instanceof r.ArcadeModule||a.isFunctionParameter(n),n)},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

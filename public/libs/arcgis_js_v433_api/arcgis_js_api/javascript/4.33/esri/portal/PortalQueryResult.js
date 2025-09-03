@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../chunks/tslib.es6","../core/Accessor","../core/accessorSupport/decorators/property","../core/has","../core/Logger","../core/RandomLCG","../core/accessorSupport/decorators/subclass"],(function(e,r,t,o,s,a,u,c){"use strict";return e.default=class extends t{constructor(e){super(e),this.nextQueryParams=null,this.queryParams=null,this.results=null,this.total=null}},r.__decorate([o.property()],e.default.prototype,"nextQueryParams",void 0),r.__decorate([o.property()],e.default.prototype,"queryParams",void 0),r.__decorate([o.property()],e.default.prototype,"results",void 0),r.__decorate([o.property()],e.default.prototype,"total",void 0),e.default=r.__decorate([c.subclass("esri.portal.PortalQueryResult")],e.default),e.default}));

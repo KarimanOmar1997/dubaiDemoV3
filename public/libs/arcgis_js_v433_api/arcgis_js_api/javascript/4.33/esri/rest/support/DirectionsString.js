@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/enumeration","../../core/accessorSupport/decorators/subclass","./networkEnums"],(function(r,e,o,t,s,c,n,p,a){"use strict";let i=class extends e{constructor(r){super(r)}};return r.__decorate([o.property({json:{read:{source:"string"}}})],i.prototype,"text",void 0),r.__decorate([n.enumeration(a.directionsStringTypeJsonMap,{name:"stringType"})],i.prototype,"type",void 0),i=r.__decorate([p.subclass("esri.rest.support.DirectionsString")],i),i}));

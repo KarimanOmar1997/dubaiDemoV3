@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./fieldUtils"],(function(e,n){"use strict";const l=["lat","lat83","latitude","latitude83","latdecdeg","lat_dd","y","ycenter","point_y"],t=["lon","lng","lng83","long","long83","longitude","longitude83","longdecdeg","long_dd","x","xcenter","point_x"];e.inferLocationInfo=function(e,i,d){i=n.normalizeFieldName(i)?.toLowerCase(),d=n.normalizeFieldName(d)?.toLowerCase();const o=e.map((e=>e.toLowerCase())),a=i?e[o.indexOf(i)]:null,u=d?e[o.indexOf(d)]:null;return{longitudeFieldName:a||e[o.indexOf(t.find((e=>o.includes(e))))],latitudeFieldName:u||e[o.indexOf(l.find((e=>o.includes(e))))]}},e.latitudeFieldNames=l,e.longitudeFieldNames=t,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

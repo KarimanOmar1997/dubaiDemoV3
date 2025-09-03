@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../../chunks/tslib.es6","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass","./MediaInfo","../support/ChartMediaInfoValue"],(function(e,r,o,t,s,c,a,p){"use strict";let i=class extends a{constructor(e){super(e),this.type=null,this.value=void 0}};return e.__decorate([r.property({type:["bar-chart","column-chart","line-chart","pie-chart"],readOnly:!0,json:{read:!1,write:!0}})],i.prototype,"type",void 0),e.__decorate([r.property({type:p,json:{write:{isRequired:!0}}})],i.prototype,"value",void 0),i=e.__decorate([c.subclass("esri.popup.content.mixins.ChartMediaInfo")],i),i}));

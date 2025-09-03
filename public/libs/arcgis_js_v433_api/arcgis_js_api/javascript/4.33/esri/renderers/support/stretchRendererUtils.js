@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/jsonMap"],(function(i,n){"use strict";const t=new n.JSONMap({none:"none",standardDeviation:"standard-deviation",histogramEqualization:"histogram-equalization",minMax:"min-max",percentClip:"percent-clip",sigmoid:"sigmoid"});i.stretchTypeFunctionEnum={0:"none",3:"standardDeviation",4:"histogramEqualization",5:"minMax",6:"percentClip",9:"sigmoid"},i.stretchTypeJSONDict=t,Object.defineProperty(i,Symbol.toStringTag,{value:"Module"})}));

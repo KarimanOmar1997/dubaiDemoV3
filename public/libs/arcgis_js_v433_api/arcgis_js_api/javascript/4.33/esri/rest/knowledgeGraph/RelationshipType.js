@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./GraphObjectType"],(function(e,r,t,s,o,c,a,p){"use strict";return e.default=class extends p{constructor(e){super(e),this.endPoints=[],this.type="relationship"}},r.__decorate([t.property({json:{write:!0}})],e.default.prototype,"endPoints",void 0),e.default=r.__decorate([a.subclass("esri.rest.knowledgeGraph.RelationshipType")],e.default),e.default}));

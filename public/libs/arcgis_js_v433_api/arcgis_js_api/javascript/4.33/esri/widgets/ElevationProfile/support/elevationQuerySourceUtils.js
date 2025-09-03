@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../core/arrayUtils","../../../core/unitUtils","../../../support/groundInstanceUtils"],(function(n,e,t,r){"use strict";function l(n){if(null==n)return null;if(r.isGround(n))return u(n);const e=n.tileInfo;if(null==e)return null;const l=e.lods?.at(-1);return null==l?null:l.resolution*t.getMetersPerUnitForSR(e.spatialReference)}function u(n){if(null==n)return null;const t=n.layers.items.map(i).filter(e.isSome);return e.min(t)??null}function i(n){return n&&"tileInfo"in n?l(n):null}n.getGroundMinDemResolution=u,n.getQuerySourceMinDemResolution=l,Object.defineProperty(n,Symbol.toStringTag,{value:"Module"})}));

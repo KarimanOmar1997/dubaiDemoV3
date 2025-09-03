@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../core/screenUtils","../../../core/libs/gl-matrix-2/factories/vec3f64","../../../layers/graphics/dehydratedPoint","../../3d/interactive/support/viewUtils"],(function(e,t,r,c,n){"use strict";const o=c.makeDehydratedPoint(0,0,0,null),i=r.create(),a=t.createScreenPointArray();e.vectorToScreenPoint=function(e,r,c,s){return"2d"===s.type?(o.x=e[0],o.y=e[1],o.spatialReference=r,s.toScreen(o)):(n.vectorToRender(e,r,c,s,i),s.state.camera.projectToScreen(i,a),t.createScreenPoint(a[0],a[1]))},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

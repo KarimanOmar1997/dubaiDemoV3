@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../core/arrayUtils","../../../../../core/handleUtils","../../../../../core/promiseUtils"],(function(e,o,t,s){"use strict";e.TileLocks=class{constructor(){this._previousActions=new Map}async lock(e){const{_previousActions:r}=this,i=e.map((e=>r.get(e))).filter(o.isSome),l=Promise.allSettled(i),c=s.createResolver(),a=t.makeHandle((()=>c.resolve())),n=c.promise.finally((()=>{for(const o of e)r.get(o)===n&&r.delete(o)}));for(const o of e)r.set(o,n);return await l,t.disposable(a)}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

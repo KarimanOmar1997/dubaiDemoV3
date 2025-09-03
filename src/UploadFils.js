@@ -39,7 +39,7 @@ const GeoJSONFileManager = ({
     setIsSaving(true);
 
     try {
-      const response = await fetch("http://localhost:3002/api/save-to-public", {
+      const response = await fetch("http://172.189.56.93:3001/api/save-to-public", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

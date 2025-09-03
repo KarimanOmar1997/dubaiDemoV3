@@ -13,7 +13,7 @@ export const useGeoData = () => {
       setConnectionStatus("loading");
       setDataProcessingStatus("loading");
       
-      const response = await fetch('http://localhost:3001/api/files');
+      const response = await fetch('http://172.189.56.93:3001/api/files');
       console.log("📡 استجابة الخادم:", response.status, response.statusText);
       
       if (!response.ok) {

@@ -271,7 +271,7 @@ export default function EnhancedGeoChatBotApp() {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
       
-      res = await fetch("http://135.222.40.6:11434/api/chat", {
+      res = await fetch("https://apiexbot.harvestguard.ai/api/external/ollama/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestBody),

@@ -5,27 +5,29 @@ import "./leaflet-icon-fix";
 import GeoChatBotApp from "./GeoChatBotApp";
 import UploadFils from "./UploadFils";
 
-
 export default function App() {
   return (
     <Router>
-<nav className="bg-gradient-to-r from-slate-800 via-gray-900 to-slate-900 shadow-xl border-b border-slate-700/30">
+      {/* Navbar */}
+      <nav className="bg-gradient-to-r from-slate-800 via-gray-900 to-slate-900 shadow-xl border-b border-slate-700/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo/Brand */}
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-amber-500/90 rounded-lg flex items-center justify-center backdrop-blur-sm shadow-lg ring-2 ring-amber-400/20">
-                <svg className="w-5 h-5 text-slate-900" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clipRule="evenodd" />
-                </svg>
+              <div className="w-8 h-8 bg-gray-500/90 rounded-lg flex items-center justify-center backdrop-blur-sm shadow-lg ring-2 ring-gray-400/20">
+                <img
+                  src="/StrategizeIT.png"
+                  alt="StrategizeIT Logo"
+                  className="w-100 h-6"
+                />
               </div>
-              <span className="text-white font-bold text-lg">GeoAnalyzer</span>
+              <span className="text-white font-bold text-lg">StrategizeIT</span>
             </div>
 
             {/* Navigation Links */}
             <div className="flex items-center space-x-1">
-              <Link 
-                to="/" 
+              <Link
+                to="/"
                 className="group relative px-4 py-2 text-white/90 hover:text-white transition-all duration-300 ease-out font-medium"
               >
                 <span className="relative z-10 flex items-center space-x-2">
@@ -39,13 +41,17 @@ export default function App() {
 
               <div className="w-px h-6 bg-white/20"></div>
 
-              <Link 
-                to="/UploadFils" 
+              <Link
+                to="/UploadFils"
                 className="group relative px-4 py-2 text-white/90 hover:text-white transition-all duration-300 ease-out font-medium"
               >
                 <span className="relative z-10 flex items-center space-x-2">
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                    <path
+                      fillRule="evenodd"
+                      d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z"
+                      clipRule="evenodd"
+                    />
                   </svg>
                   <span>Upload Files</span>
                 </span>
@@ -67,10 +73,16 @@ export default function App() {
         <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
       </nav>
 
+      {/* Routes */}
       <Routes>
         <Route path="/" element={<GeoChatBotApp />} />
         <Route path="/UploadFils" element={<UploadFils />} />
       </Routes>
+
+      {/* Footer */}
+      <footer className="bg-slate-900 text-white/70 text-center py-3 border-t border-slate-700/30 ">
+        <span>Powered by <span className="font-semibold text-white">StrategizeIT</span></span>
+      </footer>
     </Router>
   );
 }

@@ -42,11 +42,14 @@ const ChatPanel = ({
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
-              <MessageCircle className="w-6 h-6" />
+                <img
+                    src="/ncemaLogoWhite.png" // ✅ direct path
+                    alt="NCEMA Logo"
+                    className="w-100 h-6"
+                  />
             </div>
             <div>
-              <h1 className="text-xl font-bold">StrategizeIT</h1>
-              <p className="text-sm opacity-90">مساعد الخرائط الذكي</p>
+              <h1 className="text-xl font-bold">NCMA</h1>
             </div>
           </div>
           <div className="flex items-center space-x-2">

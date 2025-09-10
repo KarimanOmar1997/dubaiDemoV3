@@ -51,7 +51,7 @@ export default function SimpleRAGChat() {
   };
 
   const realLLM = async (question, context) => {
-    const res = await fetch('http://172.189.56.93:11434/api/generate', {
+    const res = await fetch('http://localhost:11434/api/generate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

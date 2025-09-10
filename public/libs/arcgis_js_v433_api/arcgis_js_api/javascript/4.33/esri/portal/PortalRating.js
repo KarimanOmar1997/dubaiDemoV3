@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../chunks/tslib.es6","../core/Accessor","../core/accessorSupport/decorators/property","../core/has","../core/Logger","../core/RandomLCG","../core/accessorSupport/decorators/subclass"],(function(e,r,t,o,s,c,a,d){"use strict";return e.default=class extends t{constructor(e){super(e),this.created=null,this.rating=null}},r.__decorate([o.property({type:Date})],e.default.prototype,"created",void 0),r.__decorate([o.property()],e.default.prototype,"rating",void 0),e.default=r.__decorate([d.subclass("esri.portal.PortalRating")],e.default),e.default}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../chunks/tslib.es6","../core/Clonable","../core/JSONSupport","../core/accessorSupport/decorators/property","../core/has","../core/Logger","../core/RandomLCG","../core/accessorSupport/decorators/subclass","./ChronologicalLayoutSettings","./OrganicLayoutSettings"],(function(o,t,e,r,s,c,n,a,i,l){"use strict";let u=class extends(t.ClonableMixin(e)){constructor(o){super(o),this.chronologicalLayoutSettings=null,this.organicLayoutSettings=null}};return o.__decorate([r.property({type:i,json:{write:!0}})],u.prototype,"chronologicalLayoutSettings",void 0),o.__decorate([r.property({type:l,json:{write:!0}})],u.prototype,"organicLayoutSettings",void 0),u=o.__decorate([a.subclass("esri.linkChart.LayoutSettings")],u),u}));

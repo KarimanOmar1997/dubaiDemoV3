@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../../chunks/pe"],(function(e,t,r){"use strict";let n;function o(){return!!n&&r.isLoaded()}t.getNearestCoordinate=function(e,t,r,o,i,s){return n.getNearestCoordinate(e,t,r,o,i,s)},t.getNearestVertex=function(e,t,r){return n.getNearestVertex(e,t,r)},t.getNearestVertices=function(e,t,r,o,i){return n.getNearestVertices(e,t,r,o,i)},t.isLoaded=o,t.load=async function(){if(!o()){const[t,o]=await Promise.all([new Promise(((t,r)=>e(["../../../chunks/OperatorProximityGeodesic"],t,r))),new Promise(((t,r)=>e(["../../../chunks/ProjectionTransformation"],t,r))).then((e=>e.SpatialReference)).then((({injectPe:e})=>e)),r.load()]);n=new t.OperatorProximityGeodesic,o(r.pe)}},t.supportsCurves=function(){return n.supportsCurves()},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../chunks/tslib.es6","../../../../core/Logger","../../../../core/has","../../../../core/RandomLCG","../../../../core/Error","../../../../core/accessorSupport/decorators/subclass","../../engine/webgl/enums","./AGraphicContainer","../support/util"],(function(e,r,t,s,a,i,h,n,o,c){"use strict";return e.default=class extends o.AGraphicContainer{get hasHighlight(){return this.children.some((e=>e.hasData))}renderChildren(e){this.attributeView.update(),e.drawPhase===n.WGLDrawPhase.HIGHLIGHT&&this.children.some((e=>e.hasData))&&(super.renderChildren(e),e.context.setColorMask(!0,!0,!0,!0),c.renderHighlight(e,!1,(e=>{this._renderChildren(e,n.FeatureSelection.Highlight)})))}},e.default=r.__decorate([h.subclass("esri.views.2d.layers.graphics.HighlightGraphicContainer")],e.default),e.default}));

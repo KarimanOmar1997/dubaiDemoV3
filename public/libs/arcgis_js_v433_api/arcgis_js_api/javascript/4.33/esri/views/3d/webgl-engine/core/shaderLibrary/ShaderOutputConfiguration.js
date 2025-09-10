@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../chunks/tslib.es6","./ShaderOutput","../shaderTechnique/ShaderTechniqueConfiguration"],(function(t,e,u,o){"use strict";class r extends o.ShaderTechniqueConfiguration{constructor(){super(...arguments),this.output=u.ShaderOutput.Color}}e.__decorate([o.parameter({count:u.ShaderOutput.COUNT})],r.prototype,"output",void 0),t.ShaderOutputConfiguration=r,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

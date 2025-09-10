@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../core/MapUtils","../../../../layers/support/LayerContingentValuesCache","../../../../layers/support/layerUtils"],(function(e,t,a,n){"use strict";const r=new Map;e.getLayerContingentValuesMetaData=async function(e){if(!(e=n.isSubtypeSublayer(e)?e.parent:"feature"===e?.type?e:null))return null;const l=t.getOrCreateMapValue(r,e,(()=>{const t=a.createLoadedLayerContingentValuesCache(e);return e.addHandles({remove(){r.delete(e)}}),t}));return await l??null},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

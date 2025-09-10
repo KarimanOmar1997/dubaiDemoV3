@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/enumeration","../../core/accessorSupport/decorators/subclass","./parameterValueUtils"],(function(e,r,t,o,a,s,p,u,c,d){"use strict";return e.default=class extends t{constructor(e){super(e),this.dataType=null,this.paramName=null,this.value=null}},r.__decorate([u.enumeration(d.dataTypeJsonMap,{ignoreUnknown:!1})],e.default.prototype,"dataType",void 0),r.__decorate([o.property()],e.default.prototype,"paramName",void 0),r.__decorate([o.property()],e.default.prototype,"value",void 0),e.default=r.__decorate([c.subclass("esri.rest.support.ParameterValue")],e.default),e.default}));

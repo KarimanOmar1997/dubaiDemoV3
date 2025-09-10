@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../TechniqueType","./BaseRasterProcessorTechnique","../../shaders/raster/processor/NDVIShader"],(function(e,s,r,t){"use strict";class n extends r.BaseRasterProcessorTechnique{constructor(){super(...arguments),this.name="RasterNDVIProcessor",this.type=s.RasterTechniqueType.NDVI,this.shaders={ndvi:new t.NDVIShader}}_process(e,s){const r=e.rasterFunction.parameters,t={scaled:r.scaled},n={bandIndexMat3:r.bandIndexMat3},a=this._getCommonConfig(e,s),o={shader:this.shaders.ndvi,uniforms:{config:a,ndviConfig:n},defines:t,optionalAttributes:null,useComputeBuffer:!1},{painter:i,context:c}=e;i.submitDrawMesh(c,o,i.quadMesh)}}e.NDVITechnique=n,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

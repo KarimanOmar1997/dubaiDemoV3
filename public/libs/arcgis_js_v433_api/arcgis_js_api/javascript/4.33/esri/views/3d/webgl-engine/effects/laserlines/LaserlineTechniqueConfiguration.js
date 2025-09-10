@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../chunks/tslib.es6","../../core/shaderTechnique/ShaderTechniqueConfiguration","./LaserlinePathTechniqueConfiguration"],(function(e,t,i,n){"use strict";class a extends n.LaserlinePathTechniqueConfiguration{constructor(){super(...arguments),this.heightManifoldEnabled=!1,this.pointDistanceEnabled=!1,this.lineVerticalPlaneEnabled=!1,this.intersectsLineEnabled=!1}}t.__decorate([i.parameter()],a.prototype,"heightManifoldEnabled",void 0),t.__decorate([i.parameter()],a.prototype,"pointDistanceEnabled",void 0),t.__decorate([i.parameter()],a.prototype,"lineVerticalPlaneEnabled",void 0),t.__decorate([i.parameter()],a.prototype,"intersectsLineEnabled",void 0),e.LaserlineTechniqueConfiguration=a,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

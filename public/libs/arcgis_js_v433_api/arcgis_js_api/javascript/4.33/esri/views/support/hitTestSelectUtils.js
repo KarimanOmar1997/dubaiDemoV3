@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(t){"use strict";function e(t){return"graphic"===t?.type}t.filterGraphicHits=function(t){return t.filter(e)},t.findFirstGraphicHit=function(t){return t.find(e)??null},t.hitTestSelectSimilarDistance=async function(t,e){if("2d"===t.type)return t.hitTest(e);const n=await t.hitTest(e);if(0===n.results.length)return n;const i=n.results[0],r=1.05*(i.distance??0),s=n.results.findIndex((t=>(t.distance??0)>r));return-1!==s&&(n.results=n.results.slice(0,s)),i&&n.ground.distance>r&&(n.ground.mapPoint=null),n},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

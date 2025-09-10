@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./Effect","../../../../webgl/enums"],(function(e,t,r){"use strict";class s extends t.Effect{constructor(e){super(),this.name=this.constructor.name,this.defines=[e]}dispose(){}bind({context:e,painter:t}){this._prev=e.getBoundFramebufferObject();const s=t.getFbos().effect0;e.bindFramebuffer(s),e.setColorMask(!0,!0,!0,!0),e.setClearColor(0,0,0,0),e.clear(r.FramebufferBit.COLOR)}unbind(){}draw(e,t){const{context:s,painter:n}=e,o=n.getPostProcessingEffects(t),f=s.getBoundFramebufferObject();for(const{postProcessingEffect:t,effect:r}of o)t.draw(e,f,r);s.bindFramebuffer(this._prev),s.setStencilTestEnabled(!1),n.blitTexture(s,f.colorTexture,r.TextureSamplingMode.NEAREST),s.setStencilTestEnabled(!0)}}e.FeatureEffect=s,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

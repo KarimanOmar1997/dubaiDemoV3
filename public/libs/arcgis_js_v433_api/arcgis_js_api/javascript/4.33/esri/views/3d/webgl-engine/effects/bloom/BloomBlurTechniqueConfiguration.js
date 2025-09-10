@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../chunks/tslib.es6","../../core/shaderTechnique/ShaderTechniqueConfiguration","../../../../../chunks/BloomBlur.glsl"],(function(e,o,r,t){"use strict";class i extends r.ShaderTechniqueConfiguration{constructor(){super(...arguments),this.bloomStage=t.BlurDirection.Horizontal}}o.__decorate([r.parameter({count:t.BlurDirection.COUNT})],i.prototype,"bloomStage",void 0),e.BloomBlurTechniqueConfiguration=i,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

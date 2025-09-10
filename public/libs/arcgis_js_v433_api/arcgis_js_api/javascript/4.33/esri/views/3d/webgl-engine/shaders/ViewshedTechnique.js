@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../core/shaderTechnique/ReloadableShaderModule","../core/shaderTechnique/ShaderTechnique","../../../../chunks/Viewshed.glsl","../../../webgl/renderState"],(function(e,i,r,l,d,n){"use strict";class t extends l.ShaderTechnique{constructor(i,l){super(i,l,new r.ReloadableShaderModule(d.Viewshed,(()=>new Promise(((i,r)=>e(["./Viewshed.glsl"],i,r))))))}initializePipeline(){return n.makePipelineState({colorWrite:n.defaultColorWrite,blending:n.unpremultipliedAlphaToPremultipliedAlpha})}}i.ViewshedTechnique=t,Object.defineProperty(i,Symbol.toStringTag,{value:"Module"})}));

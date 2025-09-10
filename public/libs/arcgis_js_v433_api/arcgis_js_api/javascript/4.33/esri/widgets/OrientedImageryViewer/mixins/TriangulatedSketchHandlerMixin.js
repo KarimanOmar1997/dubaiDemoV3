@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../chunks/tslib.es6","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass","./SketchHandlerMixin"],(function(e,r,t,s,o,c,i,a){"use strict";e.TriangulatedSketchHandlerMixin=e=>{let s=class extends(a.SketchHandlerMixin(e)){get sketch(){return this.viewModel?.sketchTriangular}};return r.__decorate([t.property()],s.prototype,"sketch",null),s=r.__decorate([i.subclass("esri.widgets.OrientedImageryViewer.mixins.TriangulatedSketchHandlerMixin")],s),s},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

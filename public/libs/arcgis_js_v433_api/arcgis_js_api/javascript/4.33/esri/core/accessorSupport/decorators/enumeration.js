@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../jsonMap","./property"],(function(e,n,a){"use strict";e.enumeration=function(e,t={}){const r=e instanceof n.JSONMap?e:new n.JSONMap(e,t),{alwaysWriteDefaults:l,default:o,ignoreUnknown:i=!0,name:u,nonNullable:s,readOnly:p=!1}=t;return a.property({type:i?r.apiValues:String,json:{type:r.jsonValues,default:o,name:u,read:!p&&{reader:r.read},write:{writer:r.write,alwaysWriteDefaults:l}},nonNullable:s,readOnly:p})},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

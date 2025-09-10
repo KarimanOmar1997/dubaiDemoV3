@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","../../geometry/support/jsonUtils","../../geometry/support/typeUtils"],(function(e,t,r,o,s,p,a,u,c,l){"use strict";return e.default=class extends r{constructor(){super(...arguments),this.geometry=null,this.length=null}},t.__decorate([o.property({types:l.geometryTypes,json:{name:"Shape",read:c.fromJSON,write:!0}})],e.default.prototype,"geometry",void 0),t.__decorate([o.property({json:{name:"Length",write:!0}})],e.default.prototype,"length",void 0),e.default=t.__decorate([u.subclass("esri.rest.support.MeasureLengthFromImageResult")],e.default),e.default}));

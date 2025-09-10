@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../graph/glsl"],(function(e,n){"use strict";e.hsv2rgb=function(e){const t=new n.Vec4(1,2/3,1/3,3),c=n.abs(n.fract(e.xxx.add(t.xyz)).multiply(6).subtract(t.www)),x=n.clamp(c.subtract(t.xxx),new n.Vec3(0,0,0),new n.Vec3(1));return e.z.multiply(n.mix(t.xxx,x,e.y))},e.rgb2hsv=function(e){const t=new n.Vec4(0,-1/3,2/3,-1),c=n.ifElse(n.lessThan(e.y,e.z),new n.Vec4(e.zy,t.wz),new n.Vec4(e.yz,t.xy)),x=n.ifElse(n.lessThan(e.x,c.x),new n.Vec4(c.xyw,e.x),new n.Vec4(e.x,c.yzx)),s=x.x.subtract(n.min(x.w,x.y)),a=new n.Float(1e-10),i=x.w.subtract(x.y),l=s.multiply(6).add(a),w=n.abs(i.divide(l).add(x.z)),r=x.x.add(a),d=n.min(s.divide(r),new n.Float(1));return new n.Vec3(w,d,x.x)},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

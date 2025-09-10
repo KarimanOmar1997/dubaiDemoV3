@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../assets","../has","../urlUtils"],(function(e,s,a,r){"use strict";e.defaultLoaderUrl=null,e.defaultLoaderUrl=r.makeAbsolute(s.getAssetUrl("esri/core/workers/init.js"));const t={};t.baseUrl=r.makeAbsolute(s.getAssetUrl("dojo/")),t.packages=[{name:"esri",location:"../esri"}],e.loaderConfig=function(e){const s={async:e.async,isDebug:e.isDebug,locale:e.locale,baseUrl:e.baseUrl,has:{...e.has},map:{...e.map},packages:e.packages?.slice()||[],paths:{...t.paths,...e.paths}};return e.hasOwnProperty("async")||(s.async=!0),e.hasOwnProperty("isDebug")||(s.isDebug=!1),e.baseUrl||(s.baseUrl=t.baseUrl),t.packages?.forEach((e=>{!function(e,s){for(const a of e)if(a.name===s.name)return;e.push(s)}(s.packages??[],e)})),s},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

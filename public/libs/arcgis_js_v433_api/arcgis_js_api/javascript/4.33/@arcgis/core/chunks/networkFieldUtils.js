@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+*/
+function e(e){const t=e?.fieldsIndex,o="fromnetworksourceid",n="fromglobalid",a="fromterminalid",r="tonetworksourceid",i="toglobalid",l="toterminalid",s="status",m="associationtype",g="iscontentvisible",d="percentalong",u="globalid";return{fromNetworkSourceId:t?.get(o)?.name??o,fromGlobalId:t?.get(n)?.name??n,fromTerminalId:t?.get(a)?.name??a,toNetworkSourceId:t?.get(r)?.name??r,toGlobalId:t?.get(i)?.name??i,toTerminalId:t?.get(l)?.name??l,status:t?.get(s)?.name??s,associationType:t?.get(m)?.name??m,isContentVisible:t?.get(g)?.name??g,percentAlong:t?.get(d)?.name??d,globalId:t?.get(e?.globalIdField??u)?.name??u}}function t(e,t){if("feature"!==t.type&&"subtype-group"!==t.type)return[];if(!t.url)return[];const o="utilityNetworks"in e.map?e.map.utilityNetworks??[]:[];for(const e of o)if(e.isUtilityLayer(t)){const e=t.fieldsIndex.get("assetgroup"),o=t.fieldsIndex.get("assettype");return[e?.name,o?.name].filter((e=>null!=e))}return[]}export{t as a,e as g};

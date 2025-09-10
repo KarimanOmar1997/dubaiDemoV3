@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../core/maybe","./guards","../chunks/datetime"],(function(t,e,n,i){"use strict";const r="HH:mm",m="HH:mm:ss",a="HH:mm:ss.SSS",l={HM:r,HMS:m,HMS_MS:a},u=[a,m,r,"TT"],o="yyyy-MM-dd",s=m;t.TimeStampOffsetPattern=l,t.dateOnlyToDateTime=function(t){if(!t||!n.isString(t))return null;const e=i.DateTime.fromFormat(t,o);return e.isValid?e:null},t.defaultDatePattern=o,t.defaultTimePattern=s,t.timeOnlyToDateTime=function(t){return t&&n.isString(t)?e.mappedFind(u,(e=>{const n=i.DateTime.fromFormat(t,e);return n.isValid?n:null}))??null:null},t.timestampOffsetToDateTime=function(t){if(!t||!n.isString(t))return null;const e=i.DateTime.fromISO(t);return e.isValid?e:null},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

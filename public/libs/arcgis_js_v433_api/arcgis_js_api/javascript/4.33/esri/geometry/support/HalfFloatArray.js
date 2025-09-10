@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/typedArrayUtil","./float16"],(function(r,a,e){"use strict";r.compactHalfFloatArray=function(r){return Array.isArray(r)?r.length<a.nativeArrayMaxSize?r:e.makeFloat16Array(r):r.length<a.nativeArrayMaxSize?Array.from(r):r},r.halfFloatSubArray=function(r,a,e){return Array.isArray(r)?r.slice(a,a+e):r.subarray(a,a+e)},r.newHalfFloatArray=function(r,t=!1){return r<=a.nativeArrayMaxSize?t?new Array(r).fill(0):new Array(r):e.makeFloat16Array(r)},Object.defineProperty(r,Symbol.toStringTag,{value:"Module"})}));

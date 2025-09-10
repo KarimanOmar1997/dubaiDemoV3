@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(t){"use strict";t.getAssociationTitle=function(t,n,e){const{associationType:c}=t;switch(c){case"attachment":return"to"===n?e.attachment:e.structure;case"containment":return"to"===n?e.content:e.container;case"junction-edge-from-connectivity":case"junction-edge-to-connectivity":case"junction-edge-midspan-connectivity":case"junction-junction-connectivity":case"connectivity":return e.connectivity}},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

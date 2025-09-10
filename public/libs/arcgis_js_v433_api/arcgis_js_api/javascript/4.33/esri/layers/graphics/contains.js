@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(n){"use strict";function o(n,o){return n?o?4:3:o?3:2}function t(n,t,e,i,u){if(!n)return!1;const s=o(t,e),{coords:c,lengths:f}=n;let l=!1,d=0;for(const n of f)l=r(l,c,s,d,n,i,u),d+=n*s;return l}function r(n,o,t,r,e,i,u){let s=n,c=r;for(let n=r,f=r+e*t;n<f;n+=t){c=n+t,c===f&&(c=r);const e=o[n],l=o[n+1],d=o[c],g=o[c+1];(l<u&&g>=u||g<u&&l>=u)&&e+(u-l)/(g-l)*(d-e)<i&&(s=!s)}return s}n.polygonContainsCoords=t,n.polygonContainsMultipoint=function(n,r,e,i,u,s){const c=o(u,s),{coords:f,lengths:l}=i;if(!l)return!1;for(let o=0,i=0;o<l.length;o++,i+=c)if(!t(n,r,e,f[i],f[i+1]))return!1;return!0},n.polygonContainsPoint=function(n,o,r,e){return t(n,o,r,e.coords[0],e.coords[1])},Object.defineProperty(n,Symbol.toStringTag,{value:"Module"})}));

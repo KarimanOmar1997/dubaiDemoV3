@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../core/arrayUtils"],(function(t,e){"use strict";function r(t){return null!=t&&"object"==typeof t&&"items"in t}function n(t){return null!=t&&"object"==typeof t&&"featureItems"in t}t.computeEffectiveCount=function t(e){let i=0;for(const o of e)n(o)&&(i+=o.total),r(o)&&(i+=t(o.items));return i},t.getNestedFeatureItems=function t(i){return i.flatMap((e=>n(e)?e.featureItems:r(e)?e.items.flatMap((e=>t([e]))):e)).filter(e.isSome)},t.getNestedLayerItems=function(t){return t.flatMap((t=>r(t)?t.items.filter((t=>n(t))):n(t)&&t.total?t:null)).filter(e.isSome)},t.isFeatureItem=function(t){return null!=t&&"object"==typeof t&&"graphic"in t},t.isGroupLayerItem=r,t.isLayerItem=n,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

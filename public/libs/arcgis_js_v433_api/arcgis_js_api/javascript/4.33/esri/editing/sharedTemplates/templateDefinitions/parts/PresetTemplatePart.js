@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../../../chunks/tslib.es6","../../../../core/accessorSupport/decorators/property","../../../../core/has","../../../../core/Logger","../../../../core/RandomLCG","../../../../core/accessorSupport/decorators/subclass","./TemplatePartBase","../../../../geometry/support/jsonUtils","../../../../geometry/support/typeUtils"],(function(e,t,r,s,o,p,a,c,i){"use strict";let y=class extends a.TemplatePartBase{constructor(e){super(e),this.geometry=null,this.type="preset"}assertIsSupportedPart(){}};return e.__decorate([t.property({types:i.geometryTypes,json:{read:c.fromJSON}})],y.prototype,"geometry",void 0),e.__decorate([t.property()],y.prototype,"type",void 0),y=e.__decorate([p.subclass("esri.editing.sharedTemplates.templateDefinitions.parts.PresetTemplatePart")],y),y}));

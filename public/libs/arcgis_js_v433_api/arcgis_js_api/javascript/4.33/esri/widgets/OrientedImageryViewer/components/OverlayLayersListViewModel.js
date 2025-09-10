@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../chunks/tslib.es6","../../../core/Logger","../../../core/has","../../../core/RandomLCG","../../../core/Error","../../../core/accessorSupport/decorators/subclass","../../LayerList/LayerListViewModel","../dataCaptureUtils"],(function(e,s,t,r,a,i,o,c,l){"use strict";return e.default=class extends c{_compileList(){const e=this.view?.map?.allLayers;if(!e)return;const s=e.filter(l.isValidOverlayLayer);this._watchLayersListMode(s);const t=this._getViewableLayers(s);t?.length?(this._createNewItems(t),this._removeItems(t),this._sortItems(t)):this._removeAllItems()}},e.default=s.__decorate([o.subclass("esri.widgets.OrientedImageryViewer.components.OverlayLayersListViewModel")],e.default),e.default}));

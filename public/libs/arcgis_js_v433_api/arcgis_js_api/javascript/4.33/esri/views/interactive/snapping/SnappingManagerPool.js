@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../core/handleUtils","../../../core/nextTick","./allLayerSnapping","./SnappingManager"],(function(e,n,r,t,a){"use strict";const o=new Map;e.acquire=function(e){if(!o.has(e)){const n=t.makeAllLayerSnappingOptions(e,{distance:10}),r=function(e,n){return new a.SnappingManager({view:e,options:n})}(e,n.options);o.set(e,{referenceCount:0,snappingManager:r,remove:()=>{n.remove(),r.destroy()}})}const i=o.get(e);i.referenceCount++;const c=n.makeHandle((()=>function(e,n){n.referenceCount--,n.referenceCount>0||r.nextTick((()=>{0===n.referenceCount&&(n.remove(),o.delete(e))}))}(e,i)));return{snappingManager:i.snappingManager,...c}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

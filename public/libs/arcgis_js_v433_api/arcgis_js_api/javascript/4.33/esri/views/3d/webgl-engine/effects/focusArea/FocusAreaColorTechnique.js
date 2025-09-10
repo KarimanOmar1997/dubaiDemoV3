@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../core/shaderTechnique/ReloadableShaderModule","../../core/shaderTechnique/ShaderTechnique","../../../../../chunks/FocusAreaColor.glsl","../../../../webgl/renderState"],(function(e,r,o,l,a,i){"use strict";class u extends l.ShaderTechnique{constructor(r,l){super(r,l,new o.ReloadableShaderModule(a.FocusAreaColor,(()=>new Promise(((r,o)=>e(["../../shaders/FocusAreaColor.glsl"],r,o))))))}initializePipeline(){return i.makePipelineState({colorWrite:i.defaultColorWrite})}}r.FocusAreaColorTechnique=u,Object.defineProperty(r,Symbol.toStringTag,{value:"Module"})}));

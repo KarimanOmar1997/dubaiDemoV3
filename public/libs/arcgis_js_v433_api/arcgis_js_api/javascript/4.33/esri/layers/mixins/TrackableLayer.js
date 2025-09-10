@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","../support/TrackInfo"],(function(r,e,o,s,t,c,a,p){"use strict";r.TrackableLayer=r=>{let s=class extends r{constructor(){super(...arguments),this.trackInfo=null}};return e.__decorate([o.property({type:p})],s.prototype,"trackInfo",void 0),s=e.__decorate([a.subclass("esri.layers.mixins.TrackableLayer")],s),s},Object.defineProperty(r,Symbol.toStringTag,{value:"Module"})}));

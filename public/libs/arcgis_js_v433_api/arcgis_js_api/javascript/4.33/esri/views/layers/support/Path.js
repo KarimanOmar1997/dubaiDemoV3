@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../chunks/tslib.es6","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass","./ClipArea"],(function(e,t,r,s,o,a,c,p){"use strict";return e.default=class extends p{constructor(e){super(e),this.type="path",this.path=[]}commitVersionProperties(){this.commitProperty("path")}},t.__decorate([r.property({type:[[[Number]]],json:{write:!0}})],e.default.prototype,"path",void 0),e.default=t.__decorate([c.subclass("esri.views.layers.support.Path")],e.default),e.default}));

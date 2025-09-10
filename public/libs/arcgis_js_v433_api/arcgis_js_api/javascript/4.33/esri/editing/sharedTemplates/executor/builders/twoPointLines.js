@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./support/builderUtils","./support/shapeUtils","../support/executorUtils"],(function(t,e,i,o){"use strict";t.execute=function({templatePart:t,shape:s,edits:r,relationships:n,mode:a}){if(!o.isPolyline(s))return;const p=i.convertToTwoPoint(s);for(const i of p){if("digitizing"===a&&r.length>o.maxDigitizingDisplayEdits)break;e.makeFeatureFromGroupPart({templatePart:t,shape:i,edits:r,relationships:n,mode:a})}},t.isAsync=!1,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

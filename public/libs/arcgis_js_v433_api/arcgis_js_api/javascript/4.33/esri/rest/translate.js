@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../request","./utils","./support/TranslateResult"],(function(t,e,o,n){"use strict";t.translate=async function(t,a,s){const r=a.toJSON();r.contents=JSON.stringify(r.contents),r.token=await o.getToken(a.portalUrl,a.apiKey,{signal:s?.signal,prompt:"no-prompt"!==s?.authMode});const i=o.parseUrl(t),u=o.asValidOptions(i.query,{...s,query:r,method:"post",authMode:"anonymous"});return(await e(i.path,u)).data.results.map((t=>n.fromJSON(t)))},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

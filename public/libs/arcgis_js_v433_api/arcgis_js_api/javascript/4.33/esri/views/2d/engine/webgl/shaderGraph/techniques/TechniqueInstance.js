@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./mesh/instanceIdUtils"],(function(t,e){"use strict";t.FeatureTechniqueInstance=class{constructor(t,e,n){this._instanceId=t,this.techniqueRef=e,this._input=n}get instanceId(){return e.castStrictInstanceId(this._instanceId)}createMeshInfo(t){return{id:e.castStrictInstanceId(this._instanceId),techniqueType:this.techniqueRef.type,inputParams:t,optionalAttributes:this._input.optionalAttributes}}getInput(){return this._input}setInput(t){this._input=t}},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../chunks/tslib.es6","../Color","../core/Clonable","../core/JSONSupport","../core/accessorSupport/decorators/property","../core/accessorSupport/ensureType","../core/has","../core/RandomLCG","../core/accessorSupport/decorators/subclass"],(function(e,o,r,s,c,t,p,n,u){"use strict";let a=class extends(r.ClonableMixin(s)){constructor(e){super(e),this.color=null}};return e.__decorate([c.property({type:o,json:{type:[t.Integer],write:!0}})],a.prototype,"color",void 0),a=e.__decorate([u.subclass("esri.effects.FocusAreaOutline")],a),a}));

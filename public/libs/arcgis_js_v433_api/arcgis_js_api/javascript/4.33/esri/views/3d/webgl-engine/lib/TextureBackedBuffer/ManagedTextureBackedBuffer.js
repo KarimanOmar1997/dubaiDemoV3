@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./SimpleIndexManager","./TextureBackedBuffer"],(function(e,t,r){"use strict";e.ManagedTextureBackedBuffer=class{constructor(e,a=1){this.textureBuffer=new r.TextureBackedBuffer(e,a),this._indexManager=new t.SimpleIndexManager(65536)}dispose(){this.textureBuffer.dispose(),this.textureBuffer=void 0}get availableCount(){return this._indexManager.availableCount}get activeCount(){return this._indexManager.activeCount}acquireIndex(){const e=this._indexManager.acquire();return this.textureBuffer.resizeToFit(e),e}releaseIndex(e){this._indexManager.release(e)}},e.maxIndexCount=65536,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

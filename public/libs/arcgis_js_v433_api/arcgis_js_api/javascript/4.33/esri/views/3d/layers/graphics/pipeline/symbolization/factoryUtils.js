@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../../Color","../../../../../../symbols/IconSymbol3DLayer","../../../../../../symbols/ObjectSymbol3DLayer","../../../../../../symbols/support/Symbol3DMaterial"],(function(e,o,r,t,l){"use strict";e.createDefaultIconSymbolLayer=function(){return new r({material:new l.Symbol3DMaterial({color:new o("red")})})},e.createDefaultObjectSymbolLayer=function(){return new t},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

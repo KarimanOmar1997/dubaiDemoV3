@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../chunks/tslib.es6","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass","./NetworkElement"],(function(e,t,r,o,s,c,p,n){"use strict";return e.default=class extends n{constructor(e){super(e),this.type="telecomNetworkElement",this.firstUnit=null,this.numUnits=null}},t.__decorate([r.property({json:{write:!1}})],e.default.prototype,"type",void 0),t.__decorate([r.property({json:{write:!0}})],e.default.prototype,"firstUnit",void 0),t.__decorate([r.property({json:{write:!0}})],e.default.prototype,"numUnits",void 0),e.default=t.__decorate([p.subclass("esri.rest.networks.support.TelecomNetworkElement")],e.default),e.default}));

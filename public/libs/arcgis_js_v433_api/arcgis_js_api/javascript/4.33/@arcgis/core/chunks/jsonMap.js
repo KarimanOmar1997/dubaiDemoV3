@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+*/
+import{s as n}from"../config.js";class s{constructor(s,t={ignoreUnknown:!1,useNumericKeys:!1}){this._jsonToAPI=s,this._options=t,this.apiValues=[],this.jsonValues=[],this._apiToJSON=function(n){const s={};for(const o in n)s[n[o]]=o;return s}(s),this.apiValues=o(this._apiToJSON),this.jsonValues=o(this._jsonToAPI),this.read=n=>this.fromJSON(n),this.write=(s,o,t)=>{const i=this.toJSON(s);void 0!==i&&n(t,i,o)},this.write.isJSONMapWriter=!0}toJSON(n){if(null==n)return null;if(this._apiToJSON.hasOwnProperty(n)){const s=this._apiToJSON[n];return this._options.useNumericKeys?+s:s}return this._options.ignoreUnknown?null:n}fromJSON(n){return null!=n&&this._jsonToAPI.hasOwnProperty(n)?this._jsonToAPI[n]:this._options.ignoreUnknown?void 0:n}}function o(n){const s=[];for(const o in n)s.push(o);return s.sort(),s}function t(){return function(n,o){return new s(n,{ignoreUnknown:!0,...o})}}export{s as J,t as s};

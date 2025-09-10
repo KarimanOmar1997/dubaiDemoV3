@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/has","./CodedValueDomain","./Domain","./InheritedDomain","./RangeDomain"],(function(e,n,r,t,a,o){"use strict";const i={key:"type",base:t,typeMap:{range:o,"coded-value":r,inherited:a}};Object.defineProperty(e,"CodedValueDomain",{enumerable:!0,get:()=>r}),Object.defineProperty(e,"DomainBase",{enumerable:!0,get:()=>t}),Object.defineProperty(e,"InheritedDomain",{enumerable:!0,get:()=>a}),Object.defineProperty(e,"RangeDomain",{enumerable:!0,get:()=>o}),e.fromJSON=function(e){if(!e?.type)return null;switch(e.type){case"range":return o.fromJSON(e);case"codedValue":return r.fromJSON(e);case"inherited":return a.fromJSON(e)}return null},e.types=i,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./GraphSearch"],(function(e,r,t,o,s,p,c){"use strict";let a=class extends c{constructor(e){super(e),this.returnSearchContext=!1,this.start=null,this.num=null,this.namedTypesFilter=null,this.idsFilter=null}};return e.__decorate([r.property()],a.prototype,"returnSearchContext",void 0),e.__decorate([r.property()],a.prototype,"start",void 0),e.__decorate([r.property()],a.prototype,"num",void 0),e.__decorate([r.property()],a.prototype,"namedTypesFilter",void 0),e.__decorate([r.property()],a.prototype,"idsFilter",void 0),a=e.__decorate([p.subclass("esri.rest.knowledgeGraph.GraphSearchStreaming")],a),a}));

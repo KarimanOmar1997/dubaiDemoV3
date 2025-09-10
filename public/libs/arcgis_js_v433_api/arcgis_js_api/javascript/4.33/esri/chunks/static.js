@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./componentsUtils"],(function(t,e){"use strict";const i=Symbol.for(""),r=t=>{if(t?.r===i)return t?._$litStatic$},s=new Map,o=(n=e.x,(t,...e)=>{const i=e.length;let o,a;const l=[],u=[];let c,$=0,f=!1;for(;$<i;){for(c=t[$];$<i&&void 0!==(a=e[$],o=r(a));)c+=o+t[++$],f=!0;$!==i&&u.push(a),l.push(c),$++}if($===i&&l.push(t[i]),f){const i=l.join("$$lit$$");void 0===(t=s.get(i))&&(l.raw=l,s.set(i,t=l)),e=u}return n(t,...e)});var n;t.i=(t,...e)=>({_$litStatic$:e.reduce(((e,i,r)=>e+(t=>{if(void 0!==t._$litStatic$)return t._$litStatic$;throw Error(`Value passed to 'literal' function must be a 'literal' result: ${t}. Use 'unsafeStatic' to pass non-literal values, but\n            take care to ensure page security.`)})(i)+t[r+1]),t[0]),r:i}),t.s=t=>({_$litStatic$:t,r:i}),t.u=o}));

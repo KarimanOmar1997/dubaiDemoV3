@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../request","../../../core/Error","../../utils"],(function(s,t,i,e){"use strict";s.stopEditing=async function(s,o,n,r,d){if(!o)throw new i("stop-editing:missing-guid","guid for version is missing");const a=e.parseUrl(s),u=e.asValidOptions(a.query,{query:e.encode({sessionId:n,saveEdits:r,f:"json"}),...d,method:"post"});o.startsWith("{")&&(o=o.slice(1,-1));const c=`${a.path}/versions/${o}/stopEditing`,{data:g}=await t(c,u);return g||{success:!1}},Object.defineProperty(s,Symbol.toStringTag,{value:"Module"})}));

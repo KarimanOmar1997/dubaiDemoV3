@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(e){"use strict";const n="esri-features",t={icon:`${n}__icon`,actionImage:`${n}__action-image`,base:n,container:`${n}__container`,contentContainer:`${n}__content-container`,contentFeature:`${n}__content-feature`,flowItemCollapsed:`${n}__flow-item--collapsed`,header:`${n}__header`,footer:`${n}__footer`,featureMenuObserver:`${n}__feature-menu-observer`,actionExit:`${n}__action--exit`,loader:`${n}__loader`,featuresHeading:`${n}__heading`,paginationText:`${n}__pagination-text`,paginationActionBar:`${n}__pagination-action-bar`,paginationMenuButton:`${n}__pagination-menu-button`,paginationPrevious:`${n}__pagination-previous`,paginationNext:`${n}__pagination-next`};e.css=t,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

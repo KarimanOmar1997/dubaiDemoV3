@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/Accessor","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,o,s,t,r,c,n,l){"use strict";return e.default=class extends s{constructor(e){super(e),this.dimension=null,this.length=null}},o.__decorate([t.property({constructOnly:!0,nonNullable:!0})],e.default.prototype,"dimension",void 0),o.__decorate([t.property()],e.default.prototype,"length",void 0),e.default=o.__decorate([l.subclass("esri.views.analysis.LengthDimensionResult")],e.default),e.default}));

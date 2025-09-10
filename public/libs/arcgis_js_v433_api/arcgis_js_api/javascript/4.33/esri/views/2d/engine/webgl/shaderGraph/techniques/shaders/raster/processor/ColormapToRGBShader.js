@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../../../../../chunks/tslib.es6","../../../../GraphShaderModule","../../../../graph/glsl","../lut","./BaseRasterProcessorShader"],(function(o,e,r,t,s,a){"use strict";class l extends a.BaseRasterProcessorShader{constructor(){super(...arguments),this.type="ColormapToRGBShader"}_process(o){const e=this._getPixel(o),r=s.lookupColor(e,new t.Float(1),this.colormapConfig,!1);return new t.Vec4(r.xyz.multiply(255),r.a)}}e.__decorate([r.uniform(s.ColormapConfig)],l.prototype,"colormapConfig",void 0),o.ColormapToRGBShader=l,Object.defineProperty(o,Symbol.toStringTag,{value:"Module"})}));

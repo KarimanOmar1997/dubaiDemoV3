@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../chunks/tslib.es6","../core/JSONSupport","../core/lang","../core/accessorSupport/decorators/property","../core/has","../core/Logger","../core/accessorSupport/decorators/subclass","../webdoc/applicationProperties/Viewing"],(function(e,o,r,t,i,s,n,c){"use strict";var p;let l=p=class extends o{constructor(e){super(e),this.editing=null,this.offline=null,this.viewing=null}clone(){return new p(r.clone({editing:this.editing,offline:this.offline,viewing:this.viewing}))}};return e.__decorate([t.property({json:{write:!0}})],l.prototype,"editing",void 0),e.__decorate([t.property({json:{write:!0}})],l.prototype,"offline",void 0),e.__decorate([t.property({type:c,json:{write:!0}})],l.prototype,"viewing",void 0),l=p=e.__decorate([n.subclass("esri.webmap.ApplicationProperties")],l),l}));

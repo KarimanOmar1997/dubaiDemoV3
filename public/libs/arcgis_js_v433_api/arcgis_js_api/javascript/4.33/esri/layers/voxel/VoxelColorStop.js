@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../Color","../../core/Clonable","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/accessorSupport/ensureType","../../core/has","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,o,r,s,t,c,p,i,l){"use strict";let n=class extends(r.ClonableMixin(s)){constructor(){super(...arguments),this.color=null,this.position=0}};return e.__decorate([t.property({type:o,json:{type:[c.Integer],write:{enabled:!0,isRequired:!0}}})],n.prototype,"color",void 0),e.__decorate([t.property({type:Number,json:{write:{enabled:!0,isRequired:!0}}})],n.prototype,"position",void 0),n=e.__decorate([l.subclass("esri.layers.voxel.VoxelColorStop")],n),n}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["./updateElevationUtils","./utils"],(function(e,t){"use strict";return async function(a,n,i){const o=Array.isArray(a)?a:[a];let r;if(t.isUpdateElevationWithElevationSampler(n))r=await e.updateUsingElevationSampler(o,n.elevationSample,i);else if(t.isUpdateElevationWithElevationSource(n)){const{elevationSource:t,extent:a}=n,{url:l,lod:s,rasterFunction:u}=t;r=await e.updateUsingElevationSource(o,{url:l,lod:s,rasterFunction:u,extent:a},i)}else r="averageGroundElevation"in n?e.updateUsingAverageGroundElevation(o,n):await e.updateUsingConstant(o,n.elevationSource.constantElevation,i);return Array.isArray(a)?r:r[0]}}));

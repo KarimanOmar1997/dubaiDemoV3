@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/signal","../../core/accessorSupport/tracking","../../core/accessorSupport/tracking/SimpleObservable","../../core/accessorSupport/tracking/SimpleTrackingTarget"],(function(e,r,c,n,t){"use strict";e.createObservable=function(){return new n.SimpleObservable},e.createTrackingTarget=function(e){return new t.SimpleTrackingTarget(e)},e.runTracked=function(e,r){return c.runTracked(e,r)},e.signal=function(e,c){return r.signal(e,c)},e.trackAccess=function(e){c.trackAccess(e)},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

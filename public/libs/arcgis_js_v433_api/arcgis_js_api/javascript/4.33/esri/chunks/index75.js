@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./time-zones","./region","./index-p4VH55K1"],(function(e,t,l,n){"use strict";e.groupByRegion=async function(){const e=[],n=t.timeZones.map((e=>({label:e}))).map((e=>{const{label:t}=e,n=l.extractRegion(t);return{...e,continent:n}}));for(const t of n){const{label:l,continent:o}=t;if(t.visited)continue;t.visited=!0;const s={label:o,tzs:[{label:l}]};for(const e of n.filter((e=>!e.visited))){const{label:t,continent:l}=e;if(o===l){const l={label:t};s.tzs.push(l),e.visited=!0}}e.push(s)}return e.map((e=>(e.tzs=e.tzs.sort(((e,t)=>e.label.localeCompare(t.label))),{label:e.label,tzs:e.tzs.map((e=>e.label))}))).sort(((e,t)=>e.label.localeCompare(t.label)))},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

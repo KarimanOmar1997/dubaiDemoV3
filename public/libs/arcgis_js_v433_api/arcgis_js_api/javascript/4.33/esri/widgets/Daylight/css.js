@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(e){"use strict";const a="esri-daylight",n=`${a}__container`,t="esri-slider",i={base:a,dayContainer:`${n} ${a}__day-container`,dateContainer:`${n} ${a}__date-container`,containerDisabled:`${n}--disabled`,slider:t,sliderAmPmOn:`${t}--ampm-on`,sliderDateOff:`${t}--date-off`,sliderDateOn:`${t}--date-on`,playPauseButton:`${a}__play-pause-button`,datePicker:`${a}__date-picker`,seasonPicker:`${a}__season-picker`,panelError:`${a}__panel--error`,sunLightingCheckbox:`${a}__sun-lighting-checkbox`,shadowsCheckbox:`${a}__shadows-checkbox`};e.css=i,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

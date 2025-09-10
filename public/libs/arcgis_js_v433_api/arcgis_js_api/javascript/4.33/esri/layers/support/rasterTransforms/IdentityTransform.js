@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../chunks/tslib.es6","../../../core/Logger","../../../core/has","../../../core/RandomLCG","../../../core/Error","../../../core/accessorSupport/decorators/enumeration","../../../core/accessorSupport/decorators/subclass","./BaseRasterTransform"],(function(e,r,t,s,o,a,c,n,u){"use strict";var d;return e.default=d=class extends u{constructor(){super(...arguments),this.type="identity"}clone(){return new d}},r.__decorate([c.enumeration({IdentityXform:"identity"})],e.default.prototype,"type",void 0),e.default=d=r.__decorate([n.subclass("esri.layers.support.rasterTransforms.IdentityTransform")],e.default),e.default}));

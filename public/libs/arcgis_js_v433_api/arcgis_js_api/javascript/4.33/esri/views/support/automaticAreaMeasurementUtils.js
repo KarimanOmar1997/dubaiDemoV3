@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./euclideanAreaMeasurementUtils","./geodesicAreaMeasurementUtils"],(function(e,a,r){"use strict";const t=e=>({autoAreaByElevationMode(r,t,n=a.createEuclideanPlanarAreaCache()){if("on-the-ground"===t){const t=e.geodesicArea(r);return null!=t?t:a.euclideanHorizontalPlanarArea(r,n)}return a.euclideanPlanarArea(r,n)},autoArea2D(e,r=a.createEuclideanPlanarAreaCache()){return this.autoAreaByElevationMode(e,"on-the-ground",r)}});let n=null;e.loadAutomaticAreaMeasurementUtils=async function(){return n||(n=t(await r.loadGeodesicAreaMeasurementUtils())),n},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

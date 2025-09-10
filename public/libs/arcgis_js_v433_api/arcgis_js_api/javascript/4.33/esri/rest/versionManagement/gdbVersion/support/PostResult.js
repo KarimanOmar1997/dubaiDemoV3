@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../chunks/tslib.es6","../../../../core/JSONSupport","../../../../core/accessorSupport/decorators/property","../../../../core/has","../../../../core/Logger","../../../../core/RandomLCG","../../../../core/accessorSupport/decorators/subclass"],(function(e,t,o,r,s,c,u,p){"use strict";return e.default=class extends o{constructor(e){super(e),this.moment=null,this.success=!1}},t.__decorate([r.property({type:Date,json:{type:Number,write:{writer:(e,t)=>{t.moment=e?e.getTime():null}}}})],e.default.prototype,"moment",void 0),t.__decorate([r.property({type:Boolean,json:{write:!0}})],e.default.prototype,"success",void 0),e.default=t.__decorate([p.subclass("esri.rest.versionManagement.gdbVersion.support.PostResult")],e.default),e.default}));

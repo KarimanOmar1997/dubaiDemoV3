@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./effects"],(function(t,e){"use strict";t.canInterpolateEffects=function(t,e){const n=t.length>e.length?t:e;return(t.length>e.length?e:t).every(((t,e)=>t.type===n[e].type))},t.effectEquals=function(t,e){return JSON.stringify(t??null)===JSON.stringify(e??null)},t.isEffectFunctions=function(t){const e=t[0];return!!e&&"type"in e},t.normalizeEffects=function(t,n){const l=t.length>n.length?t:n,f=t.length>n.length?n:t;for(let t=f.length;t<l.length;t++)f.push(e.createEffectWithInitialValues(l[t]))},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../../chunks/tslib.es6","../../../core/Logger","../../../core/has","../../../core/RandomLCG","../../../core/Error","../../../core/accessorSupport/decorators/subclass","./cameraOrientationRegistry","./utils"],(function(e,r,t,s,a,c,o,i){"use strict";let n=class{static getCameraOrientation(e){return i.createCameraOrientation(e)}static register(e,r,t){o.set(e,{desc:r,constructor:t})}};return n=e.__decorate([c.subclass("esri.layers.orientedImagery.core.cameraOrientationFactory")],n),n}));

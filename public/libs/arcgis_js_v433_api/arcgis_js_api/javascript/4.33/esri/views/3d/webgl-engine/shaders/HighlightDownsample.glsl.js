@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../core/shaderLibrary/ScreenSpacePass.glsl","../core/shaderModules/glsl","../core/shaderModules/Texture2DUintPassUniform","../../../webgl/NoParameters","../../../webgl/ShaderBuilder","../../../../chunks/HighlightDownsample.glsl"],(function(e,l,r,i,s,a,o){"use strict";e.HighlightDownsampleDrawParameters=o.HighlightDownsampleDrawParameters,e.blurSize=o.blurSize,e.build=o.build,e.gridCellPixelSize=o.gridCellPixelSize,e.outlineSize=o.outlineSize,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

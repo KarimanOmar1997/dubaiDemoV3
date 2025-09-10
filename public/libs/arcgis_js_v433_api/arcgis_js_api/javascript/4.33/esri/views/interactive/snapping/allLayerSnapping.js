@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../core/Collection","../../../core/handleUtils","../../../core/mapCollectionUtils","./FeatureSnappingLayerSource","./Settings","./SnappingOptions"],(function(e,t,n,i,l,o,a){"use strict";const r=t.ofType(l);e.makeAllLayerSnappingOptions=function(e,t){const c=i.mapCollection((()=>e.map?.allLayers),(e=>new l({layer:e})),{recycleItems:!0,createCollection:()=>new r}),s=new a({enabled:!0,selfEnabled:!1,featureEnabled:!0,featureSources:c,distance:t?.distance??o.defaults.distance,touchSensitivityMultiplier:t?.touchSensitivityMultiplier??o.defaults.touchSensitivityMultiplier});return{...n.destroyHandle(c),options:s}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

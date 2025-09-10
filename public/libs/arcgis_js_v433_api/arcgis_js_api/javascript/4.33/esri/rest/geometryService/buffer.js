@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../request","../../geometry/Polygon","../utils"],(function(e,t,r,n){"use strict";e.buffer=async function(e,o,s){const a=n.parseUrl(e),i={...a.query,f:"json",...o.toJSON()},f=o.outSpatialReference||o.geometries[0].spatialReference,u=n.asValidOptions(i,s);return t(a.path+"/buffer",u).then((e=>(e.data.geometries||[]).map((({rings:e})=>new r({spatialReference:f,rings:e})))))},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

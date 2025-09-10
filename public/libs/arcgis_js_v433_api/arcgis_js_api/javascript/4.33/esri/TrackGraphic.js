@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["./chunks/tslib.es6","./Graphic","./core/accessorSupport/decorators/property","./core/has","./core/Logger","./core/RandomLCG","./core/accessorSupport/decorators/subclass"],(function(e,r,t,o,s,p,c){"use strict";let a=class extends r{constructor(){super(...arguments),this.isAggregate=!0}getEffectivePopupTemplate(e=!1){if(this.popupTemplate)return this.popupTemplate;const r=this.sourceLayer?.trackInfo;return r?.enabled&&r.popupEnabled?r.popupTemplate:null}getObjectId(){return this.attributes.aggregateId}};return e.__decorate([t.property({type:Boolean})],a.prototype,"isAggregate",void 0),a=e.__decorate([c.subclass("esri.TrackGraphic")],a),a}));

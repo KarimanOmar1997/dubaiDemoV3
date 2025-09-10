@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../gx/operatorConvexHull","../support/jsonConverter"],(function(e,t,o){"use strict";e.execute=function(e){const r=o.fromGeometry(e);return o.toGeometry(t.execute(r.getGeometry()),r.getSpatialReference())},e.executeMany=function(e,r={}){const{merge:n=!1}=r,[u,c]=o.fromGeometries(e);return t.executeMany(u,n).map((e=>o.toGeometry(e,c)))},e.isConvex=function(e){return t.isConvex(o.fromGeometryToGXGeometry(e))},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

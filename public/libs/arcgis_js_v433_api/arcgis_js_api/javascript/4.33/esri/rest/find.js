@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../request","./utils","./operations/find","./support/FindParameters","./support/FindResult"],(function(t,e,s,n,r,o){"use strict";function u(t){const e=t.data;e.results=e.results||[];const s={results:[]};return s.results=e.results.map((t=>o.fromJSON(t))),s}t.find=async function(t,o,i){o=r.from(o);const a=n.findToFindRESTParameters(o),d=s.parseUrl(t);d.path+="/find";const f=s.encode({...d.query,f:"json",...a}),l=s.asValidOptions(f,i);return e(d.path,l).then(u)},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

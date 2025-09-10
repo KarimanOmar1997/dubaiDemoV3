@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/Error","../../core/promiseUtils"],(function(e,r,t){"use strict";e.createBitmap=async function(e,o,a){let c;try{c=await createImageBitmap(e)}catch(e){throw new r("request:server",`Unable to load ${o}`,{url:o,error:e})}return t.throwIfAborted(a),c},e.createTileBitmap=async function(e,o,a,c,i){let n;try{n=await createImageBitmap(e)}catch(e){throw new r("request:server",`Unable to load tile ${o}/${a}/${c}`,{error:e,level:o,row:a,col:c})}return t.throwIfAborted(i),n},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./gx/operatorPolygonOverlay","./support/apiConverter"],(function(e,t,o){"use strict";const r=t.supportsCurves();e.executeMany=function(e,r){const{overlaps:s=!0,noOverlaps:n=!0,gaps:p,holes:u,multiPart:a}=r??{};let l=0;s&&(l|=1),n&&(l|=2),p&&(l|=4),u&&(l|=8),a&&(l|=16);const c=o.getSpatialReference(e),i=t.executeMany(e.map(o.fromPolygon),o.fromSpatialReference(c),l),f=[],g=[];let y;for(;y=i.next();)f.push(o.toPolygon(y,c)),g.push(i.getGeometryIDs());return{results:f,ids:g}},e.supportsCurves=r,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./chunks/tslib.es6","./Graphic","./core/Clonable","./core/lang","./core/accessorSupport/decorators/property","./core/has","./core/Logger","./core/accessorSupport/decorators/subclass"],(function(t,e,r,s,o,c,a,u,i){"use strict";var l;return t.default=class extends(s.ClonableMixin(r)){static{l=this}constructor(t){super(t),this.stackedAttributes=null}cloneShallow(){return new l({...super.cloneShallow(),stackedAttributes:this.stackedAttributes})}toJSON(){return{...super.toJSON(),stackedAttributes:o.clone(this.stackedAttributes)}}},e.__decorate([c.property()],t.default.prototype,"stackedAttributes",void 0),t.default=l=e.__decorate([i.subclass("esri.AttributeBinsGraphic")],t.default),t.default}));

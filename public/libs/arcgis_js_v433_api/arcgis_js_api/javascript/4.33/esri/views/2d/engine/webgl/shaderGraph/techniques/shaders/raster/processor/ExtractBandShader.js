@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../../../../../chunks/tslib.es6","../../../../GraphShaderModule","../../../../graph/glsl","./BaseRasterProcessorShader"],(function(e,t,r,a,o){"use strict";class s extends r.UniformGroup{}t.__decorate([r.uniform(a.Mat3)],s.prototype,"bandIndexMat3",void 0);class n extends o.BaseRasterProcessorShader{constructor(){super(...arguments),this.type="ExtractBandShader"}_process(e){const t=this._getPixel(e),r=this.extractBandConfig.bandIndexMat3.multiply(t.rgb);return new a.Vec4(r,t.a)}}t.__decorate([r.uniform(s)],n.prototype,"extractBandConfig",void 0),e.ExtractBandShader=n,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

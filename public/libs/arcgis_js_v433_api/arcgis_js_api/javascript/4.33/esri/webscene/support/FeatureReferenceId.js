@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../core/Clonable","../../core/jsonMap","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/accessorSupport/decorators/subclass"],(function(e,o,r,s,t,c){"use strict";const n=new r.JSONMap({globalId:"global-id",objectId:"object-id"},{ignoreUnknown:!0});let p=class extends(o.ClonableMixin(s)){constructor(e){super(e),this.type=null}};return e.__decorate([t.property({type:n.apiValues,readOnly:!0,json:{type:n.jsonValues,read:!1,write:!0}})],p.prototype,"type",void 0),p=e.__decorate([c.subclass("esri.webscene.support.FeatureReferenceId")],p),p}));

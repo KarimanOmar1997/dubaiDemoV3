@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../core/has","../../../../core/memoryEstimations"],(function(e,t,c){"use strict";class r{constructor(e){this.items=e}get cachedMemory(){return this.items.reduce(((e,t)=>e+t.usedMemory),c.baseArrayMemory+c.baseObjectMemory)}}e.QueryEngineCache=class{constructor(e){this._cache=e.newCache("QueryEngine",null,-1)}clear(){this._cache.clear()}destroy(){this._cache.destroy()}get(e){return this._cache.get(e)?.items}put(e,t){this._cache.put(e,new r(t))}get test(){}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

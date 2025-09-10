@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+*/
+import{V as t,F as l,f as d,t as u,m as i,a}from"./GraphShaderModule.js";function y(t){const d=function(t){const d=new l(1/6),u=t.multiply(t),i=u.multiply(t),y=d.multiply(i.multiply(-1).add(new l(3).multiply(u)).subtract(new l(3).multiply(t)).add(1)),n=d.multiply(i.multiply(3).subtract(u.multiply(6)).add(4)),m=d.multiply(i.multiply(-3).add(u.multiply(3)).add(t.multiply(3)).add(1)),p=d.multiply(i);return new a(y,n,m,p)}(t),u=d.x.add(d.y),i=d.z.add(d.w),y=new l(1).subtract(d.y.divide(u)).add(t),n=new l(1).add(d.w.divide(i)).subtract(t);return new a(y,n,u,i)}function n(a,n,m){const p=new t(new l(1).divide(m.x),0),e=new t(0,new l(1).divide(m.y)),s=n.multiply(m).subtract(.5),r=y(d(s).x).xyz,c=y(d(s).y).xyz;let w=n.add(r.x.multiply(p)),o=n.subtract(r.y.multiply(p));const x=w.add(c.x.multiply(e)),b=o.add(c.x.multiply(e));w=w.subtract(c.y.multiply(e)),o=o.subtract(c.y.multiply(e));let z=u(a,o),f=u(a,w);const v=u(a,b),h=u(a,x);return z=i(z,v,c.z),f=i(f,h,c.z),z=i(z,f,r.z),z}export{n as s};

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./utils"],(function(e,t){"use strict";e.colorspaceConversion=function(e){const{outputPixelType:r,raster:n}=e,o="rgb-to-hsv"===e.conversionType?0:1;return t.createRasterFunction("ColorspaceConversion",{conversionType:o,raster:n},r)},e.grayscale=function(e){const{weights:r,outputPixelType:n="unknown",raster:o}=e;return t.createRasterFunction("Grayscale",{conversionParameters:r,raster:o},n)},e.spectralConversion=function(e){const{outputPixelType:r,raster:n}=e,o=e.conversionMatrix.flat();return t.createRasterFunction("SpectralConversion",{conversionMatrix:o,raster:n},r)},e.tasseledCap=function(e){const{outputPixelType:r,raster:n}=e;return t.createRasterFunction("TasseledCap",{raster:n},r)},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

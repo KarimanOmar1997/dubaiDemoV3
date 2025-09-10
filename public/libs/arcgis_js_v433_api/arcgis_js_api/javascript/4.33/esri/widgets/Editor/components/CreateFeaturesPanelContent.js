@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./PanelContent","../../support/widgetUtils","../../support/jsxFactory"],(function(e,t,n,o){"use strict";e.CreateFeaturesPanelContent=function({helpMessage:e,renderSketchToolbar:n}){return o.tsx(o.tsxFragment,null,n(),o.tsx(t.PanelContent,{key:"creating-features-panel-content"},o.tsx(t.PanelContentMessage,{key:"content-message"},e)))},e.loadCreateFeaturesPanelContentComponents=()=>t.loadPanelContentComponents(),Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

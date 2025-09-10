@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./gx/operatorAlphaShape","./support/apiConverter"],(function(e,t,o){"use strict";const r=t.supportsCurves();e.execute=function(e,r){const n=o.getSpatialReference(e),a=[0];return{alphaShape:o.toPolygon(t.execute(o.fromGeometry(e),r,a),n),calculatedAlpha:a[0]}},e.executeMany=function(e,r,n={}){const{merge:a=!1}=n,p=e.map(o.fromGeometry),u=o.getSpatialReference(e);return t.executeMany(p,r,a).map((e=>o.toPolygon(e,u)))},e.supportsCurves=r,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../core/libs/gl-matrix-2/factories/vec2f64","../../../../core/libs/gl-matrix-2/math/common"],(function(t,n,o){"use strict";function e(t){if(null==t||"polyline"!==t.type&&"polygon"!==t.type)return 0;const n="polyline"===t.type?t.paths:t.rings,e=o.getEpsilon();for(const t of n)for(let n=0;n<t.length-1;n++){const o=t[n],i=t[n+1],r=o[0]-i[0],l=o[1]-i[1];if(r*r+l*l>e)return Math.atan2(i[1]-o[1],i[0]-o[0])}return 0}t.mainAxis=function(t){const o=e(t);return n.fromValues(Math.cos(o),Math.sin(o))},t.orientation=e,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

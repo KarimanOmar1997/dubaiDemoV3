@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./Geometry","./IntersectableGeometry"],(function(e,t,r){"use strict";class o extends t.Geometry{constructor(e,t,o,n,i,s){super(e,t,null,r.GeometryType.Mesh,s),this.path=o,this.geometrySR=n,this.stencilWidth=i}}var n;e.UpVectorAlignment=void 0,(n=e.UpVectorAlignment||(e.UpVectorAlignment={}))[n.World=0]="World",n[n.Path=1]="Path",e.PathGeometry=o,e.isPathGeometry=function(e){return"path"in e},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

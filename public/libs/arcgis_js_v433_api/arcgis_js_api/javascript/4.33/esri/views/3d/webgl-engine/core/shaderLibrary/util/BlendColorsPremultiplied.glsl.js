@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(e){"use strict";e.BlendColorsPremultiplied=function(e){e.code.add("\n  vec4 blendColorsPremultiplied(vec4 source, vec4 dest) {\n    float oneMinusSourceAlpha = 1.0 - source.a;\n    return source + dest * oneMinusSourceAlpha;\n  }\n  ")},e.premultiplyAlpha=function(e,n){return e[0]=n[0]*n[3],e[1]=n[1]*n[3],e[2]=n[2]*n[3],e[3]=n[3],e},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

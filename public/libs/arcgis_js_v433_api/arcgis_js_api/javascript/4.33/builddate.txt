@@ -1,0 +1,9 @@
+{
+  "builddate": "2025-07-29T23:43:38.694Z",
+  "commit": "6617c2268829fa5b8cc30e70d4b69d6197b7cb48",
+  "branch": "remotes/origin/4.33-release",
+  "version": "4.33.11",
+  "@esri/calcite-components": "3.2.1",
+  "@esri/arcgis-html-sanitizer": "4.1.0",
+  "arcadeVersion": "1.32"
+}

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+*/
+import{h as o}from"./core/lang.js";import{addQueryParameter as s}from"./core/urlUtils.js";import"./config.js";import"./core/Error.js";import"./chunks/Logger.js";import"./chunks/jsonUtils.js";const e="20250729",r="6617c2268829fa5b8cc30e70d4b69d6197b7cb48";Symbol.dispose??=Symbol("Symbol.dispose"),Symbol.asyncDispose??=Symbol("Symbol.asyncDispose");const i="4.33";let n,t=i;function c(o){n=o}function l(o){const e=n?.findCredential(o);return e?.token?s(o,"token",e.token):o}t="4.33.11",o("host-webworker")||globalThis.$arcgis||Object.defineProperty(globalThis,"$arcgis",{configurable:!1,enumerable:!0,writable:!1,value:{}}),o("host-webworker")||(console.info(`Using ArcGIS Maps SDK for JavaScript ${t} [Date: ${e}, Revision: ${r.slice(0,8)}]`),console.warn("Only use ES modules from ArcGIS CDN for testing: https://arcg.is/0W5P5f#core-api"));export{l as addTokenParameter,e as buildDate,t as fullVersion,n as id,r as revision,c as setId,i as version};

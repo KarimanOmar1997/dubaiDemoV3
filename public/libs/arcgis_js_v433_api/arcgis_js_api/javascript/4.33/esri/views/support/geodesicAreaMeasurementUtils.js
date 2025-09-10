@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../core/quantityUtils","../../geometry/support/geodesicUtils","./geodesicMeasurementUtils"],(function(e,r,t,s,a){"use strict";function n(e){return t.createArea(Math.abs(s.geodesicAreas([e],"square-meters")[0]),"square-meters")}r.loadGeodesicAreaMeasurementUtils=async function(){return r=await new Promise(((r,t)=>e(["../../geometry/geometryEngine"],r,t))),{geodesicArea(e){const{spatialReference:s}=e;return a.geodesicMeasure(s,n,(e=>function(e,r){try{return t.createArea(Math.abs(e.geodesicArea(r,"square-meters")),"square-meters")}catch(e){return null}}(r,e)),e)}};var r},Object.defineProperty(r,Symbol.toStringTag,{value:"Module"})}));

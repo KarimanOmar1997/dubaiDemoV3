@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./jsxWidgetSupport"],(function(e,t){"use strict";var r=function(e,t){for(var o=0,n=e.length;o<n;o++){var i=e[o];Array.isArray(i)?r(i,t):null!=i&&!1!==i&&(i.hasOwnProperty("vnodeSelector")||(i={vnodeSelector:"",properties:void 0,children:void 0,text:i.toString(),domNode:null}),t.push(i))}};e.tsx=function(e,o,...n){return"function"!=typeof e||t.isWidgetConstructor(e)?function(e,t){for(var o=[],n=2;n<arguments.length;n++)o[n-2]=arguments[n];if(1===o.length&&"string"==typeof o[0])return{vnodeSelector:e,properties:t||void 0,children:void 0,text:o[0],domNode:null};var i=[];return r(o,i),{vnodeSelector:e,properties:t||void 0,children:i,text:void 0,domNode:null}}(e,o??null,...n):e(o,...n)},e.tsxFragment=function(...e){return e},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

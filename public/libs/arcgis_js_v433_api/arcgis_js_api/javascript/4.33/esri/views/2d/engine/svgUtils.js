@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(t){"use strict";function e(t){return document.createElementNS("http://www.w3.org/2000/svg",t)}t.createHiddenSvg=function(){const t=e("svg");return t.setAttribute("style","position: absolute;"),t.setAttribute("width","0"),t.setAttribute("height","0"),t.setAttribute("aria-hidden","true"),t.setAttribute("role","presentation"),document.body.appendChild(t),t},t.createSvgElement=e,t.destroyHiddenSvg=function(t){return null!=t&&document.body.removeChild(t),null},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

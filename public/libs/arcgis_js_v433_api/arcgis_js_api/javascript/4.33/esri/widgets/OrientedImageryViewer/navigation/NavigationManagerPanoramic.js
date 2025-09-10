@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../../chunks/tslib.es6","../../../core/Logger","../../../core/has","../../../core/RandomLCG","../../../core/Error","../../../core/accessorSupport/decorators/subclass","./NavigationManager"],(function(e,r,a,t,i,s,n){"use strict";let c=class extends n{async afterNavigate(e,r,a){return await this.viewModel.selectBestFeature(r.id,a),this.viewModel.setCurrentPanoramaView(e.currentHeading-r.heading,e.currentPitch-r.pitch),r}};return c=e.__decorate([s.subclass("esri.widgets.OrientedImageryViewer.navigation.NavigationManagerPanoramic")],c),c}));

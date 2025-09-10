@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../core/libs/gl-matrix-2/factories/vec3f64","../../../../webgl/doublePrecisionUtils"],(function(e,t,n){"use strict";const r=t.create(),l=new Float32Array(6);e.addObject3DStateID=function(e,t){return null==e&&(e=[]),e.push(t),e},e.encodeDoubleVec3=function(e,t,o,c,u){r[0]=e.get(t,0),r[1]=e.get(t,1),r[2]=e.get(t,2),n.encodeDoubleArray(r,l,3),o.set(u,0,l[0]),c.set(u,0,l[1]),o.set(u,1,l[2]),c.set(u,1,l[3]),o.set(u,2,l[4]),c.set(u,2,l[5])},e.removeObject3DStateID=function(e,t){if(null==e)return null;const n=e.filter((e=>e!==t));return 0===n.length?null:n},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

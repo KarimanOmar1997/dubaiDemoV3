@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/libs/gl-matrix-2/factories/vec3f64","./euclideanLengthMeasurementUtils","./geodesicLengthMeasurementUtils"],(function(e,t,n,i){"use strict";const a=t.create(),o=t.create();e.loadAutomaticLengthMeasurementUtils=async function(){return e=await i.loadGeodesicLengthMeasurementUtils(),{autoLength2D:t=>e.geodesicLength(t)??n.euclideanHorizontalLength(t),autoDistanceBetweenPoints2D:(t,i)=>e.geodesicDistanceBetweenPoints(t,i)??n.euclideanHorizontalDistanceBetweenPoints(t,i),autoDistance2D:(t,i,s)=>(a[0]=t[0],a[1]=t[1],a[2]=3===t.length?t[2]:0,o[0]=i[0],o[1]=i[1],o[2]=3===i.length?i[2]:0,e.geodesicDistance(a,o,s)??n.euclideanHorizontalDistance(a,o,s))};var e},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

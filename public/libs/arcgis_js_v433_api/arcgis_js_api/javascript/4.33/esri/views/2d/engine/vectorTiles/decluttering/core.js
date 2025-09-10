@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(t){"use strict";t.UniqueSymbol=class{constructor(t){this.parts=[{startTime:0,startOpacity:0,targetOpacity:0,show:!1},{startTime:0,startOpacity:0,targetOpacity:0,show:!1}],this.show=!1,this.lastShow=!1,this.tileSymbols=[t],this.id=t.id}},t.VTLSymbol=class{constructor(t,i){this.sourceTile=i,this.xTile=0,this.yTile=0,this.hash=0,this.priority=1,this.featureIndex=0,this.uniqueSymbol=null,this._colliders=[],this.textVertexRanges=[],this.iconVertexRanges=[],this.tile=t}colliders(){return this._colliders}},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

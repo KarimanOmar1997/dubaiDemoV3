@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+*/
+import r from"../request.js";import s from"../core/Error.js";import{p as e,a as t,e as o}from"./utils10.js";import{a as i}from"./serverVersionUtils.js";import"../config.js";import"../core/lang.js";import"../kernel.js";import"../core/urlUtils.js";import"./Logger.js";import"./jsonUtils.js";import"./MapUtils.js";import"../core/promiseUtils.js";import"./handleUtils.js";import"./events.js";import"./maybe.js";import"./persistableUrlUtils.js";const p=new Map;async function m(m,n,a){p.has(m)||await i(p,m);const j=p.get(m);if((j?.serverVersion??0)<=11.1)throw new s("deleteVersion:enterprise-version","versioning API requires ArcGIS Enterprise version 11.2 or higher");const l=e(m),c=n.toJSON(),u=t(l.query,{query:o({...c,f:"json"}),...a,authMode:"immediate",method:"post"}),f=`${l.path}/delete`,{data:h}=await r(f,u);return h.success}export{m as deleteVersion,p as serverVersionCacheMap};

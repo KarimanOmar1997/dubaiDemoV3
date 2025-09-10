@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../arcadeEnvironment","../Dictionary","../executionError","../../chunks/languageUtils","../../core/Error","../../core/Logger","../../core/MapUtils","../../portal/Portal","../../rest/translate","../../rest/support/TranslateContent","../../rest/support/TranslateParameters","../../rest/support/TranslateResult","../../support/guards","../../chunks/aiServices"],(function(r,e,t,a,s,n,o,i,c,l,u,p,g,T,v){"use strict";r.BatchTranslationServiceFactory=v.BatchTranslationServiceFactory,r.PortalTranslationService=v.PortalTranslationService,r.getTranslateParametersKey=v.getTranslateParametersKey,r.registerFunctions=v.registerFunctions,Object.defineProperty(r,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../core/Clonable","../../core/accessorSupport/decorators/property","../../core/accessorSupport/ensureType","../../core/has","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./AttributeTableElement"],(function(e,r,t,o,s,n,i,p){"use strict";let a=class extends(r.ClonableMixin(p)){constructor(e){super(e),this.relationshipId=null,this.type="relationship"}clone(){return super.clone()}};return e.__decorate([t.property({type:Number,json:{type:o.Integer,write:{enabled:!0,isRequired:!0}}})],a.prototype,"relationshipId",void 0),e.__decorate([t.property({type:["relationship"],readOnly:!0,json:{read:!1,write:{enabled:!0,isRequired:!0}}})],a.prototype,"type",void 0),a=e.__decorate([i.subclass("esri.tables.elements.AttributeTableRelationshipElement")],a),a}));

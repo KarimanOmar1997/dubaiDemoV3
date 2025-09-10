@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(r,e,o,s,t,c,p){"use strict";let u=class extends e{constructor(){super(...arguments),this.type=null}};return r.__decorate([o.property({type:String,readOnly:!0,json:{write:{isRequired:!0}}})],u.prototype,"type",void 0),u=r.__decorate([p.subclass("esri.layers.support.BuildingFilterAuthoringInfo")],u),u}));

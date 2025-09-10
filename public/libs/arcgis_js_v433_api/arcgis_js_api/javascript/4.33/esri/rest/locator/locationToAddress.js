@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../request","../utils","../support/AddressCandidate","../support/LocationToAddressParameters"],(function(e,t,o,r,s){"use strict";function n({data:e}){if(!e)return;const{address:t,location:o}=e,s=t?.Match_addr||"";return r.fromJSON({address:s,attributes:t||{},location:o,score:100})}e.locationToAddress=async function(e,r,a){r=s.from(r);const d=o.parseUrl(e),i={...r.toJSON(),f:"json"},c=o.encode({...d.query,...i}),u=o.asValidOptions(c,a),f=`${d.path}/reverseGeocode`;return t(f,u).then(n)},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

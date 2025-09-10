@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../colorUtils","../../../../core/has","../../../../core/Logger","../../../../chunks/vec3"],(function(e,a,r,t,i){"use strict";e.linearToSRGB=i.linearToSRGB,e.linearToSRGBView=i.linearToSRGBView,e.normalize=i.normalize,e.normalizeView=i.normalizeView,e.scale=i.scale,e.scaleView=i.scaleView,e.shiftRight=i.shiftRight,e.transformMat3=i.transformMat3,e.transformMat3View=i.transformMat3View,e.transformMat4=i.transformMat4,e.transformMat4View=i.transformMat4View,e.translate=i.translate,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

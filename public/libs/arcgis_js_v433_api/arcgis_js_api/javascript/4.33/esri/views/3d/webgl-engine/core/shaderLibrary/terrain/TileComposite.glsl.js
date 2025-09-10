@@ -1,0 +1,6 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../../core/libs/gl-matrix-2/factories/vec2f64","../../shaderModules/Float2PassUniform","../../shaderModules/FloatPassUniform","../../shaderModules/glsl","../../../lib/VertexAttribute","../../../../../webgl/NoParameters"],(function(e,s,t,a,o,r,i){"use strict";class l extends i.NoParameters{constructor(){super(...arguments),this.scale=1,this.offset=s.ZEROS}}e.TileComposite=function(e){e.attributes.add(r.VertexAttribute.POSITION,"vec2"),e.attributes.add(r.VertexAttribute.UV0,"vec2"),e.varyings.add("uv","vec2"),e.varyings.add("vuv","vec2"),e.vertex.uniforms.add(new a.FloatPassUniform("scale",(e=>e.scale)),new t.Float2PassUniform("offset",(e=>e.offset))).main.add(o.glsl`gl_Position = vec4(position, 0.0, 1.0);
+uv = uv0 * scale + offset;
+vuv = uv0;`)},e.TileCompositePassParameters=l,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

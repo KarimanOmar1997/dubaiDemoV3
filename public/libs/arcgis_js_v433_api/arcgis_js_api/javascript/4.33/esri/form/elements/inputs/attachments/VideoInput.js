@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../../../chunks/tslib.es6","../../../../core/accessorSupport/decorators/property","../../../../core/has","../../../../core/Logger","../../../../core/RandomLCG","../../../../core/accessorSupport/decorators/subclass","./Input","./support/utils"],(function(e,t,o,r,s,p,c,i){"use strict";let n=class extends c{constructor(e){super(e),this.type="video",this.inputMethod="any",this.maxDuration=null}};return e.__decorate([t.property({type:["video"],readOnly:!0,json:{write:!0}})],n.prototype,"type",void 0),e.__decorate([t.property({type:i.mediaInputArray,json:{write:!0}})],n.prototype,"inputMethod",void 0),e.__decorate([t.property({type:Number,json:{write:!0}})],n.prototype,"maxDuration",void 0),n=e.__decorate([p.subclass("esri.form.elements.inputs.attachments.VideoInput")],n),n}));

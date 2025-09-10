@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(e){"use strict";function t(e,t){switch(t){case"primary":return"touch"===e.pointerType||0===e.button;case"secondary":return"touch"!==e.pointerType&&2===e.button;case"tertiary":return"touch"!==e.pointerType&&1===e.button}}e.eventMatchesMousePointerActions=function(e,t){const{button:r,pointerType:n}=e;return"touch"!==n&&t.some((e=>"primary"===e&&0===r||"secondary"===e&&2===r||"tertiary"===e&&1===r))},e.eventMatchesPointerAction=t,e.eventMatchesPointerActions=function(e,r){return r.some((r=>t(e,r)))},e.getPointerActions=function(e,{dragPrimary:t,dragSecondary:r,dragTertiary:n}){return[{key:"primary",value:t},{key:"secondary",value:r},{key:"tertiary",value:n}].filter((t=>t.value===e)).map((e=>e.key))},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../chunks/tslib.es6","../core/Clonable","../core/JSONSupport","../core/accessorSupport/decorators/property","../core/has","../core/Logger","../core/RandomLCG","../core/accessorSupport/decorators/subclass"],(function(e,o,r,s,t,c,a,i){"use strict";let p=class extends(o.ClonableMixin(r)){constructor(e){super(e),this.mode="visible"}};return e.__decorate([s.property({type:["hidden","visible"],json:{write:!0}})],p.prototype,"mode",void 0),p=e.__decorate([i.subclass("esri.linkChart.NonspatialDataDisplay")],p),p}));

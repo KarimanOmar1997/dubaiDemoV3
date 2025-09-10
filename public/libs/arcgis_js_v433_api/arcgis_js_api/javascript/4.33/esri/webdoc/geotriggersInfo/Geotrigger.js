@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../core/Clonable","../../core/JSONSupport","../../core/Logger","../../core/has","../../core/RandomLCG","../../core/Error","../../core/accessorSupport/decorators/enumeration","../../core/accessorSupport/decorators/subclass"],(function(e,r,o,c,s,t,n,a,i){"use strict";let u=class extends(r.ClonableMixin(o)){constructor(e){super(e),this.type="fence"}};return e.__decorate([a.enumeration({fence:"fence"},{readOnly:!0})],u.prototype,"type",void 0),u=e.__decorate([i.subclass("esri.webdoc.geotriggersInfo.Geotrigger")],u),u}));

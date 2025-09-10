@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(n){"use strict";n.equals=function(n,e){if(null==n&&null==e)return!0;if(null==n||null==e||n.size!==e.size)return!1;for(const[t,r]of n)if(!e.has(t)||r!==e.get(t))return!1;return!0},n.findInMap=function(n,e){for(const t of n.values())if(e(t))return t;return null},n.getOrCreateMapValue=function(n,e,t){const r=n.get(e);if(void 0!==r)return r;const u=t();return n.set(e,u),u},n.memoize=function(n){const e=new Map;return t=>(e.has(t)||e.set(t,n(t)),e.get(t))},n.someMap=function(n,e){for(const t of n.values())if(e(t))return!0;return!1},Object.defineProperty(n,Symbol.toStringTag,{value:"Module"})}));

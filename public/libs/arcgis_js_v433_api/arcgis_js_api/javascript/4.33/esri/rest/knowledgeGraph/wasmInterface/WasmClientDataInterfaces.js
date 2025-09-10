@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(e){"use strict";var t,a,i,n;e.ClientDataKeyType=void 0,(t=e.ClientDataKeyType||(e.ClientDataKeyType={}))[t.ClientDataKeyTypeUNSPECIFIED=0]="ClientDataKeyTypeUNSPECIFIED",t[t.ClientDataKeyTypeString=1]="ClientDataKeyTypeString",e.ClientDataType=void 0,(a=e.ClientDataType||(e.ClientDataType={}))[a.ClientDataTypeUNSPECIFIED=0]="ClientDataTypeUNSPECIFIED",a[a.ClientDataTypeString=1]="ClientDataTypeString",e.DataValueCase=void 0,(i=e.DataValueCase||(e.DataValueCase={}))[i.Unspecified=0]="Unspecified",i[i.ClientData=1]="ClientData",i[i.NotModified=2]="NotModified",e.FetchResultCase=void 0,(n=e.FetchResultCase||(e.FetchResultCase={}))[n.Unspecified=0]="Unspecified",n[n.Error=1]="Error",n[n.ClientDataValue=2]="ClientDataValue",Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

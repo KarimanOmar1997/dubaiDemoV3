@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../geometry/SpatialReference","../../../../geometry/support/jsonUtils","../../../../rest/support/FeatureSet","./meshUtils"],(function(e,t,r,n,o){"use strict";e.processQueryGeometries=function(e,s){const a=new Array,f=t.fromJSON(s.spatialReference);for(const t of s.features){const n=t.metadata,s=r.fromJSON(t.geometry);if(!n||!s){a.push(null);continue}s.spatialReference=f;const u=s.extent,i=o.createMesh({layerView:e,nodeIndex:n.meta.node.index,featureIndex:n.index,extent:u,spatialReference:f});a.push(i),t.geometry=null}const u=n.fromJSON(s);for(let e=0;e<u.features.length;e++){const t=u.features[e],r=a[e];t.geometry=r}return u},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

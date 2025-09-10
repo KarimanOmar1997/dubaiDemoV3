@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../core/Clonable","../../core/jsonMap","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,r,o,s,t,c,p,n,a){"use strict";const d=new o.JSONMap({asc:"ascending",desc:"descending"});let i=class extends(r.ClonableMixin(s)){constructor(e){super(e),this.field=null,this.order="ascending"}};return e.__decorate([t.property({type:String,json:{write:!0}})],i.prototype,"field",void 0),e.__decorate([t.property({type:d.apiValues,json:{type:d.jsonValues,read:d.read,write:d.write}})],i.prototype,"order",void 0),i=e.__decorate([a.subclass("esri.popup.support.AttachmentsOrderByInfo")],i),i}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../lib/GLMaterial","./WaterTechnique"],(function(e,t,r){"use strict";e.WaterGLMaterial=class extends t{ensureResources(e){return this._techniques.context.waterTextures.ensureResources(e)}beginSlot(e){const t=this._techniques.context.waterTextures.passParameters;return this._material.setParameters({wavePerturbation:t.wavePerturbation,waveNormal:t.waveNormal}),this.getTechnique(r.WaterTechnique,e)}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

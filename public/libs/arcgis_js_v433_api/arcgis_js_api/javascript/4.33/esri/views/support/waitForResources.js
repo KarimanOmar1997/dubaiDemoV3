@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../core/promiseUtils","../../core/reactiveUtils","../../core/scheduling","../../core/accessorSupport/watch"],(function(e,t,r,n){"use strict";return function(c){switch(c.type){case"2d":return function(t){const c=e.createResolver();let o=performance.now();return setTimeout((function e(){t.destroyed||(n.dispatch(),r.debug.dispatch(),t.ready&&!t.updating&&t.stationary&&!t.rendering)?(o||(o=performance.now()),performance.now()-o>=100?c():setTimeout(e,16)):(o=null,setTimeout(e,16))}),16),c.promise}(c);case"3d":if(c)return n.dispatch(),r.debug.dispatch(),t.whenOnce((()=>!c.updating))}return Promise.resolve()}}));

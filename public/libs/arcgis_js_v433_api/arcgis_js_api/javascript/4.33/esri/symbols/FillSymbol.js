@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../chunks/tslib.es6","../core/accessorSupport/decorators/property","../core/has","../core/Logger","../core/RandomLCG","../core/accessorSupport/decorators/subclass","./SimpleLineSymbol","./Symbol"],(function(e,t,l,o,s,r,p,u,a){"use strict";return e.default=class extends a{constructor(e){super(e),this.outline=null,this.type=null}hash(){return`${this.type}.${this.outline?.hash()}`}},t.__decorate([l.property({types:{key:"type",base:null,defaultKeyValue:"simple-line",typeMap:{"simple-line":u}},json:{default:null,write:!0}})],e.default.prototype,"outline",void 0),t.__decorate([l.property({type:["simple-fill","picture-fill"],readOnly:!0})],e.default.prototype,"type",void 0),e.default=t.__decorate([p.subclass("esri.symbols.FillSymbol")],e.default),e.default}));

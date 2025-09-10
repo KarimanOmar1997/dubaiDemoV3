@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./CameraInfo","./ImageGPSInfo"],(function(e,r,o,t,s,a,c,p,u,d){"use strict";return e.default=class extends o{constructor(){super(...arguments),this.images=null,this.cameras=null}},r.__decorate([t.property({type:[d],json:{write:!0}})],e.default.prototype,"images",void 0),r.__decorate([t.property({type:[u],json:{write:!0}})],e.default.prototype,"cameras",void 0),e.default=r.__decorate([p.subclass("esri.rest.support.ImageGPSInfoResult")],e.default),e.default}));

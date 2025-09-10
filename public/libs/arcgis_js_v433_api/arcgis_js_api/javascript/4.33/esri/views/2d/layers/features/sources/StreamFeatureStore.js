@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../support/FeatureSetReaderJSON"],(function(e,t){"use strict";e.StreamFeatureStore=class{constructor(e,t){this._metadata=e,this._onUpdate=t,this._objectIdToFeature=new Map}get size(){return this._objectIdToFeature.size}get reader(){return t.FeatureSetReaderJSON.fromFeatures([...this._objectIdToFeature.values()],this._metadata)}add(e){this._objectIdToFeature.set(e.objectId,e)}forEach(e){this._objectIdToFeature.forEach(e)}removeById(e){const t=this._objectIdToFeature.get(e);return t?(this._objectIdToFeature.delete(e),t):null}clear(){this._objectIdToFeature=new Map}update(e,t){this._onUpdate(e?.length??0)}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

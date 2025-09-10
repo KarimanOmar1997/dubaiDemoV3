@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../../../chunks/tslib.es6","../../../../core/JSONSupport","../../../../core/accessorSupport/decorators/property","../../../../core/accessorSupport/ensureType","../../../../core/has","../../../../core/RandomLCG","../../../../core/accessorSupport/decorators/subclass"],(function(e,r,t,s,o,c,n){"use strict";var p;let a=p=class extends r{static from(e){return s.ensureClass(p,e)}constructor(e){super(e),this.sessionId=void 0,this.moment=null}};return e.__decorate([t.property({type:String,json:{write:!0}})],a.prototype,"sessionId",void 0),e.__decorate([t.property({type:Date,json:{type:Number,write:{writer:(e,r)=>{r.moment=e?e.getTime():null}}}})],a.prototype,"moment",void 0),a=p=e.__decorate([n.subclass("esri.rest.versionManagement.gdbVersion.support.DeleteForwardEditsParameters")],a),a}));

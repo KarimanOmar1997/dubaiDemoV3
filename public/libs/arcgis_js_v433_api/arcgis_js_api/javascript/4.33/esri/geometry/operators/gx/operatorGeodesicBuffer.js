@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../../chunks/SimpleGeometryCursor","../../../chunks/pe"],(function(e,n,r,t){"use strict";let o;function u(){return!!o&&t.isLoaded()}n.execute=function(e,n,r,t,u){return o.execute(e,n,r,t,u,!1,null)},n.executeMany=function(e,n,t,u,i,s){const c=o.executeMany(new r.SimpleGeometryCursor(e),n,t,u,i,!1,s,null);return Array.from(c)},n.isLoaded=u,n.load=async function(){if(!u()){const[n,r]=await Promise.all([new Promise(((n,r)=>e(["../../../chunks/OperatorGeodesicBuffer"],n,r))),new Promise(((n,r)=>e(["../../../chunks/ProjectionTransformation"],n,r))).then((e=>e.SpatialReference)).then((({injectPe:e})=>e)),t.load()]);o=new n.OperatorGeodesicBuffer,r(t.pe)}},n.supportsCurves=function(){return o.supportsCurves()},Object.defineProperty(n,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./decorators/aliasOf","./decorators/cast","./decorators/enumeration","./decorators/property","./decorators/reader","./decorators/shared","./decorators/subclass","./decorators/writer"],(function(r,e,a,s,o,t,c,i,d){"use strict";r.aliasOf=e.aliasOf,r.cast=a.cast,r.enumeration=s.enumeration,r.composeCasters=o.composeCasters,r.property=o.property,r.propertyJSONMeta=o.propertyJSONMeta,r.reader=t.reader,r.shared=c.shared,r.finalizeClass=i.finalizeClass,r.subclass=i.subclass,r.writer=d.writer,Object.defineProperty(r,Symbol.toStringTag,{value:"Module"})}));

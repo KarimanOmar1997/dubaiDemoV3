@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/Logger","./interfaces","./keybindings"],(function(e,t,o,i){"use strict";e.areToolManipulatorsEditable=function(e){return e.visible&&null!=e.getEditableFlag&&e.getEditableFlag(o.EditableFlag.USER)&&e.getEditableFlag(o.EditableFlag.MANAGER)},e.getToolCollectionHandles=function(e){return[e.on("before-add",(o=>{const i=o.item;if(null==i||e.includes(i))return t.getLogger("esri.views.interactive.interactiveToolUtils").warn("Tool is either already in the list of tools or tool is `null`. Not adding tool."),void o.preventDefault();i.onAdd()})),e.on("after-remove",(e=>{const t=e.item;t.active&&(t.view.activeTool=null),t.destroy()}))]},e.isCancelEvent=function(e){return"key-down"===e.type&&e.key===i.interactiveToolKeys.cancel},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

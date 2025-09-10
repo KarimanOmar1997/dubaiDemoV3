@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./Settings","../../support/jsxFactory"],(function(e,o,s){"use strict";const t={base:"esri-editor__panel-toolbar"};e.PanelToolbar=function({editorViewModel:e,messagesCommon:n,visibleElements:i}){return s.tsx("div",{class:t.base,key:"panel-toolbar"},s.tsx(o.Settings,{editorViewModel:e,messagesCommon:n,visibleElements:i}))},e.css=t,e.loadPanelToolbarComponents=()=>o.loadSettingsComponents(),Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

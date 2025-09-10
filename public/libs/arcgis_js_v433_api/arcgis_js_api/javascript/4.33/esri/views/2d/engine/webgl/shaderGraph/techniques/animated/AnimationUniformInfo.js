@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../../../chunks/tslib.es6","../../GraphShaderModule","../../graph/glsl"],(function(o,e,t,r){"use strict";class i extends t.UniformGroup{}e.__decorate([t.uniform(r.Float)],i.prototype,"globalTime",void 0),e.__decorate([t.uniform(r.Vec2)],i.prototype,"animationTextureSize",void 0),e.__decorate([t.uniform(r.Sampler2D)],i.prototype,"animationTexture",void 0),e.__decorate([t.uniform(r.Mat3)],i.prototype,"toScreen",void 0),e.__decorate([t.uniform(r.Mat3)],i.prototype,"toNdc",void 0),e.__decorate([t.uniform(r.Float)],i.prototype,"mapRotation",void 0),e.__decorate([t.uniform(r.Float)],i.prototype,"pixelRatio",void 0),o.AnimationUniformInfo=i,Object.defineProperty(o,Symbol.toStringTag,{value:"Module"})}));

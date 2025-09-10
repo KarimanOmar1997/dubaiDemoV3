@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../core/arrayUtils"],(function(t,n){"use strict";function i(t){return 8*t.BYTES_PER_ELEMENT}t.getVisibility=function(t,n){if(null==t)return!0;const e=i(t);return!(n<t.length*e)||function(t,n,i){const e=n/i|0,r=n-e*i;return!function(t,n){return!!(t&1<<n)}(t[e],r)}(t,n,e)},t.updatePickabilityWithCount=function(t,e,r){const c=t.count;if(e>=c)return;t.pickability??=new Uint32Array(0);let o=t.pickability;const u=i(o),l=e/u|0,a=e-u*l,f=(c-1)/u|0,s=o;if(!(e<s.length*u||r)){const i=l+1,e=Math.ceil(s.length*n.reallocGrowthFactor),r=f+1;let c=Math.max(i,e);c=Math.min(c,r),t.pickability=o=new Uint32Array(c),o.set(s)}l<o.length&&(o[l]=function(t,n,i){return t&~(1<<n)|(i?1:0)<<n}(o[l],a,!r))},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

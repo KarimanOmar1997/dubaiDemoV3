@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./ObjectPool"],(function(e,s){"use strict";e.ReentrantObjectPool=class extends s{constructor(){super(...arguments),this._set=new Set}destroy(){super.destroy(),this._set=null}acquire(...e){const s=super.acquire(...e);return this._set.delete(s),s}release(e){e&&!this._set.has(e)&&(super.release(e),this._set.add(e))}_dispose(e){this._set.delete(e),super._dispose(e)}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,o,r,t,s,d,c,a){"use strict";var u;e.CodedValue=u=class extends r{constructor(e){super(e),this.name=null,this.code=null}clone(){return new u({name:this.name,code:this.code})}},o.__decorate([t.property({type:String,json:{write:{isRequired:!0}}})],e.CodedValue.prototype,"name",void 0),o.__decorate([t.property({type:[String,Number],json:{write:{isRequired:!0}}})],e.CodedValue.prototype,"code",void 0),e.CodedValue=u=o.__decorate([a.subclass("esri.layers.support.CodedValue")],e.CodedValue),Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

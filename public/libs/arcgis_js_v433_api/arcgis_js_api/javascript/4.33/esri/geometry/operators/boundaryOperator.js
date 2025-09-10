@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./gx/operatorBoundary","./support/apiConverter"],(function(e,t,r){"use strict";const o=t.supportsCurves();e.execute=function(e){const o=r.getSpatialReference(e);return r.toGeometry(t.execute(r.fromGeometry(e)),o)},e.executeMany=function(e){const o=e.map(r.fromGeometry),n=r.getSpatialReference(e);return t.executeMany(o).map((e=>r.toGeometry(e,n)))},e.supportsCurves=o,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

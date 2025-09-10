@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(e){"use strict";var E,O,t;e.OverlayIndex=void 0,(E=e.OverlayIndex||(e.OverlayIndex={}))[E.INNER=0]="INNER",E[E.OUTER=1]="OUTER",e.PatchType=void 0,(O=e.PatchType||(e.PatchType={}))[O.REGULAR=0]="REGULAR",O[O.HAS_NORTH_POLE=1]="HAS_NORTH_POLE",O[O.HAS_SOUTH_POLE=2]="HAS_SOUTH_POLE",O[O.HAS_BOTH_POLES=3]="HAS_BOTH_POLES",e.TextureUpdate=void 0,(t=e.TextureUpdate||(e.TextureUpdate={}))[t.FADING=0]="FADING",t[t.IMMEDIATE=1]="IMMEDIATE",t[t.UNFADED=2]="UNFADED",Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

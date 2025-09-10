@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/libs/gl-matrix-2/math/mat4"],(function(t,o){"use strict";function n(t,o,n){const e=Math.sin(t),a=Math.cos(t),c=Math.sin(o),i=Math.cos(o),r=n;return r[0]=-e,r[4]=-c*a,r[8]=i*a,r[12]=0,r[1]=a,r[5]=-c*e,r[9]=i*e,r[13]=0,r[2]=0,r[6]=i,r[10]=c,r[14]=0,r[3]=0,r[7]=0,r[11]=0,r[15]=1,r}t.computeENUToPCPFLocalRotation=n,t.computePCPFToENULocalRotation=function(t,e,a){return n(t,e,a),o.transpose(a,a),a},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

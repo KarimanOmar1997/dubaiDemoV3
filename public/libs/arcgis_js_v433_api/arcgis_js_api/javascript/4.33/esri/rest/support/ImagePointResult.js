@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","../../geometry/Point","./BaseImageMeasureResult"],(function(e,t,r,o,s,a,c,u,p){"use strict";return e.default=class extends p{constructor(){super(...arguments),this.point=null}},t.__decorate([r.property({type:u,json:{name:"point.value",read:!0,write:!0}})],e.default.prototype,"point",void 0),e.default=t.__decorate([c.subclass("esri.rest.support.ImagePointResult")],e.default),e.default}));

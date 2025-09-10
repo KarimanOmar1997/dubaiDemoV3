@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./ProjectionTransformation","../geometry/operators/support/apiConverter"],(function(e,r,t){"use strict";class o extends r.OperatorSimpleRelation{getOperatorType(){return 2}execute(e,t,o,n){return r.relate(e,t,o,3,n)}}const n=new o;function a(e){const r=t.getSpatialReference(e);return n.accelerateGeometry(t.fromGeometry(e),t.fromSpatialReference(r),1)}function c(e,r){return n.execute(t.fromGeometry(e),t.fromGeometry(r),t.fromSpatialReference(e.spatialReference),null)}const u=n.supportsCurves(),s=Object.freeze(Object.defineProperty({__proto__:null,accelerateGeometry:a,execute:c,supportsCurves:u},Symbol.toStringTag,{value:"Module"}));e.accelerateGeometry=a,e.equalsOperator=s,e.execute=c,e.supportsCurves=u}));

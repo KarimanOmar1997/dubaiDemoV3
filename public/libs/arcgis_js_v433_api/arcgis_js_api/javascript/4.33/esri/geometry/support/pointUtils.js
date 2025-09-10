@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./spatialReferenceUtils","./webMercatorUtils"],(function(t,e,n){"use strict";function r({x:t,y:r,spatialReference:i},u=[0,0]){if(i){if(e.isWebMercator(i))return n.xyToLngLat(t,r,u);if(e.isGeographic(i))return u[0]=t,u[1]=r,u}return null}const i=[0,0];t.distance=function(t,e){const n=t.x-e.x,r=t.y-e.y,i=null!=t.z&&null!=e.z?t.z-e.z:0;return Math.sqrt(n*n+r*r+i*i)},t.getLatitude=function(t){return r(t,i)?.[1]??null},t.getLongitude=function(t){return r(t,i)?.[0]??null},t.getLongitudeLatitude=r,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

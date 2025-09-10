@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../core/Accessor","../core/shaderLibrary/ShaderOutput","../lib/Material"],(function(e,r,t,n){"use strict";const s={required:[]},u={required:[t.ShaderOutput.Depth]};class c extends r{precompile(e){return!!this.acquireTechniques(e)}consumes(){return s}get usedMemory(){return 0}get renderOccludedFlags(){return n.RenderOccludedFlag.Occlude}get isDecoration(){return!1}get running(){return!1}modify(e,r){}get numGeometries(){return 0}get hasOccludees(){return!1}get hasEmissions(){return!1}forEachGeometry(e){}}e.AsyncRenderPlugin=class extends c{},e.ConsumesDepth=u,e.ConsumesNone=s,e.SyncRenderPlugin=class extends c{},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

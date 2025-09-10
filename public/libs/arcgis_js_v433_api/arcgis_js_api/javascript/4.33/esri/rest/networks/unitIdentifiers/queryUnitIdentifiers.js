@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../request","../../utils","./support/UnitQueryResult"],(function(t,e,s,o){"use strict";t.queryUnitIdentifiers=async function(t,n,i){const r=s.parseUrl(t),u=n.toJSON();n.objects&&(u.objects=JSON.stringify(n.objects));const a={...u,f:"json"},c=s.encode({...r.query,...a}),d=s.asValidOptions(c,{...i,method:"post"}),f=`${r.path}/unitIdentifiers/query`,{data:p}=await e(f,d);return p.objects.map((t=>o.fromJSON(t)))},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

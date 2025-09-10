@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../IntersectorResult","../IntersectorTarget","../IntersectorType"],(function(e,t,r,s){"use strict";class i extends r.Graphic3DTarget{constructor(e,t,r,s,i){super(e,t),this.layerViewUid=e,this.graphicUid=t,this.triangleNr=r,this.baseBoundingSphere=s,this.numLodLevels=i}}e.LodTarget=i,e.isLodIntersectorResult=function(e){return t.isValidIntersectorResult(e)&&e.intersector===s.IntersectorType.LOD&&!!e.target},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

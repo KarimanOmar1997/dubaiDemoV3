@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../chunks/tslib.es6","../core/shaderTechnique/ShaderTechniqueConfiguration"],(function(e,t,o){"use strict";var i;e.BlitMode=void 0,(i=e.BlitMode||(e.BlitMode={}))[i.None=0]="None",i[i.Alpha=1]="Alpha",i[i.PremultipliedAlpha=2]="PremultipliedAlpha",i[i.Depth=3]="Depth",i[i.COUNT=4]="COUNT";class r extends o.ShaderTechniqueConfiguration{constructor(){super(...arguments),this.blitMode=e.BlitMode.None,this.hasOpacityFactor=!1}}t.__decorate([o.parameter({count:e.BlitMode.COUNT})],r.prototype,"blitMode",void 0),t.__decorate([o.parameter()],r.prototype,"hasOpacityFactor",void 0),e.CompositingTechniqueConfiguration=r,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

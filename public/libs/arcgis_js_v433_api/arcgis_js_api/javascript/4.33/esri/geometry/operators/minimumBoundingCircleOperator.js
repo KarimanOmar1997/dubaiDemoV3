@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/arrayUtils","./gx/operatorMinimumBoundingCircle","./support/apiConverter"],(function(e,t,r,o){"use strict";function n(e,n={}){const{merge:u=!1}=n,i=e.map(o.fromGeometry),s=o.getSpatialReference(e);return r.executeMany(i,u).map((e=>o.toPolygon(e,s))).filter(t.isSome)}const u=r.supportsCurves();e.execute=function(e){return n([e])[0]},e.executeMany=n,e.supportsCurves=u,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

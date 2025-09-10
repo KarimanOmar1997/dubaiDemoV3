@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../chunks/tslib.es6","../../../core/Accessor","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass"],(function(e,r,t,o,s,c,a,p){"use strict";var i;return e.default=i=class extends t{constructor(e){super(e),this.isInverse=!1,this.wkt=null,this.wkid=null}getInverse(){return new i({isInverse:!this.isInverse,wkid:this.wkid,wkt:this.wkt})}},r.__decorate([o.property()],e.default.prototype,"isInverse",void 0),r.__decorate([o.property()],e.default.prototype,"wkt",void 0),r.__decorate([o.property()],e.default.prototype,"wkid",void 0),e.default=i=r.__decorate([p.subclass("esri.geometry.operators.support.GeographicTransformationStep")],e.default),e.default}));

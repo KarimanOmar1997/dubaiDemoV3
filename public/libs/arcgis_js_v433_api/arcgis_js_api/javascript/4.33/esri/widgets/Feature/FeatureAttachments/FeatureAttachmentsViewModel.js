@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../chunks/tslib.es6","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass","../../Attachments/AttachmentsViewModel"],(function(e,t,r,o,s,c,a,d){"use strict";return e.default=class extends d{constructor(e){super(e),this.description=null,this.title=null}},t.__decorate([r.property()],e.default.prototype,"description",void 0),t.__decorate([r.property()],e.default.prototype,"title",void 0),e.default=t.__decorate([a.subclass("esri.widgets.Feature.FeatureAttachments.FeatureAttachmentsViewModel")],e.default),e.default}));

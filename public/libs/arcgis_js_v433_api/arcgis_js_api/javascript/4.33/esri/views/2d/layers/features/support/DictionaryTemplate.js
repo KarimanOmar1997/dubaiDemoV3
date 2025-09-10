@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../symbols/cim/utils","./AComputedField"],(function(e,t,a){"use strict";class r extends a.AComputedField{constructor(e,a){super(),this._template=e,this._parts=t.analyzeTextParts(e.template,a)}resize(e){}read(e,a){return t.getTextValuesFromFeatureHandle(e,this._parts,this._template.textCase)}readWithDefault(e,a,r){return t.getTextValuesFromFeatureHandle(e,this._parts,this._template.textCase)}hasArcadeDependency(e){return!1}}e.ComputedDictionaryTemplate=r,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

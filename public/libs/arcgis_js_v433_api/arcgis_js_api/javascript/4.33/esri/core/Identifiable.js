@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../chunks/tslib.es6","./accessorSupport/decorators/subclass"],(function(e,t){"use strict";let s=0;const i=i=>{let r=class extends i{constructor(...e){super(...e),Object.defineProperty(this,"uid",{writable:!1,configurable:!1,value:Date.now().toString(16)+"-object-"+s++})}};return r=e.__decorate([t.subclass("esri.core.Identifiable")],r),r},r=i=>{let r=class extends i{constructor(...e){super(...e),Object.defineProperty(this,"uid",{writable:!1,configurable:!1,value:s++})}};return r=e.__decorate([t.subclass("esri.core.Identifiable.NumericIdentifiable")],r),r};let c=class extends(i(class{})){};return c=e.__decorate([t.subclass("esri.core.Identifiable")],c),function(e){e.IdentifiableMixin=i,e.NumericIdentifiableMixin=r}(c||(c={})),c}));

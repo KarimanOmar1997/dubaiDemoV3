@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["./DisplayRecord","./util/serializationUtils"],(function(i,t){"use strict";class e{static{this.byteSizeHint=2*Uint32Array.BYTES_PER_ELEMENT+i.byteSizeHint}constructor(i,t){this.id=i,this.sortKey=t,this.records=[]}serialize(i){return i.push(this.id),i.writeF32(this.sortKey),t.serializeList(i,this.records),i}static deserialize(s){const r=s.readInt32(),n=s.readF32(),a=new e(r,n);return a.records=t.deserializeList(s,i)??[],a}}return e}));

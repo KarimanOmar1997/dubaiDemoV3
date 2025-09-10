@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./VTLMaterial","../../../../webgl/enums","../../../../webgl/VertexElementDescriptor"],(function(t,e,r,T){"use strict";class n extends e.VTLMaterial{static{this.ATTRIBUTES=[]}static{this.GEOMETRY_LAYOUT=[new T.VertexElementDescriptor("a_pos",2,r.DataType.BYTE,0,2)]}static{this.ATTRIBUTES_INFO={}}constructor(t){super(t)}geometryInfo(){return n.GEOMETRY_LAYOUT}opacityInfo(){return null}attributes(){return n.ATTRIBUTES}attributesInfo(){return n.ATTRIBUTES_INFO}}t.VTLBackgroundMaterial=n,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

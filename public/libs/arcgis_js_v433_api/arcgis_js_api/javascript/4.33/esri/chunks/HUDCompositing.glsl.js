@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../views/3d/webgl-engine/core/shaderLibrary/ScreenSpacePass.glsl","../views/3d/webgl-engine/core/shaderModules/glsl","../views/3d/webgl-engine/core/shaderModules/Texture2DPassUniform","../views/webgl/NoParameters","../views/webgl/ShaderBuilder"],(function(e,r,s,a,n,t){"use strict";class i extends n.NoParameters{}function o(){const e=new t.ShaderBuilder;return e.include(r.ScreenSpacePass),e.fragment.uniforms.add(new a.Texture2DPassUniform("tex",(e=>e.texture))),e.fragment.main.add(s.glsl`fragColor = vec4(1.0 - texture(tex, uv).a);`),e}const l=Object.freeze(Object.defineProperty({__proto__:null,HUDCompositingPassParameters:i,build:o},Symbol.toStringTag,{value:"Module"}));e.HUDCompositing=l,e.HUDCompositingPassParameters=i,e.build=o}));

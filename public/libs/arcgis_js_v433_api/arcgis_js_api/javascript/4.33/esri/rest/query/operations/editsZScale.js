@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../core/unitUtils","../../../geometry/support/spatialReferenceUtils"],(function(e,t,n){"use strict";function i(e,t,n){if(null==e.hasM||e.hasZ)for(const e of t)for(const t of e)t.length>2&&(t[2]*=n)}function s(e,t,n){if(e)for(const i of e)o(i.geometry,t,n)}function o(e,s,o){if(!e?.spatialReference||n.equals(e.spatialReference,s))return;const r=t.getMetersPerVerticalUnitForSR(e.spatialReference)/o;if(1!==r)if("x"in e)null!=e.z&&(e.z*=r);else if("rings"in e)i(e,e.rings,r);else if("paths"in e)i(e,e.paths,r);else if("points"in e&&(null==e.hasM||e.hasZ))for(const t of e.points)t.length>2&&(t[2]*=r)}e.unapplyEditsZUnitScaling=function(e,n,i){if(!e&&!n||!i)return;const o=t.getMetersPerVerticalUnitForSR(i);s(e,i,o),s(n,i,o)},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

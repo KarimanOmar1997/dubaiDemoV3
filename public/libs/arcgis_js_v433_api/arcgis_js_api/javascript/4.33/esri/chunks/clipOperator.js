@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../geometry/operators/gx/operatorClip","../geometry/operators/support/apiConverter"],(function(e,t,r){"use strict";function o(e,o){const n=r.getSpatialReference(e),p=r.fromExtent(o).asEnvelope2D();return r.toGeometry(t.execute(r.fromGeometry(e),p,r.fromSpatialReference(n)),n)}function n(e,o){const n=e.map(r.fromGeometry),p=r.getSpatialReference(e),a=r.fromExtent(o).asEnvelope2D();return t.executeMany(n,a,r.fromSpatialReference(p)).map((e=>r.toGeometry(e,p)))}const p=t.supportsCurves(),a=Object.freeze(Object.defineProperty({__proto__:null,execute:o,executeMany:n,supportsCurves:p},Symbol.toStringTag,{value:"Module"}));e.clipOperator=a,e.execute=o,e.executeMany=n,e.supportsCurves=p}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../utils","./operations/pbfJSONFeatureSet","./operations/query","../support/FeatureSet","../support/Query"],(function(e,t,r,a,u,n){"use strict";async function o(e,u,o,s){const c=t.parseUrl(e),i={...o},p=n.from(u),f=!p.quantizationParameters,{data:y}=await a.executeQueryPBF(c,p,new r.JSONFeatureSetParserContext({sourceSpatialReference:p.sourceSpatialReference,applyTransform:f}),i,s);return y}e.executeQueryPBF=async function(e,t,r,a){const s=await o(e,n.from(t),r,a);return u.fromJSON(s)},e.executeRawQueryPBF=o,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

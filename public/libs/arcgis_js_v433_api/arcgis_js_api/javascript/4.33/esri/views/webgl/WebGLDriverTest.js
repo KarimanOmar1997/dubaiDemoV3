@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./testAppleAmdDrawArrays","./testFloatBufferBlend","./testSVGPremultipliedAlpha"],(function(e,s,t,r){"use strict";e.WebGLDriverTest=class{constructor(e){this.rctx=e,this.floatBufferBlend=new t.FloatBufferBlend(e),this.svgPremultipliesAlpha=new r.SVGPremultipliedAlpha(e),this.drawArraysRequiresIndicesTypeReset=new s.DrawArraysRequiresIndicesTypeReset(e)}dispose(){this.svgPremultipliesAlpha.dispose(),this.floatBufferBlend.dispose(),this.drawArraysRequiresIndicesTypeReset.dispose()}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./FeatureSet"],(function(e,t,o,r,s,c,a,n){"use strict";var d;return e.default=class extends n{static{d=this}constructor(e){super(e),this.doNotLocateOnRestrictedElements=null}clone(){return new d({doNotLocateOnRestrictedElements:this.doNotLocateOnRestrictedElements,...this.cloneProperties()})}},t.__decorate([o.property({type:Boolean,json:{write:!0}})],e.default.prototype,"doNotLocateOnRestrictedElements",void 0),e.default=d=t.__decorate([a.subclass("esri.rest.support.NetworkFeatureSet")],e.default),e.default}));

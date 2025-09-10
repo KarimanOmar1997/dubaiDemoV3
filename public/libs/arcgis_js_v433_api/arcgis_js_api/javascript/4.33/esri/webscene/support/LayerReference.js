@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../core/Clonable","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/accessorSupport/decorators/subclass"],(function(e,r,o,s,t){"use strict";let c=class extends(r.ClonableMixin(o)){constructor(e){super(e),this.layerId=null,this.sublayerId=null}};return e.__decorate([s.property({type:String,json:{write:{isRequired:!0}},nonNullable:!0})],c.prototype,"layerId",void 0),e.__decorate([s.property({type:Number,json:{write:!0}})],c.prototype,"sublayerId",void 0),c=e.__decorate([t.subclass("esri.webscene.support.LayerReference")],c),c}));

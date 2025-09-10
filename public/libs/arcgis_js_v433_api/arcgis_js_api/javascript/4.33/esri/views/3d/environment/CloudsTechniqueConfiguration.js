@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../chunks/tslib.es6","./Clouds","../webgl-engine/core/shaderTechnique/ShaderTechniqueConfiguration"],(function(e,t,n,r){"use strict";var s;e.RayMarchingSteps=void 0,(s=e.RayMarchingSteps||(e.RayMarchingSteps={}))[s.SIXTEEN=0]="SIXTEEN",s[s.HUNDRED=1]="HUNDRED",s[s.TWOHUNDRED=2]="TWOHUNDRED",s[s.COUNT=3]="COUNT";class a extends r.ShaderTechniqueConfiguration{constructor(){super(...arguments),this.steps=e.RayMarchingSteps.SIXTEEN,this.writeTextureChannels=n.CloudsTextureChannels.RG}}t.__decorate([r.parameter({count:e.RayMarchingSteps.COUNT})],a.prototype,"steps",void 0),t.__decorate([r.parameter({count:n.CloudsTextureChannels.COUNT})],a.prototype,"writeTextureChannels",void 0),e.CloudsTechniqueConfiguration=a,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

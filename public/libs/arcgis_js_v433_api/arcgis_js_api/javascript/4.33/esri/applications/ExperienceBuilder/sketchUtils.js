@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(o){"use strict";o.dismissFloatingElements=function(o){o.dismissFloatingElements()},o.setContextualToolLocation=function(o,t){return o.contextualToolLocation=t,o},o.setCustomTools=function(o,t,e){return o.customToolOptions=t,e&&(o.customActions=e),o},o.setGroupAllowCollapse=function(o,t){return o.groupAllowCollapseOptions=t,o},o.setGroupCollapsePriorities=function(o,t){return o.groupCollapsePriorities=t,o},Object.defineProperty(o,Symbol.toStringTag,{value:"Module"})}));

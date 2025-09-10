@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../core/Accessor","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,o,r,t,s,c,p){"use strict";let a=class extends o{constructor(e){super(e),this.maxValue=null,this.minValue=null,this.codedValue=null}};return e.__decorate([r.property()],a.prototype,"objectType",void 0),e.__decorate([r.property()],a.prototype,"maxValue",void 0),e.__decorate([r.property()],a.prototype,"minValue",void 0),e.__decorate([r.property()],a.prototype,"codedValue",void 0),a=e.__decorate([p.subclass("esri.layers.support.ContingentValue")],a),a}));

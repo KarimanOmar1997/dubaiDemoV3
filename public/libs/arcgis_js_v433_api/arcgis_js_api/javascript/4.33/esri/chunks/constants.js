@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(e){"use strict";const l=Object.freeze(Object.defineProperty({__proto__:null,alphaLevelDependencyFactor:30,alphaSpreadFactor:10,levelHeightDefault:14,levelHoveredExtraHeight:30,levelHoveredExtraWidth:20,levelWidthConstant:40,levelWidthMax:80,levelWidthMin:30,levelWidthNominator:100,levelsMarginFactor:2,levelsPadding:20,levelsPointerAdjustment:.035},Symbol.toStringTag,{value:"Module"}));e.alphaLevelDependencyFactor=30,e.alphaSpreadFactor=10,e.constants=l,e.levelHeightDefault=14,e.levelHoveredExtraHeight=30,e.levelHoveredExtraWidth=20,e.levelWidthConstant=40,e.levelWidthMax=80,e.levelWidthMin=30,e.levelWidthNominator=100,e.levelsMarginFactor=2,e.levelsPadding=20,e.levelsPointerAdjustment=.035}));

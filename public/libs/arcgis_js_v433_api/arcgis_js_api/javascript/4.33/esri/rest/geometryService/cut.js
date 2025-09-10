@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../request","../../geometry/support/jsonUtils","../../geometry/support/spatialReferenceUtils","../utils"],(function(e,t,r,s,n){"use strict";e.cut=async function(e,o,i,u){const a=n.parseUrl(e),p=o[0].spatialReference,c={...u,responseType:"json",query:{...a.query,f:"json",sr:s.srToRESTValue(p),target:JSON.stringify({geometryType:r.getJsonType(o[0]),geometries:o}),cutter:JSON.stringify(i)}},y=await t(a.path+"/cut",c),{cutIndexes:g,geometries:f=[]}=y.data;return{cutIndexes:g,geometries:f.map((e=>{const t=r.fromJSON(e);return t.spatialReference=p,t}))}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

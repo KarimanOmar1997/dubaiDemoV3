@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../layers/catalog/catalogUtils","./FeatureLayerVersionAdapter","./NetworkVersionAdapter","./SubTypeGroupLayerVersionAdapter"],(function(e,r,t,o,a){"use strict";function n(e){return"networkServiceUrl"in e?new o.NetworkVersionAdapter(e):"feature"!==e.type||r.isLayerFromCatalog(e)?"subtype-group"!==e.type||r.isLayerFromCatalog(e)?null:new a.SubTypeGroupLayerVersionAdapter(e):new t.FeatureLayerVersionAdapter(e)}e.createVersionAdapter=n,e.createVersionAdapters=function(e){const r=[];for(const t of e)if("group"===t.type){const e=t,o=e.allTables.concat(e.allLayers);for(const e of o)if("feature"===e.type||"subtype-group"===e.type){const t=n(e);t&&r.push(t)}}else{const e=n(t);e&&r.push(e)}return r},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

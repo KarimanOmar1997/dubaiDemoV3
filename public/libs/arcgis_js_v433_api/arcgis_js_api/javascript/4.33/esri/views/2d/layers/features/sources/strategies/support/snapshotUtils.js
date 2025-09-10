@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../../../core/Error","../../../../../../../core/promiseUtils","../chunks/FeatureSnapshotSourceChunk"],(function(e,r,n,t){"use strict";e.fetchPages=async function(e,o,u,a={}){const c=(await Promise.allSettled(u.map((r=>async function(e,r,o,u={}){const a=`${e.chunkPrefix??""}${o.num}`,c=await e.fetch(o.query,u,{chunkId:a}),s=new t.FeatureSnapshotSourceChunk(c,o.query.inner.toJSON(),o.num,!1);s.chunkId=s.normalizedChunkId=a,n.throwIfAborted(u),r.insert(s)}(e,o,r,a))))).filter((e=>"rejected"===e.status)).map((e=>e.reason));if(c.length)throw new r("featurelayer-query","Encountered errors when downloading data",{errors:c})},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

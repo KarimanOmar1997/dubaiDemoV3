@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./asyncUtils","./Collection","./Loadable"],(function(l,o,a,n){"use strict";async function t(l,t){const r=[],e=(...l)=>{for(const o of l)null!=o&&(Array.isArray(o)?e(...o):a.isCollection(o)?o.forEach((l=>e(l))):n.isLoadable(o)&&r.push(o))};t(e);let i=null;if(await o.map(r,(async l=>{const a=await o.result((n=l,"loadAll"in n&&"function"==typeof n.loadAll?l.loadAll():l.load()));var n;!1!==a.ok||i||(i=a)})),i)throw i.error;return l}l.loadAll=async function(l,o){return await l.load(),t(l,o)},l.loadAllChildren=t,Object.defineProperty(l,Symbol.toStringTag,{value:"Module"})}));

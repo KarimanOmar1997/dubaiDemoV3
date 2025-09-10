@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../core/jsonMap","../focalStatUtils","./utils"],(function(t,s,e,i){"use strict";const a=new s.JSONMap({0:"max",1:"min",2:"median",3:"duration"},{useNumericKeys:!0});t.argStatistics=function(t){const{rasters:s,outputPixelType:e}=t,n={argStatisticsType:a.toJSON(t.statisticsType),rasters:s};return"duration"===t.statisticsType?(n.minValue=t.minValue,n.maxValue=t.maxValue):n.undefinedClass=t.undefinedClass,i.createRasterFunction("ArgStatistics",n,e)},t.statistics=function(t){const{rows:s,cols:a,fillNoDataOnly:n=!1,raster:r,outputPixelType:o}=t,c={rows:s,cols:a,fillNoDataOnly:n,statisticsType:e.statisticsTypeMap.toJSON(t.statisticsType),raster:r};return i.createRasterFunction("Statistics",c,o)},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

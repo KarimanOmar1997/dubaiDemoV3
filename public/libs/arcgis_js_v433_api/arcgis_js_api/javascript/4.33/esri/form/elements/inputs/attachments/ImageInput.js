@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../../../chunks/tslib.es6","../../../../core/accessorSupport/decorators/property","../../../../core/has","../../../../core/Logger","../../../../core/RandomLCG","../../../../core/accessorSupport/decorators/subclass","./Input","./support/utils"],(function(e,t,r,o,s,p,a,c){"use strict";let i=class extends a{constructor(e){super(e),this.type="image",this.inputMethod="any",this.maxImageSize=null}};return e.__decorate([t.property({type:["image"],readOnly:!0,json:{write:!0}})],i.prototype,"type",void 0),e.__decorate([t.property({type:c.mediaInputArray,json:{write:!0}})],i.prototype,"inputMethod",void 0),e.__decorate([t.property({type:Number,json:{write:!0}})],i.prototype,"maxImageSize",void 0),i=e.__decorate([p.subclass("esri.form.elements.inputs.attachments.ImageInput")],i),i}));

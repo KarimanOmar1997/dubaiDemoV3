@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../chunks/tslib.es6","../../../Graphic","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass"],(function(e,r,o,c,s,t,a,p){"use strict";e.VoxelGraphic=class extends o{constructor(e){super(e),this.gpuResult=null}},r.__decorate([c.property({constructOnly:!0,clonable:"reference"})],e.VoxelGraphic.prototype,"gpuResult",void 0),e.VoxelGraphic=r.__decorate([p.subclass("esri.views.3d.layers.VoxelGraphic")],e.VoxelGraphic),Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

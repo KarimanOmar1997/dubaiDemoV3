@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../assets"],(function(e,t,n){"use strict";function i(e){return n.getAssetUrl(`esri/libs/vxl/${e}`)}t.loadVoxelWASM=function(t){return new Promise((n=>new Promise(((t,n)=>e(["../../chunks/vxlLayer"],t,n))).then((e=>e.vxlLayer)).then((({default:e})=>{const r=e({locateFile:i,preinitializedWebGLContext:t,onRuntimeInitialized:()=>n(r)})})))).catch((e=>{throw e}))},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

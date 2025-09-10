@@ -1,0 +1,14 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../../core/libs/gl-matrix-2/factories/mat3f64","../attributes/TextureCoordinateAttribute.glsl","../../shaderModules/glsl","../../shaderModules/Matrix3PassUniform"],(function(e,r,o,a,s){"use strict";e.colorTextureUV=function(e,o){o.hasColorTextureTransform?(e.varyings.add("colorUV","vec2"),e.vertex.uniforms.add(new s.Matrix3PassUniform("colorTextureTransformMatrix",(e=>e.colorTextureTransformMatrix??r.IDENTITY))).code.add(a.glsl`void forwardColorUV(){
+colorUV = (colorTextureTransformMatrix * vec3(vuv0, 1.0)).xy;
+}`)):e.vertex.code.add(a.glsl`void forwardColorUV(){}`)},e.emissiveTextureUV=function(e,t){t.hasEmissionTextureTransform&&t.textureCoordinateType!==o.TextureCoordinateType.None?(e.varyings.add("emissiveUV","vec2"),e.vertex.uniforms.add(new s.Matrix3PassUniform("emissiveTextureTransformMatrix",(e=>e.emissiveTextureTransformMatrix??r.IDENTITY))).code.add(a.glsl`void forwardEmissiveUV(){
+emissiveUV = (emissiveTextureTransformMatrix * vec3(vuv0, 1.0)).xy;
+}`)):e.vertex.code.add(a.glsl`void forwardEmissiveUV(){}`)},e.metallicRoughnessTextureUV=function(e,t){t.hasMetallicRoughnessTextureTransform&&t.textureCoordinateType!==o.TextureCoordinateType.None?(e.varyings.add("metallicRoughnessUV","vec2"),e.vertex.uniforms.add(new s.Matrix3PassUniform("metallicRoughnessTextureTransformMatrix",(e=>e.metallicRoughnessTextureTransformMatrix??r.IDENTITY))).code.add(a.glsl`void forwardMetallicRoughnessUV(){
+metallicRoughnessUV = (metallicRoughnessTextureTransformMatrix * vec3(vuv0, 1.0)).xy;
+}`)):e.vertex.code.add(a.glsl`void forwardMetallicRoughnessUV(){}`)},e.normalTextureUV=function(e,t){t.hasNormalTextureTransform&&t.textureCoordinateType!==o.TextureCoordinateType.None?(e.varyings.add("normalUV","vec2"),e.vertex.uniforms.add(new s.Matrix3PassUniform("normalTextureTransformMatrix",(e=>e.normalTextureTransformMatrix??r.IDENTITY))).code.add(a.glsl`void forwardNormalUV(){
+normalUV = (normalTextureTransformMatrix * vec3(vuv0, 1.0)).xy;
+}`)):e.vertex.code.add(a.glsl`void forwardNormalUV(){}`)},e.occlusionTextureUV=function(e,t){t.hasOcclusionTextureTransform&&t.textureCoordinateType!==o.TextureCoordinateType.None?(e.varyings.add("occlusionUV","vec2"),e.vertex.uniforms.add(new s.Matrix3PassUniform("occlusionTextureTransformMatrix",(e=>e.occlusionTextureTransformMatrix??r.IDENTITY))).code.add(a.glsl`void forwardOcclusionUV(){
+occlusionUV = (occlusionTextureTransformMatrix * vec3(vuv0, 1.0)).xy;
+}`)):e.vertex.code.add(a.glsl`void forwardOcclusionUV(){}`)},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

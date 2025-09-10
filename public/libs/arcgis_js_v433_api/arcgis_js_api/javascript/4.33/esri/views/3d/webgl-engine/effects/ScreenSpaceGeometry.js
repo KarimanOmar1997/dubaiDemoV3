@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../core/has","../../../../core/maybe","../lib/DefaultVertexAttributeLocations","../lib/DefaultVertexBufferLayouts","../lib/VertexArrayObject","../../../webgl/BufferObject","../../../webgl/enums"],(function(e,t,r,a,o,s,i,c){"use strict";e.ScreenSpaceGeometry=class{constructor(e){this._rctx=e,this._vao=function(e,t=o.Pos2,r=a.Default3D){const n=new Float32Array([-1,-1,3,-1,-1,3]);return new s.VertexArrayObject(e,r,new Map([["geometry",t]]),new Map([["geometry",i.BufferObject.createVertex(e,c.Usage.STATIC_DRAW,n)]]))}(e)}destroy(){this._vao=r.disposeMaybe(this._vao)}draw(){null!=this._vao&&(this._rctx.bindVAO(this._vao),this._rctx.drawArrays(c.PrimitiveType.TRIANGLES,0,3))}get test(){}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

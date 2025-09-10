@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+*/
+import{m as e}from"./handleUtils.js";function n(e){return function(e){return null!=e&&"object"==typeof e&&"on"in e&&"function"==typeof e.on}(e)||t(e)}function t(e){return null!=e&&"object"==typeof e&&"addEventListener"in e&&"function"==typeof e.addEventListener}function r(e,r,i){if(!n(e))throw new TypeError("target is not a Evented or EventTarget object");return t(e)?o(e,r,i):e.on(r,i)}function o(n,t,r,o){if(Array.isArray(t)){const i=t.slice();for(const e of i)n.addEventListener(e,r,o);return e((()=>{for(const e of i)n.removeEventListener(e,r,o)}))}return n.addEventListener(t,r,o),e((()=>n.removeEventListener(t,r,o)))}function i(e,t,o){if(!n(e))throw new TypeError("target is not a Evented or EventTarget object");if("once"in e)return e.once(t,o);const i=r(e,t,(n=>{i.remove(),o.call(e,n)}));return i}function s(e,n,t){let o=!1;const i=r(e,n,(n=>{o||t.call(e,n)}));return{resume(){o=!1},pause(){o=!0},remove(){i.remove()}}}export{r as a,o as b,n as i,i as o,s as p};

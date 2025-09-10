@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/Clonable","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","../../geometry/SpatialReference"],(function(e,r,o,t,s,a,c,u,p,l){"use strict";return e.default=class extends(o.ClonableMixin(t)){constructor(){super(...arguments),this.outSpatialReference=null}},r.__decorate([s.property({type:l,json:{name:"outSR",write:!0}})],e.default.prototype,"outSpatialReference",void 0),e.default=r.__decorate([p.subclass("esri.rest.support.ImageBoundaryParameters")],e.default),e.default}));

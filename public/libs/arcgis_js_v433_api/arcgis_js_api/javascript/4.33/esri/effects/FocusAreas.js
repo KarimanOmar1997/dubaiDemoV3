@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../chunks/tslib.es6","../core/Clonable","../core/Collection","../core/JSONSupport","../core/accessorSupport/decorators/property","../core/has","../core/Logger","../core/RandomLCG","../core/accessorSupport/decorators/subclass","./FocusArea"],(function(e,r,o,s,t,c,a,n,p,i){"use strict";let l=class extends(s.JSONSupportMixin(r)){constructor(e){super(e),this.areas=new o,this.style="bright"}};return e.__decorate([t.property({type:o.ofType(i),nonNullable:!0,json:{write:!0,origins:{"web-scene":{write:{isRequired:!0}}}},clonable:e=>new o(e.items.map((e=>e.clone())))})],l.prototype,"areas",void 0),e.__decorate([t.property({type:["bright","dark"],nonNullable:!0,json:{write:!0}})],l.prototype,"style",void 0),l=e.__decorate([p.subclass("esri.effects.FocusAreas")],l),l}));

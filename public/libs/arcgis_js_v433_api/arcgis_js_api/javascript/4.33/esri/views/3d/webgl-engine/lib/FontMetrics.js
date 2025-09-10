@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./TextHelperCanvas"],(function(t,e){"use strict";const n=new Map;class s{get maxHeight(){return this.maxAscent+this.maxDescent}constructor(t,e){this.maxAscent=t,this.maxDescent=e}}const o={canvas:null},r=(()=>{let t="";for(let e=32;e<127;e++)t+=String.fromCharCode(e);return t})();t.getFontMetrics=function(t){const{size:c}=t.definition,i=t.fontString(c);let a=n.get(i);if(!a){const u=e.getTextHelperCanvas(o,0,0).getContext("2d");t.setFontProperties(u,c);const l=u.measureText(r);a=new s(l.actualBoundingBoxAscent,l.actualBoundingBoxDescent),n.set(i,a)}return a},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

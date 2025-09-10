@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../core/shaderTechnique/ReloadableShaderModule","../../core/shaderTechnique/ShaderTechnique","../../../../../chunks/SSAO.glsl","../../../../webgl/renderState"],(function(e,r,i,l,n,t){"use strict";class a extends l.ShaderTechnique{constructor(r,l){super(r,l,new i.ReloadableShaderModule(n.SSAO,(()=>new Promise(((r,i)=>e(["../../shaders/SSAO.glsl"],r,i))))))}initializePipeline(){return t.makePipelineState({colorWrite:t.defaultColorWrite})}}r.SSAOTechnique=a,Object.defineProperty(r,Symbol.toStringTag,{value:"Module"})}));

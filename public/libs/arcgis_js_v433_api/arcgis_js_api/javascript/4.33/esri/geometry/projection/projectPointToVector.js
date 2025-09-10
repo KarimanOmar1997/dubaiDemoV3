@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/libs/gl-matrix-2/factories/vec3f64","../projectionUtils","./projectBuffer"],(function(e,t,o,r){"use strict";function n(e,t,n,i){if(o.canProjectWithoutEngine(e.spatialReference,n)){c[0]=e.x,c[1]=e.y;const o=e.z;return c[2]=o??i??0,r.projectBuffer(c,e.spatialReference,0,t,n,0)}const a=o.tryProjectWithZConversion(e,n);return!!a&&(t[0]=a?.x,t[1]=a?.y,t[2]=a?.z??i??0,!0)}const c=t.create();e.projectPointToVector=n,e.projectPointToVectorAsync=async function(e,t,r,c,i){return await o.initializeProjection(e.spatialReference,r,null,i),n(e,t,r,c)},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/Error"],(function(e,i){"use strict";e.aggregateCountField="aggregateCount",e.verifyBinningParams=function(e,r){if(!e.view)throw new i(`${r}:missing-parameters`,"'view' parameter is required for binning");if(e.sqlExpression)throw new i(`${r}:invalid-parameters`,"'sqlExpression' parameter is not supported for binning");if("3d"===e.view.type)throw new i(`${r}:invalid-parameters`,"3d view is not supported for binning")},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

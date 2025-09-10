@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../core/Error"],(function(e,r){"use strict";const o="webscene:schema-validation";e.createCopyError=function(){return new r("webscene:failed-to-copy-embedded-resources","Copying of embedded resources is currently not supported")},e.createSchemaValidationError=function(e){return new r(o,"Failed to save webscene due to schema validation errors. See 'details.errors' for more detailed information",{errors:e})},e.schemaValidationErrorName=o,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

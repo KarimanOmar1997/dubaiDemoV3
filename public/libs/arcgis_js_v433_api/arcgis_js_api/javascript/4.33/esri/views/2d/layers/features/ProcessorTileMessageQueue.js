@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../core/QueueProcessor"],(function(s,e){"use strict";s.ProcessorTileMessageQueue=class{constructor(s){this._outstandingMessages=[],this._queue=new e.QueueProcessor({concurrency:s.concurrency,process:e=>s.process(e)})}async push(s){if(s.end)return await Promise.all(this._outstandingMessages),await this._queue.push(s),void(this._outstandingMessages=[]);const e=this._queue.push(s);return this._outstandingMessages.push(e),e}},Object.defineProperty(s,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../core/unitUtils","./gx/operatorGeodeticDistance","./support/geodeticCurveType"],(function(e,t,r,o,i){"use strict";let n,s,u;function c(){return!!n&&o.isLoaded()}t.supportsCurves=void 0,t.execute=function(e,t,c={}){const{curveType:p="geodesic",unit:a}=c,d=u(e);let l=o.execute(n(e),n(t),s(d),i.geodeticCurveType[p]);return l&&a&&(l=r.convertUnit(l,"meters",a)),l},t.isLoaded=c,t.load=async function(){if(!c()){const[r]=await Promise.all([new Promise(((t,r)=>e(["./support/apiConverter"],t,r))),o.load()]);n=r.fromGeometry,s=r.fromSpatialReference,u=r.getSpatialReference,t.supportsCurves=o.supportsCurves()}},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../../core/ObjectPool","./TileKey"],(function(o,l){"use strict";class s{constructor(){this.spans=[]}static{this.pool=new o(s)}acquire(o){this.lodInfo=o}release(){this.lodInfo=null,this.spans.length=0}*keys(){const o=this.lodInfo;for(const{row:s,colFrom:e,colTo:t}of this.spans)for(let n=e;n<=t;n++){const e=o.getWorldForColumn(n);yield new l(o.level,s,o.normalizeCol(n),e)}}forEach(o,l){const{spans:s,lodInfo:e}=this,{level:t}=e;if(0!==s.length)for(const{row:n,colFrom:r,colTo:c}of s)for(let s=r;s<=c;s++)o.call(l,t,n,e.normalizeCol(s),e.getWorldForColumn(s))}}return s}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+*/
+import{c as t}from"./mathUtils.js";import{n,q as a}from"./vec3.js";import{c as r}from"./vec3f64.js";import{n as s}from"../core/lang.js";function o(t){return t<=s?new Array(t):new Int16Array(t)}function e(t,n,a,r,s,o=2){const e=1/(Math.abs(a)+Math.abs(r)+Math.abs(s)),c=a*e,f=r*e,u=s<=0?(c>=0?1:-1)*(1-Math.abs(f)):c,i=s<=0?(f>=0?1:-1)*(1-Math.abs(c)):f,b=n*o;t[b]=h(u),t[b+1]=h(i)}function c(t){const n=t.length/3,a=o(2*n);let r=0;for(let s=0;s<n;++s)e(a,s,t[r++],t[r++],t[r++]);return a}function f(t,n){const s=t.length/3,o=new Int16Array(2*s);let c=0;const f=r();for(let r=0;r<s;++r)f[0]=t[c++],f[1]=t[c++],f[2]=t[c++],a(f,f,n),e(o,r,f[0],f[1],f[2]);return o}function u(t,a,r,s=2){const o=r*s,e=i(a[o]),c=i(a[o+1]),f=1-Math.abs(e)-Math.abs(c);return t[2]=f,f<0?(t[0]=(e>=0?1:-1)*(1-Math.abs(c)),t[1]=(c>=0?1:-1)*(1-Math.abs(e))):(t[0]=e,t[1]=c),n(t,t)}function h(n){return t(Math.round(32767*n),-32767,32767)}function i(n){return t(n/32767,-1,1)}export{e as a,f as b,c,u as d,o as n};

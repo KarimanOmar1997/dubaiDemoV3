@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../core/maybe","../../webgl-engine/lib/Object3D","../../webgl-engine/lib/UpdatePolicy","../../webgl-engine/lib/WebGLLayer"],(function(e,t,i,n,s){"use strict";e.StreamlinesResources3D=class{constructor(e,t){this.streamlines=e,this._geometries=t,this._object3D=null,this._engineLayer=null}get attached(){return null!=this._object3D&&null!=this._engineLayer}attach(e){const{_geometries:t}=this;if(null==t)return;this.detach();const a=new s.WebGLLayer(e,{pickable:!1,updatePolicy:n.UpdatePolicy.SYNC}),l=new i.Object3D({geometries:t});l.visible=!0,a.add(l),this._object3D=l,this._engineLayer=a}detach(){this.attached&&(this._engineLayer=t.destroyMaybe(this._engineLayer),this._object3D=t.disposeMaybe(this._object3D))}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../request","../../geometry/support/jsonUtils","../utils","../operations/offset","../support/OffsetParameters"],(function(e,t,s,o,r,a){"use strict";e.offset=async function(e,f,n){f=a.from(f);const i=r.offsetToRESTParameters(f),p=o.parseUrl(e),u={...p.query,f:"json",...i},l=f.geometries?.[0].spatialReference,m=o.asValidOptions(u,n);return t(p.path+"/offset",m).then((({data:e})=>(e.geometries||[]).map((e=>s.fromJSON(e).set({spatialReference:l})))))},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

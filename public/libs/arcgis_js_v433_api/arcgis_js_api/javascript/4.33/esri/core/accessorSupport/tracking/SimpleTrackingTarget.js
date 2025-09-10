@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./TrackingTarget"],(function(t,e){"use strict";class i extends e.TrackingTarget{constructor(t){super(new s(t)),this._observer&&r.register(this,new WeakRef(this._observer),this)}destroy(){this._observer&&r.unregister(this._observer),this.accessed?.clear(),this.clear(),this._observer?.destroy()}}class s{constructor(t){this._notify=t,this._invalidCount=0,this.destroyed=!1}onInvalidated(){this._invalidCount++}onCommitted(){if(this.destroyed)return;const t=this._invalidCount;if(1===t)return this._invalidCount=0,void this._notify();this._invalidCount=t>0?t-1:0}destroy(){this.destroyed=!0,this._notify=n}}const r=new FinalizationRegistry((t=>{t.deref()?.destroy()}));function n(){}t.SimpleTrackingTarget=i,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

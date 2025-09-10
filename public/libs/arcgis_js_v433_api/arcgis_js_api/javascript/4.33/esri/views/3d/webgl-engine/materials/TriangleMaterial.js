@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../core/libs/gl-matrix-2/factories/vec3f64","../lib/Material","../lib/RayIntersections"],(function(e,t,i,r){"use strict";class s extends i.Material{constructor(){super(...arguments),this._pp0=t.fromValues(0,0,1),this._pp1=t.fromValues(0,0,0)}intersect(e,t,i,s,p,a){return r.intersectTriangleGeometry(e,i,s,p,void 0,a)}intersectDraped(e,t,i,s){return this._pp0[0]=this._pp1[0]=i[0],this._pp0[1]=this._pp1[1]=i[1],r.intersectTriangleGeometry(e,t,this._pp0,this._pp1,void 0,s)}}e.TriangleMaterial=s,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

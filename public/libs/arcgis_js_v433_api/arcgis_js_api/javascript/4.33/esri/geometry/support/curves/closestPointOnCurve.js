@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../core/Error","./bezierCurveUtils","./circleUtils","./circularArcUtils","./curveUtils","./ellipticArc4Utils","./ellipticArc7Utils"],(function(i,e,r,t,l,c,n,s){"use strict";i.closestPointOnCurve=function(i,o,u){if(c.isBezierCurve(o)){const t=r.closestPointsOnBezierCurve(i,o,u)[0];if(null==t)throw new e("closestPointOnCurve:unexpected-error","Failed to find close point on bezier curve");return t}if(c.isCircularArc(o)){const e=l.deriveCircleFromCircularArc(i,o);return t.closestPointOnCircle(e,u)}if(c.isEllipticArc(o)){if(c.isEllipticArc4(o)){const e=n.deriveCircleFromEllipticArc4(i,o);return t.closestPointOnCircle(e,u)}if(c.isEllipticArc7(o)){const e=s.deriveEllipse(i,o);return s.closestPointOnEllipse(e,u)}}return null},Object.defineProperty(i,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(t){"use strict";t.defaultOperatorNamesByFieldType={date:[],dateOnly:[],id:["is","isNot","startsWith","endsWith","contains","doesNotContain"],number:["is","isNot","startsWith","endsWith","contains","doesNotContain","isBlank","isNotBlank"],timeOnly:[],timestampOffset:[],string:["is","isNot","startsWith","endsWith","contains","doesNotContain","isBlank","isNotBlank","isEmpty","isNotEmpty"]},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

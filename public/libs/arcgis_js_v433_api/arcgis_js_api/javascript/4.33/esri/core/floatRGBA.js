@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./mathUtils"],(function(t,o){"use strict";function e(t,o=0){let e=0;for(let n=0;n<4;n++)e+=t[o+n]*r[n];return e}const n=[1,256,65536,16777216],r=[1/256,1/65536,1/16777216,1/4294967296],a=e(new Uint8ClampedArray([255,255,255,255]));t.packFloatRGBA=function(t,e,r=0){const l=o.clamp(t,0,a);for(let t=0;t<4;t++)e[r+t]=Math.floor(256*((c=l*n[t])-Math.floor(c)));var c},t.unpackFloatRGBA=e,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

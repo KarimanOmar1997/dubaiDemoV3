@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,r,o,t,s,c,a,n){"use strict";e.ParquetEncodingBase=class extends o{constructor(){super(...arguments),this.type=null}},r.__decorate([t.property({type:["wkb","location"],readOnly:!0,json:{read:!1,write:!0}})],e.ParquetEncodingBase.prototype,"type",void 0),e.ParquetEncodingBase=r.__decorate([n.subclass("esri.layers.support.ParquetEncodingBase")],e.ParquetEncodingBase),Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

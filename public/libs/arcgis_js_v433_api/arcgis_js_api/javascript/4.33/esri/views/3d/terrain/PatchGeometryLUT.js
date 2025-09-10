@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./TerrainConst"],(function(t,s){"use strict";t.PatchGeometryLUT=class{constructor(){this.sinLonLUT=new Array(s.maxPatchTesselation+1),this.cosLonLUT=new Array(s.maxPatchTesselation+1),this.sinLatLUT=new Array(s.maxPatchTesselation+1),this.cosLatLUT=new Array(s.maxPatchTesselation+1)}update(t,s,a){const n=s[0],o=s[2];for(let s=0;s<=t;s++){const e=s/t,i=n*(1-e)+o*e;this.sinLonLUT[s]=Math.sin(i),this.cosLonLUT[s]=Math.cos(i);const c=a(e);this.sinLatLUT[s]=Math.sin(c),this.cosLatLUT[s]=Math.cos(c)}}},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

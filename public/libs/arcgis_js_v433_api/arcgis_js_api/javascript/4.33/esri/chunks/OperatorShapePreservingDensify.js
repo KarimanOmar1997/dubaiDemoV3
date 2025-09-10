@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./SimpleGeometryCursor","./OperatorGeodeticDensifyByLength","./Geometry"],(function(e,r,t,n){"use strict";e.OperatorShapePreservingDensify=class{getOperatorType(){return 10317}supportsCurves(){return!0}accelerateGeometry(e,r,t){return!1}canAccelerateGeometry(e){return!1}executeMany(e,r,n,o,u,s){return new t.OperatorGeodeticDensifyCursor(e,r,4,n,o,u,s)}execute(e,t,o,u,s,c){const a=new r.SimpleGeometryCursor([e]),i=this.executeMany(a,t,o,u,s,c).next();return i||n.throwInternalErrorException("null output"),i}}}));

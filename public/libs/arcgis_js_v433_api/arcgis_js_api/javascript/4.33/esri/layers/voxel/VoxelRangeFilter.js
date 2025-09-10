@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../core/Clonable","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,r,o,t,s,c,a,n){"use strict";let l=class extends(r.ClonableMixin(o)){constructor(){super(...arguments),this.enabled=!1,this.range=null}};return e.__decorate([t.property({type:Boolean,json:{default:!1,write:!0}})],l.prototype,"enabled",void 0),e.__decorate([t.property({type:[Number],json:{write:{isRequired:!0}}})],l.prototype,"range",void 0),l=e.__decorate([n.subclass("esri.layers.voxel.VoxelRangeFilter")],l),l}));

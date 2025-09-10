@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../core/MemCachePool","../../lib/VertexArrayObject","../../../../webgl/BufferObject","../../../../webgl/enums"],(function(e,t,r,o,c){"use strict";e.VaoCache=class{constructor(e,r,o){this._rctx=e,this._locations=r,this._layout=o,this._cache=new t.MemCachePool(e.newCache,"VAOCache")}dispose(){this._cache.destroy()}newVao(e){const t=e.toString();let s=this._cache.pop(t);return s||(s=new r.VertexArrayObject(this._rctx,this._locations,new Map([["geometry",this._layout]]),new Map([["geometry",o.BufferObject.createVertex(this._rctx,c.Usage.STATIC_DRAW)]])),s.vertexBuffers.get("geometry")?.setSize(e),s)}deleteVao(e){if(null==e)return;const t=e.getByteLength("geometry").toString();this._cache.put(t,e)}},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

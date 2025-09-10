@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(t){"use strict";class e{constructor(t=1/0,e=-1/0){this.near=t,this.far=e}set(t,e){this.near=t,this.far=e}union(t){null!=t&&(this.near=Math.min(this.near,t.near),this.far=Math.max(this.far,t.far))}within(t){return this.near<=t&&t<=this.far}equals(t){return this.near===t.near&&this.far===t.far}static{this.zero=new e(0,0)}static{this.infinite=new e}}t.DepthRange=e,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

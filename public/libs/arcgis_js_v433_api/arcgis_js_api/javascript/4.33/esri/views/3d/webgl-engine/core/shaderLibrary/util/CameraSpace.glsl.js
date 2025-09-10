@@ -1,0 +1,6 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../../core/libs/gl-matrix-2/math/vec2","../../../../../../core/libs/gl-matrix-2/factories/vec2f64","../../../../../../chunks/vec42","../../../../../../core/libs/gl-matrix-2/factories/vec4f64","../../shaderModules/Float2BindUniform","../../shaderModules/Float4BindUniform","../../shaderModules/glsl"],(function(e,t,o,r,n,a,c,i){"use strict";function l(e){const t=e.projectionMatrix;return 0===t[11]?r.set(f,2/(e.fullWidth*t[0]),2/(e.fullHeight*t[5]),(1+t[12])/t[0],(1+t[13])/t[5]):r.set(f,-2/(e.fullWidth*t[0]),-2/(e.fullHeight*t[5]),(1-t[8])/t[0],(1-t[9])/t[5])}const f=n.create();function s(e){return 0===e.projectionMatrix[11]?t.set(d,0,1):t.set(d,1,0)}const d=o.create();e.CameraSpace=function(e){e.fragment.uniforms.add(new c.Float4BindUniform("projInfo",(e=>l(e.camera)))),e.fragment.uniforms.add(new a.Float2BindUniform("zScale",(e=>s(e.camera)))),e.fragment.code.add(i.glsl`vec3 reconstructPosition(vec2 fragCoord, float depth) {
+return vec3((fragCoord * projInfo.xy + projInfo.zw) * (zScale.x * depth + zScale.y), depth);
+}`)},e.getProjectionInfo=l,e.getZScale=s,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

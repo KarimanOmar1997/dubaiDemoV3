@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/arrayUtils","./gx/operatorAffineTransform","./support/apiConverter"],(function(e,t,r,o){"use strict";const n=r.supportsCurves();e.execute=function(e,t){const n=o.getSpatialReference(e);return o.toGeometry(r.execute(o.fromGeometry(e),t.transform),n)},e.executeMany=function(e,n){const s=e.map(o.fromGeometry),a=o.getSpatialReference(e);return r.executeMany(s,n.transform).map((e=>o.toGeometry(e,a))).filter(t.isSome)},e.supportsCurves=n,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

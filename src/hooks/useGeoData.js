@@ -6,6 +6,12 @@ export const useGeoData = () => {
   const [connectionStatus, setConnectionStatus] = useState("connecting");
   const [dataProcessingStatus, setDataProcessingStatus] = useState("idle");
   const [activeFeatures, setActiveFeatures] = useState(0);
+console.log("process.env",process.env);
+
+  const loadGeoJSONData = process.env.REACT_APP_LOADGEOJSONDATA ;
+
+  console.log("🔧 إعدادات البيئة:", { loadGeoJSONData });
+  
 
   const loadGeoJSONFiles = useCallback(async () => {
     try {
@@ -13,7 +19,7 @@ export const useGeoData = () => {
       setConnectionStatus("loading");
       setDataProcessingStatus("loading");
       
-      const response = await fetch('http://172.189.56.93:3001/api/files');
+      const response = await fetch(loadGeoJSONData);
       console.log("📡 استجابة الخادم:", response.status, response.statusText);
       
       if (!response.ok) {

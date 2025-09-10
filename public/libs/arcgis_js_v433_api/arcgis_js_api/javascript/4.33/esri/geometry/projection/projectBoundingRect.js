@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/libs/gl-matrix-2/factories/vec3f64","./projectBuffer","../support/aaBoundingRect","../support/spatialReferenceUtils"],(function(e,t,r,o,c){"use strict";const n=t.create();e.projectBoundingRect=function(e,t,u,f){return!(null==e||(c.equals(t,f)?(o.copy(u,e),0):(n[0]=e[0],n[1]=e[1],n[2]=0,!r.projectBuffer(n,t,0,n,f,0)||(u[0]=n[0],u[1]=n[1],n[0]=e[2],n[1]=e[3],n[2]=0,!r.projectBuffer(n,t,0,n,f,0)||(u[2]=n[0],u[3]=n[1],0)))))},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

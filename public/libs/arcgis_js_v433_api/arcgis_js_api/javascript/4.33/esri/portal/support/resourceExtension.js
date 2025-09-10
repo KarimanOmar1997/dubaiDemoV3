@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/urlUtils"],(function(t,i){"use strict";const n={},e="text/plain",o=n[e],p={png:"image/png",jpeg:"image/jpeg",jpg:"image/jpg",bmp:"image/bmp",gif:"image/gif",json:"application/json",txt:"text/plain",xml:"application/xml",svg:"image/svg+xml",zip:"application/zip",pbf:"application/vnd.mapbox-vector-tile",gz:"application/gzip","bin.gz":"application/octet-stream"};for(const t in p)n[p[t]]=t;t.getResourceContentExtension=function(t){return n[function(t){return"json"===t.type?"application/json":"blob"===t.type?t.blob.type:function(t){const n=i.getPathExtension(t);return p[n]||e}(t.url)}(t)]||o},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

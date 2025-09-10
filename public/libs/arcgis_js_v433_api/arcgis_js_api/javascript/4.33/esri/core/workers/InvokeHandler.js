@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(t){"use strict";t.createInvokeProxy=function(t,e){return new Proxy({},{get:(n,r,i)=>(...n)=>{let i,o;const s=n[n.length-1];var a;return"object"!=typeof(a=s)||Array.isArray(a)||null==a||!("signal"in a)&&!("transferList"in a)&&0!==Object.keys(a).length||(i=s.signal,o=s.transferList,n.pop()),t.apply(e?`${e}.${r.toString()}`:r.toString(),n,{transferList:o,signal:i})}})},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

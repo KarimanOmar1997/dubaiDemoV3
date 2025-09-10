@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../core/shaderLibrary/ScreenSpacePass.glsl","../core/shaderModules/glsl","../core/shaderModules/IntegerPassUniform","../core/shaderModules/Texture2DPassUniform","../effects/focusArea/FocusAreaEffect","../../../webgl/NoParameters","../../../webgl/ShaderBuilder","../../../../chunks/FocusAreaColor.glsl"],(function(e,r,s,o,a,l,c,u,t){"use strict";e.FocusAreaColorPassParameters=t.FocusAreaColorPassParameters,e.build=t.build,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

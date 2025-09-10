@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../geometry/operators/gx/operatorDifference","../geometry/operators/support/apiConverter"],(function(e,r,t){"use strict";function o(e,o){const n=t.getSpatialReference(e);return t.toGeometry(r.execute(t.fromGeometry(e),t.fromGeometry(o),t.fromSpatialReference(n)),n)}function n(e,o){const n=e.map(t.fromGeometry),p=t.getSpatialReference(e);return r.executeMany(n,t.fromGeometry(o),t.fromSpatialReference(p)).map((e=>t.toGeometry(e,p)))}const p=r.supportsCurves(),u=Object.freeze(Object.defineProperty({__proto__:null,execute:o,executeMany:n,supportsCurves:p},Symbol.toStringTag,{value:"Module"}));e.differenceOperator=u,e.execute=o,e.executeMany=n,e.supportsCurves=p}));

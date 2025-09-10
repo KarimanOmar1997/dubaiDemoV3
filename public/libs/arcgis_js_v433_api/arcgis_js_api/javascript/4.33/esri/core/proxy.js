@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","./MapUtils","./accessorSupport/tracking","./accessorSupport/tracking/SimpleObservable"],(function(e,t,r,s){"use strict";const a=new WeakMap;class c{constructor(){this._observables=new Map}get(e,a,c){const o=t.getOrCreateMapValue(this._observables,a,(()=>new s.SimpleObservable));return r.trackAccess(o),Reflect.get(e,a)}set(e,t,r,s){return Reflect.set(e,t,r),this._observables.get(t)?.notify(),!0}}e.createObservableProxy=function(e){return!e||"object"!=typeof e||"__accessor__"in e?e:t.getOrCreateMapValue(a,e,(()=>new Proxy(e,new c)))},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

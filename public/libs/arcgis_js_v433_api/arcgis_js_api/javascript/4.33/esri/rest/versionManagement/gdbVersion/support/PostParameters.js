@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../../../chunks/tslib.es6","../../../../core/JSONSupport","../../../../core/accessorSupport/decorators/property","../../../../core/accessorSupport/ensureType","../../../../core/has","../../../../core/RandomLCG","../../../../core/accessorSupport/decorators/subclass"],(function(e,r,s,o,t,c,p){"use strict";var a;let n=a=class extends r{static from(e){return o.ensureClass(a,e)}constructor(e){super(e),this.sessionId=void 0,this.rows=void 0}};return e.__decorate([s.property({type:String,json:{write:!0}})],n.prototype,"sessionId",void 0),e.__decorate([s.property({type:[Object],json:{write:!0}})],n.prototype,"rows",void 0),n=a=e.__decorate([p.subclass("esri.rest.versionManagement.gdbVersion.support.PostParameters")],n),n}));

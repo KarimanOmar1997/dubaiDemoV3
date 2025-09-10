@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./BuildingFilterMode"],(function(e,r,o,s,t,c,a){"use strict";var i;let p=i=class extends a{constructor(){super(...arguments),this.type="x-ray"}clone(){return new i}};return e.__decorate([r.property({type:["x-ray"],readOnly:!0,json:{write:{isRequired:!0}}})],p.prototype,"type",void 0),p=i=e.__decorate([c.subclass("esri.layers.support.BuildingFilterModeXRay")],p),p}));

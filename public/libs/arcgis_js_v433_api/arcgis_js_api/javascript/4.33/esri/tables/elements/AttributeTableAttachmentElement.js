@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../core/Clonable","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./AttributeTableElement"],(function(e,t,r,o,s,a,c,n){"use strict";let p=class extends(t.ClonableMixin(n)){constructor(e){super(e),this.displayType="auto",this.type="attachment"}clone(){return super.clone()}};return e.__decorate([r.property({type:["auto"],json:{write:!0}})],p.prototype,"displayType",void 0),e.__decorate([r.property({type:["attachment"],readOnly:!0,json:{read:!1,write:{enabled:!0,isRequired:!0}}})],p.prototype,"type",void 0),p=e.__decorate([c.subclass("esri.tables.elements.AttributeTableAttachmentElement")],p),p}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../../chunks/tslib.es6","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/enumeration","../../../core/accessorSupport/decorators/subclass","./PointSizeAlgorithm"],(function(e,r,o,t,s,c,a,p){"use strict";var i;let l=i=class extends p{constructor(){super(...arguments),this.type="splat",this.scaleFactor=1}clone(){return new i({scaleFactor:this.scaleFactor})}};return e.__decorate([c.enumeration({pointCloudSplatAlgorithm:"splat"})],l.prototype,"type",void 0),e.__decorate([r.property({type:Number,value:1,nonNullable:!0,json:{write:{isRequired:!0}}})],l.prototype,"scaleFactor",void 0),l=i=e.__decorate([a.subclass("esri.renderers.support.pointCloud.PointSizeSplatAlgorithm")],l),l}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/tslib.es6","../../core/Clonable","../../core/Logger","../../core/has","../../core/RandomLCG","../../core/Error","../../core/accessorSupport/decorators/subclass","../../geometry/projectionUtils"],(function(e,r,t,o,s,c,a,n,l){"use strict";return e.default=class extends t{projectOrWarn(e,r){if(null==e)return e;const{geometry:t,pending:s}=l.projectOrLoad(e,r);return s?null:s||t?t:(o.getLogger(this).warn("geometry could not be projected to the spatial reference",{georeference:this,geometry:e,sourceSpatialReference:e.spatialReference,targetSpatialReference:r}),null)}},e.default=r.__decorate([n.subclass("esri.layers.support.GeoreferenceBase")],e.default),e.default}));

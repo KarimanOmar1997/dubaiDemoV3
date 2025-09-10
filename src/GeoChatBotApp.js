@@ -113,7 +113,7 @@ export default function EnhancedGeoChatBotApp() {
       });
 
       window.L.tileLayer(
-        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        "./esri-imagery/{z}/{x}/{y}.jpg",
         {
           attribution: "Tiles © Esri",
           maxZoom: 18,
@@ -269,9 +269,9 @@ export default function EnhancedGeoChatBotApp() {
     let res;
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+      const timeoutId = setTimeout(() => controller.abort(), 300000); // 30 second timeout
       
-      res = await fetch("https://apiexbot.harvestguard.ai/api/external/ollama/chat", {
+      res = await fetch("http://localhost:11434/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestBody),

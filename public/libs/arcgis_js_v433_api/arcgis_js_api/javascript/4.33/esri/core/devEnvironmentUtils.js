@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports"],(function(c){"use strict";const t=/^devext\.arcgis\.com$/,a=/^qaext\.arcgis\.com$/,e=/^[\w-]*\.mapsdevext\.arcgis\.com$/,o=/^[\w-]*\.mapsqa\.arcgis\.com$/,s=[/^([\w-]*\.)?[\w-]*\.zrh-dev-local\.esri\.com$/,t,a,/^jsapps\.esri\.com$/,e,o];c.adjustStaticAGOUrl=function(c,s){return c?(s=s||globalThis.location.hostname)?null!=s.match(t)||null!=s.match(e)?c.replace("static.arcgis.com","staticdev.arcgis.com"):null!=s.match(a)||null!=s.match(o)?c.replace("static.arcgis.com","staticqa.arcgis.com"):c:c:null},c.devHostnames=s,c.isDevEnvironment=function(c){return c=c||globalThis.location.hostname,s.some((t=>null!=c?.match(t)))},Object.defineProperty(c,Symbol.toStringTag,{value:"Module"})}));

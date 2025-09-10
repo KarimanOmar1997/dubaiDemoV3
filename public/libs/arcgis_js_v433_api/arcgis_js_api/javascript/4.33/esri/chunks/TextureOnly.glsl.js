@@ -1,0 +1,5 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../core/libs/gl-matrix-2/factories/vec3f64","../views/3d/webgl-engine/core/shaderLibrary/ScreenSpacePass.glsl","../views/3d/webgl-engine/core/shaderModules/Float3PassUniform","../views/3d/webgl-engine/core/shaderModules/glsl","../views/3d/webgl-engine/core/shaderModules/Texture2DPassUniform","../views/webgl/NoParameters","../views/webgl/ShaderBuilder"],(function(e,r,s,o,l,t,a,n){"use strict";class i extends a.NoParameters{constructor(){super(...arguments),this.color=r.fromValues(1,1,1)}}function u(){const e=new n.ShaderBuilder;return e.include(s.ScreenSpacePass),e.fragment.uniforms.add(new t.Texture2DPassUniform("tex",(e=>e.texture)),new o.Float3PassUniform("uColor",(e=>e.color))),e.fragment.main.add(l.glsl`vec4 texColor = texture(tex, uv);
+fragColor = texColor * vec4(uColor, 1.0);`),e}const c=Object.freeze(Object.defineProperty({__proto__:null,TextureOnlyPassParameters:i,build:u},Symbol.toStringTag,{value:"Module"}));e.TextureOnly=c,e.TextureOnlyPassParameters=i,e.build=u}));

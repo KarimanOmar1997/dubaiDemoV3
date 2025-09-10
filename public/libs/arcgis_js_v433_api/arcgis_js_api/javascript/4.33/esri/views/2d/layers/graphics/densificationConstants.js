@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../core/has"],(function(e,n){"use strict";e.getApproximateMaxDensificationSegments=function(){return n("curve-densification-max-segments")},e.getCoarseSegmentsPerCurve=function(){return n("curve-densification-coarse-segments")},e.getMaxDeviationInPixels=function(){return n("curve-densification-pixel-deviation")},e.getMinSegmentsPerCurve=function(){return n("curve-densification-min-segments")},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

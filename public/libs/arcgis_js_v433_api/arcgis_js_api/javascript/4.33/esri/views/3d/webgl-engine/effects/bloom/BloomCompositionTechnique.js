@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../core/shaderTechnique/ReloadableShaderModule","../../core/shaderTechnique/ShaderTechnique","../../../../../chunks/BloomComposition.glsl","../../../../webgl/renderState"],(function(e,o,i,r,l,n){"use strict";class t extends r.ShaderTechnique{constructor(o,r){super(o,r,new i.ReloadableShaderModule(l.BloomComposition,(()=>new Promise(((o,i)=>e(["./BloomComposition.glsl"],o,i))))))}initializePipeline(){return n.makePipelineState({colorWrite:n.defaultColorWrite})}}o.BloomCompositionTechnique=t,Object.defineProperty(o,Symbol.toStringTag,{value:"Module"})}));

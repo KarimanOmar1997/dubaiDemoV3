@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/shaderLibrary/ScreenSpacePass.glsl","../../core/shaderLibrary/output/ReadDepth.glsl","../../core/shaderLibrary/shading/Gamma.glsl","../../core/shaderModules/FloatPassUniform","../../core/shaderModules/FloatsPassUniform","../../core/shaderModules/glsl","../../core/shaderModules/IntegerPassUniform","../../core/shaderModules/Texture2DPassUniform","./BloomPresets.glsl","../../shaders/ToneMapping.glsl","../../../../webgl/NoParameters","../../../../webgl/ShaderBuilder","../../../../../chunks/BloomComposition.glsl"],(function(e,s,o,r,a,l,t,i,d,m,n,u,c,g){"use strict";e.BloomCompositionPassParameters=g.BloomCompositionPassParameters,e.build=g.build,e.defaultCompositionParameters=g.defaultCompositionParameters,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/Warning","../../core/accessorSupport/extensions/serializableProperty/reader","./typeUtils"],(function(e,r,n,t){"use strict";const s=n.createTypeReader({types:t.rendererTypes});function u(e,n,t){return e?e&&(e.styleName||e.styleUrl)&&"uniqueValue"!==e.type?(t?.messages&&t.messages.push(new r("renderer:unsupported","Only UniqueValueRenderer can be referenced from a web style, but found '"+e.type+"'",{definition:e,context:t})),null):s(e,n,t):null}e.fromJSON=function(e,r){return u(e,null,r)},e.read=u,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

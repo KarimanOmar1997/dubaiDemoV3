@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../chunks/tslib.es6","../core/JSONSupport","../core/accessorSupport/decorators/property","../core/has","../core/Logger","../core/RandomLCG","../core/accessorSupport/decorators/subclass"],(function(e,r,t,o,s,p,i){"use strict";var c;let n=c=class extends r{constructor(e){super(e)}clone(){return new c({name:this.name,path:this.path,title:this.title})}};return e.__decorate([t.property({type:String,json:{write:{isRequired:!0}}})],n.prototype,"name",void 0),e.__decorate([t.property({type:String,json:{write:{isRequired:!0}}})],n.prototype,"path",void 0),e.__decorate([t.property({type:String,json:{write:{isRequired:!0}}})],n.prototype,"title",void 0),n=c=e.__decorate([i.subclass("esri.webscene.TransportationNetwork")],n),n}));

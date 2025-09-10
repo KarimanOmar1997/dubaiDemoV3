@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../changeDetectionUtils","./utils"],(function(e,t,o){"use strict";e.computeChange=function(e){const{raster:r,raster2:n,outputPixelType:a}=e,s=t.changeMethodMap.toJSON(e.method),h=e.keepMethod&&t.keepMethodMap.toJSON(e.keepMethod);return o.createRasterFunction("ComputeChange",{method:s,keepMethod:h,raster:r,raster2:n},a)},e.threshold=function(e){const{raster:t,outputPixelType:r}=e;return o.createRasterFunction("Threshold",{thresholdType:1,raster:t},r)},Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

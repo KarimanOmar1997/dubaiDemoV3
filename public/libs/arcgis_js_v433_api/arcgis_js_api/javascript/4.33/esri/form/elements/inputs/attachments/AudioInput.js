@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../../../chunks/tslib.es6","../../../../core/accessorSupport/decorators/property","../../../../core/has","../../../../core/Logger","../../../../core/RandomLCG","../../../../core/accessorSupport/decorators/subclass","./Input","./support/utils"],(function(t,e,o,r,s,p,a,u){"use strict";let c=class extends a{constructor(t){super(t),this.type="audio",this.inputMethod="any",this.maxDuration=null}};return t.__decorate([e.property({type:["audio"],readOnly:!0,json:{write:!0}})],c.prototype,"type",void 0),t.__decorate([e.property({type:u.mediaInputArray,json:{write:!0}})],c.prototype,"inputMethod",void 0),t.__decorate([e.property({type:Number,json:{write:!0}})],c.prototype,"maxDuration",void 0),c=t.__decorate([p.subclass("esri.form.elements.inputs.attachments.AudioInput")],c),c}));

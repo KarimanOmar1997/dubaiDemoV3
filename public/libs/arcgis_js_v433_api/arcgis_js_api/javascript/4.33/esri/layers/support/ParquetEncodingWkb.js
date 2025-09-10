@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,r,o,t,s,p,c){"use strict";let a=class extends r{constructor(e){super(e),this.type="wkb",this.primaryFieldName=null}};return e.__decorate([o.property({type:["wkb"],readOnly:!0,json:{write:!0}})],a.prototype,"type",void 0),e.__decorate([o.property({json:{write:!0}})],a.prototype,"multiscale",void 0),e.__decorate([o.property({json:{write:!0}})],a.prototype,"orientation",void 0),e.__decorate([o.property({json:{write:!0}})],a.prototype,"primaryFieldName",void 0),a=e.__decorate([c.subclass("esri.layers.support.ParquetEncodingWkb")],a),a}));

@@ -1,0 +1,4 @@
+// All material copyright Esri, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.33/esri/copyright.txt for details.
+//>>built
+define(["exports","../../core/mathUtils","../../chunks/vec32","../../core/libs/gl-matrix-2/factories/vec3f64"],(function(t,e,n,o){"use strict";const c=o.create(),r=o.create();t.angle=function(t,o){const c=n.dot(t,o)/(n.length(t)*n.length(o));return-e.acosClamped(c)},t.angleAroundAxis=function(t,o,i){n.normalize(c,t),n.normalize(r,o);const a=n.dot(c,r),s=e.acosClamped(a),l=n.cross(c,c,r);return n.dot(l,i)<0?2*Math.PI-s:s},t.projectPoint=function(t,e,o){const c=n.dot(t,e)/n.dot(t,t);return n.scale(o,t,c)},t.projectPointSignedLength=function(t,e){return n.dot(t,e)/n.length(t)},Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

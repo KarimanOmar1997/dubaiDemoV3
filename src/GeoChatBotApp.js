@@ -271,7 +271,7 @@ export default function EnhancedGeoChatBotApp() {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 300000); // 30 second timeout
       
-      res = await fetch("http://localhost:11434/api/chat", {
+      res = await fetch(process.env.REACT_APP_OLLAMACHAT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestBody),

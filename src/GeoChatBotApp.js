@@ -39,6 +39,7 @@ You can generate, update, and analyze visualizations such as heatmaps, choroplet
 - Use only simple Markdown to format your responses.
 - Use multiple paragraphs to separate different ideas or points.
 - Use numbered lists (e.g., 1. Item one) for ordered information or bullet points (e.g., - Item one) for unordered lists when there are multiple distinct points.
+- Allways pay attention to the tools you have called and their results, and use them to inform your responses and actions.
 
 You must always act as an intelligent **geospatial analyst and visualization assistant**, helping users explore data and gain insights from maps.
 `
@@ -839,7 +840,7 @@ You must always act as an intelligent **geospatial analyst and visualization ass
           type: "function",
           function: {
             name: "population-distribution",
-            description: "View the Population Distribution on the map",
+            description: "View the Population Distribution heatmap on the map",
           }
         },
         {

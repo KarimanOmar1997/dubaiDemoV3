@@ -21,6 +21,23 @@ export default function EnhancedGeoChatBotApp() {
   const pendingResourceQueryRef = useRef(null); // holds { lat, lon } awaiting resource type/radius
 
   const [mapStats, setMapStats] = useState({ zoom: 8, features: 0 });
+  const [history, setHistory] = useState(() => [{
+    "role": "system",
+    "content": `
+You are **GeoAI**, a highly capable AI assistant specialized in geospatial data analysis and visualization.  
+Your primary role is to interact with and control a map using the tools available to you.  
+You can generate, update, and analyze visualizations such as heatmaps, choropleth maps, scatter plots, or overlays.  
+
+### Interaction Guidelines:
+- Always clarify the user's intent before executing complex map operations.  
+- If data or coordinates are missing, ask the user to provide them.  
+- Prefer visual map-based outputs (heatmaps, overlays, plots) when possible.  
+- If a tool is required (e.g., to generate a heatmap), output a **structured tool call** with the necessary parameters.  
+- Respond in a clear and professional way, suitable for analysts, researchers, or decision-makers.  
+
+You must always act as an intelligent **geospatial analyst and visualization assistant**, helping users explore data and gain insights from maps.
+`
+  }]);
 
 
   const {
@@ -258,13 +275,9 @@ export default function EnhancedGeoChatBotApp() {
       stream: true,
       options: {
         temperature: 0
-      }
+      },
+      tools: tools
     };
-
-    // Only include tools on the first call
-    if (tools && callDepth === 0) {
-      requestBody.tools = tools;
-    }
 
     let res;
     try {
@@ -301,6 +314,7 @@ export default function EnhancedGeoChatBotApp() {
     const reader = res.body.getReader();
     const decoder = new TextDecoder("utf-8");
     let fullText = "";
+    let thinkText = "";
     let buffer = "";
     var botMessageId = null;
     let modelThinking = false;
@@ -312,23 +326,23 @@ export default function EnhancedGeoChatBotApp() {
         if (done) break;
 
         const chunk = decoder.decode(value, { stream: true });
-        console.log("Received chunk:", chunk);
         const lines = chunk.trim().split("\n");
 
         for (const line of lines) {
           if (!line.trim()) continue;
 
-          // Try to parse JSON, skip invalid lines
           let json;
           try {
             json = JSON.parse(line);
           } catch (parseError) {
             console.warn("Failed to parse line as JSON:", line, parseError);
             console.warn("Line length:", line.length, "Line content:", JSON.stringify(line));
-            continue; // Skip this line and continue with the next one
+            continue;
           }
+        if (!json) continue;
 
           if (modelThinking){
+            thinkText += json.message?.content || "";
             if (json.message.content === "\u003c/think\u003e"){
               modelThinking = false;
             }
@@ -343,29 +357,33 @@ export default function EnhancedGeoChatBotApp() {
             fullText += json.message.content;
             buffer += json.message.content;
 
-            // Update message in chunks
-            if (buffer.length > 20 || json.message.content.includes(' ') || json.message.content.includes('.') || json.message.content.includes(',') || json.message.content.includes('\n')) {
-              setMessages(prev => {
-                const lastMessage = prev[prev.length - 1];
-                if (lastMessage.sender === "bot" && (loading || lastMessage.id === botMessageId)) {
-                  return [
-                    ...prev.slice(0, -1),
-                    { ...lastMessage, text: fullText.trim() }
-                  ];
-                } else {
-                  const newMessage = {
-                    id: Date.now() + Math.random(),
-                    sender: "bot",
-                    text: fullText.trim(),
-                    timestamp: new Date()
-                  };
-                  botMessageId = newMessage.id;
-                  return [...prev, newMessage];
-                }
-              });
-              buffer = "";
+          // Update message in chunks
+          if (buffer.length > 20 || json.message.content.includes(' ') || json.message.content.includes('.') || json.message.content.includes(',') || json.message.content.includes('\n')) {
+            if (!fullText.trim()) {
+              fullText = buffer = "";
+              continue;
             }
+            setMessages(prev => {
+              const lastMessage = prev[prev.length - 1];
+              if (lastMessage.sender === "bot" && (loading || lastMessage.id === botMessageId)) {
+                return [
+                  ...prev.slice(0, -1),
+                  { ...lastMessage, text: fullText.trim() }
+                ];
+              } else {
+                const newMessage = {
+                  id: Date.now() + Math.random(),
+                  sender: "bot",
+                  text: fullText.trim(),
+                  timestamp: new Date()
+                };
+                botMessageId = newMessage.id;
+                return [...prev, newMessage];
+              }
+            });
+            buffer = "";
           }
+        }
 
           // Handle tool calls (only process if we haven't reached max depth)
           if (json.message?.tool_calls && callDepth < MAX_CALLS - 1) {
@@ -384,20 +402,31 @@ export default function EnhancedGeoChatBotApp() {
               const dataset = "crisis";
               const result = await handleMapAction({ action, lat, lon, resourceType, radius, limit, startDate, endDate, date, dataset }, `ID_${Date.now()}`);
 
-              // Add tool call result to conversation context
-              conversationMessages.push({
-                role: "assistant",
-                content: "",
-                tool_calls: [toolCall]
-              });
-              console.log("Tool call result:", result);
-              conversationMessages.push({
-                role: "tool",
-                tool_call_id: toolCall.id,
-                content: result
-              });
-            }
+            // Add tool call result to conversation context
+            conversationMessages.push({
+              role: "assistant",
+              content: `I have to call ${action} with arguments: ${JSON.stringify(args)}`,
+              tool_calls: [toolCall]
+            });
+            setHistory(prev => [...prev, {
+              role: "assistant",
+              content: `I have to call ${action} with arguments: ${JSON.stringify(args)}`,
+              tool_calls: [toolCall]
+            }]);
+            console.log("Tool call result:", result);
+            conversationMessages.push({
+              role: "tool",
+              tool_call_id: toolCall.id,
+              content: result
+            });
+            setHistory(prev => [...prev, {
+              role: "tool",
+              tool_call_id: toolCall.id,
+              content: result
+            }]);
+          }
 
+            console.log("Thinking text:", thinkText);
             // Recursively call with updated conversation and incremented depth
             console.log(`Making recursive LLM call (depth: ${callDepth + 1})`);
             await makeLLMCall(conversationMessages, tools, callDepth + 1);
@@ -412,9 +441,13 @@ export default function EnhancedGeoChatBotApp() {
       setIsTyping(false);
       return;
     }
-
+    console.log("Thinking text:", thinkText);
     // Final update to ensure all text is displayed
     if (fullText) {
+      setHistory(prev => [...prev, {
+        role: "assistant",
+        content: fullText.trim()
+      }])
       setMessages(prev => {
         const lastMessage = prev[prev.length - 1];
         if (lastMessage.sender === "bot" && lastMessage.id === botMessageId) {
@@ -1078,18 +1111,22 @@ export default function EnhancedGeoChatBotApp() {
           }
         }
       ]
-
-      makeLLMCall([
-        {
-          "role": "user",
-          "content": prompt
-        }
+      setHistory(prev => [...prev, {
+        "role": "user",
+        "content": prompt
+      }])
+      const sysPrompt = history[0];
+      makeLLMCall([sysPrompt,
+      {
+        "role": "user",
+        "content": prompt
+      }
       ], tools).then(() => {
         setLoading(false);
         setIsTyping(false);
       })
     },
-    [addMessage, makeLLMCall, setInput, setIsTyping, setLoading]
+    [addMessage, history, makeLLMCall, setInput, setIsTyping, setLoading]
   );
 
   // Monitor allFeaturesData changes

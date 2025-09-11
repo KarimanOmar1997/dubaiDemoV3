@@ -38,7 +38,7 @@ const ChatPanel = ({
   return (
     <div className="w-2/5 flex flex-col bg-white shadow-2xl">
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4">
+      <div className="bg-[#af8454] text-white p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
@@ -49,7 +49,7 @@ const ChatPanel = ({
                   />
             </div>
             <div>
-              <h1 className="text-xl font-bold">NCMA</h1>
+              <h1 className="text-xl font-bold">NCEMA</h1>
             </div>
           </div>
           <div className="flex items-center space-x-2">

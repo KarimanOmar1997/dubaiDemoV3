@@ -5,6 +5,7 @@ const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
+const { log } = require('console');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -450,6 +451,7 @@ app.delete('/api/files/:filename', (req, res) => {
 app.get('/api/files/:filename', (req, res) => {
   try {
     const { filename } = req.params;
+    log('Fetching details for file:', filename);
     const filePath = path.join(publicGeojsonDir, filename);
     
     if (!fs.existsSync(filePath)) {
@@ -492,6 +494,55 @@ app.get('/api/files/:filename', (req, res) => {
     });
   }
 });
+
+//git population data endpoint
+function getPopulationGeoJSON(req, res) {
+  try {
+    const filename = 'population_FeaturesToJSON.geojson';
+    const filePath = path.join(publicGeojsonDir, filename);
+    
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).json({ error: 'File not found' });
+    }
+
+    const stats = fs.statSync(filePath);
+    const content = fs.readFileSync(filePath, 'utf8');
+    const geojsonData = JSON.parse(content);
+    const validation = validateGeoJSON(geojsonData);
+    
+    const publicPath = `/public/geojson/${filename}`;
+    const publicUrl = `${req.protocol}://${req.get('host')}${publicPath}`;
+
+    const fileInfo = {
+      id: filename,
+      name: filename,
+      size: stats.size,
+      uploadDate: stats.birthtime,
+      modifiedDate: stats.mtime,
+      publicPath,
+      publicUrl,
+      isPublic: true,
+      isValid: validation.isValid,
+      errors: validation.errors,
+      warnings: validation.warnings,
+      featureCount: geojsonData.features ? geojsonData.features.length : 0,
+      bounds: calculateBounds(geojsonData),
+      geometryTypes: getGeometryTypes(geojsonData),
+      properties: getPropertyKeys(geojsonData),
+      data: geojsonData
+    };
+
+    res.json(fileInfo);
+
+  } catch (error) {
+    res.status(500).json({
+      error: 'Failed to read file',
+      details: error.message
+    });
+  }
+};
+
+app.get('/api/file/population', getPopulationGeoJSON);
 
 // Bulk upload endpoint
 app.post('/api/bulk-upload', (req, res) => {

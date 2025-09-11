@@ -7,7 +7,6 @@ export class OllamaLLM implements BaseLLM {
     private model: string;
     private sysPrompt: string;
     private temperature: number;
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     private tools: any;
 
     constructor(apiUrl: string, model: string, sysPrompt: string, temperature: number, tools: any) {
@@ -18,7 +17,11 @@ export class OllamaLLM implements BaseLLM {
         this.tools = tools;
     }
 
-    async chat(messages: Message[]): Promise<string> {
+    async chat(messages: Message[]): Promise<{
+        message: string;
+        tool_calls?: Array<{ name: string; args: any }>;
+        think?: string;
+    }> {
         const requestBody = {
             model: this.model,
             messages: [
@@ -34,13 +37,28 @@ export class OllamaLLM implements BaseLLM {
             },
             tools: this.tools
         };
-        // console.log("Ollama request body:", requestBody);
         const response = await fetch(`${this.apiUrl}/api/chat`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody),
         });
+        if (!response.ok) {
+            throw new Error(`Ollama API error: ${response.text() || response.statusText}`);
+        }
         const data = await response.json();
-        return data;
+        const tool_calls = data.message.tool_calls;
+        const content = data.message.content;
+
+        const regex = /<think>([\s\S]*?)<\/think>([\s\S]*)/;
+
+        const match = content.match(regex);
+
+        if (match) {
+            const think = match[1].trim();
+            const message = match[2].trim();
+            return { tool_calls, think, message };
+        }
+
+        return { tool_calls, message: content };
     }
 }

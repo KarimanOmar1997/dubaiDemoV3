@@ -5,7 +5,8 @@ const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
-const { getData } = require('./service');
+const { getData, getPopulationGeoJSON } = require('./service');
+const { log } = require('console');
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -517,161 +518,21 @@ app.get('/api/files/:filename', (req, res) => {
       details: error.message,
     })
   }
-})
+});
 
-function readFile(filename) {
-  const filePath = path.join(publicGeojsonDir, filename)
-
-  if (!fs.existsSync(filePath)) {
-    return { error: 'File not found' }
-  }
-
-  const stats = fs.statSync(filePath)
-  const content = fs.readFileSync(filePath, 'utf8')
-  const geojsonData = JSON.parse(content)
-  const validation = validateGeoJSON(geojsonData)
-
-  const publicPath = `/public/geojson/${filename}`
-
-  const fileInfo = {
-    id: filename,
-    name: filename,
-    size: stats.size,
-    uploadDate: stats.birthtime,
-    modifiedDate: stats.mtime,
-    publicPath,
-    isPublic: true,
-    isValid: validation.isValid,
-    errors: validation.errors,
-    warnings: validation.warnings,
-    featureCount: geojsonData.features ? geojsonData.features.length : 0,
-    bounds: calculateBounds(geojsonData),
-    geometryTypes: getGeometryTypes(geojsonData),
-    properties: getPropertyKeys(geojsonData),
-    data: geojsonData,
-  }
-  return { data: fileInfo }
-}
-
-function getPopulationGeoJSON() {
-  try {
-    const filename = 'population_FeaturesToJSON.geojson'
-    return readFile(filename)
-  } catch (error) {
-    return {
-      error: 'Failed to read file',
-      details: error.message,
-    }
-  }
-}
-
-function getCrisisGeoJSON({ status, crisis, lat, lon, radius }) {
-  const filename = 'crisis_FeaturesToJSON.geojson'
-  const { data, error } = readFile(filename)
-  if (error) {
-    return { error }
-  }
-  function match(status, crisis, properties) {
-    const { name: name_p, status: status_p } = properties
-    let ret = true
-    if (status && status === 'open') {
-      ret = status_p === 'مفتوح'
-    } else if (status && status === 'close') {
-      ret = status_p === 'مغلق' && status_p === 'مقفول'
-    }
-    if (ret && crisis && crisis === 'fire') {
-      ret = name_p === 'حريق'
-    } else if (ret && crisis && crisis === 'flood') {
-      ret = name_p === 'فيضان' || name_p === 'سيول'
-    }
-    return ret
-  }
-  function spatialFilter(lat, lon, radius, geometry) {
-    if (!lat || !lon) {
-      return true
-    }
-    if (
-      !geometry ||
-      !geometry.coordinates ||
-      geometry.coordinates.length !== 2
-    ) {
-      return false
-    }
-
-    const [geomLon, geomLat] = geometry.coordinates
-    const calculateDistance = (lat1, lon1, lat2, lon2) => {
-      const R = 6371 // Radius of Earth in kilometers
-      const dLat = ((lat2 - lat1) * Math.PI) / 180
-      const dLon = ((lon2 - lon1) * Math.PI) / 180
-      const a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos((lat1 * Math.PI) / 180) *
-          Math.cos((lat2 * Math.PI) / 180) *
-          Math.sin(dLon / 2) *
-          Math.sin(dLon / 2)
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
-      return R * c
-    }
-    const distance = calculateDistance(lat, lon, geomLat, geomLon)
-    radius = radius || 5.0
-    return distance <= radius
-  }
-  data.data.features = data.data.features.filter(
-    (d) =>
-      match(status, crisis, d.properties) &&
-      spatialFilter(lat, lon, radius, d.geometry)
-  )
-  return { data }
-}
-
-function getResourcesGeoJSON() {
-  try {
-    const filename = 'resources_FeaturesToJSON.geojson'
-    return readFile(filename)
-  } catch (error) {
-    return {
-      error: 'Failed to read file',
-      details: error.message,
-    }
-  }
-}
-
-function getMajorRoadsGeoJSON() {
-  try {
-    const filename = 'MajorRoads_Exp_FeaturesToJSO.geojson'
-    return readFile(filename)
-  } catch (error) {
-    return {
-      error: 'Failed to read file',
-      details: error.message,
-    }
-  }
-}
-
-function getTrafficIncidentsGeoJSON() {
-  try {
-    const filename = 'TrafficIncidents_ExportFeatures.geojson'
-    return readFile(filename)
-  } catch (error) {
-    return {
-      error: 'Failed to read file',
-      details: error.message,
-    }
-  }
-}
 
 app.get('/api/file/population', (req, res) => {
-  const { data, error, details } = getPopulationGeoJSON()
+  const { data, error, details } = getPopulationGeoJSON(path, publicGeojsonDir, fs, validateGeoJSON, calculateBounds, getGeometryTypes, getPropertyKeys)
   if (error) {
     if (details) {
-      return res.status(500).json({ error, details })
+      return res.status(500).json({ error, details });
     }
-    return res.status(404).json({ error })
+    return res.status(404).json({ error });
   }
-  const publicUrl = `${req.protocol}://${req.get('host')}${data.publicPath}`
-  data.publicUrl = publicUrl
-  res.json({ data })
-})
+  const publicUrl = `${req.protocol}://${req.get('host')}${data.publicPath}`;
+  data.publicUrl = publicUrl;
+  res.json({ data });
+});
 
 // Bulk upload endpoint
 app.post('/api/bulk-upload', (req, res) => {
@@ -836,8 +697,11 @@ app.post('/api/test-llm', async (req, res) => {
   if (!prompt) {
     return res.status(400).json({ error: 'Prompt is required' });
   }
-
-  const response = await getData(prompt);
+  const messages = [{
+    role: "user",
+    content: prompt
+  }];
+  const response = await getData(messages, path, publicGeojsonDir, fs, validateGeoJSON, calculateBounds, getGeometryTypes, getPropertyKeys);
   res.json({ success: true, data: response });
 });
 

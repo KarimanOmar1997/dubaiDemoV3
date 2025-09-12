@@ -1,7 +1,7 @@
 import { OllamaLLM } from "./LLMs/Ollama.ts";
 
 function getDataLLM() {
-    const apiUrl = "http://135.222.40.6:11434";
+    const apiUrl = "http://localhost:11434";
     const model = "qwen3:4b";
     const sysPrompt = `You are a helpful assistant that use different tools to retrieve geojson data.
 

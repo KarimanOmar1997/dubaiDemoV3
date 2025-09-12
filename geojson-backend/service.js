@@ -1,4 +1,4 @@
-import { OllamaLLM } from "./LLMs/Ollama.ts";
+import { OllamaLLM } from "./LLMs/Ollama.js";
 
 function getDataLLM() {
     const apiUrl = "http://localhost:11434";

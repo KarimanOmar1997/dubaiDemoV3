@@ -7,6 +7,7 @@ const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 const { getData, getPopulationGeoJSON } = require('./service');
 const { log } = require('console');
+require('dotenv').config();
 
 const app = express()
 const PORT = process.env.PORT || 3001

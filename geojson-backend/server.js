@@ -5,7 +5,7 @@ const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
-const { getData, getPopulationGeoJSON } = require('./service');
+const { OllamaLLM } = require('./LLMs/Ollama.js');
 const { log } = require('console');
 require('dotenv').config();
 
@@ -521,9 +521,51 @@ app.get('/api/files/:filename', (req, res) => {
   }
 });
 
+function getPopulationGeoJSON() {
+  try {
+    const filename = 'population_FeaturesToJSON.geojson';
+    const filePath = path.join(publicGeojsonDir, filename);
+
+    if (!fs.existsSync(filePath)) {
+      return { error: 'File not found' };
+    }
+
+    const stats = fs.statSync(filePath);
+    const content = fs.readFileSync(filePath, 'utf8');
+    const geojsonData = JSON.parse(content);
+    const validation = validateGeoJSON(geojsonData);
+
+    const publicPath = `/public/geojson/${filename}`;
+
+    const fileInfo = {
+      id: filename,
+      name: filename,
+      size: stats.size,
+      uploadDate: stats.birthtime,
+      modifiedDate: stats.mtime,
+      publicPath,
+      isPublic: true,
+      isValid: validation.isValid,
+      errors: validation.errors,
+      warnings: validation.warnings,
+      featureCount: geojsonData.features ? geojsonData.features.length : 0,
+      bounds: calculateBounds(geojsonData),
+      geometryTypes: getGeometryTypes(geojsonData),
+      properties: getPropertyKeys(geojsonData),
+      data: geojsonData
+    };
+    return { data: fileInfo };
+
+  } catch (error) {
+    return {
+      error: 'Failed to read file',
+      details: error.message
+    };
+  }
+};
 
 app.get('/api/file/population', (req, res) => {
-  const { data, error, details } = getPopulationGeoJSON(path, publicGeojsonDir, fs, validateGeoJSON, calculateBounds, getGeometryTypes, getPropertyKeys)
+  const { data, error, details } = getPopulationGeoJSON()
   if (error) {
     if (details) {
       return res.status(500).json({ error, details });
@@ -693,8 +735,115 @@ app.get('/api/stats', (_req, res) => {
   }
 });
 
+async function getData(messages) {
+  function getDataLLM() {
+    const apiUrl = process.env.OLLAMA_ENDPOINT;
+    const model = "qwen3:4b";
+    const sysPrompt = `You are a helpful assistant that use different tools to retrieve geojson data.
+  
+      When calling any of the available tools, you will only get the result of the tool call, not the actual data.
+      In case of success, the data gets passed directly to the user.
+      If there is some confusion, ask for clarification.
+      `;
+    const temperature = .7;
+    const tools = [{
+      type: "function",
+      function: {
+        name: "GetPopulation",
+        description: "Return the population data"
+      }
+    }];
+
+    return new OllamaLLM(apiUrl, model, sysPrompt, temperature, tools);
+  }
+
+  function handleToolCall(action, args) {
+    if (action === "GetPopulation") {
+      const { data, error } = getPopulationGeoJSON();
+      if (!data) {
+        return { result: error || "Something went wrong" };
+      }
+      return { result: `Data ${action} returned to the user successfully`, data };
+    }
+    return { result: "No data available" };
+  }
+  const dataLLM = getDataLLM();
+  const { message, tool_calls, think } = await dataLLM.chat(messages);
+  if (tool_calls) {
+    const allData = [];
+    for (const toolCall of tool_calls) {
+      console.log("Executing tool call:", toolCall);
+      const { name: action, arguments: args } = toolCall.function;
+      console.log("Tool call name:", action, "Arguments:", args);
+      const { result, data } = handleToolCall(action, args);
+      console.log("Tool call result:", result);
+      messages.push({
+        role: "assistant",
+        content: `I have to call ${action} with arguments: ${JSON.stringify(args)}`,
+        tool_calls: [toolCall]
+      });
+      messages.push({
+        role: "tool",
+        content: result
+      });
+      if (data) {
+        allData.push(data);
+      }
+    }
+    return { ...await getData(messages), data: allData };
+  }
+  return { message, think };
+}
+
+
+async function getTools(messages, tools) {
+  if (!tools || tools.length === 0) {
+    return { success: false, data: { reason: "No tools were provided." } };
+  }
+  function getToolsLLM(tools) {
+    const apiUrl = process.env.OLLAMA_ENDPOINT;
+    const model = "qwen3:4b";
+    const sysPrompt = `You are a helpful assistant that help the user in choosing the right tools for their task.
+  
+      Don't make up tools, only use the ones that are available.
+      Don't use any tools unless it was explicitly requested by the user.
+      If the user is asking for data you must assume that it is already retrieved as there is another assistant that is in charge of retrieving the data.
+      If you need to call a tool, you must call it.
+      In case of on call is needed, you must use the NoOp tool.
+      In case of calling a tool, you should never use NoOp.
+      `;
+    const temperature = .7;
+    const defaultTool = {
+      type: "function",
+      function: {
+        name: "NoOp",
+        description: "No operation, do nothing"
+      }
+    }
+    return new OllamaLLM(apiUrl, model, sysPrompt, temperature, [...tools, defaultTool]);
+  }
+  const toolsLLM = getToolsLLM(tools);
+  const { message, tool_calls, think } = await toolsLLM.chat(messages);
+  function clean_tools(tool_calls) {
+    const seen = new Set();
+    return tool_calls.filter(call => {
+      if (call.function.name === "NoOp") return false;
+      const key = call.function.name + JSON.stringify(call.function.arguments);
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }
+  const clean_tool_calls = clean_tools(tool_calls || []);
+  if (!clean_tool_calls || clean_tool_calls.length === 0) {
+    return { success: false, data: { message, think, reason: "No tools were selected, No operation is needed." } };
+  }
+  return { success: true, data: { message, tool_calls: clean_tool_calls, think } };
+}
+
+
 app.post('/api/test-llm', async (req, res) => {
-  const { prompt } = req.body;
+  const { prompt, tools } = req.body;
   if (!prompt) {
     return res.status(400).json({ error: 'Prompt is required' });
   }
@@ -702,8 +851,8 @@ app.post('/api/test-llm', async (req, res) => {
     role: "user",
     content: prompt
   }];
-  const response = await getData(messages, path, publicGeojsonDir, fs, validateGeoJSON, calculateBounds, getGeometryTypes, getPropertyKeys);
-  res.json({ success: true, data: response });
+  const [dataResponse, toolsResponse] = await Promise.all([getData(messages), getTools(messages, tools)]);
+  res.json({ success: true, data: dataResponse, tools: toolsResponse });
 });
 
 // Error handling middleware

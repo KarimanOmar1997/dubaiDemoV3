@@ -33,8 +33,8 @@ const storage = multer.diskStorage({
   },
   filename: (_req, file, cb) => {
     // Keep original filename or add timestamp if duplicate
-    const originalName = file.originalname
-    const filePath = path.join(publicGeojsonDir, originalName)
+    const originalName = file.originalname;
+    const filePath = path.join(publicGeojsonDir, originalName);
 
     if (fs.existsSync(filePath)) {
       const timestamp = Date.now()
@@ -49,9 +49,9 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
-  fileFilter: (_req, file, cb) => {
-    const allowedTypes = ['.geojson', '.json']
-    const ext = path.extname(file.originalname).toLowerCase()
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = ['.geojson', '.json'];
+    const ext = path.extname(file.originalname).toLowerCase();
 
     if (allowedTypes.includes(ext)) {
       cb(null, true)
@@ -158,33 +158,33 @@ const calculateBounds = (geojsonData) => {
 
 // Helper function to get geometry types
 const getGeometryTypes = (geojsonData) => {
-  if (!geojsonData.features) return []
+  if (!geojsonData.features) return [];
 
-  const types = new Set()
-  geojsonData.features.forEach((feature) => {
-    if (feature.geometry?.type) {
-      types.add(feature.geometry.type)
+  const types = new Set();
+  geojsonData.features.forEach(feature => {
+    if (feature.geometry && feature.geometry.type) {
+      types.add(feature.geometry.type);
     }
-  })
+  });
 
-  return Array.from(types)
-}
+  return Array.from(types);
+};
 
 // Helper function to get property keys
 const getPropertyKeys = (geojsonData) => {
-  if (!geojsonData.features) return []
+  if (!geojsonData.features) return [];
 
-  const keys = new Set()
-  geojsonData.features.forEach((feature) => {
+  const keys = new Set();
+  geojsonData.features.forEach(feature => {
     if (feature.properties) {
       Object.keys(feature.properties).forEach((key) => {
         keys.add(key)
       })
     }
-  })
+  });
 
-  return Array.from(keys).slice(0, 10)
-}
+  return Array.from(keys).slice(0, 10);
+};
 
 // Routes
 
@@ -198,17 +198,17 @@ app.get('/api/files', (req, res) => {
   try {
     const files = fs.readdirSync(publicGeojsonDir)
     const fileList = files
-      .filter((file) => file.endsWith('.geojson') || file.endsWith('.json'))
-      .map((filename) => {
-        const filePath = path.join(publicGeojsonDir, filename)
-        const stats = fs.statSync(filePath)
-        const publicPath = `/public/geojson/${filename}`
-        const publicUrl = `${req.protocol}://${req.get('host')}${publicPath}`
+      .filter(file => file.endsWith('.geojson') || file.endsWith('.json'))
+      .map(filename => {
+        const filePath = path.join(publicGeojsonDir, filename);
+        const stats = fs.statSync(filePath);
+        const publicPath = `/public/geojson/${filename}`;
+        const publicUrl = `${req.protocol}://${req.get('host')}${publicPath}`;
 
         try {
-          const content = fs.readFileSync(filePath, 'utf8')
-          const geojsonData = JSON.parse(content)
-          const validation = validateGeoJSON(geojsonData)
+          const content = fs.readFileSync(filePath, 'utf8');
+          const geojsonData = JSON.parse(content);
+          const validation = validateGeoJSON(geojsonData);
 
           return {
             id: filename,
@@ -246,12 +246,12 @@ app.get('/api/files', (req, res) => {
             featureCount: 0,
             bounds: null,
             geometryTypes: [],
-            properties: [],
-          }
+            properties: []
+          };
         }
-      })
+      });
 
-    res.json({ files: fileList })
+    res.json({ files: fileList });
   } catch (error) {
     res.status(500).json({
       error: 'Failed to read public directory',
@@ -305,6 +305,7 @@ app.post('/api/upload', upload.single('geojson'), (req, res) => {
     if (req.file && fs.existsSync(req.file.path)) {
       fs.unlinkSync(req.file.path)
     }
+
 
     res.status(400).json({
       success: false,
@@ -385,7 +386,7 @@ app.post('/api/upload-multiple', upload.array('geojson', 10), (req, res) => {
 // Save existing file data to public folder
 app.post('/api/save-to-public', (req, res) => {
   try {
-    const { filename, data } = req.body
+    const { filename, data } = req.body;
 
     if (!filename || !data) {
       return res.status(400).json({ error: 'Filename and data are required' })
@@ -403,20 +404,20 @@ app.post('/api/save-to-public', (req, res) => {
     // Create safe filename
     const safeFilename = filename
     // const safeFilename = filename.replace(/[^a-zA-Z0-9.-]/g, '_');
-    const filePath = path.join(publicGeojsonDir, safeFilename)
+    const filePath = path.join(publicGeojsonDir, safeFilename);
 
     // Check if file already exists
     if (fs.existsSync(filePath)) {
-      const timestamp = Date.now()
-      const ext = path.extname(safeFilename)
-      const name = path.basename(safeFilename, ext)
-      const newFilename = `${name}_${timestamp}${ext}`
-      const newFilePath = path.join(publicGeojsonDir, newFilename)
+      const timestamp = Date.now();
+      const ext = path.extname(safeFilename);
+      const name = path.basename(safeFilename, ext);
+      const newFilename = `${name}_${timestamp}${ext}`;
+      const newFilePath = path.join(publicGeojsonDir, newFilename);
 
-      fs.writeFileSync(newFilePath, JSON.stringify(data, null, 2))
+      fs.writeFileSync(newFilePath, JSON.stringify(data, null, 2));
 
-      const publicPath = `/public/geojson/${newFilename}`
-      const publicUrl = `${req.protocol}://${req.get('host')}${publicPath}`
+      const publicPath = `/public/geojson/${newFilename}`;
+      const publicUrl = `${req.protocol}://${req.get('host')}${publicPath}`;
 
       return res.json({
         success: true,
@@ -428,10 +429,10 @@ app.post('/api/save-to-public', (req, res) => {
     }
 
     // Save file
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2))
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 
-    const publicPath = `/public/geojson/${safeFilename}`
-    const publicUrl = `${req.protocol}://${req.get('host')}${publicPath}`
+    const publicPath = `/public/geojson/${safeFilename}`;
+    const publicUrl = `${req.protocol}://${req.get('host')}${publicPath}`;
 
     res.json({
       success: true,
@@ -452,14 +453,14 @@ app.post('/api/save-to-public', (req, res) => {
 // Delete file from public folder
 app.delete('/api/files/:filename', (req, res) => {
   try {
-    const { filename } = req.params
-    const filePath = path.join(publicGeojsonDir, filename)
+    const { filename } = req.params;
+    const filePath = path.join(publicGeojsonDir, filename);
 
     if (!fs.existsSync(filePath)) {
       return res.status(404).json({ error: 'File not found' })
     }
 
-    fs.unlinkSync(filePath)
+    fs.unlinkSync(filePath);
 
     res.json({
       success: true,
@@ -477,21 +478,21 @@ app.delete('/api/files/:filename', (req, res) => {
 // Get file details
 app.get('/api/files/:filename', (req, res) => {
   try {
-    const { filename } = req.params
-    log('Fetching details for file:', filename)
-    const filePath = path.join(publicGeojsonDir, filename)
+    const { filename } = req.params;
+    log('Fetching details for file:', filename);
+    const filePath = path.join(publicGeojsonDir, filename);
 
     if (!fs.existsSync(filePath)) {
       return res.status(404).json({ error: 'File not found' })
     }
 
-    const stats = fs.statSync(filePath)
-    const content = fs.readFileSync(filePath, 'utf8')
-    const geojsonData = JSON.parse(content)
-    const validation = validateGeoJSON(geojsonData)
+    const stats = fs.statSync(filePath);
+    const content = fs.readFileSync(filePath, 'utf8');
+    const geojsonData = JSON.parse(content);
+    const validation = validateGeoJSON(geojsonData);
 
-    const publicPath = `/public/geojson/${filename}`
-    const publicUrl = `${req.protocol}://${req.get('host')}${publicPath}`
+    const publicPath = `/public/geojson/${filename}`;
+    const publicUrl = `${req.protocol}://${req.get('host')}${publicPath}`;
 
     const fileInfo = {
       id: filename,
@@ -580,7 +581,7 @@ app.get('/api/file/population', (req, res) => {
 // Bulk upload endpoint
 app.post('/api/bulk-upload', (req, res) => {
   try {
-    const { files } = req.body
+    const { files } = req.body;
 
     if (!files || !Array.isArray(files)) {
       return res.status(400).json({ error: 'Files array is required' })
@@ -591,7 +592,7 @@ app.post('/api/bulk-upload', (req, res) => {
 
     files.forEach((fileData, index) => {
       try {
-        const { name, data } = fileData
+        const { name, data } = fileData;
 
         if (!name || !data) {
           errors.push({ index, error: 'Name and data are required' })
@@ -613,8 +614,8 @@ app.post('/api/bulk-upload', (req, res) => {
         // Create safe filename
         const safeFilename = name
         // const safeFilename = name.replace(/[^a-zA-Z0-9.-]/g, '_');
-        let finalFilename = safeFilename
-        let filePath = path.join(publicGeojsonDir, finalFilename)
+        let finalFilename = safeFilename;
+        let filePath = path.join(publicGeojsonDir, finalFilename);
 
         // Handle duplicate filenames
         let counter = 1
@@ -627,10 +628,10 @@ app.post('/api/bulk-upload', (req, res) => {
         }
 
         // Save file
-        fs.writeFileSync(filePath, JSON.stringify(data, null, 2))
+        fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 
-        const publicPath = `/public/geojson/${finalFilename}`
-        const publicUrl = `${req.protocol}://${req.get('host')}${publicPath}`
+        const publicPath = `/public/geojson/${finalFilename}`;
+        const publicUrl = `${req.protocol}://${req.get('host')}${publicPath}`;
 
         results.push({
           originalName: name,
@@ -667,8 +668,8 @@ app.post('/api/bulk-upload', (req, res) => {
 // Download file endpoint
 app.get('/api/download/:filename', (req, res) => {
   try {
-    const { filename } = req.params
-    const filePath = path.join(publicGeojsonDir, filename)
+    const { filename } = req.params;
+    const filePath = path.join(publicGeojsonDir, filename);
 
     if (!fs.existsSync(filePath)) {
       return res.status(404).json({ error: 'File not found' })
@@ -686,25 +687,23 @@ app.get('/api/download/:filename', (req, res) => {
 // Get directory stats
 app.get('/api/stats', (_req, res) => {
   try {
-    const files = fs.readdirSync(publicGeojsonDir)
-    const geojsonFiles = files.filter(
-      (file) => file.endsWith('.geojson') || file.endsWith('.json')
-    )
+    const files = fs.readdirSync(publicGeojsonDir);
+    const geojsonFiles = files.filter(file => file.endsWith('.geojson') || file.endsWith('.json'));
 
-    let totalFeatures = 0
-    let validFiles = 0
-    let errorFiles = 0
-    let totalSize = 0
+    let totalFeatures = 0;
+    let validFiles = 0;
+    let errorFiles = 0;
+    let totalSize = 0;
 
     geojsonFiles.forEach((filename) => {
       try {
-        const filePath = path.join(publicGeojsonDir, filename)
-        const stats = fs.statSync(filePath)
-        const content = fs.readFileSync(filePath, 'utf8')
-        const geojsonData = JSON.parse(content)
-        const validation = validateGeoJSON(geojsonData)
+        const filePath = path.join(publicGeojsonDir, filename);
+        const stats = fs.statSync(filePath);
+        const content = fs.readFileSync(filePath, 'utf8');
+        const geojsonData = JSON.parse(content);
+        const validation = validateGeoJSON(geojsonData);
 
-        totalSize += stats.size
+        totalSize += stats.size;
 
         if (validation.isValid) {
           validFiles++
@@ -866,10 +865,8 @@ app.use((error, _req, res, _next) => {
     return res.status(400).json({ error: error.message })
   }
 
-  res
-    .status(500)
-    .json({ error: 'Internal server error', details: error.message })
-})
+  res.status(500).json({ error: 'Internal server error', details: error.message });
+});
 
 // Start server
 app.listen(PORT, () => {

@@ -522,41 +522,44 @@ app.get('/api/files/:filename', (req, res) => {
   }
 });
 
+function readFile(filename) {
+  const filePath = path.join(publicGeojsonDir, filename);
+
+  if (!fs.existsSync(filePath)) {
+    return { error: 'File not found' };
+  }
+
+  const stats = fs.statSync(filePath);
+  const content = fs.readFileSync(filePath, 'utf8');
+  const geojsonData = JSON.parse(content);
+  const validation = validateGeoJSON(geojsonData);
+
+  const publicPath = `/public/geojson/${filename}`;
+
+  const fileInfo = {
+    id: filename,
+    name: filename,
+    size: stats.size,
+    uploadDate: stats.birthtime,
+    modifiedDate: stats.mtime,
+    publicPath,
+    isPublic: true,
+    isValid: validation.isValid,
+    errors: validation.errors,
+    warnings: validation.warnings,
+    featureCount: geojsonData.features ? geojsonData.features.length : 0,
+    bounds: calculateBounds(geojsonData),
+    geometryTypes: getGeometryTypes(geojsonData),
+    properties: getPropertyKeys(geojsonData),
+    data: geojsonData
+  };
+  return { data: fileInfo };
+}
+
 function getPopulationGeoJSON() {
   try {
     const filename = 'population_FeaturesToJSON.geojson';
-    const filePath = path.join(publicGeojsonDir, filename);
-
-    if (!fs.existsSync(filePath)) {
-      return { error: 'File not found' };
-    }
-
-    const stats = fs.statSync(filePath);
-    const content = fs.readFileSync(filePath, 'utf8');
-    const geojsonData = JSON.parse(content);
-    const validation = validateGeoJSON(geojsonData);
-
-    const publicPath = `/public/geojson/${filename}`;
-
-    const fileInfo = {
-      id: filename,
-      name: filename,
-      size: stats.size,
-      uploadDate: stats.birthtime,
-      modifiedDate: stats.mtime,
-      publicPath,
-      isPublic: true,
-      isValid: validation.isValid,
-      errors: validation.errors,
-      warnings: validation.warnings,
-      featureCount: geojsonData.features ? geojsonData.features.length : 0,
-      bounds: calculateBounds(geojsonData),
-      geometryTypes: getGeometryTypes(geojsonData),
-      properties: getPropertyKeys(geojsonData),
-      data: geojsonData
-    };
-    return { data: fileInfo };
-
+    return readFile(filename);
   } catch (error) {
     return {
       error: 'Failed to read file',
@@ -564,6 +567,55 @@ function getPopulationGeoJSON() {
     };
   }
 };
+
+function getCrisisGeoJSON() {
+  try {
+    const filename = 'crisis_FeaturesToJSON.geojson';
+    return readFile(filename);
+  } catch (error) {
+    return {
+      error: 'Failed to read file',
+      details: error.message
+    };
+  }
+}
+
+function getResourcesGeoJSON() {
+  try {
+    const filename = 'resources_FeaturesToJSON.geojson';
+    return readFile(filename);
+  } catch (error) {
+    return {
+      error: 'Failed to read file',
+      details: error.message
+    };
+  }
+}
+
+function getMajorRoadsGeoJSON() {
+  try {
+    const filename = 'MajorRoads_Exp_FeaturesToJSO.geojson';
+    return readFile(filename);
+  } catch (error) {
+    return {
+      error: 'Failed to read file',
+      details: error.message
+    };
+  }
+}
+
+function getTrafficIncidentsGeoJSON() {
+  try {
+    const filename = 'TrafficIncidents_ExportFeatures.geojson';
+    return readFile(filename);
+  } catch (error) {
+    return {
+      error: 'Failed to read file',
+      details: error.message
+    };
+  }
+}
+
 
 app.get('/api/file/population', (req, res) => {
   const { data, error, details } = getPopulationGeoJSON()
@@ -751,6 +803,34 @@ async function getData(messages) {
         name: "GetPopulation",
         description: "Return the population data"
       }
+    },
+    {
+      type: "function",
+      function: {
+        name: "getCrisis",
+        description: "Return crisis data including floods, fires, and emergencies"
+      }
+    },
+    {
+      type: "function",
+      function: {
+        name: "getResources",
+        description: "Return resource data including hospitals, schools, and other facilities"
+      }
+    },
+    {
+      type: "function",
+      function: {
+        name: "getMajorRoads",
+        description: "Return major roads data including highways and main streets"
+      }
+    },
+    {
+      type: "function",
+      function: {
+        name: "getTrafficIncidents",
+        description: "Return traffic incidents data including accidents and road closures"
+      }
     }];
 
     return new OllamaLLM(apiUrl, model, sysPrompt, temperature, tools);
@@ -759,6 +839,34 @@ async function getData(messages) {
   function handleToolCall(action, args) {
     if (action === "GetPopulation") {
       const { data, error } = getPopulationGeoJSON();
+      if (!data) {
+        return { result: error || "Something went wrong" };
+      }
+      return { result: `Data ${action} returned to the user successfully`, data };
+    }
+    else if (action === "getCrisis") {
+      const { data, error } = getCrisisGeoJSON();
+      if (!data) {
+        return { result: error || "Something went wrong" };
+      }
+      return { result: `Data ${action} returned to the user successfully`, data };
+    }
+    else if (action === "getResources") {
+      const { data, error } = getResourcesGeoJSON();
+      if (!data) {
+        return { result: error || "Something went wrong" };
+      }
+      return { result: `Data ${action} returned to the user successfully`, data };
+    }
+    else if (action === "getMajorRoads") {
+      const { data, error } = getMajorRoadsGeoJSON();
+      if (!data) {
+        return { result: error || "Something went wrong" };
+      }
+      return { result: `Data ${action} returned to the user successfully`, data };
+    }
+    else if (action === "getTrafficIncidents") {
+      const { data, error } = getTrafficIncidentsGeoJSON();
       if (!data) {
         return { result: error || "Something went wrong" };
       }

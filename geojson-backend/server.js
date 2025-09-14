@@ -568,16 +568,31 @@ function getPopulationGeoJSON() {
   }
 };
 
-function getCrisisGeoJSON() {
-  try {
-    const filename = 'crisis_FeaturesToJSON.geojson';
-    return readFile(filename);
-  } catch (error) {
-    return {
-      error: 'Failed to read file',
-      details: error.message
-    };
+function getCrisisGeoJSON({ status, crisis }) {
+  const filename = 'crisis_FeaturesToJSON.geojson';
+  const { data, error } = readFile(filename);
+  if (error) {
+    return { error }
   }
+  function match(status, crisis, properties) {
+    const { name: name_p, status: status_p } = properties;
+    let ret = true;
+    if (status && status === 'open') {
+      ret = status_p === 'مفتوح';
+    }
+    else if (status && status === 'close') {
+      ret = status_p === 'مغلق' && status_p === 'مقفول';
+    }
+    if (ret && crisis && crisis === 'fire') {
+      ret = name_p === 'حريق';
+    }
+    else if (ret && crisis && crisis === 'flood') {
+      ret = name_p === 'فيضان' || name_p === 'سيول';
+    }
+    return ret;
+  }
+  data['data']['features'] = data['data']['features'].filter((d) => match(status, crisis, d['properties']));
+  return { data }
 }
 
 function getResourcesGeoJSON() {
@@ -808,7 +823,22 @@ async function getData(messages) {
       type: "function",
       function: {
         name: "getCrisis",
-        description: "Return crisis data including floods, fires, and emergencies"
+        description: "Return crisis data including floods, fires, and emergencies",
+        parameters: {
+          type: "object",
+          properties: {
+            status: {
+              type: "string",
+              description: "The status of the returned data",
+              enum: ["open", "close"]
+            },
+            crisis: {
+              type: "string",
+              description: "The crises to filter by",
+              enum: ["fire", "flood"]
+            }
+          },
+        }
       }
     },
     {
@@ -845,7 +875,7 @@ async function getData(messages) {
       return { result: `Data ${action} returned to the user successfully`, data };
     }
     else if (action === "getCrisis") {
-      const { data, error } = getCrisisGeoJSON();
+      const { data, error } = getCrisisGeoJSON(args);
       if (!data) {
         return { result: error || "Something went wrong" };
       }

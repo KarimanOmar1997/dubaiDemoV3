@@ -568,7 +568,7 @@ function getPopulationGeoJSON() {
   }
 };
 
-function getCrisisGeoJSON({ status, crisis }) {
+function getCrisisGeoJSON({ status, crisis, lat, lon, radius }) {
   const filename = 'crisis_FeaturesToJSON.geojson';
   const { data, error } = readFile(filename);
   if (error) {
@@ -591,7 +591,33 @@ function getCrisisGeoJSON({ status, crisis }) {
     }
     return ret;
   }
-  data['data']['features'] = data['data']['features'].filter((d) => match(status, crisis, d['properties']));
+  function spatialFilter(lat, lon, radius, geometry) {
+    if (!lat || !lon) {
+      return true;
+    }
+    if (!geometry || !geometry.coordinates || geometry.coordinates.length !== 2) {
+      return false;
+    }
+
+    const [geomLon, geomLat] = geometry.coordinates;
+    const calculateDistance = (lat1, lon1, lat2, lon2) => {
+      const R = 6371; // Radius of Earth in kilometers
+      const dLat = ((lat2 - lat1) * Math.PI) / 180;
+      const dLon = ((lon2 - lon1) * Math.PI) / 180;
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos((lat1 * Math.PI) / 180) *
+        Math.cos((lat2 * Math.PI) / 180) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    };
+    const distance = calculateDistance(lat, lon, geomLat, geomLon);
+    radius = radius || 5.0;
+    return distance <= radius;
+  }
+  data['data']['features'] = data['data']['features'].filter((d) => match(status, crisis, d['properties']) && spatialFilter(lat, lon, radius, d['geometry']));
   return { data }
 }
 
@@ -836,6 +862,19 @@ async function getData(messages) {
               type: "string",
               description: "The crises to filter by",
               enum: ["fire", "flood"]
+            },
+            lat: {
+              type: "float",
+              description: "The latitude of the location"
+            },
+            lon: {
+              type: "float",
+              description: "The longitude of the location"
+            },
+            radius: {
+              type: "float",
+              description: "The radius (in km) to search for crisis events",
+              default: 5.0
             }
           },
         }

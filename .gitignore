@@ -24,3 +24,10 @@ yarn-error.log*
 
 public/esri-imagery/
 **/.env
+**/.venv
+geojson-backend/### أمثلة لأسئلة يمكنك طرحها.txt
+geojson-backend/explore.ipynb
+in.json
+out.json
+Commands.md
+geojson-backend/rsync-exclude.txt

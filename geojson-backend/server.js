@@ -6,6 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 const { OllamaLLM } = require('./LLMs/Ollama.js');
+const { llmActions } = require('./llm_actions.js');
 const { log } = require('console');
 require('dotenv').config();
 
@@ -966,7 +967,7 @@ async function getData(messages) {
         allData.push(data);
       }
     }
-    return { ...await getData(messages), data: allData };
+    return { message, think, data: allData };
   }
   return { message, think };
 }
@@ -1017,6 +1018,422 @@ async function getTools(messages, tools) {
   return { success: true, data: { message, tool_calls: clean_tool_calls, think } };
 }
 
+async function getResponse(messages) {
+  function getResponseLLM() {
+    const apiUrl = process.env.OLLAMA_ENDPOINT;
+    const model = "qwen3:4b";
+    const sysPrompt = `
+You are **GeoAI**, a highly capable AI assistant specialized in geospatial data analysis and visualization.  
+Your primary role is to interact with and control a map using the tools available to you.  
+You can generate, update, and analyze visualizations such as heatmaps, choropleth maps, scatter plots, or overlays.  
+
+### Interaction Guidelines:
+- Always clarify the user's intent before executing complex map operations.  
+- If data or coordinates are missing, ask the user to provide them.  
+- Prefer visual map-based outputs (heatmaps, overlays, plots) when possible.  
+- If a tool is required (e.g., to generate a heatmap), output a **structured tool call** with the necessary parameters.  
+- Never mention internal states, processes, or tools to the user.
+- Never respond with a code block.
+- Respond in a clear and professional way, suitable for analysts, researchers, or decision-makers.  
+- Use only simple Markdown to format your responses.
+- Use multiple paragraphs to separate different ideas or points.
+- Use numbered lists (e.g., 1. Item one) for ordered information or bullet points (e.g., - Item one) for unordered lists when there are multiple distinct points.
+- Allways pay attention to the tools you have called and their results, and use them to inform your responses and actions.
+
+You must always act as an intelligent **geospatial analyst and visualization assistant**, helping users explore data and gain insights from maps.
+`
+    const temperature = .7;
+    const tools = [
+      {
+        type: "function",
+        function: {
+          name: "route-to",
+          description: "Find the fastest driving route between two coordinates",
+          parameters: {
+            type: "object",
+            properties: {
+              startLat: { type: "float", description: "The latitude of the starting point" },
+              startLon: { type: "float", description: "The longitude of the starting point" },
+              endLat: { type: "float", description: "The latitude of the destination point" },
+              endLon: { type: "float", description: "The longitude of the destination point" }
+            },
+            required: ["startLat", "startLon", "endLat", "endLon"]
+          }
+        }
+      },
+      {
+        type: "function",
+        function: {
+          name: "route-to-destination",
+          description: "Find the fastest driving route from Dubai center to a specific destination",
+          parameters: {
+            type: "object",
+            properties: {
+              endLat: { type: "float", description: "The latitude of the destination point" },
+              endLon: { type: "float", description: "The longitude of the destination point" }
+            },
+            required: ["endLat", "endLon"]
+          }
+        }
+      },
+      {
+        type: "function",
+        function: {
+          name: "population-distribution",
+          description: "View the Population Distribution heatmap on the map",
+        }
+      },
+      {
+        type: "function",
+        function: {
+          name: "create-heatmap",
+          description: "Create a heatmap of the current layer",
+        }
+      },
+      {
+        type: "function",
+        function: {
+          name: "analyze-high-severity",
+          description: "Analyze high-severity incidents on the map",
+        }
+      },
+      {
+        type: "function",
+        function: {
+          name: "find-nearby-resources",
+          description: "Find nearby resources on the map",
+          parameters: {
+            type: "object",
+            properties: {
+              lat: {
+                type: "float",
+                description: "The latitude of the location"
+              },
+              lon: {
+                type: "float",
+                description: "The longitude of the location"
+              },
+              resourceType: {
+                type: "string",
+                description: "The type of resource to find",
+                enum: ["hospital", "school", "shelter", "police", "fire"],
+                default: "all"
+              },
+              radius: {
+                type: "float",
+                description: "The radius (in km) to search for resources",
+                default: 5.0
+              }
+            },
+            required: ["lat", "lon"]
+          }
+        }
+      },
+      {
+        type: "function",
+        function: {
+          name: "find-incidents-within-radius",
+          description: "Find incidents within a specified radius on the map",
+          parameters: {
+            type: "object",
+            properties: {
+              lat: {
+                type: "float",
+                description: "The latitude of the location"
+              },
+              lon: {
+                type: "float",
+                description: "The longitude of the location"
+              },
+              radius: {
+                type: "float",
+                description: "The radius (in km) to search for incidents",
+                default: 5.0
+              }
+            },
+            required: ["lat", "lon"]
+          }
+        }
+      },
+      {
+        type: "function",
+        function: {
+          name: "find-crisis-within-radius",
+          description: "Find crisis/disaster events within a specified radius on the map",
+          parameters: {
+            type: "object",
+            properties: {
+              lat: {
+                type: "float",
+                description: "The latitude of the location"
+              },
+              lon: {
+                type: "float",
+                description: "The longitude of the location"
+              },
+              radius: {
+                type: "float",
+                description: "The radius (in km) to search for crisis events",
+                default: 5.0
+              }
+            },
+            required: ["lat", "lon"]
+          }
+        }
+      },
+      {
+        type: "function",
+        function: {
+          name: "find-closest-spatial",
+          description: "Find the closest spatial features to a given location",
+          parameters: {
+            type: "object",
+            properties: {
+              lat: {
+                type: "float",
+                description: "The latitude of the location"
+              },
+              lon: {
+                type: "float",
+                description: "The longitude of the location"
+              },
+              limit: {
+                type: "int",
+                description: "The maximum number of features to return",
+                default: 5
+              }
+            },
+            required: ["lat", "lon"]
+          }
+        }
+      },
+      {
+        type: "function",
+        function: {
+          // Something is wrong with dates
+          // ⚠️ تواريخ غير صالحة. استخدم صيغة مثل 2024-12-01.
+          // {endDate: '20-10-2025', startDate: '21-05-2020'}
+          name: "filter-incidents-date-range",
+          description: "Filter incidents by date range",
+          parameters: {
+            type: "object",
+            properties: {
+              startDate: {
+                type: "string",
+                description: "The start date of the range (DD-MM-YYYY)"
+              },
+              endDate: {
+                type: "string",
+                description: "The end date of the range (DD-MM-YYYY)"
+              }
+            },
+            required: ["startDate", "endDate"]
+          }
+        }
+      },
+      {
+        type: "function",
+        function: {
+          name: "find-closest-temporal",
+          description: "Find the closest temporal features to a given date",
+          parameters: {
+            type: "object",
+            properties: {
+              date: {
+                type: "string",
+                description: "The date to search for temporal features (DD-MM-YYYY)"
+              },
+              limit: {
+                type: "integer",
+                description: "The maximum number of features to return",
+                default: 5
+              }
+            },
+            required: ["date"]
+          }
+        }
+      },
+      {
+        type: "function",
+        function: {
+          name: "top-roads-by-incidents",
+          description: "Find the top roads by incidents",
+          parameters: {
+            type: "object",
+            properties: {
+              limit: {
+                type: "integer",
+                description: "The maximum number of features to return",
+                default: 5
+              }
+            }
+          }
+        }
+      },
+      {
+        type: "function",
+        function: {
+          name: "top-incident-types",
+          description: "Find the top incident types",
+          parameters: {
+            type: "object",
+            properties: {
+              limit: {
+                type: "integer",
+                description: "The maximum number of features to return",
+                default: 5
+              }
+            }
+          }
+        }
+      },
+      {
+        type: "function",
+        function: {
+          // Couldn't test
+          name: "compare-incident-counts",
+          description: "Compare incident counts between different locations",
+          parameters: {
+            type: "object",
+            properties: {
+              area1: {
+                type: "string",
+                description: "The name of the first area to compare",
+              },
+              area2: {
+                type: "string",
+                description: "The name of the second area to compare",
+              }
+            },
+            required: ["area1", "area2"]
+          }
+        }
+      },
+      {
+        type: "function",
+        function: {
+          // Somthing is not working fillters are not being applied
+          name: "filter-by-keywords",
+          description: "Filter incidents by keywords",
+          parameters: {
+            type: "object",
+            properties: {
+              keywords: {
+                type: "array",
+                items: {
+                  type: "string"
+                },
+                description: "The keywords to filter incidents by (eg. 'sandstorm' or 'flood')",
+              },
+              status: {
+                type: "string",
+                description: "The status of the incidents to filter",
+                enum: ["open", "closed"]
+              }
+            },
+            required: ["keywords"]
+          }
+        }
+      },
+      {
+        type: "function",
+        function: {
+          name: "filter-major-roads-incidents",
+          description: "Filter incidents on major roads"
+        }
+      },
+      {
+        type: "function",
+        function: {
+          name: "show-crisis-grouped-status",
+          description: "Show the status of incidents grouped by crisis"
+        }
+      }
+    ]
+    return new OllamaLLM(apiUrl, model, sysPrompt, temperature, tools);
+  }
+  const responseLLM = getResponseLLM();
+  const { message, tool_calls, think } = await responseLLM.chat(messages);
+  if (tool_calls) {
+    for (const toolCall of tool_calls) {
+      console.log("Executing tool call:", toolCall);
+      const { name: action, arguments: args } = toolCall.function;
+      console.log("Tool call name:", action, "Arguments:", args);
+      function getFiles() {
+        const files = fs.readdirSync(publicGeojsonDir);
+        const fileList = files
+          .filter(file => file.endsWith('.geojson') || file.endsWith('.json'))
+          .map(filename => {
+            const filePath = path.join(publicGeojsonDir, filename);
+            const stats = fs.statSync(filePath);
+            const publicPath = `/public/geojson/${filename}`;
+
+            const content = fs.readFileSync(filePath, 'utf8');
+            const geojsonData = JSON.parse(content);
+            const validation = validateGeoJSON(geojsonData);
+
+            return {
+              id: filename,
+              name: filename,
+              size: stats.size,
+              uploadDate: stats.mtime,
+              savedDate: stats.mtime,
+              publicPath,
+              isPublic: true,
+              isValid: validation.isValid,
+              errors: validation.errors,
+              warnings: validation.warnings,
+              featureCount: geojsonData.features ? geojsonData.features.length : 0,
+              bounds: calculateBounds(geojsonData),
+              geometryTypes: getGeometryTypes(geojsonData),
+              properties: getPropertyKeys(geojsonData),
+              data: geojsonData
+            };
+          });
+        const allFeatures = [];
+
+        for (const file of fileList) {
+          if (file?.data?.features && Array.isArray(file.data.features)) {
+            const fileFeatures = file.data.features.map((feature, index) => ({
+              ...feature,
+              sourceFile: file.name || "غير معروف",
+              featureIndex: index
+            }));
+
+            allFeatures.push(...fileFeatures);
+          } else {
+            console.warn("⚠️ ملف بدون بيانات أو ميزات:", file.name);
+          }
+        }
+        return allFeatures;
+      }
+      const { handleAction } = llmActions({ allFeaturesData: getFiles() })
+      const lat = parseFloat(args?.lat);
+      const lon = parseFloat(args?.lon);
+      const resourceType = args?.resourceType || 'all';
+      const radius = args?.radius ?? 5.0;
+      const limit = args?.limit ?? 5;
+      const startDate = args?.startDate;
+      const endDate = args?.endDate;
+      const date = args?.date;
+      const dataset = "crisis";
+      const result = await handleAction({ action, lat, lon, resourceType, radius, limit, startDate, endDate, date, dataset }, `ID_${Date.now()}`);
+      console.log("Tool call result:", result);
+      messages.push({
+        role: "assistant",
+        content: `I have to call ${action} with arguments: ${JSON.stringify(args)}`,
+        tool_calls: [toolCall]
+      });
+      messages.push({
+        role: "tool",
+        content: result
+      });
+    }
+    return { ...await getResponse(messages) };
+  }
+  return { message, tool_calls, think };
+}
+
 
 app.post('/api/test-llm', async (req, res) => {
   const { prompt, tools } = req.body;
@@ -1029,6 +1446,19 @@ app.post('/api/test-llm', async (req, res) => {
   }];
   const [dataResponse, toolsResponse] = await Promise.all([getData(messages), getTools(messages, tools)]);
   res.json({ success: true, data: dataResponse, tools: toolsResponse });
+});
+
+app.post('/api/ai-request', async (req, res) => {
+  const { prompt, tools } = req.body;
+  if (!prompt) {
+    return res.status(400).json({ error: 'Prompt is required' });
+  }
+  const messages = [{
+    role: "user",
+    content: prompt
+  }];
+  const [dataResponse, toolsResponse, llmResponse] = await Promise.all([getData(messages), getTools(messages, tools), getResponse(messages)]);
+  res.json({ success: true, data: dataResponse, tools: toolsResponse, llm: llmResponse });
 });
 
 // Error handling middleware

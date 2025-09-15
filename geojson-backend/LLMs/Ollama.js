@@ -23,11 +23,16 @@ export class OllamaLLM {
             },
             tools: this.tools
         };
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 300_000); // 300 sec
+
         const response = await fetch(`${this.apiUrl}/api/chat`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody),
+            signal: controller.signal,
         });
+        clearTimeout(timeout);
         if (!response.ok) {
             throw new Error(`Ollama API error: ${response.text() || response.statusText}`);
         }

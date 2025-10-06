@@ -1,17 +1,17 @@
-import { useState, useCallback } from "react";
+import { useCallback, useState } from 'react'
 
 export const useChat = () => {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      sender: "bot",
-      text: "مرحباً بك في StrategizeIT! 🗺️ أنا مساعدك الذكي للخرائط. يمكنني مساعدتك في العثور على أقرب الحوادث مكانياً أو زمنياً. جاري تحميل البيانات...",
+      sender: 'bot',
+      text: 'مرحباً بك في StrategizeIT! 🗺️ أنا مساعدك الذكي للخرائط. يمكنني مساعدتك في العثور على أقرب الحوادث مكانياً أو زمنياً. جاري تحميل البيانات...',
       timestamp: new Date(),
     },
-  ]);
-  const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [isTyping, setIsTyping] = useState(false);
+  ])
+  const [input, setInput] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [isTyping, setIsTyping] = useState(false)
 
   const addMessage = useCallback((sender, text, metadata = {}) => {
     const newMessage = {
@@ -20,9 +20,9 @@ export const useChat = () => {
       text,
       timestamp: new Date(),
       ...metadata,
-    };
-    setMessages((prev) => [...prev, newMessage]);
-  }, []);
+    }
+    setMessages((prev) => [...prev, newMessage])
+  }, [])
 
   return {
     messages,
@@ -33,6 +33,6 @@ export const useChat = () => {
     isTyping,
     setIsTyping,
     addMessage,
-    setMessages // إضافة setMessages للاستخدام في clearChat
-  };
-};
+    setMessages, // إضافة setMessages للاستخدام في clearChat
+  }
+}

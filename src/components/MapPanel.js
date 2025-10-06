@@ -1,26 +1,25 @@
-import React from "react";
-import { Loader2 } from "lucide-react";
-import StatusPanel from "./StatusPanel";
-import SearchInstructions from "./SearchInstructions";
-import SampleDataInfo from "./SampleDataInfo";
+import { Loader2 } from 'lucide-react'
+import React from 'react'
+import SampleDataInfo from './SampleDataInfo'
+import SearchInstructions from './SearchInstructions'
+import StatusPanel from './StatusPanel'
 
 const MapPanel = ({
   mapDiv,
   leafletLoaded,
   allFeaturesData,
-  handleMapAction,
   availableFiles,
   activeFeatures,
   dataProcessingStatus,
-  mapStats
+  mapStats,
 }) => {
   return (
-    <div className="w-3/5 relative">
-      <div ref={mapDiv} className="w-full h-full min-h-[500px] bg-gray-200">
+    <div className="relative w-3/5">
+      <div ref={mapDiv} className="h-full min-h-[500px] w-full bg-gray-200">
         {!leafletLoaded && (
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-100 z-20">
+          <div className="absolute inset-0 z-20 flex items-center justify-center bg-gray-100">
             <div className="text-center">
-              <Loader2 className="w-8 h-8 animate-spin mx-auto mb-2 text-blue-600" />
+              <Loader2 className="mx-auto mb-2 h-8 w-8 animate-spin text-blue-600" />
               <p className="text-gray-600">جاري تحميل الخريطة...</p>
             </div>
           </div>
@@ -36,12 +35,12 @@ const MapPanel = ({
 
       <SearchInstructions />
 
-      <SampleDataInfo 
-        allFeaturesData={allFeaturesData} 
-        dataProcessingStatus={dataProcessingStatus} 
+      <SampleDataInfo
+        allFeaturesData={allFeaturesData}
+        dataProcessingStatus={dataProcessingStatus}
       />
     </div>
-  );
-};
+  )
+}
 
-export default MapPanel;
+export default MapPanel

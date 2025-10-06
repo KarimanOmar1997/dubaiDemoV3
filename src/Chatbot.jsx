@@ -1,32 +1,32 @@
 // Chatbot.jsx
-import React, { useState } from 'react';
-import { useOllamaChat } from './useOllamaChat';
+import React, { useState } from 'react'
+import { useOllamaChat } from './useOllamaChat'
 
 function Chatbot() {
-  const [prompt, setPrompt] = useState('');
-  const { response, loading, error, sendPrompt } = useOllamaChat();
+  const [prompt, setPrompt] = useState('')
+  const { response, loading, error, sendPrompt } = useOllamaChat()
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (prompt.trim()) {
-      sendPrompt(prompt);
-      setPrompt('');
+      sendPrompt(prompt)
+      setPrompt('')
     }
-  };
+  }
 
   return (
-    <div className="p-4 max-w-md mx-auto">
-      <form onSubmit={handleSubmit} className="flex gap-2 mb-4">
+    <div className="mx-auto max-w-md p-4">
+      <form onSubmit={handleSubmit} className="mb-4 flex gap-2">
         <input
           type="text"
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           placeholder="Type your question..."
-          className="flex-1 p-2 border rounded"
+          className="flex-1 rounded border p-2"
         />
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded"
+          className="rounded bg-blue-500 px-4 py-2 text-white"
           disabled={loading}
         >
           Send
@@ -36,12 +36,12 @@ function Chatbot() {
       {loading && <p>Loading...</p>}
       {error && <p className="text-red-500">{error}</p>}
       {response && (
-        <div className="p-4 bg-gray-100 rounded shadow">
+        <div className="rounded bg-gray-100 p-4 shadow">
           <strong>AI:</strong> {response}
         </div>
       )}
     </div>
-  );
+  )
 }
 
-export default Chatbot;
+export default Chatbot

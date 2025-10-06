@@ -1,17 +1,16 @@
-import React from "react";
-import { 
-  MessageCircle, 
-  FileText, 
-  Clock, 
-  Navigation, 
-  RefreshCw, 
-  Loader2, 
-  Zap, 
+import {
   AlertCircle,
-  Map
-} from "lucide-react";
-import MessageList from "./MessageList";
-import InputArea from "./InputArea";
+  Clock,
+  FileText,
+  Loader2,
+  Map as MapIcon,
+  Navigation,
+  RefreshCw,
+  Zap,
+} from 'lucide-react'
+import React from 'react'
+import InputArea from './InputArea'
+import MessageList from './MessageList'
 
 const ChatPanel = ({
   messages,
@@ -24,71 +23,84 @@ const ChatPanel = ({
   dataProcessingStatus,
   handleUserQuery,
   clearChat,
-  isTyping
+  isTyping,
 }) => {
   const connectionStatusConfig = {
-    connecting: { color: "bg-yellow-500", text: "جاري الاتصال...", icon: Loader2 },
-    connected: { color: "bg-green-500", text: "متصل", icon: Zap },
-    loading: { color: "bg-blue-500", text: "جاري التحميل...", icon: Loader2 },
-    error: { color: "bg-red-500", text: "خطأ في الاتصال", icon: AlertCircle },
-  };
+    connecting: {
+      color: 'bg-yellow-500',
+      text: 'جاري الاتصال...',
+      icon: Loader2,
+    },
+    connected: { color: 'bg-green-500', text: 'متصل', icon: Zap },
+    loading: { color: 'bg-blue-500', text: 'جاري التحميل...', icon: Loader2 },
+    error: { color: 'bg-red-500', text: 'خطأ في الاتصال', icon: AlertCircle },
+  }
 
-  const currentStatus = connectionStatusConfig[connectionStatus];
+  const currentStatus = connectionStatusConfig[connectionStatus]
 
   return (
-    <div className="w-2/5 flex flex-col bg-white shadow-2xl">
+    <div className="flex w-2/5 flex-col bg-white shadow-2xl">
       {/* Header */}
-      <div className="bg-[#af8454] text-white p-4">
+      <div className="bg-[#af8454] p-4 text-white">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
-                <img
-                    src="/ncemaLogoWhite.png" // ✅ direct path
-                    alt="NCEMA Logo"
-                    className="w-100 h-6"
-                  />
+            <div className="rounded-lg bg-white/20 p-2 backdrop-blur-sm">
+              <img
+                src="/ncemaLogoWhite.png" // ✅ direct path
+                alt="NCEMA Logo"
+                className="h-6 w-100"
+              />
             </div>
             <div>
-              <h1 className="text-xl font-bold">NCEMA</h1>
+              <h1 className="font-bold text-xl">NCEMA</h1>
             </div>
           </div>
           <div className="flex items-center space-x-2">
-            <div className={`w-3 h-3 rounded-full ${currentStatus.color} animate-pulse`}></div>
+            <div
+              className={`h-3 w-3 rounded-full ${currentStatus.color} animate-pulse`}
+            ></div>
             <span className="text-sm">{currentStatus.text}</span>
           </div>
         </div>
       </div>
 
       {/* Enhanced Stats Bar */}
-      <div className="bg-gray-50 px-4 py-3 border-b">
-        <div className="flex justify-between items-center text-sm text-gray-600">
+      <div className="border-b bg-gray-50 px-4 py-3">
+        <div className="flex items-center justify-between text-gray-600 text-sm">
           <div className="flex items-center space-x-4">
             <span className="flex items-center space-x-1">
-              <Map className="w-4 h-4" />
+              <MapIcon className="h-4 w-4" />
               <span>تكبير: {mapStats.zoom}</span>
             </span>
             <span className="flex items-center space-x-1">
-              <FileText className="w-4 h-4" />
+              <FileText className="h-4 w-4" />
               <span>{mapStats.features} إجمالي</span>
             </span>
             {activeFeatures > 0 && (
-              <span className="flex items-center space-x-1 text-red-600 font-medium">
-                <Navigation className="w-4 h-4" />
+              <span className="flex items-center space-x-1 font-medium text-red-600">
+                <Navigation className="h-4 w-4" />
                 <span>{activeFeatures} معروض</span>
               </span>
             )}
             <span className="flex items-center space-x-1 text-blue-600">
-              <Clock className="w-4 h-4" />
-              <span>{dataProcessingStatus === "completed" ? "مكتمل" : dataProcessingStatus === "loading" ? "جاري التحميل" : "متوقف"}</span>
+              <Clock className="h-4 w-4" />
+              <span>
+                {dataProcessingStatus === 'completed'
+                  ? 'مكتمل'
+                  : dataProcessingStatus === 'loading'
+                    ? 'جاري التحميل'
+                    : 'متوقف'}
+              </span>
             </span>
           </div>
           <div className="flex space-x-2">
             <button
+              type="button"
               onClick={clearChat}
-              className="p-1 rounded hover:bg-gray-200"
+              className="rounded p-1 hover:bg-gray-200"
               title="مسح النتائج"
             >
-              <RefreshCw className="w-4 h-4" />
+              <RefreshCw className="h-4 w-4" />
             </button>
           </div>
         </div>
@@ -105,7 +117,7 @@ const ChatPanel = ({
         handleUserQuery={handleUserQuery} // تأكد أن هذه الدالة معرّفة في المكون الأب
       />
     </div>
-  );
-};
+  )
+}
 
-export default ChatPanel;
+export default ChatPanel

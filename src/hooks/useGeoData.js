@@ -1,96 +1,99 @@
-import { useState, useCallback } from "react";
+import { useCallback, useState } from 'react'
 
 export const useGeoData = () => {
-  const [availableFiles, setAvailableFiles] = useState([]);
-  const [allFeaturesData, setAllFeaturesData] = useState([]);
-  const [connectionStatus, setConnectionStatus] = useState("connecting");
-  const [dataProcessingStatus, setDataProcessingStatus] = useState("idle");
-  const [activeFeatures, setActiveFeatures] = useState(0);
-console.log("process.env",process.env);
+  const [availableFiles, setAvailableFiles] = useState([])
+  const [allFeaturesData, setAllFeaturesData] = useState([])
+  const [connectionStatus, setConnectionStatus] = useState('connecting')
+  const [dataProcessingStatus, setDataProcessingStatus] = useState('idle')
+  const [activeFeatures, setActiveFeatures] = useState(0)
 
-  const loadGeoJSONData = process.env.REACT_APP_LOADGEOJSONDATA ;
+  const loadGeoJSONData = process.env.REACT_APP_LOADGEOJSONDATA
 
-  console.log("🔧 إعدادات البيئة:", { loadGeoJSONData });
-  
+  console.log('🔧 إعدادات البيئة:', { loadGeoJSONData })
 
   const loadGeoJSONFiles = useCallback(async () => {
     try {
-      console.log("🔄 بدء تحميل البيانات من الخادم...");
-      setConnectionStatus("loading");
-      setDataProcessingStatus("loading");
-      
-      const response = await fetch(loadGeoJSONData);
-      console.log("📡 استجابة الخادم:", response.status, response.statusText);
-      
+      console.log('🔄 بدء تحميل البيانات من الخادم...')
+      setConnectionStatus('loading')
+      setDataProcessingStatus('loading')
+
+      const response = await fetch(loadGeoJSONData)
+      console.log('📡 استجابة الخادم:', response.status, response.statusText)
+
       if (!response.ok) {
-        throw new Error(`فشل في جلب البيانات: ${response.status} ${response.statusText}`);
+        throw new Error(
+          `فشل في جلب البيانات: ${response.status} ${response.statusText}`
+        )
       }
-      
-      const result = await response.json();
-      console.log("📊 بيانات الخادم:", result);
-      
+
+      const result = await response.json()
+      console.log('📊 بيانات الخادم:', result)
+
       // التحقق من هيكل البيانات
       if (!result || !result.files) {
-        console.error("❌ تنسيق البيانات غير متوقع - لا توجد خاصية files");
-        throw new Error("تنسيق البيانات غير صحيح - لم يتم العثور على خاصية files");
-      }
-      
-      const data = result.files;
-      console.log("📁 عدد الملفات المستلمة:", data.length);
-      
-      if (!data || !Array.isArray(data)) {
-        throw new Error("تنسيق البيانات غير صحيح - لم يتم العثور على مصفوفة files");
+        console.error('❌ تنسيق البيانات غير متوقع - لا توجد خاصية files')
+        throw new Error(
+          'تنسيق البيانات غير صحيح - لم يتم العثور على خاصية files'
+        )
       }
 
-      const allFeatures = [];
-      const loadedFiles = [];
+      const data = result.files
+      console.log('📁 عدد الملفات المستلمة:', data.length)
+
+      if (!data || !Array.isArray(data)) {
+        throw new Error(
+          'تنسيق البيانات غير صحيح - لم يتم العثور على مصفوفة files'
+        )
+      }
+
+      const allFeatures = []
+      const loadedFiles = []
 
       for (const file of data) {
-        console.log("📄 معالجة الملف:", file.name || "غير معروف");
-        
-        if (file.data && file.data.features && Array.isArray(file.data.features)) {
-          console.log("📍 عدد الميزات في الملف:", file.data.features.length);
-          
+        console.log('📄 معالجة الملف:', file.name || 'غير معروف')
+
+        if (file.data?.features && Array.isArray(file.data.features)) {
+          console.log('📍 عدد الميزات في الملف:', file.data.features.length)
+
           const fileFeatures = file.data.features.map((feature, index) => ({
             ...feature,
-            sourceFile: file.name || "غير معروف",
-            featureIndex: index
-          }));
-          
-          allFeatures.push(...fileFeatures);
-          
+            sourceFile: file.name || 'غير معروف',
+            featureIndex: index,
+          }))
+
+          allFeatures.push(...fileFeatures)
+
           loadedFiles.push({
             id: file.id || `file-${Date.now()}`,
-            name: file.name || "غير معروف",
+            name: file.name || 'غير معروف',
             data: file.data,
             featureCount: file.data.features.length,
             bounds: file.bounds || null,
-            properties: file.properties || []
-          });
+            properties: file.properties || [],
+          })
         } else {
-          console.warn("⚠️ ملف بدون بيانات أو ميزات:", file.name);
+          console.warn('⚠️ ملف بدون بيانات أو ميزات:', file.name)
         }
       }
 
-      console.log("📊 إجمالي الميزات المحملة:", allFeatures.length);
-      
+      console.log('📊 إجمالي الميزات المحملة:', allFeatures.length)
+
       if (allFeatures.length === 0) {
-        throw new Error("لم يتم العثور على بيانات في الملفات");
+        throw new Error('لم يتم العثور على بيانات في الملفات')
       }
 
-      setAvailableFiles(loadedFiles);
-      setAllFeaturesData(allFeatures);
-      setConnectionStatus("connected");
-      setDataProcessingStatus("completed");
-      
-      console.log("✅ تم تحميل البيانات بنجاح");
-      
+      setAvailableFiles(loadedFiles)
+      setAllFeaturesData(allFeatures)
+      setConnectionStatus('connected')
+      setDataProcessingStatus('completed')
+
+      console.log('✅ تم تحميل البيانات بنجاح')
     } catch (err) {
-      console.error("❌ فشل في تحميل البيانات:", err);
-      setConnectionStatus("error");
-      setDataProcessingStatus("error");
+      console.error('❌ فشل في تحميل البيانات:', err)
+      setConnectionStatus('error')
+      setDataProcessingStatus('error')
     }
-  }, []);
+  }, [loadGeoJSONData])
 
   return {
     availableFiles,
@@ -103,6 +106,6 @@ console.log("process.env",process.env);
     setActiveFeatures,
     loadGeoJSONFiles,
     setAvailableFiles,
-    setAllFeaturesData
-  };
-};
+    setAllFeaturesData,
+  }
+}

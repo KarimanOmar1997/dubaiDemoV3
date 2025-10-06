@@ -10,7 +10,7 @@ export default function MarkdownMessage({ markdown }) {
     <span
       dangerouslySetInnerHTML={{ __html: sanitized }}
       style={{
-        whiteSpace: 'normal'
+        whiteSpace: 'normal',
       }}
     />
   )

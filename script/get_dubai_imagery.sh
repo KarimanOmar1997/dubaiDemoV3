@@ -11,8 +11,7 @@ echo "Output directory: ../public/esri-imagery/"
 python3.11 download_map.py \
     --bbox 24.757850 54.884729 25.376059 55.619621 \
     --zoom-min 1 \
-    --zoom-max 14 \
+    --zoom-max 20 \
     --out-dir "../public/esri-imagery/" \
-    --verbose
 
 echo "Dubai imagery download completed!"

@@ -1032,7 +1032,11 @@ async function getTools(messages, tools) {
   }
 }
 
-async function getResponse(messages) {
+async function getResponse(messages, depth = 0) {
+  if (depth > 3) {
+    console.log('Max depth reached.')
+    return { message: 'Max depth reached.' }
+  }
   function getResponseLLM() {
     const apiUrl = process.env.OLLAMA_ENDPOINT
     const model = process.env.OLLAMA_MODEL
@@ -1059,7 +1063,7 @@ You can generate, update, and analyze visualizations such as heatmaps, choroplet
 
 You must always act as an intelligent **geospatial analyst and visualization assistant**, helping users explore data and gain insights from maps.
 `
-    const temperature = 0.7
+    const temperature = 0
     const tools = [
       {
         type: 'function',
@@ -1504,7 +1508,7 @@ You must always act as an intelligent **geospatial analyst and visualization ass
         content: result,
       })
     }
-    return { ...(await getResponse(messages)), tool_calls }
+    return { ...(await getResponse(messages, depth + 1)), tool_calls }
   }
   return { message, tool_calls, think }
 }

@@ -2101,7 +2101,7 @@ export const llmActions = ({ allFeaturesData }) => {
 
       default:
         console.warn('Unhandled MAP_ACTION:', actionObj)
-        return 'unknown tool call'
+        return { result: `unknown tool call ${actionObj.type}`, data: null }
     }
   }
 

@@ -1124,6 +1124,81 @@ export const llmActions = ({ allFeaturesData }) => {
     )
     return incidents.slice(0, limit)
   }
+  const getLocationCoordinates = async (locationName) => {
+    if (!locationName || typeof locationName !== 'string') {
+      const retMessage = '⚠️ يرجى تقديم اسم موقع صحيح للبحث'
+      return { result: retMessage }
+    }
+
+    // Clean and prepare the location name
+    const cleanLocationName = locationName.trim()
+    const enhancedName = `${cleanLocationName}, UAE`
+
+    // Nominatim API endpoint with proper parameters
+    const nominatimUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(enhancedName)}&limit=5&addressdetails=1&accept-language=en`
+    console.log(`🔍 Searching for location: ${nominatimUrl}`)
+    // Add timeout to the fetch request
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 15000) // 15 second timeout
+
+    const response = await fetch(nominatimUrl, {
+      signal: controller.signal,
+      headers: {
+        'User-Agent': 'Dubai Demo App/1.0 (contact@example.com)', // Required by Nominatim
+      },
+    })
+
+    clearTimeout(timeoutId)
+
+    if (!response.ok) {
+      if (response.status === 429) {
+        throw new Error('تم تجاوز حد الطلبات. يرجى المحاولة مرة أخرى لاحقاً.')
+      } else {
+        throw new Error(`فشل في الاتصال بخدمة الخرائط (${response.status})`)
+      }
+    }
+
+    const results = await response.json()
+    console.log(results)
+
+    if (!results || results.length === 0) {
+      const retMessage = `❌ لم يتم العثور على موقع بالاسم "${cleanLocationName}". جرب استخدام أسماء أكثر تحديداً.`
+      return { result: retMessage }
+    }
+
+    // Filter results to prioritize Dubai/UAE locations
+    const uaeResults = results.filter(
+      (result) =>
+        result.display_name.toLowerCase().includes('uae') ||
+        result.display_name.toLowerCase().includes('dubai') ||
+        result.display_name.toLowerCase().includes('emirates')
+    )
+
+    const bestResults = uaeResults.length > 0 ? uaeResults : results
+    const topResult = bestResults[0]
+
+    const lat = parseFloat(topResult.lat)
+    const lon = parseFloat(topResult.lon)
+
+    if (Number.isNaN(lat) || Number.isNaN(lon)) {
+      throw new Error('إحداثيات غير صالحة من الخدمة')
+    }
+
+    // Create a summary of all found results
+    const resultsSummary = bestResults
+      .slice(1, 3)
+      .map((result, index) => {
+        const displayName = result.display_name
+        const resultLat = parseFloat(result.lat)
+        const resultLon = parseFloat(result.lon)
+        return `${index}. ${displayName}\n   📍 (${resultLat.toFixed(6)}, ${resultLon.toFixed(6)})`
+      })
+      .join('\n\n')
+
+    const retMessage = `📍 **تم العثور على الموقع بنجاح!**\n\n🎯 **الموقع الرئيسي:**\n${topResult.display_name}\n📊 **الإحداثيات:** ${lat.toFixed(6)}, ${lon.toFixed(6)}\n\n${bestResults.length > 1 ? `🔍 **نتائج أخرى محتملة:**\n${resultsSummary}` : ''}.`
+
+    return { result: retMessage }
+  }
 
   // Enhanced map action handler with high-severity analysis
   async function handleAction(actionObj, _actionId) {
@@ -2096,6 +2171,16 @@ export const llmActions = ({ allFeaturesData }) => {
         return {
           result: retMessage,
           data: { openList, closedList, unknownList },
+        }
+      }
+
+      case 'get-location': {
+        const { locationName } = actionObj
+        if (locationName && typeof locationName === 'string') {
+          return await getLocationCoordinates(locationName)
+        } else {
+          const retMessage = '⚠️ لم يتم تقديم اسم الموقع للبحث'
+          return { result: retMessage }
         }
       }
 

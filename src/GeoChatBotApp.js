@@ -317,6 +317,9 @@ You must always act as an intelligent **geospatial analyst and visualization ass
           const date = args?.date
           const dataset = 'crisis'
           const data = toolCall.data
+          const area1 = args?.area1
+          const area2 = args?.area2
+          const locationName = args?.locationName
           const result = await handleMapAction(
             {
               action,
@@ -334,6 +337,9 @@ You must always act as an intelligent **geospatial analyst and visualization ass
               endLon,
               startLat,
               startLon,
+              area1,
+              area2,
+              locationName,
             },
             `ID_${Date.now()}`
           )

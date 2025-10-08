@@ -837,7 +837,8 @@ async function getData(messages) {
         function: {
           name: 'getCrisis',
           description:
-            'Return crisis data including floods, fires, and emergencies',
+            'Return crisis data including floods, fires, and emergencies.\n' +
+            '- Default `radius` is `5.0` km',
           parameters: {
             type: 'object',
             properties: {
@@ -1141,7 +1142,9 @@ You must always act as an intelligent **geospatial analyst and visualization ass
         type: 'function',
         function: {
           name: 'find-nearby-resources',
-          description: 'Find nearby resources on the map',
+          description: 'Find nearby resources on the map.\n' +
+          '- Default `resourceType` is `all`\n' +
+          '- Default `radius` is `5.0` km.',
           parameters: {
             type: 'object',
             properties: {
@@ -1173,7 +1176,8 @@ You must always act as an intelligent **geospatial analyst and visualization ass
         type: 'function',
         function: {
           name: 'find-incidents-within-radius',
-          description: 'Find incidents within a specified radius on the map',
+          description: 'Find incidents within a specified radius on the map.\n' +
+          '- Default `radius` is `5.0` km.',
           parameters: {
             type: 'object',
             properties: {
@@ -1200,7 +1204,8 @@ You must always act as an intelligent **geospatial analyst and visualization ass
         function: {
           name: 'find-crisis-within-radius',
           description:
-            'Find crisis/disaster events within a specified radius on the map',
+            'Find crisis/disaster events within a specified radius on the map.\n' +
+            '- Default `radius` is `5.0` km.',
           parameters: {
             type: 'object',
             properties: {
@@ -1226,7 +1231,8 @@ You must always act as an intelligent **geospatial analyst and visualization ass
         type: 'function',
         function: {
           name: 'find-closest-spatial',
-          description: 'Find the closest incidents to a given location',
+          description: 'Find the closest incidents to a given location.\n' +
+          '- Default `limit` is `5` features.',
           parameters: {
             type: 'object',
             properties: {
@@ -1276,7 +1282,8 @@ You must always act as an intelligent **geospatial analyst and visualization ass
         type: 'function',
         function: {
           name: 'find-closest-temporal',
-          description: 'Find the closest temporal features to a given date',
+          description: 'Find the closest temporal features to a given date.\n' +
+          '- Default `limit` is `5` features.',
           parameters: {
             type: 'object',
             properties: {
@@ -1299,7 +1306,8 @@ You must always act as an intelligent **geospatial analyst and visualization ass
         type: 'function',
         function: {
           name: 'top-roads-by-incidents',
-          description: 'Find the top roads by incidents',
+          description: 'Find the top roads by incidents.\n' +
+          '- Default `limit` is `5` features.',
           parameters: {
             type: 'object',
             properties: {
@@ -1316,7 +1324,8 @@ You must always act as an intelligent **geospatial analyst and visualization ass
         type: 'function',
         function: {
           name: 'top-incident-types',
-          description: 'Find the top incident types',
+          description: 'Find the top incident types.\n' +
+          '- Default `limit` is `5` features.',
           parameters: {
             type: 'object',
             properties: {
@@ -1399,6 +1408,24 @@ You must always act as an intelligent **geospatial analyst and visualization ass
           description: 'Clear all results and visualizations from the map',
         },
       },
+      {
+        type: 'function',
+        function: {
+          name: 'get-location',
+          description:
+            'Get the location (latitude and longitude) of a place using its name.\nCan be used in case of needing to call a tool that requires coordinates but the user only provided a place name.',
+          parameters: {
+            type: 'object',
+            properties: {
+              locationName: {
+                type: 'string',
+                description: 'The name of the place to get the location for',
+              },
+            },
+            required: ['locationName'],
+          },
+        },
+      },
     ]
     return new OllamaLLM(apiUrl, model, sysPrompt, temperature, tools)
   }
@@ -1475,6 +1502,7 @@ You must always act as an intelligent **geospatial analyst and visualization ass
       const dataset = 'crisis'
       const area1 = args?.area1
       const area2 = args?.area2
+      const locationName = args?.locationName
       const { result, data } = await handleAction(
         {
           action,
@@ -1493,6 +1521,7 @@ You must always act as an intelligent **geospatial analyst and visualization ass
           startLon,
           area1,
           area2,
+          locationName,
         },
         `ID_${Date.now()}`
       )
@@ -1508,7 +1537,19 @@ You must always act as an intelligent **geospatial analyst and visualization ass
         content: result,
       })
     }
-    return { ...(await getResponse(messages, depth + 1)), tool_calls }
+    const {
+      message: followMessage,
+      tool_calls: followToolCalls,
+      think: followThink,
+    } = await getResponse(messages, depth + 1)
+
+    return {
+      message: followMessage,
+      tool_calls: followToolCalls
+        ? tool_calls.concat(followToolCalls)
+        : tool_calls,
+      think: `${think}\n\n###\n\n${followThink || ''}`,
+    }
   }
   return { message, tool_calls, think }
 }

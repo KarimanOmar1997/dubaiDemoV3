@@ -5,6 +5,7 @@ const cors = require('cors')
 const fs = require('node:fs')
 const path = require('node:path')
 const { OllamaLLM } = require('./LLMs/Ollama.js')
+const { CohereLLM } = require('./LLMs/CohereV2Chat.js')
 const { llmActions } = require('./llm_actions.js')
 const { log } = require('node:console')
 require('dotenv').config()
@@ -64,6 +65,24 @@ const upload = multer({
   },
 })
 
+function createLLM({ sysPrompt, temperature, tools, provider }) {
+  if (provider.toLowerCase() === 'ollama') {
+    return new OllamaLLM(
+      process.env.OLLAMA_ENDPOINT,
+      process.env.OLLAMA_MODEL,
+      sysPrompt,
+      temperature,
+      tools
+    )
+  }
+  return new CohereLLM(
+    process.env.COHERE_MODEL,
+    sysPrompt,
+    temperature,
+    tools,
+    process.env.COHERE_API_KEY
+  )
+}
 // Helper function to validate GeoJSON
 const validateGeoJSON = (data) => {
   const errors = []
@@ -815,8 +834,7 @@ app.get('/api/stats', (_req, res) => {
 
 async function getData(messages) {
   function getDataLLM() {
-    const apiUrl = process.env.OLLAMA_ENDPOINT
-    const model = process.env.OLLAMA_MODEL
+    const provider = process.env.PROVIDER
     const sysPrompt = `You are a helpful assistant that use different tools to retrieve geojson data.
   
       When calling any of the available tools, you will only get the result of the tool call, not the actual data.
@@ -895,7 +913,7 @@ async function getData(messages) {
       },
     ]
 
-    return new OllamaLLM(apiUrl, model, sysPrompt, temperature, tools)
+    return createLLM({ sysPrompt, temperature, tools, provider })
   }
 
   function handleToolCall(action, args) {
@@ -965,6 +983,7 @@ async function getData(messages) {
       messages.push({
         role: 'tool',
         content: result,
+        tool_call_id: toolCall.id,
       })
       if (data) {
         allData.push(data)
@@ -980,8 +999,7 @@ async function getTools(messages, tools) {
     return { success: false, data: { reason: 'No tools were provided.' } }
   }
   function getToolsLLM(tools) {
-    const apiUrl = process.env.OLLAMA_ENDPOINT
-    const model = process.env.OLLAMA_MODEL
+    const provider = process.env.PROVIDER
     const sysPrompt = `You are a helpful assistant that help the user in choosing the right tools for their task.
   
       Don't make up tools, only use the ones that are available.
@@ -999,10 +1017,12 @@ async function getTools(messages, tools) {
         description: 'No operation, do nothing',
       },
     }
-    return new OllamaLLM(apiUrl, model, sysPrompt, temperature, [
-      ...tools,
-      defaultTool,
-    ])
+    return createLLM({
+      sysPrompt,
+      temperature,
+      tools: [...tools, defaultTool],
+      provider,
+    })
   }
   const toolsLLM = getToolsLLM(tools)
   const { message, tool_calls, think } = await toolsLLM.chat(messages)
@@ -1039,8 +1059,7 @@ async function getResponse(messages, depth = 0) {
     return { message: 'Max depth reached.' }
   }
   function getResponseLLM() {
-    const apiUrl = process.env.OLLAMA_ENDPOINT
-    const model = process.env.OLLAMA_MODEL
+    const provider = process.env.PROVIDER
     const sysPrompt = `
 You are **GeoAI**, a highly capable AI assistant specialized in geospatial data analysis and visualization.  
 Your primary role is to interact with and control a map using the tools available to you.  
@@ -1436,7 +1455,7 @@ You must always act as an intelligent **geospatial analyst and visualization ass
         },
       },
     ]
-    return new OllamaLLM(apiUrl, model, sysPrompt, temperature, tools)
+    return createLLM({ sysPrompt, temperature, tools, provider })
   }
   const responseLLM = getResponseLLM()
   const { message, tool_calls, think } = await responseLLM.chat(messages)
@@ -1546,6 +1565,7 @@ You must always act as an intelligent **geospatial analyst and visualization ass
       messages.push({
         role: 'tool',
         content: result,
+        tool_call_id: toolCall.id,
       })
       allData.push(data)
     }

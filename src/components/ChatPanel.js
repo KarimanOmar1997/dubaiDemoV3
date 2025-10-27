@@ -39,20 +39,20 @@ const ChatPanel = ({
   const currentStatus = connectionStatusConfig[connectionStatus]
 
   return (
-    <div className="flex w-2/5 flex-col bg-white shadow-2xl">
+    <div className="flex w-2/5 flex-col bg-gray-900 shadow-2xl">
       {/* Header */}
-      <div className="bg-[#af8454] p-4 text-white">
+      <div className="bg-gray-800 p-4 text-white">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="rounded-lg bg-white/20 p-2 backdrop-blur-sm">
               <img
-                src="/ncemaLogoWhite.png" // ✅ direct path
+                src="/ncemaLogoWhite.png"
                 alt="NCEMA Logo"
                 className="h-6 w-100"
               />
             </div>
             <div>
-              <h1 className="font-bold text-xl">NCEMA</h1>
+              <h1 className="font-bold text-xl">Atlas Chatbot</h1>
             </div>
           </div>
           <div className="flex items-center space-x-2">
@@ -65,8 +65,8 @@ const ChatPanel = ({
       </div>
 
       {/* Enhanced Stats Bar */}
-      <div className="border-b bg-gray-50 px-4 py-3">
-        <div className="flex items-center justify-between text-gray-600 text-sm">
+      <div className="border-b bg-gray-800 px-4 py-3">
+        <div className="flex items-center justify-between text-gray-400 text-sm">
           <div className="flex items-center space-x-4">
             <span className="flex items-center space-x-1">
               <MapIcon className="h-4 w-4" />
@@ -77,12 +77,12 @@ const ChatPanel = ({
               <span>{mapStats.features} إجمالي</span>
             </span>
             {activeFeatures > 0 && (
-              <span className="flex items-center space-x-1 font-medium text-red-600">
+              <span className="flex items-center space-x-1 font-medium text-red-400">
                 <Navigation className="h-4 w-4" />
                 <span>{activeFeatures} معروض</span>
               </span>
             )}
-            <span className="flex items-center space-x-1 text-blue-600">
+            <span className="flex items-center space-x-1 text-blue-400">
               <Clock className="h-4 w-4" />
               <span>
                 {dataProcessingStatus === 'completed'
@@ -97,7 +97,7 @@ const ChatPanel = ({
             <button
               type="button"
               onClick={clearChat}
-              className="rounded p-1 hover:bg-gray-200"
+              className="rounded p-1 hover:bg-gray-700"
               title="مسح النتائج"
             >
               <RefreshCw className="h-4 w-4" />

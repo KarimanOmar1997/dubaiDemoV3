@@ -197,17 +197,6 @@ export const useMapActions = ({
         // Filter resources by type and proximity
         const { foundResources, allResources } = data
 
-        // Initialize resource categories
-        Object.keys(resourceKeywords).forEach((type) => {
-          foundResources[type] = []
-        })
-
-        // Sort each category by distance and combine
-        Object.keys(foundResources).forEach((type) => {
-          foundResources[type].sort((a, b) => a.distance - b.distance)
-          allResources.push(...foundResources[type])
-        })
-
         if (allResources.length === 0) {
           const retMessage = `❌ لم يتم العثور على موارد في نطاق ${radius} كم من الموقع المحدد`
           return retMessage

@@ -25,7 +25,9 @@ const MessageItem = ({ message }) => {
           )}
           <div className="flex-1">
             <div className="whitespace-pre-wrap text-sm leading-relaxed">
-              <MarkdownMessage markdown={message.text} />
+              {message.sender === 'user'
+                ? message.text
+                : <MarkdownMessage markdown={message.text} />}
             </div>
             <div
               className={`mt-1 text-xs opacity-70 ${

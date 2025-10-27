@@ -35,3 +35,5 @@ geojson-backend/rsync-exclude.txt
 Test.md
 User Stories.md
 biome.json
+Q.txt
+_.ipynb

@@ -77,22 +77,7 @@ export const llmActions = ({ allFeaturesData }) => {
       source.includes('طوارئ') ||
       source.includes('emergency')
 
-    // Check if the feature has crisis-related properties
-    const properties = feature.properties || {}
-    const hasCrisisProperties =
-      properties.type === 'crisis' ||
-      properties.category === 'crisis' ||
-      properties.crisis_type ||
-      properties.disaster_type ||
-      properties.crisis_level ||
-      properties.crisis_status ||
-      properties.crisis_date ||
-      properties.disaster_date ||
-      properties.crisis_category ||
-      properties.disaster_category
-
-    // Return true only if it's a crisis file AND has crisis properties
-    return isCrisisFile && hasCrisisProperties
+    return isCrisisFile
   }
 
   // 1. Update your useMapActions.js - Add this function to the hook
@@ -410,9 +395,9 @@ export const llmActions = ({ allFeaturesData }) => {
             (props.Type_Ar || '').toLowerCase().includes('وفاة')
           ) {
             severityLevel = 'fatal'
-          } else if ((props.Severity_Ar || '').toLowerCase().includes('شديد')) {
+          } else if (props.Severity_Ar?.toLowerCase().includes('شديد')) {
             severityLevel = 'severe'
-          } else if ((props.Severity_Ar || '').toLowerCase().includes('خطير')) {
+          } else if (props.Severity_Ar?.toLowerCase().includes('خطير')) {
             severityLevel = 'serious'
           }
 
@@ -872,71 +857,62 @@ export const llmActions = ({ allFeaturesData }) => {
       return { result: retMessage, data: null }
     }
 
-    try {
-      // Prepare heatmap data points
-      const heatmapData = []
-      const validIncidents = []
+    // Prepare heatmap data points
+    const heatmapData = []
+    const validIncidents = []
 
-      allFeaturesData.filter(isIncidentPointFeature).forEach((feature) => {
-        let lat = null,
-          lon = null
+    allFeaturesData.filter(isIncidentPointFeature).forEach((feature) => {
+      let lat = null,
+        lon = null
 
-        if (feature.geometry?.type === 'Point') {
-          ;[lon, lat] = feature.geometry.coordinates
-        }
-
-        if (lat !== null && lon !== null) {
-          // Add intensity based on incident severity or type
-          let weight = 1
-          const props = feature.properties || {}
-
-          // Adjust weight based on severity or type
-          if (props.Severity_Ar) {
-            const severity = props.Severity_Ar.toLowerCase()
-            if (severity.includes('خطير') || severity.includes('شديد'))
-              weight = 3
-            else if (severity.includes('متوسط')) weight = 2
-            else weight = 1
-          } else if (props.Type_Ar) {
-            const type = props.Type_Ar.toLowerCase()
-            if (type.includes('وفاة') || type.includes('قتل')) weight = 4
-            else if (type.includes('إصابة')) weight = 2
-            else weight = 1
-          }
-
-          heatmapData.push([lat, lon, weight])
-          validIncidents.push(feature)
-        }
-      })
-
-      console.log(`🔥 Creating heatmap with ${heatmapData.length} data points`)
-
-      if (heatmapData.length === 0) {
-        const retMessage = '⚠️ لا توجد بيانات صالحة لإنشاء الخريطة الحرارية'
-        return { result: retMessage, data: null }
+      if (feature.geometry?.type === 'Point') {
+        ;[lon, lat] = feature.geometry.coordinates
       }
 
-      // Analyze density clusters
-      const densityAnalysis = analyzeDensityClusters(heatmapData)
+      if (lat !== null && lon !== null) {
+        // Add intensity based on incident severity or type
+        let weight = 1
+        const props = feature.properties || {}
 
-      console.log('✅ Heatmap created successfully')
+        // Adjust weight based on severity or type
+        if (props.Severity_Ar) {
+          const severity = props.Severity_Ar.toLowerCase()
+          if (severity.includes('خطير') || severity.includes('شديد')) weight = 3
+          else if (severity.includes('متوسط')) weight = 2
+          else weight = 1
+        } else if (props.Type_Ar) {
+          const type = props.Type_Ar.toLowerCase()
+          if (type.includes('وفاة') || type.includes('قتل')) weight = 4
+          else if (type.includes('إصابة')) weight = 2
+          else weight = 1
+        }
 
-      const summaryMessage = `🔥 تم إنشاء الخريطة الحرارية بنجاح!\n\n📊 **تحليل الكثافة:**\n• إجمالي النقاط: ${
-        heatmapData.length
-      }\n• المناطق عالية الكثافة: ${
-        densityAnalysis.highDensityAreas
-      }\n• متوسط الكثافة: ${densityAnalysis.averageDensity.toFixed(
-        2
-      )}\n\n🎯 **المناطق الأكثر تركزاً:**\n${densityAnalysis.topAreas.join(
-        '\n'
-      )}`
+        heatmapData.push([lat, lon, weight])
+        validIncidents.push(feature)
+      }
+    })
 
-      return { result: summaryMessage, data: { heatmapData, validIncidents } }
-    } catch (error) {
-      console.error('Failed to create heatmap:', error)
-      const retMessage = `❌ فشل في إنشاء الخريطة الحرارية: ${error.message}`
+    console.log(`🔥 Creating heatmap with ${heatmapData.length} data points`)
+
+    if (heatmapData.length === 0) {
+      const retMessage = '⚠️ لا توجد بيانات صالحة لإنشاء الخريطة الحرارية'
       return { result: retMessage, data: null }
     }
+
+    // Analyze density clusters
+    const densityAnalysis = analyzeDensityClusters(heatmapData)
+
+    console.log('✅ Heatmap created successfully')
+
+    const summaryMessage = `🔥 تم إنشاء الخريطة الحرارية بنجاح!\n\n📊 **تحليل الكثافة:**\n• إجمالي النقاط: ${
+      heatmapData.length
+    }\n• المناطق عالية الكثافة: ${
+      densityAnalysis.highDensityAreas
+    }\n• متوسط الكثافة: ${densityAnalysis.averageDensity.toFixed(
+      2
+    )}\n\n🎯 **المناطق الأكثر تركزاً:**\n${densityAnalysis.topAreas.join('\n')}`
+    console.log('Data from heatmap:', heatmapData.length, validIncidents.length)
+    return { result: summaryMessage, data: { heatmapData, validIncidents } }
   }
 
   // Population distribution visualization (heatmap or choropleth)
@@ -2173,7 +2149,6 @@ export const llmActions = ({ allFeaturesData }) => {
           data: { openList, closedList, unknownList },
         }
       }
-
       case 'get-location': {
         const { locationName } = actionObj
         if (locationName && typeof locationName === 'string') {

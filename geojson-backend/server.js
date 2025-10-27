@@ -1047,6 +1047,7 @@ Your primary role is to interact with and control a map using the tools availabl
 You can generate, update, and analyze visualizations such as heatmaps, choropleth maps, scatter plots, or overlays.  
 
 ### Interaction Guidelines:
+- Don't overthink your responses; be direct and to the point.
 - Always clarify the user's intent before executing complex map operations.  
 - If data or coordinates are missing, ask the user to provide them.  
 - In case of using default values, inform the user about the assumptions made.  
@@ -1061,6 +1062,8 @@ You can generate, update, and analyze visualizations such as heatmaps, choroplet
 - Use multiple paragraphs to separate different ideas or points.
 - Use numbered lists (e.g., 1. Item one) for ordered information or bullet points (e.g., - Item one) for unordered lists when there are multiple distinct points.
 - Allways pay attention to the tools you have called and their results, and use them to inform your responses and actions.
+- Allways respond with the language the user used in their query.
+- If a tool uses a difrent language just rephrace it.
 
 You must always act as an intelligent **geospatial analyst and visualization assistant**, helping users explore data and gain insights from maps.
 `
@@ -1142,9 +1145,10 @@ You must always act as an intelligent **geospatial analyst and visualization ass
         type: 'function',
         function: {
           name: 'find-nearby-resources',
-          description: 'Find nearby resources on the map.\n' +
-          '- Default `resourceType` is `all`\n' +
-          '- Default `radius` is `5.0` km.',
+          description:
+            'Find nearby resources on the map.\n' +
+            '- Default `resourceType` is `all`\n' +
+            '- Default `radius` is `5.0` km.',
           parameters: {
             type: 'object',
             properties: {
@@ -1176,8 +1180,9 @@ You must always act as an intelligent **geospatial analyst and visualization ass
         type: 'function',
         function: {
           name: 'find-incidents-within-radius',
-          description: 'Find incidents within a specified radius on the map.\n' +
-          '- Default `radius` is `5.0` km.',
+          description:
+            'Find incidents within a specified radius on the map.\n' +
+            '- Default `radius` is `5.0` km.',
           parameters: {
             type: 'object',
             properties: {
@@ -1204,7 +1209,7 @@ You must always act as an intelligent **geospatial analyst and visualization ass
         function: {
           name: 'find-crisis-within-radius',
           description:
-            'Find crisis/disaster events within a specified radius on the map.\n' +
+            'Find crisis/disaster events within a specified radius on the map including floods and wildfires.\n' +
             '- Default `radius` is `5.0` km.',
           parameters: {
             type: 'object',
@@ -1231,8 +1236,9 @@ You must always act as an intelligent **geospatial analyst and visualization ass
         type: 'function',
         function: {
           name: 'find-closest-spatial',
-          description: 'Find the closest incidents to a given location.\n' +
-          '- Default `limit` is `5` features.',
+          description:
+            'Find the closest incidents to a given location.\n' +
+            '- Default `limit` is `5` features.',
           parameters: {
             type: 'object',
             properties: {
@@ -1282,8 +1288,9 @@ You must always act as an intelligent **geospatial analyst and visualization ass
         type: 'function',
         function: {
           name: 'find-closest-temporal',
-          description: 'Find the closest temporal features to a given date.\n' +
-          '- Default `limit` is `5` features.',
+          description:
+            'Find the closest temporal features to a given date.\n' +
+            '- Default `limit` is `5` features.',
           parameters: {
             type: 'object',
             properties: {
@@ -1306,8 +1313,9 @@ You must always act as an intelligent **geospatial analyst and visualization ass
         type: 'function',
         function: {
           name: 'top-roads-by-incidents',
-          description: 'Find the top roads by incidents.\n' +
-          '- Default `limit` is `5` features.',
+          description:
+            'Find the top roads by incidents.\n' +
+            '- Default `limit` is `5` features.',
           parameters: {
             type: 'object',
             properties: {
@@ -1324,8 +1332,9 @@ You must always act as an intelligent **geospatial analyst and visualization ass
         type: 'function',
         function: {
           name: 'top-incident-types',
-          description: 'Find the top incident types.\n' +
-          '- Default `limit` is `5` features.',
+          description:
+            'Find the top incident types.\n' +
+            '- Default `limit` is `5` features.',
           parameters: {
             type: 'object',
             properties: {
@@ -1432,6 +1441,7 @@ You must always act as an intelligent **geospatial analyst and visualization ass
   const responseLLM = getResponseLLM()
   const { message, tool_calls, think } = await responseLLM.chat(messages)
   if (tool_calls) {
+    const allData = []
     for (const toolCall of tool_calls) {
       console.log('Executing tool call:', toolCall)
       const { name: action, arguments: args } = toolCall.function
@@ -1525,17 +1535,19 @@ You must always act as an intelligent **geospatial analyst and visualization ass
         },
         `ID_${Date.now()}`
       )
-      toolCall.data = data
       console.log('Tool call result:', result)
       messages.push({
         role: 'assistant',
-        content: `I have to call ${action} with arguments: ${JSON.stringify(args)}`,
+        content: think
+          ? `${think}\n\nI have to call ${action} with arguments: ${JSON.stringify(args)}`
+          : `I have to call ${action} with arguments: ${JSON.stringify(args)}`,
         tool_calls: [toolCall],
       })
       messages.push({
         role: 'tool',
         content: result,
       })
+      allData.push(data)
     }
     const {
       message: followMessage,
@@ -1543,12 +1555,18 @@ You must always act as an intelligent **geospatial analyst and visualization ass
       think: followThink,
     } = await getResponse(messages, depth + 1)
 
+    // toolCall.data = data
+    for (const toolCall of tool_calls) {
+      toolCall.data = allData[0]
+      allData.shift()
+    }
     return {
       message: followMessage,
-      tool_calls: followToolCalls
-        ? tool_calls.concat(followToolCalls)
-        : tool_calls,
-      think: `${think}\n\n###\n\n${followThink || ''}`,
+      tool_calls:
+        tool_calls && followToolCalls
+          ? tool_calls.concat(followToolCalls)
+          : tool_calls,
+      think: think && `${think}\n\n###\n\n${followThink || ''}`,
     }
   }
   return { message, tool_calls, think }

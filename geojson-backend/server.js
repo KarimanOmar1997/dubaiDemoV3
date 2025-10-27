@@ -1435,6 +1435,22 @@ You must always act as an intelligent **geospatial analyst and visualization ass
           },
         },
       },
+      {
+        type: 'function',
+        function: {
+          name: 'analyze-comprehensive-risks',
+          description:
+            'Analyze comprehensive risks and hazards in UAE over the past 5 years with classification, geographic distribution, and frequency patterns then return the result to the assistant. While creating a heatmap visualization on the map for the user.',
+        },
+      },
+      {
+        type: 'function',
+        function: {
+          name: 'analyze-critical-infrastructure',
+          description:
+            'Analyze incidents near critical infrastructure including ministries, major hospitals, military bases, and other vital facilities',
+        },
+      },
     ]
     return new OllamaLLM(apiUrl, model, sysPrompt, temperature, tools)
   }

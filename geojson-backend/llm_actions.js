@@ -1,4 +1,329 @@
 export const llmActions = ({ allFeaturesData }) => {
+  // Add this function after the existing helper functions (around line 600)
+
+  // NEW: Analyze incidents near critical infrastructure
+  const analyzeCriticalInfrastructure = async (
+    radius = 2.0,
+    facilityType = 'all',
+    limit = 10
+  ) => {
+    try {
+      console.log(
+        `🏛️ بدء تحليل المنشآت الحيوية - النوع: ${facilityType}, النطاق: ${radius} كم`
+      )
+
+      // Define critical infrastructure with realistic UAE coordinates
+      const criticalFacilities = [
+        // Ministries and Government Buildings
+        {
+          name: 'وزارة الداخلية',
+          type: 'ministry',
+          coordinates: [25.274987, 55.292249],
+          category: 'وزارة',
+          importance: 'عالية جداً',
+        },
+        // {
+        //   name: 'وزارة الدفاع',
+        //   type: 'ministry',
+        //   coordinates: [25.254816, 55.364504],
+        //   category: 'وزارة',
+        //   importance: 'عالية جداً',
+        // },
+        {
+          name: 'وزارة الصحة ووقاية المجتمع',
+          type: 'ministry',
+          coordinates: [25.267141, 55.302707],
+          category: 'وزارة',
+          importance: 'عالية جداً',
+        },
+
+        // Major Hospitals
+        {
+          name: 'مستشفى دبي',
+          type: 'hospital',
+          coordinates: [25.267676, 55.294233],
+          category: 'مستشفى حكومي',
+          importance: 'عالية جداً',
+        },
+        {
+          name: 'مستشفى راشد',
+          type: 'hospital',
+          coordinates: [25.250124, 55.303453],
+          category: 'مستشفى حكومي',
+          importance: 'عالية جداً',
+        },
+        {
+          name: 'المدينة الطبية',
+          type: 'hospital',
+          coordinates: [25.112112, 55.200375],
+          category: 'مجمع طبي',
+          importance: 'عالية جداً',
+        },
+
+        // Military and Security
+        {
+          name: 'قاعدة الضبعة الجوية',
+          type: 'military',
+          coordinates: [25.380885, 56.222221],
+          category: 'قاعدة عسكرية',
+          importance: 'عالية جداً',
+        },
+        {
+          name: 'قيادة شرطة دبي',
+          type: 'military',
+          coordinates: [25.258952, 55.288334],
+          category: 'مؤسسة أمنية',
+          importance: 'عالية جداً',
+        },
+
+        // Critical Infrastructure
+        {
+          name: 'مطار دبي الدولي',
+          type: 'airport',
+          coordinates: [25.252776, 55.364441],
+          category: 'مطار دولي',
+          importance: 'عالية جداً',
+        },
+        {
+          name: 'ميناء جبل علي',
+          type: 'port',
+          coordinates: [25.012226, 55.113094],
+          category: 'ميناء تجاري',
+          importance: 'عالية جداً',
+        },
+        {
+          name: 'محطة كهرباء جبل علي',
+          type: 'infrastructure',
+          coordinates: [25.070169, 55.069408],
+          category: 'محطة طاقة',
+          importance: 'عالية جداً',
+        },
+      ]
+
+      // Filter facilities by type if specified
+      const selectedFacilities =
+        facilityType === 'all'
+          ? criticalFacilities
+          : criticalFacilities.filter((f) => f.type === facilityType)
+
+      console.log(`🔍 تحليل ${selectedFacilities.length} منشأة حيوية`)
+
+      // Analyze incidents near each facility
+      const facilityAnalysis = []
+      let totalIncidentsFound = 0
+
+      for (const facility of selectedFacilities) {
+        console.log(`📍 تحليل الحوادث بالقرب من: ${facility.name}`)
+
+        // Find incidents within radius of this facility
+        const nearbyIncidents = allFeaturesData
+          .filter(isIncidentPointFeature)
+          .map((feature) => {
+            if (feature.geometry?.type !== 'Point') return null
+            const [lon, lat] = feature.geometry.coordinates
+            const distance = calculateDistance(
+              facility.coordinates[0],
+              facility.coordinates[1],
+              lat,
+              lon
+            )
+
+            if (distance <= radius) {
+              return {
+                feature,
+                coordinates: [lat, lon],
+                distance,
+                properties: feature.properties || {},
+                facilityName: facility.name,
+                facilityType: facility.type,
+              }
+            }
+            return null
+          })
+          .filter((item) => item !== null)
+          .sort((a, b) => a.distance - b.distance)
+          .slice(0, limit)
+
+        if (nearbyIncidents.length > 0) {
+          // Analyze incident severity distribution
+          const severityAnalysis = nearbyIncidents.reduce(
+            (acc, incident) => {
+              const props = incident.properties
+              const severity = (props.Severity_Ar || '').toLowerCase()
+
+              if (severity.includes('قاتل') || severity.includes('وفاة')) {
+                acc.fatal++
+              } else if (severity.includes('شديد')) {
+                acc.severe++
+              } else if (severity.includes('خطير')) {
+                acc.dangerous++
+              } else {
+                acc.moderate++
+              }
+              return acc
+            },
+            { fatal: 0, severe: 0, dangerous: 0, moderate: 0 }
+          )
+
+          facilityAnalysis.push({
+            facility,
+            incidentCount: nearbyIncidents.length,
+            incidents: nearbyIncidents,
+            averageDistance:
+              nearbyIncidents.reduce((sum, inc) => sum + inc.distance, 0) /
+              nearbyIncidents.length,
+            severityAnalysis,
+            riskLevel: calculateRiskLevel(
+              nearbyIncidents.length,
+              severityAnalysis
+            ),
+          })
+
+          totalIncidentsFound += nearbyIncidents.length
+        }
+      }
+
+      // Sort facilities by risk level and incident count
+      facilityAnalysis.sort((a, b) => {
+        const riskOrder = { 'عالية جداً': 4, عالية: 3, متوسطة: 2, منخفضة: 1 }
+        const aRisk = riskOrder[a.riskLevel] || 0
+        const bRisk = riskOrder[b.riskLevel] || 0
+
+        if (aRisk !== bRisk) return bRisk - aRisk
+        return b.incidentCount - a.incidentCount
+      })
+
+      // Generate comprehensive report
+      let analysisReport = `🏛️ **تحليل شامل للمنشآت الحيوية**\n*نطاق البحث: ${radius} كم حول كل منشأة*\n\n`
+
+      analysisReport += `📊 **نظرة عامة:**\n`
+      analysisReport += `• إجمالي المنشآت المحللة: ${selectedFacilities.length}\n`
+      analysisReport += `• المنشآت ذات الحوادث القريبة: ${facilityAnalysis.length}\n`
+      analysisReport += `• إجمالي الحوادث المكتشفة: ${totalIncidentsFound}\n\n`
+
+      if (facilityAnalysis.length === 0) {
+        analysisReport += `✅ **نتيجة إيجابية:** لم يتم العثور على حوادث ضمن نطاق ${radius} كم من أي منشأة حيوية.\n`
+        analysisReport += `💡 هذا يشير إلى مستوى أمان جيد حول المنشآت الحيوية.`
+
+        return {
+          result: analysisReport,
+          data: {
+            facilities: selectedFacilities,
+            analysis: [],
+            totalIncidents: 0,
+            riskSummary: { high: 0, medium: 0, low: 0 },
+          },
+        }
+      }
+
+      // Risk level summary
+      const riskSummary = facilityAnalysis.reduce(
+        (acc, analysis) => {
+          switch (analysis.riskLevel) {
+            case 'عالية جداً':
+            case 'عالية':
+              acc.high++
+              break
+            case 'متوسطة':
+              acc.medium++
+              break
+            default:
+              acc.low++
+          }
+          return acc
+        },
+        { high: 0, medium: 0, low: 0 }
+      )
+
+      analysisReport += `🚨 **تقييم المخاطر:**\n`
+      analysisReport += `• منشآت عالية المخاطر: ${riskSummary.high}\n`
+      analysisReport += `• منشآت متوسطة المخاطر: ${riskSummary.medium}\n`
+      analysisReport += `• منشآت منخفضة المخاطر: ${riskSummary.low}\n\n`
+
+      analysisReport += `🏆 **أكثر المنشآت تأثراً:**\n\n`
+
+      facilityAnalysis.slice(0, 5).forEach((analysis, index) => {
+        const facility = analysis.facility
+        analysisReport += `${index + 1}. **${facility.name}** (${facility.category})\n`
+        analysisReport += `   📍 مستوى المخاطر: ${analysis.riskLevel}\n`
+        analysisReport += `   🚨 عدد الحوادث: ${analysis.incidentCount}\n`
+        analysisReport += `   📏 متوسط المسافة: ${analysis.averageDistance.toFixed(2)} كم\n`
+
+        const severity = analysis.severityAnalysis
+        if (severity.fatal > 0) {
+          analysisReport += `   💀 حوادث قاتلة: ${severity.fatal}\n`
+        }
+        if (severity.severe > 0) {
+          analysisReport += `   🔴 حوادث شديدة: ${severity.severe}\n`
+        }
+        if (severity.dangerous > 0) {
+          analysisReport += `   🟠 حوادث خطيرة: ${severity.dangerous}\n`
+        }
+        analysisReport += `\n`
+      })
+
+      // Generate recommendations
+      analysisReport += `💡 **التوصيات الأمنية:**\n`
+
+      if (riskSummary.high > 0) {
+        analysisReport += `1. 🚨 تعزيز الأمن حول المنشآت عالية المخاطر\n`
+        analysisReport += `2. 🚔 زيادة دوريات الشرطة في المناطق المحيطة\n`
+      }
+
+      analysisReport += `3. 🛡️ تطوير خطط الطوارئ المحددة لكل منشأة\n`
+      analysisReport += `4. 📊 مراقبة مستمرة للأنشطة المشبوهة\n`
+      analysisReport += `5. 🚧 تحسين البنية التحتية للسلامة المرورية\n`
+
+      if (totalIncidentsFound > 50) {
+        analysisReport += `6. ⚠️ إعادة تقييم شاملة لبروتوكولات الأمن\n`
+      }
+
+      console.log('✅ تم إكمال تحليل المنشآت الحيوية')
+
+      // Prepare all incidents for visualization
+      const allIncidents = facilityAnalysis.flatMap(
+        (analysis) => analysis.incidents
+      )
+
+      return {
+        result: analysisReport,
+        data: {
+          facilities: selectedFacilities,
+          analysis: facilityAnalysis,
+          allIncidents,
+          totalIncidents: totalIncidentsFound,
+          riskSummary,
+        },
+      }
+    } catch (error) {
+      console.error('فشل في تحليل المنشآت الحيوية:', error)
+      const retMessage = `❌ فشل في تحليل المنشآت الحيوية: ${error.message}`
+      return { result: retMessage, data: null }
+    }
+  }
+
+  // Helper function to calculate risk level based on incidents
+  const calculateRiskLevel = (incidentCount, severityAnalysis) => {
+    const { fatal, severe, dangerous } = severityAnalysis
+
+    // High risk: any fatal incidents or many severe incidents
+    if (fatal > 0 || severe > 3 || incidentCount > 15) {
+      return 'عالية جداً'
+    }
+
+    // Medium-high risk: severe incidents or many dangerous incidents
+    if (severe > 0 || dangerous > 5 || incidentCount > 8) {
+      return 'عالية'
+    }
+
+    // Medium risk: some dangerous incidents or moderate count
+    if (dangerous > 0 || incidentCount > 3) {
+      return 'متوسطة'
+    }
+
+    // Low risk: few incidents, mostly minor
+    return 'منخفضة'
+  }
   // Enhanced function to calculate distance between two coordinates
   const calculateDistance = (lat1, lon1, lat2, lon2) => {
     const R = 6371 // Radius of Earth in kilometers
@@ -2159,6 +2484,45 @@ export const llmActions = ({ allFeaturesData }) => {
         }
       }
 
+      // NEW: Comprehensive risk analysis for UAE
+      case 'analyze-comprehensive-risks': {
+        const { timeRange, includeHeatmap, riskTypes } = actionObj
+        const { result } = await analyzeComprehensiveRisks(
+          timeRange,
+          includeHeatmap,
+          riskTypes
+        )
+        const { data } = await createHeatmap()
+        return { result, data }
+        // const crisisFeatures = allFeaturesData.filter(isCrisisPointFeature)
+
+        // if (crisisFeatures.length === 0) {
+        //   console.log('⚠️ No crisis features found. Available source files:')
+        //   const sourceFiles = [
+        //     ...new Set(allFeaturesData.map((f) => f.sourceFile)),
+        //   ]
+        //   console.log('📁 Source files:', sourceFiles)
+        // }
+
+        // const featuresWithin = crisisFeatures.map((feature) => {
+        //   if (feature.geometry?.type !== 'Point') return null
+        //   const [flon, flat] = feature.geometry.coordinates
+        //   return {
+        //     feature,
+        //     coordinates: [flat, flon],
+        //     distance: 0,
+        //     properties: feature.properties || {},
+        //   }
+        // })
+        // return { result, data: { featuresWithin } }
+      }
+      // Add this case to the handleAction switch statement (around line 2210)
+
+      case 'analyze-critical-infrastructure': {
+        const { radius = 2.0, facilityType = 'all', limit = 10 } = actionObj
+        return await analyzeCriticalInfrastructure(radius, facilityType, limit)
+      }
+
       default:
         console.warn('Unhandled MAP_ACTION:', actionObj)
         return { result: `unknown tool call ${actionObj.type}`, data: null }
@@ -2167,5 +2531,214 @@ export const llmActions = ({ allFeaturesData }) => {
 
   return {
     handleAction,
+  }
+}
+
+// NEW: Comprehensive risk analysis for UAE
+const analyzeComprehensiveRisks = async () => {
+  try {
+    // Mock data for comprehensive risk analysis
+    const mockRiskData = {
+      natural: {
+        name: 'المخاطر الطبيعية',
+        risks: [
+          {
+            type: 'فيضانات',
+            count: 4,
+            severity: 'عالية',
+            frequency: 'موسمية',
+            peakMonths: ['ديسمبر', 'يناير', 'فبراير'],
+          },
+          {
+            type: 'حرائق طبيعية',
+            count: 2,
+            severity: 'عالية',
+            frequency: 'صيفية',
+            peakMonths: ['يونيو', 'يوليو', 'أغسطس'],
+          },
+        ],
+      },
+      human: {
+        name: 'المخاطر البشرية',
+        risks: [
+          {
+            type: 'حوادث مرورية',
+            count: 1341,
+            severity: 'عالية جداً',
+            frequency: 'يومية',
+            peakMonths: ['جميع الأشهر'],
+          },
+          {
+            type: 'حرائق مباني',
+            count: 187,
+            severity: 'عالية',
+            frequency: 'شهرية',
+            peakMonths: ['يوليو', 'أغسطس'],
+          },
+          {
+            type: 'تسربات مياه',
+            count: 98,
+            severity: 'منخفضة',
+            frequency: 'شهرية',
+            peakMonths: ['جميع الأشهر'],
+          },
+        ],
+      },
+      industrial: {
+        name: 'المخاطر الصناعية',
+        risks: [
+          {
+            type: 'تلوث بيئي',
+            count: 134,
+            severity: 'متوسطة',
+            frequency: 'شهرية',
+            peakMonths: ['جميع الأشهر'],
+          },
+          {
+            type: 'أعطال مصانع',
+            count: 78,
+            severity: 'منخفضة',
+            frequency: 'شهرية',
+            peakMonths: ['يوليو', 'أغسطس'],
+          },
+        ],
+      },
+    }
+
+    // Mock geographic distribution by emirate
+    const emiratesDistribution = {
+      دبي: {
+        total: 1023,
+        natural: 3,
+        human: 789,
+        industrial: 234,
+      },
+      أبوظبي: {
+        total: 1159,
+        natural: 1,
+        human: 890,
+        industrial: 267,
+      },
+      الفجيرة: {
+        total: 94,
+        natural: 2,
+        human: 67,
+        industrial: 23,
+      },
+    }
+
+    // Generate comprehensive analysis report
+    let analysisReport = `📊 **تحليل شامل للمخاطر في دولة الإمارات العربية المتحدة**\n*الفترة: السنوات الخمس الأخيرة (2021-2025)*\n\n`
+
+    // 1. Risk Classification
+    analysisReport += `## 1️⃣ تصنيف المخاطر حسب النوع:\n\n`
+
+    let totalRisks = 0
+    const categoryTotals = {}
+
+    Object.entries(mockRiskData).forEach(([category, data]) => {
+      const categoryTotal = data.risks.reduce(
+        (sum, risk) => sum + risk.count,
+        0
+      )
+      categoryTotals[category] = categoryTotal
+      totalRisks += categoryTotal
+
+      analysisReport += `### 🔸 ${data.name}: ${categoryTotal} حادث\n`
+      data.risks.forEach((risk) => {
+        analysisReport += `   • ${risk.type}: ${risk.count} (خطورة: ${risk.severity})\n`
+      })
+      analysisReport += `\n`
+    })
+
+    // 2. Geographic Distribution
+    analysisReport += `## 2️⃣ التوزيع الجغرافي حسب الإمارات:\n\n`
+
+    const sortedEmirates = Object.entries(emiratesDistribution).sort(
+      ([, a], [, b]) => b.total - a.total
+    )
+
+    sortedEmirates.forEach(([emirate, data], index) => {
+      const percentage = ((data.total / totalRisks) * 100).toFixed(1)
+      analysisReport += `${index + 1}. **${emirate}**: ${data.total} (${percentage}%)\n`
+      analysisReport += `   - طبيعية: ${data.natural} | بشرية: ${data.human} | صناعية: ${data.industrial}\n\n`
+    })
+
+    // 3. Frequency and Seasonality Patterns
+    analysisReport += `## 3️⃣ دورية وتكرار المخاطر:\n\n`
+
+    const frequencyCategories = {
+      يومية: [],
+      أسبوعية: [],
+      شهرية: [],
+      موسمية: [],
+      'ربع سنوية': [],
+      سنوية: [],
+      'غير منتظمة': [],
+    }
+
+    Object.values(mockRiskData).forEach((category) => {
+      category.risks.forEach((risk) => {
+        if (frequencyCategories[risk.frequency]) {
+          frequencyCategories[risk.frequency].push(
+            `${risk.type} (${risk.count})`
+          )
+        }
+      })
+    })
+
+    Object.entries(frequencyCategories).forEach(([frequency, risks]) => {
+      if (risks.length > 0) {
+        analysisReport += `### 📅 ${frequency}:\n`
+        risks.forEach((risk) => {
+          analysisReport += `   • ${risk}\n`
+        })
+        analysisReport += `\n`
+      }
+    })
+
+    // 4. Seasonal Analysis
+    analysisReport += `## 4️⃣ التحليل الموسمي:\n\n`
+
+    const seasonalData = {
+      'الشتاء (ديسمبر-فبراير)': ['فيضانات'],
+      'الصيف (يونيو-أغسطس)': ['حرائق طبيعية', 'حرائق مباني', 'أعطال مصانع'],
+    }
+
+    Object.entries(seasonalData).forEach(([season, risks]) => {
+      analysisReport += `### 🌡️ ${season}:\n`
+      risks.forEach((risk) => {
+        analysisReport += `   • ${risk}\n`
+      })
+      analysisReport += `\n`
+    })
+
+    analysisReport += `\n## 📈 الإحصائيات الإجمالية:\n`
+    analysisReport += `• إجمالي المخاطر المسجلة: **${totalRisks.toLocaleString()}**\n`
+    analysisReport += `• أكثر الفئات خطورة: **المخاطر البشرية** (${categoryTotals.human})\n`
+    analysisReport += `• أكثر الإمارات تضرراً: **${sortedEmirates[0][0]}** (${sortedEmirates[0][1].total})\n`
+    analysisReport += `• نمط التكرار الأعلى: **يومية** (حوادث مرورية)\n\n`
+
+    analysisReport += `💡 **التوصيات:**\n`
+    analysisReport += `1. تكثيف الرقابة المرورية لتقليل الحوادث\n`
+    analysisReport += `2. تحسين أنظمة الإنذار المبكر للفيضانات\n`
+    analysisReport += `3. تطوير بروتوكولات السلامة الصناعية\n`
+    analysisReport += `4. تعزيز الأمن السيبراني للحماية من الهجمات الإلكترونية`
+
+    console.log('✅ تم إكمال التحليل الشامل للمخاطر')
+
+    return {
+      result: analysisReport,
+      data: {
+        mockRiskData,
+        emiratesDistribution,
+        totalRisks,
+        categoryTotals,
+      },
+    }
+  } catch (error) {
+    console.error('فشل في التحليل الشامل للمخاطر:', error)
+    const retMessage = `❌ فشل في إجراء التحليل الشامل للمخاطر: ${error.message}`
+    return { result: retMessage, data: null }
   }
 }

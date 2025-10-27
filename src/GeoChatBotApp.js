@@ -320,6 +320,27 @@ You must always act as an intelligent **geospatial analyst and visualization ass
           const area1 = args?.area1
           const area2 = args?.area2
           const locationName = args?.locationName
+          console.log('Parsed tool call params:', {
+            action,
+            lat,
+            lon,
+            resourceType,
+            radius,
+            limit,
+            startDate,
+            endDate,
+            date,
+            dataset,
+            data,
+            endLat,
+            endLon,
+            startLat,
+            startLon,
+            area1,
+            area2,
+            locationName,
+          })
+          // Execute the map action
           const result = await handleMapAction(
             {
               action,

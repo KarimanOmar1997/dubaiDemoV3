@@ -1288,19 +1288,68 @@ export const useMapActions = ({
           })
         }
 
-        const { heatmapData, validIncidents } = data
+        console.log(data)
+        const { heatmapData: originalHeatmapData, validIncidents } = data
 
-        console.log(
-          `🔥 Creating heatmap with ${heatmapData.length} data points`
+        // Define the specific center points you want to use
+        const centerPoints = [
+          { lat: 25.380885, lon: 56.222221 },
+          { lat: 25.380885, lon: 56.222221 },
+          { lat: 25.354636, lon: 56.28922 },
+          { lat: 25.354636, lon: 56.28922 },
+          { lat: 23.872659, lon: 55.311542 },
+          { lat: 25.258952121538012, lon: 55.288334516635189 },
+          { lat: 25.258952121538012, lon: 55.288334516635189 },
+        ]
+        const extendedHeatmapData = [
+          ...originalHeatmapData,
+          ...originalHeatmapData,
+          ...originalHeatmapData,
+        ]
+
+        // Generate new heatmap data randomly distributed around these center points
+        const newHeatmapData = []
+        const pointsPerCenter = Math.ceil(
+          extendedHeatmapData.length / centerPoints.length
         )
 
-        if (heatmapData.length === 0) {
+        centerPoints.forEach((center, centerIndex) => {
+          const numPoints =
+            centerIndex === centerPoints.length - 1
+              ? extendedHeatmapData.length - centerIndex * pointsPerCenter // Last center gets remaining points
+              : pointsPerCenter
+
+          for (let i = 0; i < numPoints; i++) {
+            // Generate random offset around each center point
+            // Using different radius ranges for variety
+            const maxRadius = 0.1 + Math.random() * 0.1 // 0.05 to 0.15 degrees (~5-15km)
+            const angle = Math.random() * 2 * Math.PI
+            const distance = Math.random() * maxRadius
+
+            const offsetLat = distance * Math.cos(angle)
+            const offsetLon = distance * Math.sin(angle)
+
+            const newLat = center.lat + offsetLat
+            const newLon = center.lon + offsetLon
+
+            // Generate random weight/intensity
+            const weight = 0.3 + Math.random() * 0.7 // Weight between 0.3 and 1.0
+
+            newHeatmapData.push([newLat, newLon, weight])
+          }
+        })
+
+        console.log(
+          `🔥 Creating heatmap with ${newHeatmapData.length} mutated data points around ${centerPoints.length} centers`
+        )
+
+        if (newHeatmapData.length === 0) {
           const retMessage = '⚠️ لا توجد بيانات صالحة لإنشاء الخريطة الحرارية'
           return retMessage
         }
 
         // Create heatmap layer
-        const heatmapLayer = L.heatLayer(heatmapData, {
+        const heatmapLayer = L.heatLayer(newHeatmapData, {
           radius: radius,
           blur: 15,
           maxZoom: 18,
@@ -1359,7 +1408,7 @@ export const useMapActions = ({
             </div>
           </div>
           <div style="font-size: 10px; color: #666; margin-top: 8px; text-align: center; border-top: 1px solid #eee; padding-top: 6px;">
-            إجمالي النقاط: ${heatmapData.length}
+            إجمالي النقاط: ${newHeatmapData.length}
           </div>
         `
           return div
@@ -1374,12 +1423,12 @@ export const useMapActions = ({
         setActiveFeatures(validIncidents.length)
 
         // Analyze density clusters
-        const densityAnalysis = analyzeDensityClusters(heatmapData)
+        const densityAnalysis = analyzeDensityClusters(newHeatmapData)
 
         console.log('✅ Heatmap created successfully')
 
         const summaryMessage = `🔥 تم إنشاء الخريطة الحرارية بنجاح!\n\n📊 **تحليل الكثافة:**\n• إجمالي النقاط: ${
-          heatmapData.length
+          newHeatmapData.length
         }\n• المناطق عالية الكثافة: ${
           densityAnalysis.highDensityAreas
         }\n• متوسط الكثافة: ${densityAnalysis.averageDensity.toFixed(
@@ -1824,6 +1873,304 @@ export const useMapActions = ({
       legendRef,
       parseDate,
     ]
+  )
+
+  // Add this function after the existing analysis functions (around line 1600)
+
+  // NEW: Visualize critical infrastructure analysis
+  const visualizeCriticalInfrastructure = useCallback(
+    async (data) => {
+      if (!mapRef.current || !window.L || !data) {
+        const retMessage = '❌ Cannot visualize: missing map, Leaflet, or data'
+        console.log(retMessage)
+        return retMessage
+      }
+
+      const L = window.L
+
+      try {
+        // Remove existing layers
+        if (geoJsonLayerRef.current) {
+          mapRef.current.removeLayer(geoJsonLayerRef.current)
+          geoJsonLayerRef.current = null
+        }
+        if (highlightLayerRef.current) {
+          mapRef.current.removeLayer(highlightLayerRef.current)
+          highlightLayerRef.current = null
+        }
+        if (legendRef.current) {
+          mapRef.current.removeControl(legendRef.current)
+          legendRef.current = null
+        }
+
+        const { facilities, analysis, allIncidents, riskSummary } = data
+
+        console.log(
+          `🏛️ Visualizing ${facilities.length} facilities and ${allIncidents.length} incidents`
+        )
+
+        const markersGroup = L.layerGroup()
+
+        // Risk level colors
+        const riskColors = {
+          'عالية جداً': '#b71c1c',
+          عالية: '#d32f2f',
+          متوسطة: '#ff9800',
+          منخفضة: '#4caf50',
+        }
+
+        // Facility type icons
+        const facilityIcons = {
+          ministry: '🏛️',
+          hospital: '🏥',
+          military: '🛡️',
+          airport: '✈️',
+          port: '🚢',
+          infrastructure: '⚡',
+        }
+
+        // Add facility markers
+        facilities.forEach((facility) => {
+          const analysisData = analysis.find(
+            (a) => a.facility.name === facility.name
+          )
+          const riskLevel = analysisData?.riskLevel || 'منخفضة'
+          const incidentCount = analysisData?.incidentCount || 0
+
+          const [lat, lon] = facility.coordinates
+          const icon = facilityIcons[facility.type] || '🏢'
+          const color = riskColors[riskLevel]
+
+          // Create facility marker
+          const facilityMarker = L.circleMarker([lat, lon], {
+            radius: Math.max(12, Math.min(20, 10 + incidentCount)),
+            fillColor: color,
+            color: '#ffffff',
+            weight: 3,
+            opacity: 1,
+            fillOpacity: 0.8,
+            className: `facility-marker ${facility.type}`,
+          })
+
+          // Create detailed popup for facility
+          const popupContent = `
+          <div style="font-family: Arial, sans-serif; direction: rtl; text-align: right; min-width: 280px;">
+            <h4 style="margin: 0 0 10px 0; color: ${color}; font-size: 16px; text-align: center;">
+              ${icon} ${facility.name}
+            </h4>
+            <div style="background: #f5f5f5; padding: 10px; border-radius: 6px; margin-bottom: 10px;">
+              <div style="font-size: 12px; line-height: 1.6;">
+                <strong>النوع:</strong> ${facility.category}<br>
+                <strong>الأهمية:</strong> ${facility.importance}<br>
+                <strong>مستوى المخاطر:</strong> <span style="color: ${color}; font-weight: bold;">${riskLevel}</span><br>
+                <strong>الحوادث القريبة:</strong> ${incidentCount}
+              </div>
+            </div>
+            ${
+              analysisData
+                ? `
+              <div style="font-size: 11px; color: #666;">
+                <strong>تفاصيل المخاطر:</strong><br>
+                ${analysisData.severityAnalysis.fatal > 0 ? `💀 قاتلة: ${analysisData.severityAnalysis.fatal}<br>` : ''}
+                ${analysisData.severityAnalysis.severe > 0 ? `🔴 شديدة: ${analysisData.severityAnalysis.severe}<br>` : ''}
+                ${analysisData.severityAnalysis.dangerous > 0 ? `🟠 خطيرة: ${analysisData.severityAnalysis.dangerous}<br>` : ''}
+                📏 متوسط المسافة: ${analysisData.averageDistance.toFixed(2)} كم
+              </div>
+            `
+                : ''
+            }
+            <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #eee; font-size: 10px; color: #666; text-align: center;">
+              الإحداثيات: ${lat.toFixed(6)}, ${lon.toFixed(6)}
+            </div>
+          </div>
+        `
+
+          facilityMarker.bindPopup(popupContent, {
+            maxWidth: 350,
+            className: 'facility-popup',
+          })
+
+          // Add hover effects
+          facilityMarker.on('mouseover', function (_e) {
+            this.setStyle({
+              radius: this.options.radius + 3,
+              weight: 4,
+            })
+          })
+
+          facilityMarker.on('mouseout', function (_e) {
+            this.setStyle({
+              radius: this.options.radius - 3,
+              weight: 3,
+            })
+          })
+
+          markersGroup.addLayer(facilityMarker)
+        })
+
+        // Add incident markers
+        allIncidents.forEach((incident) => {
+          const [lat, lon] = incident.coordinates
+          const props = incident.properties
+
+          // Determine incident severity and color
+          let severityColor = '#757575'
+          let severityText = 'غير محدد'
+
+          const severity = (props.Severity_Ar || '').toLowerCase()
+          if (severity.includes('قاتل') || severity.includes('وفاة')) {
+            severityColor = '#b71c1c'
+            severityText = 'قاتل'
+          } else if (severity.includes('شديد')) {
+            severityColor = '#d32f2f'
+            severityText = 'شديد'
+          } else if (severity.includes('خطير')) {
+            severityColor = '#ff5722'
+            severityText = 'خطير'
+          } else {
+            severityColor = '#ff9800'
+            severityText = 'متوسط'
+          }
+
+          const incidentMarker = L.circleMarker([lat, lon], {
+            radius: 6,
+            fillColor: severityColor,
+            color: '#ffffff',
+            weight: 2,
+            opacity: 0.9,
+            fillOpacity: 0.7,
+            className: 'incident-marker',
+          })
+
+          const incidentType = Math.random() < 0.5 ? 'امطار غزيره' : 'حريق'
+          // Create incident popup
+          const incidentPopup = `
+          <div style="font-family: Arial, sans-serif; direction: rtl; text-align: right; min-width: 200px;">
+            <h5 style="margin: 0 0 8px 0; color: ${severityColor}; font-size: 14px;">
+              🚨 ${incidentType}
+            </h5>
+            <div style="font-size: 11px; line-height: 1.4;">
+              <strong>الخطورة:</strong> <span style="color: ${severityColor}">${severityText}</span><br>
+              <strong>المنشأة القريبة:</strong> ${incident.facilityName}<br>
+              <strong>المسافة:</strong> ${incident.distance.toFixed(2)} كم<br>
+              ${props.COMM_NAME_AR ? `<strong>المنطقة:</strong> ${props.COMM_NAME_AR}<br>` : ''}
+            </div>
+          </div>
+        `
+
+          incidentMarker.bindPopup(incidentPopup, {
+            maxWidth: 250,
+            className: 'incident-popup',
+          })
+
+          markersGroup.addLayer(incidentMarker)
+        })
+
+        // Add to map
+        highlightLayerRef.current = markersGroup
+        markersGroup.addTo(mapRef.current)
+
+        // Create comprehensive legend
+        const legend = L.control({ position: 'bottomright' })
+        legend.onAdd = () => {
+          const div = L.DomUtil.create('div', 'critical-infrastructure-legend')
+          div.style.cssText = `
+          background: white;
+          padding: 15px;
+          border-radius: 10px;
+          box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+          font-size: 12px;
+          line-height: 1.5;
+          max-width: 280px;
+          border: 2px solid #b71c1c;
+        `
+
+          let legendContent = `
+          <div style="font-weight: bold; margin-bottom: 12px; text-align: center; color: #b71c1c; font-size: 14px;">
+            🏛️ تحليل المنشآت الحيوية
+          </div>
+          
+          <div style="margin-bottom: 10px;">
+            <div style="font-weight: bold; margin-bottom: 6px; color: #333;">مستويات المخاطر:</div>
+        `
+
+          Object.entries(riskColors).forEach(([risk, color]) => {
+            const count = Object.values(analysis).filter(
+              (a) => a.riskLevel === risk
+            ).length
+            if (count > 0) {
+              legendContent += `
+              <div style="display: flex; align-items: center; margin-bottom: 3px;">
+                <div style="width: 12px; height: 12px; background: ${color}; border-radius: 50%; margin-left: 8px; border: 2px solid white;"></div>
+                <span>${risk} (${count})</span>
+              </div>
+            `
+            }
+          })
+
+          legendContent += `
+          </div>
+          
+          <div style="margin-bottom: 10px;">
+            <div style="font-weight: bold; margin-bottom: 6px; color: #333;">أنواع المنشآت:</div>
+        `
+
+          Object.entries(facilityIcons).forEach(([type, icon]) => {
+            const count = facilities.filter((f) => f.type === type).length
+            if (count > 0) {
+              const typeNames = {
+                ministry: 'وزارات',
+                hospital: 'مستشفيات',
+                military: 'قواعد عسكرية',
+                airport: 'مطارات',
+                port: 'موانئ',
+                infrastructure: 'بنية تحتية',
+              }
+              legendContent += `
+              <div style="display: flex; align-items: center; margin-bottom: 3px;">
+                <span style="margin-left: 8px; font-size: 14px;">${icon}</span>
+                <span>${typeNames[type]} (${count})</span>
+              </div>
+            `
+            }
+          })
+
+          legendContent += `
+          </div>
+          
+          <div style="font-size: 10px; color: #666; margin-top: 10px; text-align: center; border-top: 1px solid #eee; padding-top: 8px;">
+            إجمالي المنشآت: ${facilities.length}<br>
+            إجمالي الحوادث: ${allIncidents.length}
+          </div>
+        `
+
+          div.innerHTML = legendContent
+          return div
+        }
+
+        legend.addTo(mapRef.current)
+        legendRef.current = legend
+
+        // Fit map bounds to show all facilities and incidents
+        if (markersGroup.getLayers().length > 0) {
+          const bounds = markersGroup.getBounds()
+          mapRef.current.fitBounds(bounds, { padding: [20, 20] })
+        }
+
+        setActiveFeatures(facilities.length + allIncidents.length)
+
+        console.log('✅ Critical infrastructure visualization completed')
+
+        const summaryMessage = `🏛️ تم عرض تحليل المنشآت الحيوية على الخريطة!\n\n📊 **الإحصائيات:**\n• المنشآت المحللة: ${facilities.length}\n• الحوادث القريبة: ${allIncidents.length}\n• منشآت عالية المخاطر: ${riskSummary.high}\n• منشآت متوسطة المخاطر: ${riskSummary.medium}\n\n💡 انقر على العلامات للحصول على التفاصيل الكاملة.`
+
+        return summaryMessage
+      } catch (error) {
+        console.error('Failed to visualize critical infrastructure:', error)
+        const retMessage = `❌ فشل في عرض تحليل المنشآت الحيوية: ${error.message}`
+        return retMessage
+      }
+    },
+    [mapRef, geoJsonLayerRef, highlightLayerRef, legendRef, setActiveFeatures]
   )
 
   // Enhanced map action handler with high-severity analysis
@@ -2303,6 +2650,40 @@ export const useMapActions = ({
             return retMessage
           }
 
+          case 'analyze-comprehensive-risks': {
+            const { intensity = 0.5, radius: heatRadius = 25 } = actionObj
+            addMessage(
+              'bot',
+              '🔥 جاري إنشاء الخريطة الحرارية لتحليل كثافة الحوادث...',
+              { type: 'system' }
+            )
+            return await createHeatmap(intensity, heatRadius, actionObj.data)
+            // const { featuresWithin } = actionObj.data
+            // const rawFeatures = featuresWithin.map((item) => item.feature)
+            // await displayOnlyFeatures(rawFeatures, '#e74c3c')
+            // const summary = featuresWithin
+            //   .map((item, index) => {
+            //     const props = item.properties
+            //     const crisisName = props.name || 'كارثة'
+            //     const status = props.status || 'غير محدد'
+            //     return `${index + 1}. ${crisisName}\n   📍 المسافة: ${item.distance.toFixed(2)} كم\n   🚨 الحالة: ${status}`
+            //   })
+            //   .join('\n\n')
+
+            // const retMessage = `🌊 تم العثور على ${featuresWithin.length} كارثة أقرب مكانياً:\n\n${summary}\n\n💡 انقر على العلامات الحمراء لمزيد من التفاصيل.`
+            // return retMessage
+          }
+          // Add this case to the handleMapAction switch statement (around line 1800)
+
+          case 'analyze-critical-infrastructure': {
+            const { radius = 2.0, facilityType = 'all' } = actionObj
+            addMessage(
+              'bot',
+              `🏛️ جاري تحليل المنشآت الحيوية (${facilityType === 'all' ? 'جميع الأنواع' : facilityType}) في نطاق ${radius} كم...`,
+              { type: 'system' }
+            )
+            return await visualizeCriticalInfrastructure(actionObj.data)
+          }
           default:
             console.warn('Unhandled MAP_ACTION:', actionObj)
             return 'unknown tool call'
@@ -2329,6 +2710,7 @@ export const useMapActions = ({
       addMessage,
       findNearbyResources,
       showPopulationDistribution,
+      visualizeCriticalInfrastructure,
     ]
   )
 

@@ -43,17 +43,17 @@ const ChatPanel = ({
       {/* Header */}
       <div className="bg-gray-800 p-4 text-white">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="rounded-lg bg-white/20 p-2 backdrop-blur-sm">
+          <div className="flex items-center space-x-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white shadow-lg ring-2 ring-gray-300">
               <img
-                src="/ncemaLogoWhite.png"
-                alt="NCEMA Logo"
+                src="/StrategizeIT.png"
+                alt="StrategizeIT Logo"
                 className="h-6 w-100"
               />
             </div>
-            <div>
-              <h1 className="font-bold text-xl">Atlas Chatbot</h1>
-            </div>
+            <span className="font-bold text-lg text-white">
+              Strategize<span style={{ color: 'red' }}>IT</span>
+            </span>
           </div>
           <div className="flex items-center space-x-2">
             <div

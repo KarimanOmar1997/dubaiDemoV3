@@ -19,31 +19,7 @@ export default function EnhancedGeoChatBotApp() {
   const pendingLocationChoiceRef = useRef(null) // holds { lat, lon } awaiting what to search
 
   const [mapStats, setMapStats] = useState({ zoom: 8, features: 0 })
-  const [_history, setHistory] = useState(() => [
-    {
-      role: 'system',
-      content: `
-You are **GeoAI**, a highly capable AI assistant specialized in geospatial data analysis and visualization.  
-Your primary role is to interact with and control a map using the tools available to you.  
-You can generate, update, and analyze visualizations such as heatmaps, choropleth maps, scatter plots, or overlays.  
-
-### Interaction Guidelines:
-- Always clarify the user's intent before executing complex map operations.  
-- If data or coordinates are missing, ask the user to provide them.  
-- Prefer visual map-based outputs (heatmaps, overlays, plots) when possible.  
-- If a tool is required (e.g., to generate a heatmap), output a **structured tool call** with the necessary parameters.  
-- Never mention internal states, processes, or tools to the user.
-- Never respond with a code block.
-- Respond in a clear and professional way, suitable for analysts, researchers, or decision-makers.  
-- Use only simple Markdown to format your responses.
-- Use multiple paragraphs to separate different ideas or points.
-- Use numbered lists (e.g., 1. Item one) for ordered information or bullet points (e.g., - Item one) for unordered lists when there are multiple distinct points.
-- Allways pay attention to the tools you have called and their results, and use them to inform your responses and actions.
-
-You must always act as an intelligent **geospatial analyst and visualization assistant**, helping users explore data and gain insights from maps.
-`,
-    },
-  ])
+  const [_history, setHistory] = useState([])
 
   const {
     availableFiles,
@@ -264,7 +240,7 @@ You must always act as an intelligent **geospatial analyst and visualization ass
         return
       }
 
-      const requestBody = { prompt, tools }
+      const requestBody = { prompt, tools, history: _history }
 
       const controller = new AbortController()
       const timeoutId = setTimeout(() => controller.abort(), 300000) // 30 second timeout
@@ -301,8 +277,16 @@ You must always act as an intelligent **geospatial analyst and visualization ass
       if (tool_calls && tool_calls.length > 0) {
         for (const toolCall of tool_calls) {
           console.log('Executing tool call:', toolCall)
-          const { name: action, arguments: args } = toolCall.function
-          console.log('Tool call name:', action, 'Arguments:', args)
+          const { name: action, arguments: args_ } = toolCall.function
+          console.log('Tool call name:', action, 'Arguments:', args_)
+          let args = args_
+          if (typeof args_ === 'string') {
+            try {
+              args = JSON.parse(args)
+            } catch (error) {
+              console.warn('Failed to parse args as JSON:', error.message)
+            }
+          }
           const lat = parseFloat(args?.lat)
           const lon = parseFloat(args?.lon)
           const endLat = parseFloat(args?.endLat)
@@ -364,7 +348,7 @@ You must always act as an intelligent **geospatial analyst and visualization ass
         return [...prev, newMessage]
       })
     },
-    [addMessage, handleMapAction, setMessages]
+    [_history, addMessage, handleMapAction, setMessages]
   )
 
   // Enhanced handle user query function with high-severity analysis

@@ -178,7 +178,9 @@ const getPropertyKeys = (geojsonData) => {
   const keys = new Set()
   geojsonData.features.forEach((feature) => {
     if (feature.properties) {
-      Object.keys(feature.properties).forEach((key) => keys.add(key))
+      Object.keys(feature.properties).forEach((key) => {
+        keys.add(key)
+      })
     }
   })
 
@@ -1463,8 +1465,7 @@ You must always act as an intelligent **geospatial analyst and visualization ass
     const allData = []
     for (const toolCall of tool_calls) {
       console.log('Executing tool call:', toolCall)
-      const { name: action, arguments: args } = toolCall.function
-      console.log('Tool call name:', action, 'Arguments:', args)
+      const { name: action, arguments: args_ } = toolCall.function
       function getFiles() {
         const files = fs.readdirSync(publicGeojsonDir)
         const fileList = files
@@ -1516,6 +1517,16 @@ You must always act as an intelligent **geospatial analyst and visualization ass
         return allFeatures
       }
       const { handleAction } = llmActions({ allFeaturesData: getFiles() })
+      // Parse args if it's a string
+      let args = args_
+      if (typeof args === 'string') {
+        try {
+          args = JSON.parse(args)
+        } catch (error) {
+          console.warn('Failed to parse args as JSON:', error.message)
+        }
+      }
+
       const lat = parseFloat(args?.lat)
       const lon = parseFloat(args?.lon)
       const endLat = parseFloat(args?.endLat)
@@ -1635,11 +1646,12 @@ app.post('/api/ai-request', async (req, res) => {
 })
 
 app.post('/api/ai-request-v2', async (req, res) => {
-  const { prompt } = req.body
+  const { prompt, history } = req.body
   if (!prompt) {
     return res.status(400).json({ error: 'Prompt is required' })
   }
   const messages = [
+    ...((history && Array.isArray(history) && history) || []),
     {
       role: 'user',
       content: prompt,

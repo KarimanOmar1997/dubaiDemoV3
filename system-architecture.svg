@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <defs>
+    <style>
+      .title { font: 700 40px Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 500 18px Arial, sans-serif; fill: #475569; }
+      .boxTitle { font: 700 22px Arial, sans-serif; fill: #0f172a; }
+      .boxText { font: 500 16px Arial, sans-serif; fill: #334155; }
+      .label { font: 600 15px Arial, sans-serif; fill: #1e293b; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0ea5e9"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1400" height="900" fill="#f8fafc"/>
+  <text x="700" y="70" text-anchor="middle" class="title">Geo Chatbot System Architecture</text>
+  <text x="700" y="105" text-anchor="middle" class="subtitle">Frontend + Backend + AI + GeoJSON Data Flow</text>
+
+  <rect x="90" y="180" rx="18" ry="18" width="280" height="170" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/>
+  <text x="230" y="225" text-anchor="middle" class="boxTitle">User Browser</text>
+  <text x="230" y="255" text-anchor="middle" class="boxText">React UI</text>
+  <text x="230" y="280" text-anchor="middle" class="boxText">Chat Panel + Map Panel</text>
+  <text x="230" y="305" text-anchor="middle" class="boxText">Leaflet Map Rendering</text>
+
+  <rect x="430" y="180" rx="18" ry="18" width="320" height="190" fill="#e0f2fe" stroke="#38bdf8" stroke-width="2"/>
+  <text x="590" y="225" text-anchor="middle" class="boxTitle">Frontend App</text>
+  <text x="590" y="250" text-anchor="middle" class="boxText">geo-chatbot (Port 3000)</text>
+  <text x="590" y="278" text-anchor="middle" class="boxText">Hooks: useChat, useGeoData,</text>
+  <text x="590" y="302" text-anchor="middle" class="boxText">useMapActions, useLeaflet</text>
+  <text x="590" y="330" text-anchor="middle" class="boxText">Env-driven API endpoints</text>
+
+  <rect x="830" y="170" rx="18" ry="18" width="330" height="220" fill="#cffafe" stroke="#22d3ee" stroke-width="2"/>
+  <text x="995" y="215" text-anchor="middle" class="boxTitle">Backend API</text>
+  <text x="995" y="242" text-anchor="middle" class="boxText">geojson-backend (Express)</text>
+  <text x="995" y="267" text-anchor="middle" class="boxText">Port 3001 (or proxy 8888)</text>
+  <text x="995" y="296" text-anchor="middle" class="boxText">/api/files</text>
+  <text x="995" y="322" text-anchor="middle" class="boxText">/api/ai-request-v2</text>
+  <text x="995" y="348" text-anchor="middle" class="boxText">/api/save-to-public</text>
+
+  <rect x="830" y="500" rx="18" ry="18" width="330" height="180" fill="#ede9fe" stroke="#a78bfa" stroke-width="2"/>
+  <text x="995" y="545" text-anchor="middle" class="boxTitle">AI / LLM Services</text>
+  <text x="995" y="572" text-anchor="middle" class="boxText">Ollama Endpoint</text>
+  <text x="995" y="598" text-anchor="middle" class="boxText">Optional Cohere Provider</text>
+  <text x="995" y="624" text-anchor="middle" class="boxText">Action-oriented responses</text>
+
+  <rect x="430" y="520" rx="18" ry="18" width="320" height="190" fill="#dcfce7" stroke="#4ade80" stroke-width="2"/>
+  <text x="590" y="565" text-anchor="middle" class="boxTitle">Data Layer</text>
+  <text x="590" y="592" text-anchor="middle" class="boxText">GeoJSON Files</text>
+  <text x="590" y="618" text-anchor="middle" class="boxText">geojson-backend/public/geojson</text>
+  <text x="590" y="644" text-anchor="middle" class="boxText">Served as /public/geojson/*</text>
+  <text x="590" y="670" text-anchor="middle" class="boxText">Map tiles + overlays in UI</text>
+
+  <line x1="370" y1="260" x2="430" y2="260" stroke="#0ea5e9" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="400" y="245" text-anchor="middle" class="label">UI Events</text>
+
+  <line x1="750" y1="255" x2="830" y2="255" stroke="#0ea5e9" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="830" y1="285" x2="750" y2="285" stroke="#0ea5e9" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="790" y="240" text-anchor="middle" class="label">API calls / JSON responses</text>
+
+  <line x1="995" y1="390" x2="995" y2="500" stroke="#0ea5e9" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="960" y1="500" x2="960" y2="390" stroke="#0ea5e9" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="1038" y="455" class="label">LLM prompts/results</text>
+
+  <line x1="830" y1="600" x2="750" y2="620" stroke="#0ea5e9" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="750" y1="650" x2="830" y2="640" stroke="#0ea5e9" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="785" y="595" text-anchor="middle" class="label">Geo context + actions</text>
+
+  <line x1="590" y1="370" x2="590" y2="520" stroke="#0ea5e9" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="630" y1="520" x2="630" y2="370" stroke="#0ea5e9" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="670" y="450" class="label">Load/render GeoJSON</text>
+
+  <text x="90" y="820" class="subtitle">Key endpoints: REACT_APP_LOADGEOJSONDATA and REACT_APP_OLLAMACHAT route frontend traffic to backend APIs.</text>
+</svg>

@@ -1,70 +1,88 @@
-# Getting Started with Create React App
+# Geo Chatbot
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Geo Chatbot is a map-based web application that combines a React + Leaflet frontend with an Express backend to analyze and interact with GeoJSON data using AI-assisted chat actions.
 
-## Available Scripts
+## System Architecture
 
-In the project directory, you can run:
+![Geo Chatbot System Architecture](./system-architecture.svg)
 
-### `npm start`
+## Project Structure
 
-Runs the app in the development mode.\
-Open [http://172.189.56.93:3000](http://172.189.56.93:3000) to view it in your browser.
+- `src/`: React frontend (chat UI, map panels, hooks, map actions)
+- `geojson-backend/`: Express backend for GeoJSON APIs and AI requests
+- `public/`: frontend static assets
+- `geojson-backend/public/geojson/`: stored and served GeoJSON files
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Prerequisites
 
-### `npm test`
+- Node.js 18+ (recommended)
+- npm
+- Optional: local Ollama server (if AI endpoint depends on Ollama)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Environment Variables
 
-### `npm run build`
+Create `.env` in the root project:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```env
+REACT_APP_LOADGEOJSONDATA=http://localhost:8888/api/files
+REACT_APP_OLLAMACHAT=http://localhost:8888/api/ai-request-v2
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Create `geojson-backend/.env` (based on `.env.example`) for backend-specific settings:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```env
+OLLAMA_ENDPOINT=http://localhost:11434
+PORT=3001
+```
 
-### `npm run eject`
+## Install Dependencies
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Install root/frontend dependencies:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Install backend dependencies:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+cd geojson-backend
+npm install
+```
 
-## Learn More
+## Run the Application
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Run backend:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+cd geojson-backend
+npm start
+```
 
-### Code Splitting
+Run frontend in another terminal:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+npm start
+```
 
-### Analyzing the Bundle Size
+Frontend default URL: `http://localhost:3000`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Key Backend Endpoints
 
-### Making a Progressive Web App
+- `GET /api/health`: service status check
+- `GET /api/files`: list and validate GeoJSON files
+- `POST /api/save-to-public`: upload/save GeoJSON files
+- `POST /api/ai-request-v2`: AI chat/action processing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Available Scripts (Root)
 
-### Advanced Configuration
+- `npm start`: run frontend in development mode
+- `npm run build`: create production build
+- `npm test`: run tests
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Available Scripts (Backend)
 
-### Deployment
+Inside `geojson-backend/`:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- `npm start`: run Express backend
+- `npm run dev`: run backend with nodemon
